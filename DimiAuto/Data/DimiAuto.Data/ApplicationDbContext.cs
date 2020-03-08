@@ -8,7 +8,7 @@
 
     using DimiAuto.Data.Common.Models;
     using DimiAuto.Data.Models;
-
+    using FinalProject.Models.CarModel;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +25,8 @@
         }
 
         public DbSet<Setting> Settings { get; set; }
+        public DbSet<Car> Cars { get; set; }
+
 
         public override int SaveChanges() => this.SaveChanges(true);
 

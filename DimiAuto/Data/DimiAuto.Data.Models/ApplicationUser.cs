@@ -5,7 +5,7 @@ namespace DimiAuto.Data.Models
     using System.Collections.Generic;
 
     using DimiAuto.Data.Common.Models;
-
+    using FinalProject.Models.CarModel;
     using Microsoft.AspNetCore.Identity;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
@@ -16,6 +16,8 @@ namespace DimiAuto.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            this.Role = Role.User;
+            this.Ads = new HashSet<Car>();
         }
 
         // Audit info
@@ -25,6 +27,22 @@ namespace DimiAuto.Data.Models
 
         // Deletable entity
         public bool IsDeleted { get; set; }
+
+        public string Adress { get; set; }
+
+        public string City { get; set; }
+
+        public string NameOfCompany { get; set; }
+
+        public string Bulstad { get; set; }
+
+        public string TelephoneForCustomers { get; set; }
+
+        public string NameOfThePage { get; set; }
+
+        public Role Role { get; set; }
+
+        public virtual ICollection<Car> Ads { get; set; }
 
         public DateTime? DeletedOn { get; set; }
 
