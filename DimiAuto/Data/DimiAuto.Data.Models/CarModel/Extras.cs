@@ -27,7 +27,7 @@ namespace FinalProject.Models.CarModel
         public string AlloyWheels { get; set; }
         public string DvdTV { get; set; }
         public string MultiSteeringWheel { get; set; }
-        //
+        
         public string AllWheelDrive { get; set; }
         public string ABS { get; set; }
         public string ESP { get; set; }

@@ -13,7 +13,6 @@ namespace FinalProject.Models.CarModel
         public Car()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.Extras = new HashSet<Extras>();
             this.IsApproved = false;
             this.IsDeleted = false;
         }
@@ -44,7 +43,7 @@ namespace FinalProject.Models.CarModel
 
         public int Km { get; set; }
 
-        public Doors Doors { get; set; }
+        public Doors Door { get; set; }
 
         public Color Color { get; set; }
 
@@ -60,6 +59,8 @@ namespace FinalProject.Models.CarModel
 
         public virtual ApplicationUser User { get; set; }
 
-        public virtual ICollection<Extras> Extras { get; set; }
+        public string Extras { get; set; }
+
+        public string ImgsPaths { get; set; }
     }
 }

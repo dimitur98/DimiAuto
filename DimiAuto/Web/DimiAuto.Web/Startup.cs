@@ -1,7 +1,7 @@
 ﻿namespace DimiAuto.Web
 {
     using System.Reflection;
-
+    using CloudinaryDotNet;
     using DimiAuto.Data;
     using DimiAuto.Data.Common;
     using DimiAuto.Data.Common.Repositories;
@@ -49,6 +49,14 @@
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            Account account = new Account(
+                                 this.configuration["Cloudinary:AppName"],
+                                 this.configuration["Cloudinary:AppKey"],
+                                 this.configuration["Cloudinary:AppSecret"]);
+
+            Cloudinary cloudinary = new Cloudinary(account);
+            services.AddSingleton(cloudinary);
+
             services.AddSingleton(this.configuration);
 
             // Data repositories
@@ -59,6 +67,7 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<IAdService, AdService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

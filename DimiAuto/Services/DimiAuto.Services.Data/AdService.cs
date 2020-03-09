@@ -1,0 +1,93 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using DimiAuto.Data.Common.Repositories;
+using DimiAuto.Web.ViewModels.Ad;
+using FinalProject.Models.CarModel;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+
+namespace DimiAuto.Services.Data
+{
+    public class AdService : IAdService
+    {
+        private readonly DbContext db;
+        private readonly Cloudinary cloudinary;
+        private readonly IDeletableEntityRepository<Car> carRepository;
+
+        public AdService(Cloudinary cloudinary, IDeletableEntityRepository<Car> carRepository)
+        {
+            this.cloudinary = cloudinary;
+            this.carRepository = carRepository;
+        }
+
+        public async Task<string> CreateAdAsync(CreateAdInputModel input,string userId)
+        {
+            var car = new Car
+            {
+                Cc = input.Cc,
+                Fuel = input.Fuel,
+                Color = input.Color,
+                Door = input.Door,
+                Condition = input.Condition,
+                EuroStandart = input.EuroStandart,
+                Extras = input.Extras,
+                Gearbox = input.GearBox,
+                Horsepowers = input.Hp,
+                Km = input.Km,
+                Location = input.Location,
+                Make = input.Make,
+                Model = input.Model,
+                Modification = input.Modification,
+                MoreInformation = input.MoreInformation,
+                Price = input.Price,
+                Type = input.Type,
+                TypeOfAd = input.TypeOfAd,
+                YearOfProduction = input.YearOfProduction,
+                UserId = userId,
+            };
+            await this.carRepository.AddAsync(car);
+            await this.carRepository.SaveChangesAsync();
+            return car.Id;
+        }
+
+        public async Task<IEnumerable<string>> UploadImgs(ICollection<IFormFile> files)
+        {
+            var list = new List<string>();
+            foreach (var file in files)
+            {
+                byte[] destinationImage;
+                using (var memoryStream= new MemoryStream())
+                {
+                    await file.CopyToAsync(memoryStream);
+                    destinationImage = memoryStream.ToArray();
+                }
+
+                using (var destinationStream = new MemoryStream(destinationImage))
+                {
+                    var uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(file.FileName, destinationStream),
+                    };
+                    var res = await this.cloudinary.UploadAsync(uploadParams);
+                    list.Add(res.Uri.AbsoluteUri);
+                }
+            }
+
+            return list;
+        }
+
+        public async Task AddImgToCurrentAd(string result, string id)
+        {
+            var car = this.carRepository.All().FirstOrDefault(x => "id="+x.Id == id);
+            car.ImgsPaths = result;
+            await this.carRepository.SaveChangesAsync();
+        }
+    }
+}

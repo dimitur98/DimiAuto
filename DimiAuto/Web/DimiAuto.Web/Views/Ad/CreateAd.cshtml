@@ -3,18 +3,19 @@
 
 
 @{
-    ViewData["Title"] = "CerateAd";
+    ViewData["Title"] = "CreateAd";
 }
 
 <form style="position:relative; top:80px;" asp-controller="Ad" asp-action="CreateAd" method="post" class="form">
-    <div asp-validation-summary="All"></div>
+    <!-- <div asp-validation-summary="All"></div> -->
 
 
     <div class="form-group">
         <label asp-for="Section"></label>
         <input asp-for="Section" type="text" class="form-control">
+        <span asp-validation-for="Section" />
+
     </div>
-    <span asp-validation-for="Section" />
     <div class="form-group">
         <label asp-for="Type"></label>
         <select asp-for="Type" class="form-control" asp-items="@Html.GetEnumSelectList<Types>()"></select>
@@ -29,15 +30,15 @@
     </div>
 
     <div class="form-row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-3">
             <label asp-for="Make"></label>
-            <input asp-for="Make" type="text" class="form-control">
+            <select asp-for="Make" class="form-control" asp-items="@Html.GetEnumSelectList<Make>()"></select>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-3">
             <label asp-for="Model"></label>
             <input asp-for="Model" type="text" class="form-control">
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-3">
             <label asp-for="Modification"></label>
             <input asp-for="Modification" type="text" class="form-control">
         </div>
@@ -64,15 +65,15 @@
     </div>
     <div class="form-group">
         <label asp-for="YearOfProduction"></label>
-        <input asp-for="YearOfProduction" type="datetime" class="form-control">
+        <input asp-for="YearOfProduction" class="form-control">
     </div>
     <div class="form-group">
         <label asp-for="Km"></label>
         <input asp-for="Km" type="number" class="form-control">
     </div>
     <div class="form-group">
-        <label asp-for="Doors"></label>
-        <select asp-for="Doors" class="form-control" asp-items="@Html.GetEnumSelectList<Doors>()"></select>
+        <label asp-for="Door"></label>
+        <select asp-for="Door" class="form-control" asp-items="@Html.GetEnumSelectList<Doors>()"></select>
     </div>
     <div class="form-group">
         <label asp-for="Color"></label>
@@ -147,15 +148,39 @@
                                 <input type="checkbox" class="checks" value="retro">Retro<br>
                                 <input type="checkbox" class="checks" value="tow">Tow<br>
                                 <input type="checkbox" class="checks" value="sevenSeats">7 seats (6 + 1)<br>
-                                <input type="checkbox" class="checks" value="refrigerated">Refrigerated<br>
+                                <input type="checkbox" class="checks" value="refrigerated" name="test">Refrigerated<br>
 
-                                <!--,,,,,,,, ,,,,,,refrigerated-->
+
                             </div>
                         </td>
+                        <input asp-for="Extras" style="display:none" id="extras"></input>
                     </table>
                 </td>
         </table>
     </div>
-    <button type="submit" class="btn btn-primary">Sign in</button>
+
+    
+    <input type="submit"  class="btn btn-primary" onclick="getValue()" value="Create" style="float:right"/>
 </form>
+<br>
+<br>
+
+
+<br>
+<script>
+    function getValue() {
+        var checks = document.getElementsByClassName("checks")
+        var extras = "";
+        for (var i = 0; i < checks.length; i++) {
+            if (checks[i].checked) {
+                extras += checks[i].value + ",";
+
+            }
+        }
+        document.getElementById("extras").value = extras;
+    }
+
+</script>
+
+
 

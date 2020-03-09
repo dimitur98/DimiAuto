@@ -75,20 +75,20 @@ namespace DimiAuto.Web.Areas.Identity.Pages.Account
             [Display(Name = "City")]
             public string City { get; set; }
 
-            [Required]
-            [Display(Name = "NameOfFirm")]
+            
+            [Display(Name = "Name of the firm")]
             public string? NameOfFirm { get; set; }
 
-            [Required]
+            
             [Display(Name = "Bulstad")]
             public string? Bulstad { get; set; }
 
-            [Required]
-            [Display(Name = "TelephoneForCustomers")]
+            
+            [Display(Name = "Telephone for customers")]
             public string? TelephoneForCustomers { get; set; }
 
-            [Required]
-            [Display(Name = "NameOfThePage")]
+            
+            [Display(Name = "Name of the page")]
             public string? NameOfThePage { get; set; }
         }
 

@@ -32,13 +32,13 @@ namespace DimiAuto.Data.Models
 
         public string City { get; set; }
 
-        public string NameOfCompany { get; set; }
+        public string? NameOfCompany { get; set; }
 
-        public string Bulstad { get; set; }
+        public string? Bulstad { get; set; }
 
-        public string TelephoneForCustomers { get; set; }
+        public string? TelephoneForCustomers { get; set; }
 
-        public string NameOfThePage { get; set; }
+        public string? NameOfThePage { get; set; }
 
         public Role Role { get; set; }
 

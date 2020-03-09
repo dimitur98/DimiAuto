@@ -4,14 +4,16 @@ using DimiAuto.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DimiAuto.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200308132641_EntityForImgPaths")]
+    partial class EntityForImgPaths
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,14 +214,11 @@ namespace DimiAuto.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Door")
+                    b.Property<int>("Doors")
                         .HasColumnType("int");
 
                     b.Property<int>("EuroStandart")
                         .HasColumnType("int");
-
-                    b.Property<string>("Extras")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Fuel")
                         .HasColumnType("int");
@@ -282,6 +281,147 @@ namespace DimiAuto.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("FinalProject.Models.CarModel.Extras", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ABS")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AirCondiitioning")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Airbag")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Alarm")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AllWheelDrive")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AlloyWheels")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Armored")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Autopilot")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CarId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CentralLock")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Climatronic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DvdTV")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ESP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ElectricMirrors")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ElectricSeats")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ElectrinWindows")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HalogenHeadlights")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Immobilizer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Insurance")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KeylessGo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LeatherInterior")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MoreSeats")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MultiSteeringWheel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NavigationSystem")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OnboardComputer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PanoramicRoof")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Parktronic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PowerSteering")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Refrigerated")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Retro")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RightHandDrive")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SeatHeating")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ServiceBook")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StartStopSystem")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Stereo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sunroof")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Taxi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TiptronicMultitronic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tow")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TractionControl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tuning")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Warranty")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Xenonlights")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.ToTable("Extras");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -393,6 +533,13 @@ namespace DimiAuto.Data.Migrations
                     b.HasOne("DimiAuto.Data.Models.ApplicationUser", "User")
                         .WithMany("Ads")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("FinalProject.Models.CarModel.Extras", b =>
+                {
+                    b.HasOne("FinalProject.Models.CarModel.Car", null)
+                        .WithMany("Extras")
+                        .HasForeignKey("CarId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

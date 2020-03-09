@@ -1,13 +1,19 @@
 ﻿using DimiAuto.Data.Models.CarModel;
+using DimiAuto.Services.Mapping;
 using FinalProject.Models.CarModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace DimiAuto.Web.ViewModels.Ad
 {
-   public class CreateAdInputModel
+   public class CreateAdInputModel 
     {
+        public string Id { get; set; }
+
+        //public string UserId { get; set; }
+
         public string Section { get; set; }
 
         public TypesOfAd TypeOfAd { get; set; }
@@ -32,13 +38,14 @@ namespace DimiAuto.Web.ViewModels.Ad
 
         public int Cc { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime YearOfProduction { get; set; }
 
         public int Km { get; set; }
 
-        public string Doors { get; set; }
+        public Doors Door { get; set; }
 
-        public string Color { get; set; }
+        public Color Color { get; set; }
 
         public EuroStandart EuroStandart { get; set; }
 
@@ -47,7 +54,8 @@ namespace DimiAuto.Web.ViewModels.Ad
         public string MoreInformation { get; set; }
 
 
-        public IEnumerable<string> Extras { get; set; }
-        // ection,for,state,make,model,modification,type,price,gearbox,fuel,hp,cc,year,km,doors,color,euroStandart,isInBg,moreInformation,extras
+        public string Extras { get; set; }
+
+        public string ImgsPaths { get; set; }
     }
 }
