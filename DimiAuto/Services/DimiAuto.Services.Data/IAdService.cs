@@ -1,6 +1,6 @@
 ﻿using CloudinaryDotNet;
+using DimiAuto.Models.CarModel;
 using DimiAuto.Web.ViewModels.Ad;
-using FinalProject.Models.CarModel;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -13,8 +13,14 @@ namespace DimiAuto.Services.Data
     {
         Task<string> CreateAdAsync(CreateAdInputModel input, string userId);
 
-        Task<IEnumerable<string>> UploadImgs(ICollection<IFormFile> files);
+        Task<IEnumerable<string>> UploadImgsAsync(ICollection<IFormFile> files);
 
-        Task AddImgToCurrentAd(string result,string id);
+        Task AddImgToCurrentAdAsync(string result,string id);
+
+        
+
+        IEnumerable<CarAdsViewModel> GetTopFourViewsAd();
+
+        IEnumerable<Car> GetAllAds();
     }
 }

@@ -8,7 +8,7 @@
 
     using DimiAuto.Data.Common.Models;
     using DimiAuto.Data.Models;
-    using FinalProject.Models.CarModel;
+    using DimiAuto.Models.CarModel;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 

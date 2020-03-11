@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using DimiAuto.Data.Common.Repositories;
+using DimiAuto.Services.Mapping;
 using DimiAuto.Web.ViewModels.Ad;
-using FinalProject.Models.CarModel;
+using DimiAuto.Models.CarModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -57,7 +58,7 @@ namespace DimiAuto.Services.Data
             return car.Id;
         }
 
-        public async Task<IEnumerable<string>> UploadImgs(ICollection<IFormFile> files)
+        public async Task<IEnumerable<string>> UploadImgsAsync(ICollection<IFormFile> files)
         {
             var list = new List<string>();
             foreach (var file in files)
@@ -83,11 +84,49 @@ namespace DimiAuto.Services.Data
             return list;
         }
 
-        public async Task AddImgToCurrentAd(string result, string id)
+        public async Task AddImgToCurrentAdAsync(string result, string id)
         {
             var car = this.carRepository.All().FirstOrDefault(x => "id="+x.Id == id);
             car.ImgsPaths = result;
             await this.carRepository.SaveChangesAsync();
         }
+        //Check for better code
+        protected  string GetFirstImgOnly(string carId)
+        {
+            return this.carRepository.All().FirstOrDefault(x => x.Id == carId).ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).First().ToString();
+        }
+
+        public IEnumerable<Car> GetAllAds()
+        {
+            return this.carRepository.All();
+        }
+
+        //public IEnumerable<T> GetTopSixViewsAd<T>()
+        //{
+        //   IQueryable<Car> query = this.carRepository.All().OrderBy(x=>x.Views).Take(6);
+        //   return query.To<T>().ToList();
+        //}
+
+        public IEnumerable<CarAdsViewModel> GetTopFourViewsAd()
+        {
+            return this.carRepository.All().Take(4).Select(x => new CarAdsViewModel 
+            {
+                Id = x.Id,
+                ImgPad = this.carRepository
+                    .All()
+                    .FirstOrDefault(a => a.Id == x.Id)
+                    .ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries)
+                    .First()
+                    .ToString(),               
+                Make = x.Make,
+                Model = x.Model,
+                Modification = x.Modification,
+                Price = x.Price,
+                UserId = x.UserId,
+                Year = x.YearOfProduction.ToString("dd.mm.yyyy"),
+                Fuel = x.Fuel
+            }).ToList();
+        }
+       
     }
 }

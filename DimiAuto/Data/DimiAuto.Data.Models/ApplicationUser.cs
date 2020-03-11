@@ -5,7 +5,7 @@ namespace DimiAuto.Data.Models
     using System.Collections.Generic;
 
     using DimiAuto.Data.Common.Models;
-    using FinalProject.Models.CarModel;
+    using DimiAuto.Models.CarModel;
     using Microsoft.AspNetCore.Identity;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity

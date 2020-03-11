@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinalProject.Models.CarModel
+namespace DimiAuto.Models.CarModel
 {
     public class Car : BaseDeletableModel<string>
     {
@@ -15,7 +15,9 @@ namespace FinalProject.Models.CarModel
             this.Id = Guid.NewGuid().ToString();
             this.IsApproved = false;
             this.IsDeleted = false;
+            this.Views += 1;
         }
+        public TypeOfVeichle TypeOfVeichle { get; set; }
 
         public TypesOfAd TypeOfAd { get; set; }
 
@@ -62,5 +64,7 @@ namespace FinalProject.Models.CarModel
         public string Extras { get; set; }
 
         public string ImgsPaths { get; set; }
+
+        public int Views { get; set; }
     }
 }

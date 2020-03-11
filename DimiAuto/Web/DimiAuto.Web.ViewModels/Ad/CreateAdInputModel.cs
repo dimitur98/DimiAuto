@@ -12,9 +12,7 @@ namespace DimiAuto.Web.ViewModels.Ad
     {
         public string Id { get; set; }
 
-        //public string UserId { get; set; }
-
-        public string Section { get; set; }
+        public TypeOfVeichle TypeOfVeichle { get; set; }
 
         public TypesOfAd TypeOfAd { get; set; }
 

@@ -30,11 +30,11 @@ namespace DimiAuto.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload(string id,ICollection<IFormFile> files)
         {
-            var result = await this.adService.UploadImgs(files);
+            var result = await this.adService.UploadImgsAsync(files);
             this.ViewBag.ImgsPaths = result.ToString();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             
-            await this.adService.AddImgToCurrentAd(string.Join(",",result),id);
+            await this.adService.AddImgToCurrentAdAsync(string.Join(",",result),id);
             return this.Redirect("/");
         }
 
@@ -54,7 +54,7 @@ namespace DimiAuto.Web.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var id = await this.adService.CreateAdAsync(input, userId);
-            
+
             return this.Redirect($"/Ad/Upload/id={id}");
         }
     }
