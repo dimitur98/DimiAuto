@@ -18,6 +18,7 @@ namespace DimiAuto.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Role = Role.User;
             this.Ads = new HashSet<Car>();
+            this.NameOfCompany = "Private person";
         }
 
         // Audit info

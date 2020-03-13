@@ -1,30 +1,33 @@
 ﻿namespace DimiAuto.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
+
     using DimiAuto.Services.Data;
     using DimiAuto.Web.ViewModels;
     using DimiAuto.Web.ViewModels.Ad;
+    using DimiAuto.Web.ViewModels.All;
     using DimiAuto.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
-        private readonly IAdService adService;
+        private readonly IHomeService homeService;
 
-        public HomeController(IAdService adService)
+        public HomeController(IHomeService homeService)
         {
-            this.adService = adService;
+            this.homeService = homeService;
         }
+
         public IActionResult Index()
         {
-            //var output = new IndexViewModel
-            //{
+            // var output = new IndexViewModel
+            // {
             //    Ads = this.adService.GetTopSixViewsAd<CarAdsViewModel>(),
-            //};
+            // };
             var output = new IndexViewModel
             {
-                Ads = this.adService.GetTopFourViewsAd(),
-
+                Ads = this.homeService.GetTopFourViewsAd(),
             };
             return this.View(output);
         }
@@ -39,6 +42,15 @@
         {
             return this.View(
                 new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult All()
+        {
+            var result = new AllCarsViewModel
+            {
+                AllCars = this.homeService.GetAllAds(),
+            };
+            return this.View(result);
         }
     }
 }

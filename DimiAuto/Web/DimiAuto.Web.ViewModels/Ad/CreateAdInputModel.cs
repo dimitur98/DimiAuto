@@ -1,14 +1,15 @@
-﻿using DimiAuto.Data.Models.CarModel;
-using DimiAuto.Services.Mapping;
-using FinalProject.Models.CarModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace DimiAuto.Web.ViewModels.Ad
+﻿namespace DimiAuto.Web.ViewModels.Ad
 {
-   public class CreateAdInputModel 
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Text;
+
+    using DimiAuto.Data.Models.CarModel;
+    using DimiAuto.Services.Mapping;
+    using FinalProject.Models.CarModel;
+
+    public class CreateAdInputModel
     {
         public string Id { get; set; }
 
@@ -50,7 +51,6 @@ namespace DimiAuto.Web.ViewModels.Ad
         public string Location { get; set; }
 
         public string MoreInformation { get; set; }
-
 
         public string Extras { get; set; }
 

@@ -19,8 +19,5 @@ namespace DimiAuto.Services.Data
 
         
 
-        IEnumerable<CarAdsViewModel> GetTopFourViewsAd();
-
-        IEnumerable<Car> GetAllAds();
     }
 }

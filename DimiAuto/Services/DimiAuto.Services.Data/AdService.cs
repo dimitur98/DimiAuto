@@ -90,43 +90,17 @@ namespace DimiAuto.Services.Data
             car.ImgsPaths = result;
             await this.carRepository.SaveChangesAsync();
         }
-        //Check for better code
+
+        // Check for better code
         protected  string GetFirstImgOnly(string carId)
         {
             return this.carRepository.All().FirstOrDefault(x => x.Id == carId).ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).First().ToString();
         }
 
-        public IEnumerable<Car> GetAllAds()
-        {
-            return this.carRepository.All();
-        }
-
-        //public IEnumerable<T> GetTopSixViewsAd<T>()
-        //{
+      // public IEnumerable<T> GetTopSixViewsAd<T>()
+        // {
         //   IQueryable<Car> query = this.carRepository.All().OrderBy(x=>x.Views).Take(6);
         //   return query.To<T>().ToList();
-        //}
-
-        public IEnumerable<CarAdsViewModel> GetTopFourViewsAd()
-        {
-            return this.carRepository.All().Take(4).Select(x => new CarAdsViewModel 
-            {
-                Id = x.Id,
-                ImgPad = this.carRepository
-                    .All()
-                    .FirstOrDefault(a => a.Id == x.Id)
-                    .ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries)
-                    .First()
-                    .ToString(),               
-                Make = x.Make,
-                Model = x.Model,
-                Modification = x.Modification,
-                Price = x.Price,
-                UserId = x.UserId,
-                Year = x.YearOfProduction.ToString("dd.mm.yyyy"),
-                Fuel = x.Fuel
-            }).ToList();
-        }
-       
+        // }
     }
 }

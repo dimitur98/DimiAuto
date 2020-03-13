@@ -1,18 +1,19 @@
-﻿using CloudinaryDotNet;
-using DimiAuto.Services.Data;
-using DimiAuto.Web.ViewModels.Ad;
-using FinalProject.Models.CarModel;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DimiAuto.Services.Mapping;
-using System.Security.Claims;
-
-namespace DimiAuto.Web.Controllers
+﻿namespace DimiAuto.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
+    using CloudinaryDotNet;
+    using DimiAuto.Services.Data;
+    using DimiAuto.Services.Mapping;
+    using DimiAuto.Web.ViewModels.Ad;
+    using FinalProject.Models.CarModel;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+
     public class AdController : Controller
     {
         private readonly IAdService adService;
@@ -28,13 +29,12 @@ namespace DimiAuto.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upload(string id,ICollection<IFormFile> files)
+        public async Task<IActionResult> Upload(string id, ICollection<IFormFile> files)
         {
             var result = await this.adService.UploadImgsAsync(files);
             this.ViewBag.ImgsPaths = result.ToString();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
-            await this.adService.AddImgToCurrentAdAsync(string.Join(",",result),id);
+            await this.adService.AddImgToCurrentAdAsync(string.Join(",", result), id);
             return this.Redirect("/");
         }
 

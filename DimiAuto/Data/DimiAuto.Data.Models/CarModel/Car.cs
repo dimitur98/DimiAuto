@@ -1,13 +1,14 @@
-﻿using DimiAuto.Data.Common.Models;
-using DimiAuto.Data.Models;
-using DimiAuto.Data.Models.CarModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace DimiAuto.Models.CarModel
+﻿namespace DimiAuto.Models.CarModel
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using DimiAuto.Data.Common.Models;
+    using DimiAuto.Data.Models;
+    using DimiAuto.Data.Models.CarModel;
+
     public class Car : BaseDeletableModel<string>
     {
         public Car()
@@ -17,6 +18,7 @@ namespace DimiAuto.Models.CarModel
             this.IsDeleted = false;
             this.Views += 1;
         }
+
         public TypeOfVeichle TypeOfVeichle { get; set; }
 
         public TypesOfAd TypeOfAd { get; set; }

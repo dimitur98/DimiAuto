@@ -1,6 +1,7 @@
 ﻿namespace DimiAuto.Web
 {
     using System.Reflection;
+
     using CloudinaryDotNet;
     using DimiAuto.Data;
     using DimiAuto.Data.Common;
@@ -12,7 +13,6 @@
     using DimiAuto.Services.Mapping;
     using DimiAuto.Services.Messaging;
     using DimiAuto.Web.ViewModels;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -68,6 +68,7 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IAdService, AdService>();
+            services.AddTransient<IHomeService, HomeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

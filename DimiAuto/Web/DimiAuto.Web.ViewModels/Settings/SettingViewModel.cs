@@ -1,9 +1,8 @@
 ﻿namespace DimiAuto.Web.ViewModels.Settings
 {
+    using AutoMapper;
     using DimiAuto.Data.Models;
     using DimiAuto.Services.Mapping;
-
-    using AutoMapper;
 
     public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
     {

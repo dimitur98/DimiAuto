@@ -1,0 +1,22 @@
+﻿@model DimiAuto.Web.ViewModels.All.AllCarsViewModel
+
+<div class="container" style="margin-top:100px">
+    
+    <table class="table" >
+        
+        @foreach (var car in Model.AllCars)
+        {
+           
+        <tr>
+            <td height="100" width="150"><img class="card-img-top" src="@car.ImgPath" style="width:150px;height:100px;"></td>
+            <td height="100" width="100"><h3>@car.Make @car.Model @car.Modification</h3></td>
+            <td height="100" width="100">@car.MoreInformation</td>
+            <td height="100" width="100"><h4>Price: @car.Price BGN</h4></td>
+            <td height="100" width="100"><h4>@car.User.NameOfCompany</h4></td>
+        </tr>
+           
+        }
+
+    </table>
+
+    </div>
