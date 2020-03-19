@@ -1,6 +1,5 @@
-﻿@using DimiAuto.Common
-@using DimiAuto;
-@model DimiAuto.Web.ViewModels.Home.IndexViewModel
+﻿@model DimiAuto.Web.ViewModels.SearchInputModel
+@using DimiAuto.Data.Models.CarModel
 @{
     this.ViewData["Title"] = "Home Page";
 }
@@ -8,40 +7,85 @@
 
 
 
+<section id="slider-area">
 
-    <div class="container">
+    <div class="single-slide-item overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="book-a-car">
+                        <form asp-controller="Home" asp-action="AllByCriteria">
 
-        <!-- Jumbotron Header -->
-        <header class="jumbotron my-4">
-            <h1 class="display-3">A Warm Welcome!</h1>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-            <a href="#" class="btn btn-primary btn-lg">Call to action!</a>
-        </header>
-        
-        <!-- Page Features -->
-        <div class="row text-center">
-            @foreach (var ad in @Model.Ads)
-            {
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <img class="card-img-top" src="@ad.ImgPad" alt="">
-                        <div class="card-body">
-                            <h3 class="card-title">@ad.Make @ad.Model @ad.Modification </h3>
-                            <h4>Price: @ad.Price BGN.</h4>
-                            <span class="card-text">Year of production: @ad.Year</span><br>
-                            <span class="card-text">Fuel: @ad.Fuel</span><br>
+                            <div class="pickup-location book-item">
+                                <h4>Choose condition of vehicle:</h4>
+                                <select asp-for="Condition" class="custom-select" asp-items="@Html.GetEnumSelectList<Condition>()"></select>
+                            </div>
+                            <div class="pickup-location book-item">
+                                <h4>Choose type of vehicle:</h4>
+                                <select asp-for="TypeOfVeichle" class="custom-select" asp-items="@Html.GetEnumSelectList<TypeOfVeichle>()"></select>
+                            </div>
 
-                        </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary">Find Out More!</a>
+                            <div class="pick-up-date book-item form-row">
+                                <div class="col-md-6">
+                                    <h4>Choose make</h4>
+                                    <select asp-for="Make" class="form-control" asp-items="@Html.GetEnumSelectList<Make>()"></select>
+                                </div>
+                                <div class="return-car col-md-6">
+                                    <input asp-for="Model" type="text" placeholder="Model" />
+                                </div>
+                            </div>
+                            <div class="pick-up-date book-item form-row">
+                                <div class="col-md-6">
+                                    <h4>Choose fuel</h4>
+                                    <select asp-for="Fuel" class="form-control" asp-items="@Html.GetEnumSelectList<Fuel>()"></select>
+                                </div>
+                                <div class="col-md-6">
+                                    <h4>and gearbox</h4>
+                                    <select asp-for="GearBox" class="form-control" asp-items="@Html.GetEnumSelectList<GearBox>()"></select>
+                                </div>
+                            </div>
+
+                            <div class="pick-up-date book-item form-row">
+                                <div class="col-md-6">
+                                    <h4>Year from</h4>
+                                    <input asp-for="YearFrom" type="text" placeholder="Search from year" />
+                                </div>
+                                <div class="col-md-6">
+                                    <h4>Year to</h4>
+                                    <input asp-for="YearTo" type="text" placeholder="to year" />
+                                </div>
+                            </div>
+                            <div class="pick-up-date book-item form-row">
+                                <div class="col-md-6">
+                                    <h4>Price from</h4>
+                                    <input asp-for="PriceFrom" type="text" placeholder="Price from" />
+                                </div>
+                                <div class="col-md-6">
+                                    <h4>Price to</h4>
+                                    <input asp-for="PriceTo" type="text" placeholder="to price" />
+                                </div>
+                            </div>
+                            <div class="book-button text-center">
+                                <button class="book-now-btn">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-7 text-right">
+                    <div class="display-table">
+                        <div class="display-table-cell">
+                            <div class="slider-right-text">
+                                <h1>BOOK A CAR TODAY!</h1>
+                                <p>FOR AS LOW AS $10 A DAY PLUS 15% DISCOUNT <br> FOR OUR RETURNING CUSTOMERS</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            }
-
+            </div>
         </div>
-
-        <!-- /.row -->
-
     </div>
+
+</section>
+
 

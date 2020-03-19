@@ -36,7 +36,6 @@ namespace DimiAuto.Services.Data
                 Fuel = input.Fuel,
                 Color = input.Color,
                 Door = input.Door,
-                Condition = input.Condition,
                 EuroStandart = input.EuroStandart,
                 Extras = input.Extras,
                 Gearbox = input.GearBox,
@@ -49,7 +48,7 @@ namespace DimiAuto.Services.Data
                 MoreInformation = input.MoreInformation,
                 Price = input.Price,
                 Type = input.Type,
-                TypeOfAd = input.TypeOfAd,
+                Condition = input.Condition,
                 YearOfProduction = input.YearOfProduction,
                 UserId = userId,
             };
@@ -92,11 +91,41 @@ namespace DimiAuto.Services.Data
         }
 
         // Check for better code
-        protected  string GetFirstImgOnly(string carId)
+        protected string GetFirstImgOnly(string carId)
         {
             return this.carRepository.All().FirstOrDefault(x => x.Id == carId).ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).First().ToString();
         }
 
+        public async Task<CarDetailsVIewModel> GetCurrentCar(string carId)
+        {
+            var car = await this.carRepository.All().FirstOrDefaultAsync(x => "id=" + x.Id == carId);
+            var output = new CarDetailsVIewModel
+            {
+                Cc = car.Cc,
+                Color = car.Color,
+                Door = car.Door,
+                EuroStandart = car.EuroStandart,
+                Extras = car.Extras,
+                Fuel = car.Fuel,
+                Gearbox = car.Gearbox,
+                Horsepowers = car.Horsepowers,
+                ImgsPaths = car.ImgsPaths.Split(",",StringSplitOptions.RemoveEmptyEntries).ToList(),
+                Km = car.Km,
+                Location = car.Location,
+                Make = car.Make,
+                Model = car.Model,
+                Modification = car.Modification,
+                MoreInformation = car.MoreInformation,
+                Price = car.Price,
+                Type = car.Type,
+                Condition = car.Condition,
+                User = car.User,
+                UserId = car.UserId,
+                Views = car.Views,
+                YearOfProduction = car.YearOfProduction.ToString("dd.mm.yyyy"),
+            };
+            return output;
+        }
       // public IEnumerable<T> GetTopSixViewsAd<T>()
         // {
         //   IQueryable<Car> query = this.carRepository.All().OrderBy(x=>x.Views).Take(6);

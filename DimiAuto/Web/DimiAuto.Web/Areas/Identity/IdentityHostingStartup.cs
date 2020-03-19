@@ -1,12 +1,4 @@
-﻿using System;
-using DimiAuto.Data;
-using DimiAuto.Data.Models;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Hosting;
 
 [assembly: HostingStartup(typeof(DimiAuto.Web.Areas.Identity.IdentityHostingStartup))]
 

@@ -1,13 +1,15 @@
 ﻿namespace DimiAuto.Web.Controllers
 {
+    using System;
     using System.Diagnostics;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using DimiAuto.Services.Data;
     using DimiAuto.Web.ViewModels;
     using DimiAuto.Web.ViewModels.Ad;
-    using DimiAuto.Web.ViewModels.All;
     using DimiAuto.Web.ViewModels.Home;
+    using HtmlAgilityPack;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
@@ -21,15 +23,7 @@
 
         public IActionResult Index()
         {
-            // var output = new IndexViewModel
-            // {
-            //    Ads = this.adService.GetTopSixViewsAd<CarAdsViewModel>(),
-            // };
-            var output = new IndexViewModel
-            {
-                Ads = this.homeService.GetTopFourViewsAd(),
-            };
-            return this.View(output);
+            return this.View();
         }
 
         public IActionResult Privacy()
@@ -51,6 +45,44 @@
                 AllCars = this.homeService.GetAllAds(),
             };
             return this.View(result);
+        }
+
+        public IActionResult AllByCriteria(SearchInputModel input)
+        {
+            var result = new AllCarsViewModel
+            {
+                AllCars=this.homeService.GetAdsByCriteria(input),
+            };
+            return this.View("All", result);
+        }
+
+        [HttpPost]
+        public IActionResult AllSorted(string orderByPrice, string orderByYear)
+        {
+            var ads = this.homeService.GetAllAds();
+            if (orderByYear == "1")
+            {
+                ads = ads.OrderBy(x => x.YearOfProduction);
+            }
+            else if (orderByPrice == "2")
+            {
+                ads = ads.OrderByDescending(x => x.YearOfProduction);
+            }
+
+            if (orderByPrice == "2")
+            {
+                ads = ads.OrderBy(x => x.Price);
+            }
+            else if (orderByPrice == "1")
+            {
+                ads = ads.OrderByDescending(x => x.Price);
+            }
+
+            var result = new AllCarsViewModel
+            {
+                AllCars = ads,
+            };
+            return this.View("All",result);
         }
     }
 }

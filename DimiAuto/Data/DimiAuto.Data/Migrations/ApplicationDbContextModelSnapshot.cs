@@ -266,9 +266,6 @@ namespace DimiAuto.Data.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.Property<int>("TypeOfAd")
-                        .HasColumnType("int");
-
                     b.Property<int>("TypeOfVeichle")
                         .HasColumnType("int");
 

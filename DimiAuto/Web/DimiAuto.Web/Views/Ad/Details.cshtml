@@ -1,0 +1,157 @@
+﻿@model DimiAuto.Web.ViewModels.Ad.CarDetailsVIewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+
+
+
+
+<!--== Car List Area Start ==-->
+<section id="car-list-area" class="section-padding" >
+    <div class="container" >
+        <div class="row">
+            <!-- Car List Content Start -->
+            <div class="col-lg-8">
+                <div class="car-details-content">
+                    <h2>@Model.Make @Model.Model @Model.Modification<span class="priceDetails">Price: <b>@Model.Price BGN</b></span></h2>
+                    <div class="car-preview-crousel">
+                        @foreach (var imgPath in Model.ImgsPaths)
+                        {
+                            <div class="single-car-preview">
+                                <img src="@imgPath" alt="JSOFT">
+                            </div>
+                        }
+                    </div>
+                    <div class="car-details-info">
+                        <h4>More Info</h4>
+                        <p>@Model.MoreInformation</p>
+                        <div class="technical-info">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="tech-info-table">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th>Condition</th>
+                                                <td>@Model.Condition</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Class</th>
+                                                <td>@Model.Type</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Fuel</th>
+                                                <td>@Model.Fuel</td>
+                                            </tr>
+                                            <tr>
+                                                <th>HorsePower</th>
+                                                <td>@Model.Horsepowers</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Doors</th>
+                                                <td>@Model.Door</td>
+                                            </tr>
+                                            <tr>
+                                                <th>GearBox</th>
+                                                <td>@Model.Gearbox</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="tech-info-table">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th>Year of production</th>
+                                                <td>@Model.YearOfProduction</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Kilometers</th>
+                                                <td>@Model.Km</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Color</th>
+                                                <td>@Model.Color</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Cc</th>
+                                                <td>@Model.Cc</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Euro standart</th>
+                                                <td>@Model.EuroStandart</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="tech-info-list">
+                                        <ul>
+                                            <li>ABS</li>
+                                            <li>Air Bags</li>
+                                            <li>Bluetooth</li>
+                                            <li>Car Kit</li>
+                                            <li>GPS</li>
+                                            <li>Music</li>
+                                            <li>Bluetooth</li>
+                                            <li>ABS</li>
+                                            <li>GPS</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="review-area">
+                            <h3>Be the first to review “Aston Martin One-77”</h3>
+                            <div class="review-star">
+                                <p class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star unmark"></i>
+                                    <i class="fa fa-star unmark"></i>
+                                </p>
+                            </div>
+                            <div class="review-form">
+                                <form action="index.html">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="name-input">
+                                                <input type="text" placeholder="Full Name">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="email-input">
+                                                <input type="email" placeholder="Email Address">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="message-input">
+                                        <textarea name="review" cols="30" rows="5" placeholder="Write Your Feedback Here!"></textarea>
+                                    </div>
+
+                                    <div class="input-submit">
+                                        <button type="submit">Submit</button>
+                                        <button type="reset">Clear</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-top">
+                <img src="~/assets/img/scroll-top.png" alt="JSOFT">
+            </div>
+        </div>
+       
+    </div>
+
+</section>
+

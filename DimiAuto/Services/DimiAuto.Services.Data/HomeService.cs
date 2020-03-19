@@ -3,10 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
 
     using DimiAuto.Data.Common.Repositories;
     using DimiAuto.Models.CarModel;
+    using DimiAuto.Web.ViewModels;
     using DimiAuto.Web.ViewModels.Ad;
 
     public class HomeService : IHomeService
@@ -39,29 +41,28 @@
                 YearOfProduction = x.YearOfProduction.ToString("dd.mm.yyyy"),
                 UserId = x.UserId,
                 User = x.User,
+                GearBox = x.Gearbox,
             }).ToList();
             return result;
         }
 
-        public IEnumerable<FourMostViewAdCarsViewModel> GetTopFourViewsAd()
+        public IEnumerable<CarAdsViewModel> GetAdsByCriteria(SearchInputModel criteria)
         {
-            return this.carRepository.All().Take(4).Select(x => new FourMostViewAdCarsViewModel
+
+            var result = this.GetAllAds();
+            var dic = criteria.GetType()
+                        .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                        .ToDictionary(prop => prop.Name, prop => prop.GetValue(criteria, null));
+            foreach (var item in dic)
             {
-                Id = x.Id,
-                ImgPad = this.carRepository
-                    .All()
-                    .FirstOrDefault(a => a.Id == x.Id)
-                    .ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries)
-                    .First()
-                    .ToString(),
-                Make = x.Make,
-                Model = x.Model,
-                Modification = x.Modification,
-                Price = x.Price,
-                UserId = x.UserId,
-                Year = x.YearOfProduction.ToString("dd.mm.yyyy"),
-                Fuel = x.Fuel,
-            }).ToList();
+                if (item.Value == null)
+                {
+                    dic.Remove(item.Key);
+                }
+            }
+
+           
+            return result.Where(x => x.Model == criteria.Model);
         }
-    }
+}
 }

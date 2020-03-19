@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection.Metadata;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -56,6 +57,14 @@
             var id = await this.adService.CreateAdAsync(input, userId);
 
             return this.Redirect($"/Ad/Upload/id={id}");
+        }
+
+        public async Task<IActionResult> Details(string id)
+        {
+           // var a = Assembly("All.cshtml");
+            var output = await this.adService.GetCurrentCar(id);
+            
+            return this.View(output);
         }
     }
 }

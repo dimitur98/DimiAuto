@@ -17,7 +17,7 @@ namespace DimiAuto.Services.Data
 
         Task AddImgToCurrentAdAsync(string result,string id);
 
-        
+        Task<CarDetailsVIewModel> GetCurrentCar(string carId);
 
     }
 }

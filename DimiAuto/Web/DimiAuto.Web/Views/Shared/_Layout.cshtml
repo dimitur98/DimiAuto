@@ -11,14 +11,36 @@
         <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/css/MyCSS.css">
 
+        <link type="text/css" href="~/assets/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+        <link type="text/css" href="~/assets/css/plugins/slicknav.min.css" rel="stylesheet" asp-append-version="true" />
+        <link type="text/css" href="~/assets/css/plugins/magnific-popup.css" rel="stylesheet" asp-append-version="true" />
+        <link type="text/css" href="~/assets/css/plugins/owl.carousel.min.css" rel="stylesheet" asp-append-version="true" />
+        <link type="text/css" href="~/assets/css/plugins/gijgo.css" rel="stylesheet" asp-append-version="true" />
+        <link type="text/css" href="~/assets/css/font-awesome.css" rel="stylesheet" asp-append-version="true" />
+        <link type="text/css" href="~/assets/css/reset.css" rel="stylesheet" asp-append-version="true" />
+        <link type="text/css" href="~/css/style.css" rel="stylesheet" asp-append-version="true" />
+        <link type="text/css" href="~/assets/css/responsive.css" rel="stylesheet" asp-append-version="true" />
+
+
+        
 
 
         <!-- Custom styles for this template -->
-        <link href="css/heroic-features.css" rel="stylesheet">
+        <link href="~/css/heroic-features.css" rel="stylesheet">
     </environment>
     <environment names="Staging,Production">
         <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
+
+        <link type="text/css" href="~/assets/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
+        <link type="text/css" href="~/assets/css/plugins/slicknav.min.css" rel="stylesheet" asp-append-version="true" />
+        <link type="text/css" href="~/assets/css/plugins/magnific-popup.css" rel="stylesheet" asp-append-version="true" />
+        <link type="text/css" href="~/assets/css/plugins/owl.carousel.min.css" rel="stylesheet" asp-append-version="true" />
+        <link type="text/css" href="~/assets/css/plugins/gijgo.css" rel="stylesheet" asp-append-version="true" />
+        <link type="text/css" href="~/assets/css/font-awesome.css" rel="stylesheet" asp-append-version="true" />
+        <link type="text/css" href="~/assets/css/reset.css" rel="stylesheet" asp-append-version="true" />
+        <link type="text/css" href="~/style.css" rel="stylesheet" asp-append-version="true" />
+        <link type="text/css" href="~/assets/css/responsive.css" rel="stylesheet" asp-append-version="true" />
     </environment>
 
 </head>
@@ -85,8 +107,129 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
 
 
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/jquery-migrate.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/popper.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/plugins/gijgo.js"></script>
+        <script type="text/javascript" src="~/assets/js/plugins/vegas.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/plugins/isotope.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/plugins/owl.carousel.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/plugins/waypoints.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/plugins/counterup.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/plugins/mb.YTPlayer.js"></script>
+        <script type="text/javascript" src="~/assets/js/plugins/magnific-popup.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/plugins/slicknav.min.js"></script>
+
+        <script type="text/javascript" src="~/vendor/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+        <script type="text/javascript" src="~/secondBootstrap/js/jquery.min.js"></script>
+        <script type="text/javascript" src="~/secondBootstrap/js/bootstrap.min.js"></script>
+        <script src="~/secondBootstrap/js/bootstrap-slider.min.js"></script>
+        <script src="~/secondBootstrap/js/bootstrap-select.min.js"></script>
+        <script type="text/javascript" src="~/secondBootstrap/js/parallax.js"></script>
+        <script type="text/javascript" src="~/secondBootstrap/js/revslider.js"></script>
+        <script type="text/javascript" src="~/secondBootstrap/js/common.js"></script>
+        <script type="text/javascript" src="~/secondBootstrap/js/jquery.bxslider.min.js"></script>
+        <script type="text/javascript" src="~/secondBootstrap/js/owl.carousel.min.js"></script>
+        <script type="text/javascript" src="~/secondBootstrap/js/jquery.mobile-menu.min.js"></script>
+        <script src="~/secondBootstrap/js/countdown.js"></script>
+        <script>
+            jQuery(document).ready(function () {
+                jQuery('#rev_slider_4').show().revolution({
+                    dottedOverlay: 'none',
+                    delay: 5000,
+                    startwidth: 1170,
+                    startheight: 650,
+
+                    hideThumbs: 200,
+                    thumbWidth: 200,
+                    thumbHeight: 50,
+                    thumbAmount: 2,
+
+                    navigationType: 'thumb',
+                    navigationArrows: 'solo',
+                    navigationStyle: 'round',
+
+                    touchenabled: 'on',
+                    onHoverStop: 'on',
+
+                    swipe_velocity: 0.7,
+                    swipe_min_touches: 1,
+                    swipe_max_touches: 1,
+                    drag_block_vertical: false,
+
+                    spinner: 'spinner0',
+                    keyboardNavigation: 'off',
+
+                    navigationHAlign: 'center',
+                    navigationVAlign: 'bottom',
+                    navigationHOffset: 0,
+                    navigationVOffset: 20,
+
+                    soloArrowLeftHalign: 'left',
+                    soloArrowLeftValign: 'center',
+                    soloArrowLeftHOffset: 20,
+                    soloArrowLeftVOffset: 0,
+
+                    soloArrowRightHalign: 'right',
+                    soloArrowRightValign: 'center',
+                    soloArrowRightHOffset: 20,
+                    soloArrowRightVOffset: 0,
+
+                    shadow: 0,
+                    fullWidth: 'on',
+                    fullScreen: 'off',
+
+                    stopLoop: 'off',
+                    stopAfterLoops: -1,
+                    stopAtSlide: -1,
+
+                    shuffle: 'off',
+
+                    autoHeight: 'off',
+                    forceFullWidth: 'on',
+                    fullScreenAlignForce: 'off',
+                    minFullScreenHeight: 0,
+                    hideNavDelayOnMobile: 1500,
+
+                    hideThumbsOnMobile: 'off',
+                    hideBulletsOnMobile: 'off',
+                    hideArrowsOnMobile: 'off',
+                    hideThumbsUnderResolution: 0,
+
+                    hideSliderAtLimit: 0,
+                    hideCaptionAtLimit: 0,
+                    hideAllCaptionAtLilmit: 0,
+                    startWithSlide: 0,
+                    fullScreenOffsetContainer: ''
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            function HideMe() {
+                jQuery('.popup1').hide();
+                jQuery('#fade').hide();
+            }
+        </script>
+        <script>
+            var dthen1 = new Date("12/25/17 11:59:00 PM");
+            start = "08/04/15 03:02:11 AM";
+            start_date = Date.parse(start);
+            var dnow1 = new Date(start_date);
+            if (CountStepper > 0)
+                ddiff = new Date((dnow1) - (dthen1));
+            else
+                ddiff = new Date((dthen1) - (dnow1));
+            gsecs1 = Math.floor(ddiff.valueOf() / 1000);
+
+            var iid1 = "countbox_1";
+            CountBack_slider(gsecs1, "countbox_1", 1);
+        </script>
     </environment>
     <environment names="Staging,Production">
         <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>

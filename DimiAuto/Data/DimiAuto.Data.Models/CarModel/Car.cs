@@ -21,8 +21,6 @@
 
         public TypeOfVeichle TypeOfVeichle { get; set; }
 
-        public TypesOfAd TypeOfAd { get; set; }
-
         public Condition Condition { get; set; }
 
         public Make Make { get; set; }

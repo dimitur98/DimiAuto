@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
+
     using DimiAuto.Data.Models;
     using DimiAuto.Data.Models.CarModel;
     using DimiAuto.Models.CarModel;
@@ -31,7 +32,10 @@
 
         public string ImgPath { get; set; }
 
+        public GearBox GearBox { get; set; }
+
         public string UserId { get; set; }
+
         public ApplicationUser User { get; set; }
     }
 }
