@@ -37,5 +37,9 @@
         public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }
+
+        public Condition Condition { get; set; }
+
+        public TypeOfVeichle TypeOfVeichle { get; set; }
     }
 }

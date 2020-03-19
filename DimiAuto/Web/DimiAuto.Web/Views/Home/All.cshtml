@@ -5,94 +5,124 @@
 }
 
 
-    <section id="car-list-area" class="section-padding">
-        <div class="book-ur-car">
-            <form asp-controller="Home" asp-action="AllSorted">
-                <div class="pick-location bookinput-item">
-                    <select class="custom-select" id="orderByYeare">
-                        <option selected>Year</option>
-                        <option value="1">New</option>
-                        <option value="2">Old</option>
-                    </select>
-                </div>
+<section id="car-list-area" class="section-padding">
+    <div class="book-ur-car">
 
-                <div class="pick-location bookinput-item">
-                    <select class="custom-select" id="orderByPricee">
-                        <option selected>Price</option>
-                        <option value="1">Descending</option>
-                        <option value="2">Ascending</option>
-                    </select>
-                </div>
-                <input asp-for="OrderByPrice" style="display:none" id="orderByPrice" />
-                <input asp-for="OrderByYear" style="display:none" id="orderByYear" />
-                <div class="bookcar-btn bookinput-item"  onclick="getValue()">
-                    <button type="submit" onclick="getValue()" >Order</button>
-                </div>
-            </form>
+        <div class="pick-location bookinput-item">
+            <select class="custom-select" id="orderByYeare">
+                <option selected>Year</option>
+                <option value="1">New</option>
+                <option value="2">Old</option>
+            </select>
         </div>
-        
-        <div class="row">
-            <!-- Car List Content Start -->
-            <div class="col-lg-12">
-                <div class="car-list-content">
-                    <div class="row">
-                        <!-- Single Car Start -->
-                        @foreach (var car in Model.AllCars)
-                        {
-                            <div class="col-lg-6 col-md-6">
-                                <div class="single-car-wrap">
-                                    <div class="car-list-thumb">
-                                        <img style="width:600px; height:300px;" src="@car.ImgPath">
-                                    </div>
-                                    <div class="car-list-info without-bar">
-                                        <h2><a href="/Ad/Details/id=@car.Id">@car.Make @car.Model @car.Modification</a></h2>
-                                        <h5>@car.User.NameOfCompany</h5>
-                                        <p>@car.MoreInformation</p>
-                                        <ul class="car-info-list">
-                                            <li>@car.YearOfProduction</li>
-                                            <li>@car.Fuel</li>
-                                            <li>@car.GearBox</li>
-                                        </ul>
-                                        <p class="price">Price: @car.Price BGN</p>
-                                        <a href="/Ad/Details/id=@car.Id" class="rent-btn">Details</a>
-                                    </div>
+
+        <div class="pick-location bookinput-item">
+            <select class="custom-select" id="orderByPricee">
+                <option selected>Price</option>
+                <option value="1">Descending</option>
+                <option value="2">Ascending</option>
+            </select>
+        </div>
+        <input asp-for="OrderByPrice" style="display:none" id="orderByPrice" />
+        <input asp-for="OrderByYear" style="display:none" id="orderByYear" />
+        <div class="bookcar-btn bookinput-item">
+            <button onclick="sortByCriteria()">Order</button>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <!-- Car List Content Start -->
+        <div class="col-lg-12">
+            <div class="car-list-content">
+                <div class="row" id="sortArea">
+                    <!-- Single Car Start -->
+                    @foreach (var car in Model.AllCars)
+                    {
+                        <div class="col-lg-6 col-md-6">
+                            <div class="single-car-wrap">
+                                <div class="car-list-thumb">
+                                    <img style="width:600px; height:300px;" src="@car.ImgPath">
+                                </div>
+                                <div class="car-list-info without-bar">
+                                    <h2><a href="/Ad/Details/id=@car.Id">@car.Make @car.Model @car.Modification</a></h2>
+                                    <h5>@car.User.NameOfCompany</h5>
+                                    <p>@car.MoreInformation</p>
+                                    <ul class="car-info-list">
+                                        <li>@car.YearOfProduction</li>
+                                        <li>@car.Fuel</li>
+                                        <li>@car.GearBox</li>
+                                    </ul>
+                                    <p class="price">Price: @car.Price BGN</p>
+                                    <a href="/Ad/Details/id=@car.Id" class="rent-btn">Details</a>
                                 </div>
                             </div>
-                        }
-
-                        <!-- Single Car End -->
-                        <!-- Page Pagination Start -->
-                        <div class="page-pagi">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                </ul>
-                            </nav>
                         </div>
-                        <!-- Page Pagination End -->
+                    }
+
+                    <!-- Single Car End -->
+                    <!-- Page Pagination Start -->
+                    <div class="page-pagi">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
                     </div>
-                    <!-- Car List Content End -->
+                    <!-- Page Pagination End -->
                 </div>
+                <!-- Car List Content End -->
             </div>
         </div>
-        
-    </section>
+    </div>
 
-    <script>
-        function getValue() {
-            var orderByPrice = document.getElementById("orderByPricee");
-            var orderByYear = document.getElementById("orderByYeare");
-            var value = orderByPrice.options[orderByPrice.selectedIndex].value;
-            var secValue = orderByYear.options[orderByYear.selectedIndex].value;
-            
-            document.getElementById("orderByPrice").value = value;
-            document.getElementById("orderByYear").value = secValue;
+</section>
+
+<script>
+    function getValue() {
+        var orderByPrice = document.getElementById("orderByPricee");
+        var orderByYear = document.getElementById("orderByYeare");
+        var value = orderByPrice.options[orderByPrice.selectedIndex].value;
+        var secValue = orderByYear.options[orderByYear.selectedIndex].value;
+
+        document.getElementById("orderByPrice").value = value;
+        document.getElementById("orderByYear").value = secValue;
+    }
+
+</script>
+
+<script>
+    function sortByCriteria() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var ads = @Model.AllCars;
+                var orderByPrice = document.getElementById("orderByPricee");
+                var orderByYear = document.getElementById("orderByYeare");
+
+                if (orderByYear == "1") {
+                    ads = ads.OrderBy(x => x.YearOfProduction);
+                }
+                else if (orderByPrice == "2") {
+                    ads = ads.OrderByDescending(x => x.YearOfProduction);
+                }
+
+                if (orderByPrice == "2") {
+                    ads = ads.OrderBy(x => x.Price);
+                }
+                else if (orderByPrice == "1") {
+                    ads = ads.OrderByDescending(x => x.Price);
+                }
+                @Model=ads;
+            }
         }
-
-    </script>
+        xhr.open("GET", "Home/All", true)
+        xhr.send();
+    }
+</script>

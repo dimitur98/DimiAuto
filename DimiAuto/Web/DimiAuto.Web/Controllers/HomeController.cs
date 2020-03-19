@@ -47,12 +47,33 @@
             return this.View(result);
         }
 
-        public IActionResult AllByCriteria(SearchInputModel input)
+        public IActionResult AllByCriteria(SearchInputModel input, string orderByPrice, string orderByYear)
         {
+            var ads = this.homeService.GetAdsByCriteria(input);
+
+            if (orderByYear == "1")
+            {
+                ads = ads.OrderBy(x => x.YearOfProduction);
+            }
+            else if (orderByPrice == "2")
+            {
+                ads = ads.OrderByDescending(x => x.YearOfProduction);
+            }
+
+            if (orderByPrice == "2")
+            {
+                ads = ads.OrderBy(x => x.Price);
+            }
+            else if (orderByPrice == "1")
+            {
+                ads = ads.OrderByDescending(x => x.Price);
+            }
+
             var result = new AllCarsViewModel
             {
-                AllCars=this.homeService.GetAdsByCriteria(input),
+                AllCars = ads,
             };
+            
             return this.View("All", result);
         }
 
