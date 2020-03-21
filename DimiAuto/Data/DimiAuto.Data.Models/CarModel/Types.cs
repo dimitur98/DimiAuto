@@ -1,5 +1,4 @@
-﻿
-namespace DimiAuto.Data.Models.CarModel
+﻿namespace DimiAuto.Data.Models.CarModel
 {
     public enum Types
     {

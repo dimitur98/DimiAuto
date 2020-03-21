@@ -6,6 +6,7 @@
 
     using DimiAuto.Data.Models;
     using DimiAuto.Data.Models.CarModel;
+    using DimiAuto.Web.ViewModels.Ad.Comment;
 
     public class CarDetailsVIewModel
     {
@@ -52,5 +53,7 @@
         public IEnumerable<string> ImgsPaths { get; set; }
 
         public int Views { get; set; }
+
+        public IEnumerable<CarCommentViewModel> Comments { get; set; }
     }
 }

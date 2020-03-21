@@ -73,7 +73,7 @@
             {
                 AllCars = ads,
             };
-            
+
             return this.View("All", result);
         }
 
@@ -103,7 +103,7 @@
             {
                 AllCars = ads,
             };
-            return this.View("All",result);
+            return this.View("All", result);
         }
     }
 }

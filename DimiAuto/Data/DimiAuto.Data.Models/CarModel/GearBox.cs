@@ -2,7 +2,7 @@
 {
     public enum GearBox
     {
-        Manual=1,
-        Automatic=2
+        Manual = 1,
+        Automatic = 2,
     }
 }

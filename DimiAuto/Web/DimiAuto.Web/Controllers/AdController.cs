@@ -18,10 +18,12 @@
     public class AdController : Controller
     {
         private readonly IAdService adService;
+        private readonly ICommentService commentService;
 
-        public AdController(IAdService adService)
+        public AdController(IAdService adService, ICommentService commentService)
         {
             this.adService = adService;
+            this.commentService = commentService;
         }
 
         public IActionResult CreateAd()
@@ -48,8 +50,17 @@
         {
            // var a = Assembly("All.cshtml");
             var output = await this.adService.GetCurrentCarAsync(id);
-            
+
             return this.View(output);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Details(string id,CarDetailsModel input)
+        {
+            input.CarCommentsInputModel.UserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            input.CarCommentsInputModel.CarId = id.Substring(3);
+            await this.commentService.Create(input.CarCommentsInputModel);
+            return this.Redirect($"/Ad/Details/{id}");
         }
     }
 }

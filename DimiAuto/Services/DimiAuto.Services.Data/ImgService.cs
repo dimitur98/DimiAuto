@@ -22,6 +22,7 @@ namespace DimiAuto.Services.Data
             this.cloudinary = cloudinary;
             this.carRepository = carRepository;
         }
+
         public async Task<IEnumerable<string>> UploadImgsAsync(ICollection<IFormFile> files)
         {
             var list = new List<string>();

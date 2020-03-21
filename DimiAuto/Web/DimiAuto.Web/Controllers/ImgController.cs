@@ -18,7 +18,7 @@
         {
             this.imgService = imgService;
         }
-        
+
         public IActionResult Upload()
         {
             return this.View();

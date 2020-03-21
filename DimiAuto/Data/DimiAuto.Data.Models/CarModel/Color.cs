@@ -1,21 +1,19 @@
-﻿
-
-namespace DimiAuto.Data.Models.CarModel
+﻿namespace DimiAuto.Data.Models.CarModel
 {
     public enum Color
     {
-        beige=1,
-        white=2,
-        yellow=3,
-        green=4,
-        gold=5,
-        brown=6,
-        purple=7,
-        orange=8,
-        pink=9,
-        son=10,
-        gray=11,
-        chameleon=12,
-        black=13,
+        Beige = 1,
+        White = 2,
+        Yellow = 3,
+        Green = 4,
+        Gold = 5,
+        Brown = 6,
+        Purple = 7,
+        Orange = 8,
+        Pink = 9,
+        Son = 10,
+        Gray = 11,
+        Chameleon = 12,
+        Black = 13,
     }
 }

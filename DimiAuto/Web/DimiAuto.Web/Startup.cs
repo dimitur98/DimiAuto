@@ -50,8 +50,7 @@
             services.AddControllersWithViews(configure =>
                     {
                         configure.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-                    }
-                );
+                    });
             services.AddRazorPages();
 
             Account account = new Account(
@@ -75,6 +74,7 @@
             services.AddTransient<IAdService, AdService>();
             services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IImgService, ImgService>();
+            services.AddTransient<ICommentService, CommentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -17,7 +17,6 @@ namespace DimiAuto.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Role = Role.User;
-            this.Ads = new HashSet<Car>();
             this.NameOfCompany = "Private person";
         }
 
@@ -42,8 +41,6 @@ namespace DimiAuto.Data.Models
         public string? NameOfThePage { get; set; }
 
         public Role Role { get; set; }
-
-        public virtual ICollection<Car> Ads { get; set; }
 
         public DateTime? DeletedOn { get; set; }
 
