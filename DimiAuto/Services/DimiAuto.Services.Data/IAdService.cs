@@ -13,11 +13,7 @@ namespace DimiAuto.Services.Data
     {
         Task<string> CreateAdAsync(CreateAdInputModel input, string userId);
 
-        Task<IEnumerable<string>> UploadImgsAsync(ICollection<IFormFile> files);
-
-        Task AddImgToCurrentAdAsync(string result,string id);
-
-        Task<CarDetailsVIewModel> GetCurrentCar(string carId);
+        Task<CarDetailsVIewModel> GetCurrentCarAsync(string carId);
 
     }
 }

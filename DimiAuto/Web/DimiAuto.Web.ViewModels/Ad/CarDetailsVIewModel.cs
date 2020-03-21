@@ -47,7 +47,7 @@
 
         public virtual ApplicationUser User { get; set; }
 
-        public string Extras { get; set; }
+        public ICollection<string> Extras { get; set; }
 
         public IEnumerable<string> ImgsPaths { get; set; }
 

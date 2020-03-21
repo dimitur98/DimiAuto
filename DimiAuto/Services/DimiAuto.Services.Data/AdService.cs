@@ -13,6 +13,7 @@ using DimiAuto.Web.ViewModels.Ad;
 using DimiAuto.Models.CarModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 
 namespace DimiAuto.Services.Data
 {
@@ -28,8 +29,13 @@ namespace DimiAuto.Services.Data
             this.carRepository = carRepository;
         }
 
-        public async Task<string> CreateAdAsync(CreateAdInputModel input,string userId)
+        public async Task<string> CreateAdAsync(CreateAdInputModel input, string userId)
         {
+            if (input.Extras == null)
+            {
+                input.Extras = "No extras";
+            }
+            
             var car = new Car
             {
                 Cc = input.Cc,
@@ -57,38 +63,7 @@ namespace DimiAuto.Services.Data
             return car.Id;
         }
 
-        public async Task<IEnumerable<string>> UploadImgsAsync(ICollection<IFormFile> files)
-        {
-            var list = new List<string>();
-            foreach (var file in files)
-            {
-                byte[] destinationImage;
-                using (var memoryStream= new MemoryStream())
-                {
-                    await file.CopyToAsync(memoryStream);
-                    destinationImage = memoryStream.ToArray();
-                }
-
-                using (var destinationStream = new MemoryStream(destinationImage))
-                {
-                    var uploadParams = new ImageUploadParams()
-                    {
-                        File = new FileDescription(file.FileName, destinationStream),
-                    };
-                    var res = await this.cloudinary.UploadAsync(uploadParams);
-                    list.Add(res.Uri.AbsoluteUri);
-                }
-            }
-
-            return list;
-        }
-
-        public async Task AddImgToCurrentAdAsync(string result, string id)
-        {
-            var car = this.carRepository.All().FirstOrDefault(x => "id="+x.Id == id);
-            car.ImgsPaths = result;
-            await this.carRepository.SaveChangesAsync();
-        }
+       
 
         // Check for better code
         protected string GetFirstImgOnly(string carId)
@@ -96,7 +71,7 @@ namespace DimiAuto.Services.Data
             return this.carRepository.All().FirstOrDefault(x => x.Id == carId).ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).First().ToString();
         }
 
-        public async Task<CarDetailsVIewModel> GetCurrentCar(string carId)
+        public async Task<CarDetailsVIewModel> GetCurrentCarAsync(string carId)
         {
             var car = await this.carRepository.All().FirstOrDefaultAsync(x => "id=" + x.Id == carId);
             var output = new CarDetailsVIewModel
@@ -105,7 +80,7 @@ namespace DimiAuto.Services.Data
                 Color = car.Color,
                 Door = car.Door,
                 EuroStandart = car.EuroStandart,
-                Extras = car.Extras,
+                Extras = car.Extras.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList(),
                 Fuel = car.Fuel,
                 Gearbox = car.Gearbox,
                 Horsepowers = car.Horsepowers,
@@ -122,14 +97,10 @@ namespace DimiAuto.Services.Data
                 User = car.User,
                 UserId = car.UserId,
                 Views = car.Views,
-                YearOfProduction = car.YearOfProduction.ToString("dd.mm.yyyy"),
+                YearOfProduction = car.YearOfProduction.ToString("dd.MM.yyyy"),
             };
             return output;
         }
-      // public IEnumerable<T> GetTopSixViewsAd<T>()
-        // {
-        //   IQueryable<Car> query = this.carRepository.All().OrderBy(x=>x.Views).Take(6);
-        //   return query.To<T>().ToList();
-        // }
+      
     }
 }

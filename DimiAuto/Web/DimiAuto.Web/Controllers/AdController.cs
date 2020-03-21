@@ -24,21 +24,6 @@
             this.adService = adService;
         }
 
-        public IActionResult Upload()
-        {
-            return this.View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Upload(string id, ICollection<IFormFile> files)
-        {
-            var result = await this.adService.UploadImgsAsync(files);
-            this.ViewBag.ImgsPaths = result.ToString();
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            await this.adService.AddImgToCurrentAdAsync(string.Join(",", result), id);
-            return this.Redirect("/");
-        }
-
         public IActionResult CreateAd()
         {
             return this.View();
@@ -56,13 +41,13 @@
 
             var id = await this.adService.CreateAdAsync(input, userId);
 
-            return this.Redirect($"/Ad/Upload/id={id}");
+            return this.Redirect($"/Img/Upload/id={id}");
         }
 
         public async Task<IActionResult> Details(string id)
         {
            // var a = Assembly("All.cshtml");
-            var output = await this.adService.GetCurrentCar(id);
+            var output = await this.adService.GetCurrentCarAsync(id);
             
             return this.View(output);
         }

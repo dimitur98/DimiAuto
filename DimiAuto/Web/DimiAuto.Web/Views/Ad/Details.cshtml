@@ -18,12 +18,52 @@
                 <div class="car-details-content">
                     <h2>@Model.Make @Model.Model @Model.Modification<span class="priceDetails">Price: <b>@Model.Price BGN</b></span></h2>
                     <div class="car-preview-crousel">
-                        @foreach (var imgPath in Model.ImgsPaths)
-                        {
-                            <div class="single-car-preview">
-                                <img src="@imgPath" alt="JSOFT">
+                        <!--Carousel Wrapper-->
+                        <div id="carousel-example-2" class="carousel slide carousel-fade z-depth-1-half" data-ride="carousel">
+                            <!--Indicators-->
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-2" data-slide-to="0" class="active" style="color: yellow"></li>
+                                @for(int i = 1; i < @Model.ImgsPaths.Count(); i++)
+                                {
+                                    <li data-target="#carousel-example-2" data-slide-to="@i"></li>
+                                }
+                            </ol>
+                            <!--/.Indicators-->
+                            <!--Slides-->
+                            <div class="carousel-inner" role="listbox">
+                                <div class="carousel-item active">
+                                    <div class="view">
+                                        <img class="d-block w-100" src="@Model.ImgsPaths.First()" alt="First slide">
+                                        <div class="mask rgba-black-light"></div>
+                                    </div>
+
+                                </div>
+                                @foreach (var imgPath in Model.ImgsPaths.Skip(1))
+                                {
+                                    <div class="carousel-item">
+                                        <div class="view">
+                                            <img class="d-block w-100" src="@imgPath" alt="First slide">
+                                            <div class="mask rgba-black-light"></div>
+                                        </div>
+
+                                    </div>
+                                }
+
+
                             </div>
-                        }
+                            <!--/.Slides-->
+                            <!--Controls-->
+                            <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                            <!--/.Controls-->
+                        </div>
+                        <!--/.Carousel Wrapper-->
                     </div>
                     <div class="car-details-info">
                         <h4>More Info</h4>
@@ -87,18 +127,14 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="tech-info-list">
+                                <div >
+                                    <div class="tech-info-list" >
                                         <ul>
-                                            <li>ABS</li>
-                                            <li>Air Bags</li>
-                                            <li>Bluetooth</li>
-                                            <li>Car Kit</li>
-                                            <li>GPS</li>
-                                            <li>Music</li>
-                                            <li>Bluetooth</li>
-                                            <li>ABS</li>
-                                            <li>GPS</li>
+                                           
+                                            @foreach (var extra in Model.Extras)
+                                            {
+                                                <li>@extra </li>
+                                            }                                          
                                         </ul>
                                     </div>
                                 </div>
@@ -106,16 +142,7 @@
                         </div>
 
                         <div class="review-area">
-                            <h3>Be the first to review “Aston Martin One-77”</h3>
-                            <div class="review-star">
-                                <p class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star unmark"></i>
-                                    <i class="fa fa-star unmark"></i>
-                                </p>
-                            </div>
+                            <h3>Ad comment for the ad</h3>                            
                             <div class="review-form">
                                 <form action="index.html">
                                     <div class="row">

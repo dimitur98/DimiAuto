@@ -2561,12 +2561,15 @@ body,
 .tech-info-list li {
 	float: left;
 	position: relative;
-	width: 33.333%;
+	width: 60%;
+	white-space: nowrap;
 }
 
 .tech-info-list ul {
+	
 	line-height: 5;
 	overflow: hidden;
+	column-count: 7;
 }
 
 .tech-info-list li::before {

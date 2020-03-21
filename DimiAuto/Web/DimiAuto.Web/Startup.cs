@@ -16,6 +16,7 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -46,7 +47,11 @@
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(configure =>
+                    {
+                        configure.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                    }
+                );
             services.AddRazorPages();
 
             Account account = new Account(
@@ -69,6 +74,7 @@
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IAdService, AdService>();
             services.AddTransient<IHomeService, HomeService>();
+            services.AddTransient<IImgService, ImgService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
