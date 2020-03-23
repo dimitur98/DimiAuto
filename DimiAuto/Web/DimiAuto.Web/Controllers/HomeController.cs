@@ -51,24 +51,6 @@
         {
             var ads = this.homeService.GetAdsByCriteria(input);
 
-            if (orderByYear == "1")
-            {
-                ads = ads.OrderBy(x => x.YearOfProduction);
-            }
-            else if (orderByPrice == "2")
-            {
-                ads = ads.OrderByDescending(x => x.YearOfProduction);
-            }
-
-            if (orderByPrice == "2")
-            {
-                ads = ads.OrderBy(x => x.Price);
-            }
-            else if (orderByPrice == "1")
-            {
-                ads = ads.OrderByDescending(x => x.Price);
-            }
-
             var result = new AllCarsViewModel
             {
                 AllCars = ads,
@@ -76,34 +58,7 @@
 
             return this.View("All", result);
         }
-
-        [HttpPost]
-        public IActionResult AllSorted(string orderByPrice, string orderByYear)
-        {
-            var ads = this.homeService.GetAllAds();
-            if (orderByYear == "1")
-            {
-                ads = ads.OrderBy(x => x.YearOfProduction);
-            }
-            else if (orderByPrice == "2")
-            {
-                ads = ads.OrderByDescending(x => x.YearOfProduction);
-            }
-
-            if (orderByPrice == "2")
-            {
-                ads = ads.OrderBy(x => x.Price);
-            }
-            else if (orderByPrice == "1")
-            {
-                ads = ads.OrderByDescending(x => x.Price);
-            }
-
-            var result = new AllCarsViewModel
-            {
-                AllCars = ads,
-            };
-            return this.View("All", result);
-        }
+        
+        
     }
 }

@@ -51,6 +51,10 @@
                     {
                         configure.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     });
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
             services.AddRazorPages();
 
             Account account = new Account(

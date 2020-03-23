@@ -1,0 +1,28 @@
+﻿@model DimiAuto.Web.ViewModels.Ad.AllCarsViewModel
+@{
+    ViewData["Title"] = "_ListCarsPartial";
+}
+
+@foreach (var car in Model.AllCars)
+{
+    <div class="col-lg-6 col-md-6">
+        <div class="single-car-wrap">
+            <div class="car-list-thumb">
+                <img style="width:600px; height:300px;" src="@car.ImgPath">
+            </div>
+            <div class="car-list-info without-bar">
+                <h2><a href="/Ad/Details/id=@car.Id">@car.Make @car.Model @car.Modification</a></h2>
+                <h5>@car.User.NameOfCompany</h5>
+                <p>@car.MoreInformation</p>
+                <ul class="car-info-list">
+                    <li>@car.YearOfProduction</li>
+                    <li>@car.Fuel</li>
+                    <li>@car.GearBox</li>
+                </ul>
+                <p class="price">Price: @car.Price BGN</p>
+                <a href="/Ad/Details/id=@car.Id" class="rent-btn">Details</a>
+            </div>
+        </div>
+    </div>
+}
+
