@@ -51,6 +51,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Ad\Details.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\assets\css\bootstrap.min.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

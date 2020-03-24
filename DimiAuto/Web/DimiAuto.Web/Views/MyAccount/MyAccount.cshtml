@@ -1,0 +1,109 @@
+﻿@model DimiAuto.Web.ViewModels.MyAccount.MyAccountViewModel
+@{
+    ViewData["Title"] = "MyAccount";
+}
+
+
+
+
+<body>
+    <div id="page">
+
+
+        <!-- BEGIN Main Container col2-right -->
+        <section class="main-container col2-right-layout">
+            <div class="main container">
+                <div class="row">
+                    <section class="col-main col-sm-9 col-xs-12 wow bounceInUp animated animated" style="visibility: visible;">
+                        <div class="my-account">
+
+                            <!--page-title-->
+                            <!-- BEGIN DASHBOARD-->
+                            <div class="dashboard">
+                                <div class="welcome-msg">
+                                    <p class="hello"><strong>Hello, @Model.FirstName @Model.LastName!</strong></p>
+                                    <p>From your My Account you have the ability to view your ads, to update your personal information and to edit your ads.</p>
+                                </div>
+                                <div class="recent-orders">
+                                    <div class="title-buttons"> <strong>My ads</strong> <a  onclick="showHideEdit()" href="#">Edit</a> </div>
+                                    <div class="table-responsive">
+                                        <table class="data-table table-striped" id="my-orders-table">
+                                            <colgroup>
+                                                <col width="">
+                                                <col width="">
+                                                <col>
+                                                <col width="1">
+                                                <col width="1">
+                                                <col width="20%">
+                                            </colgroup>
+                                            <thead>
+                                                <tr class="first last">
+                                                    <th>Created on</th>
+                                                    <th>Make</th>
+                                                    <th>Model</th>
+                                                    <th>Modification</th>
+                                                    <th>Price</th>
+                                                    <th>Statuse</th>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.MyCars.Count() == 0)
+                                                {
+                                                    <h3>You haven't got ads yet.</h3>
+                                                }
+                                                else
+                                                {
+                                                    @foreach (var myCar in Model.MyCars)
+                                                    {
+                                            <tr class="first odd">
+                                                <td><span class="nobr">@myCar.CreatedOn</span></td>
+                                                <td>@myCar.Make</td>
+                                                <td>@myCar.Model</td>
+                                                <td>@myCar.Modification</td>
+                                                <td><span class="price">@myCar.Price BGN</span></td>
+                                                <td><em>@myCar.Statuse</em></td>
+                                                <td class="a-center last details" style="display: block" ><span class="nobr"> <a  href="/Ad/Details/id=@myCar.Id"><img class="detailsClass" src="~/images/detailsIcon.png"></a> </span></td>
+                                                <td class="a-center last edit" style="display: none" ><span class="nobr"> <a href="/Ad/Edit/id=@myCar.Id"><img class="editClass" src="~/images/editIcon.png"></a> </span></td>
+                                            </tr>
+                                                    }
+                                                }
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!--table-responsive-->
+                                </div>
+
+
+                    </section>
+                    <partial name="_AccountNavPartial" />
+
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+
+</body>
+
+<script>
+    function showHideEdit() {
+        var details = document.getElementsByClassName("a-center last details");
+        var edit = document.getElementsByClassName("a-center last edit");
+        console.log(details.length);    
+        if (details[0].style.display == "block") {
+            for (var i = 0; i < details.length; i++) {
+                details[i].style.display = "none";
+                edit[i].style.display = "block";
+            }
+        } else {
+             for (var i = 0; i < details.length; i++) {
+                details[i].style.display = "block";
+                edit[i].style.display = "none";
+            }
+        }
+    }
+</script>

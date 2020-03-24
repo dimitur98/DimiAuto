@@ -30,6 +30,10 @@ namespace DimiAuto.Data.Models
 
         public string Adress { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
         public string City { get; set; }
 
         public string? NameOfCompany { get; set; }
