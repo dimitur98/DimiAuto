@@ -67,39 +67,38 @@ namespace DimiAuto.Services.Data
         }
 
 
-        public async Task<CarDetailsModel> GetCurrentCarAsync(string carId)
+        public async Task<Car> GetCurrentCarAsync(string carId)
         {
             var car = await this.carRepository.All().FirstOrDefaultAsync(x => "id=" + x.Id == carId);
-            var output = new CarDetailsModel
-            {
-                CarDetailsVIewModel = new CarDetailsVIewModel
-                {
-                    Cc = car.Cc,
-                    Color = car.Color,
-                    Door = car.Door,
-                    EuroStandart = car.EuroStandart,
-                    Extras = car.Extras.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList(),
-                    Fuel = car.Fuel,
-                    Gearbox = car.Gearbox,
-                    Horsepowers = car.Horsepowers,
-                    ImgsPaths = car.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList(),
-                    Km = car.Km,
-                    Location = car.Location,
-                    Make = car.Make,
-                    Model = car.Model,
-                    Modification = car.Modification,
-                    MoreInformation = car.MoreInformation,
-                    Price = car.Price,
-                    Type = car.Type,
-                    Condition = car.Condition,
-                    User = car.User,
-                    UserId = car.UserId,
-                    Views = car.Views,
-                    YearOfProduction = car.YearOfProduction.ToString("dd.MM.yyyy"),
-                    Comments = await this.commentService.GetComments<CarCommentViewModel>(car.Id),
-                },
-            };
-            return output;
+            
+            return car;
+        }
+
+        public async Task<Car> EditAd(EditAddInputModel input)
+        {
+            var car = await this.carRepository.All().FirstOrDefaultAsync(x => x.Id == input.Id.Substring(3));
+            car.Horsepowers = input.Hp;
+            car.Cc = input.Cc;
+            car.Color = input.Color;
+            car.Condition = input.Condition;
+            car.Door = input.Door;
+            car.EuroStandart = input.EuroStandart;
+            car.Extras = input.Extras;
+            car.Fuel = input.Fuel;
+            car.Gearbox = input.GearBox;
+            car.Km = input.Km;
+            car.Location = input.Location;
+            car.Make = input.Make;
+            car.Model = input.Model;
+            car.Modification = input.Modification;
+            car.MoreInformation = input.MoreInformation;
+            car.Price = input.Price;
+            car.Type = input.Type;
+            car.TypeOfVeichle = input.TypeOfVeichle;
+            car.YearOfProduction = input.YearOfProduction;
+            this.carRepository.Update(car);
+            await this.carRepository.SaveChangesAsync();
+            return car;
         }
 
     }

@@ -2,10 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
     using System.Text;
 
     using DimiAuto.Data.Models;
     using DimiAuto.Data.Models.CarModel;
+    using DimiAuto.Models.CarModel;
+    using DimiAuto.Services.Mapping;
     using DimiAuto.Web.ViewModels.Ad.Comment;
 
     public class CarDetailsVIewModel
@@ -30,6 +34,7 @@
 
         public int Cc { get; set; }
 
+
         public string YearOfProduction { get; set; }
 
         public int Km { get; set; }
@@ -48,7 +53,7 @@
 
         public virtual ApplicationUser User { get; set; }
 
-        public ICollection<string> Extras { get; set; }
+        public IEnumerable<string> Extras { get; set; }
 
         public IEnumerable<string> ImgsPaths { get; set; }
 

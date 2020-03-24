@@ -6549,7 +6549,7 @@ button.button.continue:before {
 	padding-right: 8px;
 }
 .dashboard .welcome-msg {
-	text-align: left;
+	text-align: center;
 	padding: 0px 0 5px;
 	color: #333;
 	font-size: 13px;

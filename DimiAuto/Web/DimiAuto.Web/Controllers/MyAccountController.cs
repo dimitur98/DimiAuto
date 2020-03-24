@@ -1,4 +1,5 @@
-﻿using DimiAuto.Data.Models;
+﻿using DimiAuto.Common;
+using DimiAuto.Data.Models;
 using DimiAuto.Services.Data;
 using DimiAuto.Web.ViewModels.MyAccount;
 using Microsoft.AspNetCore.Identity;
@@ -15,12 +16,15 @@ namespace DimiAuto.Web.Controllers
     {
         private readonly IMyAccountService myAccountService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IAdService adService;
 
-        public MyAccountController(IMyAccountService myAccountService, UserManager<ApplicationUser> userManager)
+        public MyAccountController(IMyAccountService myAccountService, UserManager<ApplicationUser> userManager, IAdService adService)
         {
             this.myAccountService = myAccountService;
             this.userManager = userManager;
+            this.adService = adService;
         }
+
         public async Task<IActionResult> MyAccount()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -34,9 +38,45 @@ namespace DimiAuto.Web.Controllers
             };
             return this.View(result);
         }
-        public IActionResult AccountInfo()
+
+        public async Task<IActionResult> AccountInfo()
         {
-            return this.View();
+            var user = await this.userManager.GetUserAsync(this.User);
+            var result = new ChangePersonalInfoInputModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Adress = user.Adress,
+                City = user.City,
+                NameOfCompany = user.NameOfCompany,
+
+                PhoneNumber = user.PhoneNumber,
+            };
+            return this.View(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AccountInfo(ChangePersonalInfoInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+            var user = await this.userManager.GetUserAsync(this.User);
+            user.FirstName = input.FirstName;
+            user.LastName = input.LastName;
+            user.Adress = input.Adress;
+            user.City = input.City;
+            user.PhoneNumber = input.PhoneNumber;
+            if (input.NameOfCompany != GlobalConstants.PrivatePerson)
+            {
+                user.NameOfCompany = input.NameOfCompany;
+
+            }
+            await this.userManager.UpdateAsync(user);
+            return this.RedirectToAction("MyAccount");
+        }
+
+        
     }
 }

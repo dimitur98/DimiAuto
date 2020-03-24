@@ -13,7 +13,9 @@ namespace DimiAuto.Services.Data
     {
         Task<string> CreateAdAsync(CreateAdInputModel input, string userId);
 
-        Task<CarDetailsModel> GetCurrentCarAsync(string carId);
+        Task<Car> GetCurrentCarAsync(string carId);
+
+        Task<Car> EditAd(EditAddInputModel input);
 
     }
 }

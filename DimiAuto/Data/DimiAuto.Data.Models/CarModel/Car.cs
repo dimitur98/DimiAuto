@@ -16,7 +16,8 @@
             this.Id = Guid.NewGuid().ToString();
             this.IsApproved = false;
             this.IsDeleted = false;
-            this.Views += 1;
+            this.Comments = new HashSet<Comment>();
+
         }
 
         public TypeOfVeichle TypeOfVeichle { get; set; }
@@ -66,5 +67,7 @@
         public string ImgsPaths { get; set; }
 
         public int Views { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
     }
 }
