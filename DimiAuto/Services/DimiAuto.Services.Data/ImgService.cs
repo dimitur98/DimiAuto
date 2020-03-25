@@ -2,6 +2,7 @@
 using CloudinaryDotNet.Actions;
 using DimiAuto.Data.Common.Repositories;
 using DimiAuto.Models.CarModel;
+using DimiAuto.Web.ViewModels.Img;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+
 
 namespace DimiAuto.Services.Data
 {
@@ -23,11 +26,38 @@ namespace DimiAuto.Services.Data
             this.carRepository = carRepository;
         }
 
-        public async Task<IEnumerable<string>> UploadImgsAsync(ICollection<IFormFile> files)
+        public async Task<IEnumerable<string>> UploadImgsAsync(ImgUploadInputModel input)
         {
             var list = new List<string>();
-            foreach (var file in files)
+            for (int i = 1; i <= 10; i++)
             {
+
+                var file = (IFormFile)input.GetType().GetProperty("File" + i).GetValue(input, null);
+                if (file == null)
+                {
+                    continue;
+                }
+                var fileFileExtension = Path.GetExtension(file.FileName);
+                if (!string.Equals(fileFileExtension, ".jpg", StringComparison.OrdinalIgnoreCase)
+                    && !string.Equals(fileFileExtension, ".png", StringComparison.OrdinalIgnoreCase)
+                    && !string.Equals(fileFileExtension, ".jpeg", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+
+                }
+
+                if (!string.Equals(file.ContentType, "image/jpg", StringComparison.OrdinalIgnoreCase) &&
+                    !string.Equals(file.ContentType, "image/jpeg", StringComparison.OrdinalIgnoreCase) &&
+                    !string.Equals(file.ContentType, "image/pjpeg", StringComparison.OrdinalIgnoreCase) &&                    
+                    !string.Equals(file.ContentType, "image/x-png", StringComparison.OrdinalIgnoreCase) &&
+                    !string.Equals(file.ContentType, "image/png", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+                if (file.Length > 10485760)
+                {
+                    continue;
+                }
                 byte[] destinationImage;
                 using (var memoryStream = new MemoryStream())
                 {

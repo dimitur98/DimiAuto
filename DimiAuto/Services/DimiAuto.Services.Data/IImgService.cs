@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DimiAuto.Web.ViewModels.Img;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,6 +11,6 @@ namespace DimiAuto.Services.Data
     {
         Task AddImgToCurrentAdAsync(string result, string id);
 
-        Task<IEnumerable<string>> UploadImgsAsync(ICollection<IFormFile> files);
+        Task<IEnumerable<string>> UploadImgsAsync(ImgUploadInputModel input);
     }
 }

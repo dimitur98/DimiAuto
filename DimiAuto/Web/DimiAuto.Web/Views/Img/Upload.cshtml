@@ -1,5 +1,313 @@
-﻿<div> Id:@this.ViewBag.Id</div>>
-<form method="post" enctype="multipart/form-data" dasp-controller="Files" asp-controller="Img" asp-action="Upload" style="clear: both;position: relative;height: 200px;margin-top: 100px;">
-    <input type="file" name="files" multiple />
-    <button type="submit" value="Upload Imgs" class="btn btn-primary">Upload Imgs</button>
+﻿<form runat="server" method="post" enctype="multipart/form-data" dasp-controller="Files" asp-controller="Img" asp-action="Upload">
+    <div>
+        <div class="row">
+            <div id="pic1">
+                <span>First photo</span>
+                <br>
+                <img id="img1" src="http://placehold.it/180" alt="your image" />
+                <br>
+                <input type='file' onchange="readURL1(this)" name="file1" id="input1" />
+                <br>
+                <button onclick="readURL1(this)" type="button" style="display: none" id="btn1" class="btn btn-outline-secondary">Remove</button>
+            </div>
+            <div>
+                <span>Second photo</span>
+                <br>
+                <img id="img2" src="http://placehold.it/180" alt="your image" />
+                <br>
+                <input type='file' onchange="readURL2(this)" name="file2" id="input2"/>
+                <br>
+                <button onclick="readURL2(this)" type="button" style="display: none" id="btn2" class="btn btn-outline-secondary">Remove</button>
+            </div>
+            <div>
+                <span>Tird photo</span>
+                <br>
+                <img id="img3" src="http://placehold.it/180" alt="your image" />
+                <br>
+                <input type='file' onchange="readURL3(this)" name="file3" id="input3"/>
+                <br>
+                <button onclick="readURL3(this)" type="button" style="display: none" id="btn3" class="btn btn-outline-secondary">Remove</button>
+            </div>
+            <div>
+                <span>Fourth photo</span>
+                <br>
+                <img id="img4" src="http://placehold.it/180" alt="your image" />
+                <br>
+                <input type='file' onchange="readURL4(this)" name="file4" id="input4"/>
+                <br>
+                <button onclick="readURL4(this)" type="button" style="display: none" id="btn4" class="btn btn-outline-secondary">Remove</button>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <span>Fifth photo</span>
+                <br>
+                <img id="img5" src="http://placehold.it/180" alt="your image" />
+                <br>
+                <input type='file' onchange="readURL5(this)" name="file5" id="input5"/>
+                <br>
+                <button onclick="readURL5(this)" type="button" style="display: none" id="btn5" class="btn btn-outline-secondary">Remove</button>
+            </div>
+            <div>
+                <span>Sixth photo</span>
+                <br>
+                <img id="img6" src="http://placehold.it/180" alt="your image" />
+                <br>
+                <input type='file' onchange="readURL6(this)" name="file6" id="input6"/>
+                <br>
+                <button onclick="readURL6(this)" type="button" style="display: none" id="btn6" class="btn btn-outline-secondary">Remove</button>
+            </div>
+            <div>
+                <span>Seventh photo</span>
+                <br>
+                <img id="img7" src="http://placehold.it/180" alt="your image" />
+                <br>
+                <input type='file' onchange="readURL7(this)" name="file7" id="input7"/>
+                <br>
+                <button onclick="readURL7(this)" type="button" style="display: none" id="btn7" class="btn btn-outline-secondary">Remove</button>
+            </div>
+            <div>
+                <span>Eighth photo</span>
+                <br>
+                <img id="img8" src="http://placehold.it/180" alt="your image" />
+                <br>
+                <input type='file' onchange="readURL8(this)" name="file8" id="input8"/>
+                <br>
+                <button onclick="readURL8(this)" type="button" style="display: none" id="btn8" class="btn btn-outline-secondary">Remove</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <span>Ninth photo</span>
+                <br>
+                <img id="img9" src="http://placehold.it/180" alt="your image" />
+                <br>
+                <input type='file' onchange="readURL9(this)" name="file9" id="input9"/>
+                <br>
+                <button onclick="readURL9(this)" type="button" style="display: none" id="btn9" class="btn btn-outline-secondary">Remove</button>
+            </div>
+            <div class="column">
+                <span>Thenth photo</span>
+                <br>
+                <img id="img10" src="http://placehold.it/180" alt="your image" />
+                <br>
+                <input type='file' onchange="readURL10(this)" name="file10" id="input10"/>
+                <br>
+                <button onclick="readURL10(this)" type="button" style="display: none" id="btn10" class="btn btn-outline-secondary">Remove</button>
+            </div>
+        </div>
+        <div>You can add 10 photoes with max size 10MB. Choose photoes in jpg,jpeg or png formts.<br> If the format is other type or the size is bigger, photo won't be uploaded!</div>
+        <button type="submit" value="Upload Imgs" class="btn btn-primary">Upload Imgs</button>
+    </div>
+
 </form>
+<script>
+
+    function readURL1(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $("#img1")
+                    .attr('src', e.target.result);
+            };
+            console.log("asd");
+
+            reader.readAsDataURL(input.files[0]);
+            $("#btn1").show();
+        } else {
+            $("#input1").val(null);
+            $("#img1").attr("src", "http://placehold.it/180");
+            $("#btn1").hide();
+
+        }
+    }
+
+
+    function readURL2(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $("#img2")
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+            $("#btn2").show();
+
+        } else {
+            $("#input2").val(null);
+            $("#img2").attr("src", "http://placehold.it/180");
+            $("#btn2").hide();
+
+        }
+
+    }
+    function readURL3(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $("#img3")
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+            $("#btn3").show();
+
+        } else {
+            $("#input3").val(null);
+            $("#img3").attr("src", "http://placehold.it/180");
+            $("#btn3").hide();
+
+        }
+    }
+
+    function readURL4(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $("#img4")
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+            $("#btn4").show();
+
+        } else {
+            $("#input4").val(null);
+            $("#img4").attr("src", "http://placehold.it/180");
+            $("#btn4").hide();
+
+        }
+
+    }
+    function readURL5(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $("#img5")
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+            $("#btn5").show();
+
+        } else {
+            $("#input5").val(null);
+            $("#img5").attr("src", "http://placehold.it/180");
+            $("#btn5").hide();
+
+        }
+    }
+    
+    function readURL6(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $("#img6")
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+            $("#btn6").show();
+
+        } else {
+            $("#input6").val(null);
+            $("#img6").attr("src", "http://placehold.it/180");
+            $("#btn6").hide();
+
+        
+        }
+    }
+    function readURL7(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $("#img7")
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+            $("#btn7").show();
+
+        } else {
+            $("#input7").val(null);
+            $("#img7").attr("src", "http://placehold.it/180");
+            $("#btn7").hide();
+        }
+    }
+
+    function readURL8(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $("#img8")
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+            $("#btn8").show();
+
+        } else {
+            $("#input8").val(null);
+            $("#img8").attr("src", "http://placehold.it/180");
+            $("#btn8").hide();
+        }
+    }
+    function readURL9(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $("#img9")
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+            $("#btn9").show();
+
+        } else {
+            $("#input9").val(null);
+            $("#img9").attr("src", "http://placehold.it/180");
+            $("#btn9").hide();
+        }
+    }
+    function readURL10(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $("#img10")
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+            $("#btn10").show();
+
+        } else {
+            $("#input10").val(null);
+            $("#img10").attr("src", "http://placehold.it/180");
+            $("#btn10").hide();
+        }
+
+    }
+
+</script>
+<style>
+    img {
+        max-width: 180px;
+    }
+
+    input[type=file] {
+        padding: 5px;
+    }
+    }
+</style>
+

@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
 
     using DimiAuto.Services.Data;
+    using DimiAuto.Web.ViewModels.Img;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
@@ -25,9 +26,9 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upload(string id, ICollection<IFormFile> files)
+        public async Task<IActionResult> Upload(string id,ImgUploadInputModel input)
         {
-            var result = await this.imgService.UploadImgsAsync(files);
+            var result = await this.imgService.UploadImgsAsync(input);
             this.ViewBag.ImgsPaths = result.ToString();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             await this.imgService.AddImgToCurrentAdAsync(string.Join(",", result), id);
