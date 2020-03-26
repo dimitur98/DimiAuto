@@ -1,7 +1,9 @@
 ﻿using DimiAuto.Common;
 using DimiAuto.Data.Models;
 using DimiAuto.Services.Data;
+using DimiAuto.Web.ViewModels.Img;
 using DimiAuto.Web.ViewModels.MyAccount;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,12 +19,14 @@ namespace DimiAuto.Web.Controllers
         private readonly IMyAccountService myAccountService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IAdService adService;
+        private readonly IImgService imgService;
 
-        public MyAccountController(IMyAccountService myAccountService, UserManager<ApplicationUser> userManager, IAdService adService)
+        public MyAccountController(IMyAccountService myAccountService, UserManager<ApplicationUser> userManager, IAdService adService, IImgService imgService)
         {
             this.myAccountService = myAccountService;
             this.userManager = userManager;
             this.adService = adService;
+            this.imgService = imgService;
         }
 
         public async Task<IActionResult> MyAccount()
@@ -77,6 +81,30 @@ namespace DimiAuto.Web.Controllers
             return this.RedirectToAction("MyAccount");
         }
 
-        
+        public async Task<IActionResult> ChangeAvatar()
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            var output = new ChangeAvatarModel
+            {
+                ChangeAvatarViewModel = new ChangeAvatarViewModel
+                {
+                    ImgPath = user.ImgPath,
+                },
+            };
+            return this.View(output);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeAvatar(ImgUploadInputModel input)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            user.ImgPath = string.Empty;
+            var result = await this.imgService.UploadImgsAsync(input);
+            user.ImgPath = result.First();
+            await this.userManager.UpdateAsync(user);
+            return this.RedirectToAction("MyAccount");
+        }
+
+
     }
 }

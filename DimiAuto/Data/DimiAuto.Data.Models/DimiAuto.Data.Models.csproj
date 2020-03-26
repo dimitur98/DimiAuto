@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DimiAuto.Common\DimiAuto.Common.csproj" />
     <ProjectReference Include="..\DimiAuto.Data.Common\DimiAuto.Data.Common.csproj" />
   </ItemGroup>
   

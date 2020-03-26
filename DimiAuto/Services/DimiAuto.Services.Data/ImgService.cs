@@ -11,7 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-
+using DimiAuto.Data.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace DimiAuto.Services.Data
 {
@@ -19,11 +20,14 @@ namespace DimiAuto.Services.Data
     {
         private readonly Cloudinary cloudinary;
         private readonly IDeletableEntityRepository<Car> carRepository;
+        private readonly IAdService adService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public ImgService(Cloudinary cloudinary, IDeletableEntityRepository<Car> carRepository)
+        public ImgService(Cloudinary cloudinary, IDeletableEntityRepository<Car> carRepository, IAdService adService)
         {
             this.cloudinary = cloudinary;
             this.carRepository = carRepository;
+            this.adService = adService;
         }
 
         public async Task<IEnumerable<string>> UploadImgsAsync(ImgUploadInputModel input)
@@ -37,6 +41,7 @@ namespace DimiAuto.Services.Data
                 {
                     continue;
                 }
+
                 var fileFileExtension = Path.GetExtension(file.FileName);
                 if (!string.Equals(fileFileExtension, ".jpg", StringComparison.OrdinalIgnoreCase)
                     && !string.Equals(fileFileExtension, ".png", StringComparison.OrdinalIgnoreCase)
@@ -54,10 +59,12 @@ namespace DimiAuto.Services.Data
                 {
                     continue;
                 }
+
                 if (file.Length > 10485760)
                 {
                     continue;
                 }
+                
                 byte[] destinationImage;
                 using (var memoryStream = new MemoryStream())
                 {
@@ -85,5 +92,6 @@ namespace DimiAuto.Services.Data
             car.ImgsPaths = result;
             await this.carRepository.SaveChangesAsync();
         }
+
     }
 }

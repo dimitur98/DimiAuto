@@ -50,7 +50,12 @@
         public async Task<IActionResult> Details(string id)
         {
            // var a = Assembly("All.cshtml");
-            var car = await this.adService.GetCurrentCarAsync(id);
+            var car = await this.adService.GetCurrentCarAsync(id.Substring(3));
+            if (car.ImgsPaths == string.Empty)
+            {
+                car.ImgsPaths = "'~/images/default-image-png-18-original.png'";
+            }
+
             var output = new CarDetailsModel
             {
                 CarDetailsVIewModel = new CarDetailsVIewModel
@@ -80,12 +85,12 @@
                     Comments = await this.commentService.GetComments<CarCommentViewModel>(car.Id),
                 },
             };
-
+            
             return this.View(output);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Details(string id,CarDetailsModel input)
+        public async Task<IActionResult> Details(string id, CarDetailsModel input)
         {
             if (!this.ModelState.IsValid)
             {

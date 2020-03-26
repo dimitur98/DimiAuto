@@ -3,7 +3,7 @@ namespace DimiAuto.Data.Models
 {
     using System;
     using System.Collections.Generic;
-
+    using DimiAuto.Common;
     using DimiAuto.Data.Common.Models;
     using DimiAuto.Models.CarModel;
     using Microsoft.AspNetCore.Identity;
@@ -18,6 +18,7 @@ namespace DimiAuto.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Role = Role.User;
             this.NameOfCompany = "Private person";
+            this.ImgPath = GlobalConstants.DefaultImgAvatar;
         }
 
         // Audit info
@@ -27,6 +28,8 @@ namespace DimiAuto.Data.Models
 
         // Deletable entity
         public bool IsDeleted { get; set; }
+
+        public string ImgPath { get; set; }
 
         public string Adress { get; set; }
 

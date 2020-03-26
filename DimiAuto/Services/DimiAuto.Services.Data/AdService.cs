@@ -69,7 +69,7 @@ namespace DimiAuto.Services.Data
 
         public async Task<Car> GetCurrentCarAsync(string carId)
         {
-            var car = await this.carRepository.All().FirstOrDefaultAsync(x => "id=" + x.Id == carId);
+            var car = await this.carRepository.All().FirstOrDefaultAsync(x => x.Id == carId);
             
             return car;
         }

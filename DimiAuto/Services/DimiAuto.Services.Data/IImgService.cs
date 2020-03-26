@@ -12,5 +12,6 @@ namespace DimiAuto.Services.Data
         Task AddImgToCurrentAdAsync(string result, string id);
 
         Task<IEnumerable<string>> UploadImgsAsync(ImgUploadInputModel input);
+
     }
 }

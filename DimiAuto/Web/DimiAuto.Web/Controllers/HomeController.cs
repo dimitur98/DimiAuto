@@ -44,6 +44,14 @@
             {
                 AllCars = this.homeService.GetAllAds(),
             };
+            foreach (var car in result.AllCars)
+            {
+                if (car.ImgPath == string.Empty)
+                {
+                    car.ImgPath = "'~/images/default-image-png-18-original.png'";
+                }
+            }
+
             return this.View(result);
         }
 

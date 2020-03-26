@@ -10,6 +10,7 @@
 
 
 <!--== Car List Area Start ==-->
+<body onload="checkImg()">
 <section id="car-list-area" class="section-padding">
     <div class="container">
         <div class="row">
@@ -33,7 +34,7 @@
                             <div class="carousel-inner" role="listbox">
                                 <div class="carousel-item active">
                                     <div class="view">
-                                        <img class="d-block w-100" src="@Model.CarDetailsVIewModel.ImgsPaths.First()" alt="First slide">
+                                        <img class="d-block w-100" src="@Model.CarDetailsVIewModel.ImgsPaths.First()" id="imgDef">
                                         <div class="mask rgba-black-light"></div>
                                     </div>
 
@@ -223,7 +224,7 @@
 
 
 </section>
-
+    </body>
 <script>
     function hideComments() {
         document.getElementById("commentsSection").style.display = "none";
@@ -234,5 +235,11 @@
     function showComments() {
         document.getElementById("commentsSection").style.display = "block";
         document.getElementById("commentTitle").style.display = "none";
+    }
+</script>
+<script>
+    function checkImg() {
+        console.log("asd");
+        console.log($("#imgDef").attr("src"));
     }
 </script>

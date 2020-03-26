@@ -45,6 +45,7 @@
                 Condition = x.Condition,
                 TypeOfVeichle = x.TypeOfVeichle,
             }).ToList();
+
             return result;
         }
 

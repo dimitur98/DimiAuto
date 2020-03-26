@@ -97,6 +97,9 @@ namespace DimiAuto.Data.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImgPath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -172,7 +175,7 @@ namespace DimiAuto.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CarId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
@@ -196,6 +199,8 @@ namespace DimiAuto.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CarId");
 
                     b.HasIndex("IsDeleted");
 
@@ -431,6 +436,13 @@ namespace DimiAuto.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("DimiAuto.Data.Models.Comment", b =>
+                {
+                    b.HasOne("DimiAuto.Models.CarModel.Car", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("CarId");
                 });
 
             modelBuilder.Entity("DimiAuto.Models.CarModel.Car", b =>

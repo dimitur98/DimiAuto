@@ -3274,6 +3274,12 @@ body {
 	border-bottom: 1px dashed #efefef;
 	margin-bottom: 25px;
 }
+.defaultImg {
+	max-width: 180px;
+}
 
+input[type=file] {
+	padding: 5px;
+}
 
                                     
