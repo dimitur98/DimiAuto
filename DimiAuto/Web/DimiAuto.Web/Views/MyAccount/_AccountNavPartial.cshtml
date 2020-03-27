@@ -1,4 +1,4 @@
-﻿
+﻿@using DimiAuto.Common
 @{
     ViewData["Title"] = "_AccountNavPartial";
 }
@@ -7,11 +7,21 @@
             <div class="block-title"> My Account </div>
             <div class="block-content">
                 <ul>
-                    <li class="current"><a asp-controller="MyAccount" asp-action="MyAccount">Account Dashboard</a></li>
-                    <li><a asp-controller="MyAccount" asp-action="AccountInfo"><span> Account Information</span></a></li>
-                    <li><a asp- asp-controller="MyAccount" asp-action="ChangeAvatar"><span> Change profile picture</span></a></li>
+                    <li class="current"><a asp-route="MyAccount" >Account Dashboard</a></li>
+                    <li><a asp-route="AccountInfo"><span> Account Information</span></a></li>
+                    <li><a asp-route
+                           ="ChangeAvatar"><span> Change profile picture</span></a></li>
                     <li><a href="#"><span> Favourite ads</span></a></li>
 
+                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        <li><span> <h3>ADMIN MENU</h3></span></li>
+                        <li><a asp-area="Administration" asp-controller="Administration" asp-action="Approve"><span> Approve ads</span></a></li>
+                        <li><a asp-area="Administration" asp-controller="Administration" asp-action="Delete"><span> Delete ads</span></a></li>
+                        <li><a asp-area="Administration" asp-controller="Administration" asp-action="Deleted"><span> UnDelete ads</span></a></li>
+                        <li><a asp-area="Administration" asp-controller="Administration" asp-action="PermamentDelete"><span> Permament delete ads</span></a></li>
+
+                    }
 
                 </ul>
             </div>

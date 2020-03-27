@@ -3281,5 +3281,10 @@ body {
 input[type=file] {
 	padding: 5px;
 }
+.detailsClass {
+	height: 20px;
+	width: 20px;
+	display: block;
+}
 
                                     

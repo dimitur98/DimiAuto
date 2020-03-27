@@ -10,6 +10,7 @@ namespace DimiAuto.Web.ViewModels.MyAccount
    public class MyCarsViewModel : IMapFrom<Car>
     {
         public string Id { get; set; }
+
         public Make Make { get; set; }
 
         public string Model { get; set; }

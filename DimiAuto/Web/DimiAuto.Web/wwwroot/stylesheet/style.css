@@ -6576,7 +6576,8 @@ button.button.continue:before {
 	margin-top: 10px;
 }
 .my-account {
-	    padding:25px;
+	overflow:hidden;
+	margin-left:-70px;
     position: relative;
     margin-top: 0px;
     padding-bottom: 30px;
@@ -13663,12 +13664,8 @@ select#shipping-address-select {
 	}
 	
 }
-.editClass {
-	height: 20px;
-	width: 20px;
-	display: block;
-}
-.detailsClass {
+
+.iconClass {
 	height: 20px;
 	width: 20px;
 	display: block;

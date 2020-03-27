@@ -28,7 +28,7 @@ namespace DimiAuto.Web.Controllers
             this.adService = adService;
             this.imgService = imgService;
         }
-
+        [Route("/MyAccount/MyAccount", Name = "MyAccount")]
         public async Task<IActionResult> MyAccount()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -42,6 +42,8 @@ namespace DimiAuto.Web.Controllers
             };
             return this.View(result);
         }
+
+        [Route("/MyAccount/AccountInfo", Name = "AccountInfo")]
 
         public async Task<IActionResult> AccountInfo()
         {
@@ -80,6 +82,8 @@ namespace DimiAuto.Web.Controllers
             await this.userManager.UpdateAsync(user);
             return this.RedirectToAction("MyAccount");
         }
+
+        [Route("/MyAccount/ChangeAvatar", Name = "ChangeAvatar")]
 
         public async Task<IActionResult> ChangeAvatar()
         {

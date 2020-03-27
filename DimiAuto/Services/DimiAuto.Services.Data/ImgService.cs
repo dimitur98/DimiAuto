@@ -1,21 +1,22 @@
-﻿using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
-using DimiAuto.Data.Common.Repositories;
-using DimiAuto.Models.CarModel;
-using DimiAuto.Web.ViewModels.Img;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using DimiAuto.Data.Models;
-using Microsoft.AspNetCore.Identity;
-
-namespace DimiAuto.Services.Data
+﻿namespace DimiAuto.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
+    using DimiAuto.Data.Common.Repositories;
+    using DimiAuto.Data.Models;
+    using DimiAuto.Models.CarModel;
+    using DimiAuto.Web.ViewModels.Img;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
+
     public class ImgService : IImgService
     {
         private readonly Cloudinary cloudinary;

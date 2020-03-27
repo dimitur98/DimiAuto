@@ -10,6 +10,7 @@
     using DimiAuto.Data.Repositories;
     using DimiAuto.Data.Seeding;
     using DimiAuto.Services.Data;
+    using DimiAuto.Services.Data.AreaServices;
     using DimiAuto.Services.Mapping;
     using DimiAuto.Services.Messaging;
     using DimiAuto.Web.ViewModels;
@@ -80,6 +81,7 @@
             services.AddTransient<IImgService, ImgService>();
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IMyAccountService, MyAccountService>();
+            services.AddTransient<IAdministrationService, AdministrationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -123,6 +125,7 @@
             app.UseEndpoints(
                 endpoints =>
                     {
+                        
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();

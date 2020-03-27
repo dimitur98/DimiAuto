@@ -51,6 +51,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Areas\Administration\Views\Administration\Approve.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Areas\Administration\Views\Administration\Delete.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Views\Ad\Details.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -165,7 +171,13 @@
     <Content Update="wwwroot\images\default-image-png-18-original.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="wwwroot\images\permamentDeleteIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\images\photo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\undelete.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\js\UploadEditImg.js">
@@ -237,5 +249,9 @@
     <Content Update="wwwroot\secondBootstrap\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Administration\Administration\" />
   </ItemGroup>
 </Project>
