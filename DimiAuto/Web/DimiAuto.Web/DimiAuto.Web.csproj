@@ -51,10 +51,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Areas\Administration\Views\Administration\Approve.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Areas\Administration\Views\Administration\Delete.cshtml">
+    <Content Update="Areas\Administration\Views\Administration\AllAds.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Views\Ad\Details.cshtml">

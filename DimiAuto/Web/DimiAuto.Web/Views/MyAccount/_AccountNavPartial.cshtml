@@ -16,10 +16,7 @@
                     @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                     {
                         <li><span> <h3>ADMIN MENU</h3></span></li>
-                        <li><a asp-area="Administration" asp-controller="Administration" asp-action="Approve"><span> Approve ads</span></a></li>
-                        <li><a asp-area="Administration" asp-controller="Administration" asp-action="Delete"><span> Delete ads</span></a></li>
-                        <li><a asp-area="Administration" asp-controller="Administration" asp-action="Deleted"><span> UnDelete ads</span></a></li>
-                        <li><a asp-area="Administration" asp-controller="Administration" asp-action="PermamentDelete"><span> Permament delete ads</span></a></li>
+                        <li><a asp-area="Administration" asp-controller="Administration" asp-action="AllAds"><span>All ads</span></a></li>
 
                     }
 

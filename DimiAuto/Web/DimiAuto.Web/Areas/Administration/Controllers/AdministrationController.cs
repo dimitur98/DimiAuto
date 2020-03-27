@@ -21,65 +21,16 @@
         {
             this.administrationService = administrationService;
         }
-        public async Task<IActionResult> Approve()
-        {
-            var result = new AdsForApprovingViewModel
-            {
-                Cars = await this.administrationService.GetAllUnApprovedAdsAsync<ApproveViewModel>(),
-            };
-            return this.View(result);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Approve(string carId)
-        {
-            await this.administrationService.ApproveAsync(carId);
-            return this.Redirect("/Administration/Administration/Approve");
-        }
-
-        public async Task<IActionResult> Delete()
+        public async Task<IActionResult> AllAds()
         {
             var result = new AllAdsViewModel
             {
-                Cars = await this.administrationService.GetAllAdsAsync<DeleteOrUnDeleteViewModel>(),
-            };
-            return this.View(result);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Delete(string carId)
-        {
-            await this.administrationService.DeleteAsync(carId);
-            return this.Redirect("/Administration/Administration/Delete");
-        }
-
-        public async Task<IActionResult> Deleted()
-        {
-            var result = new AllAdsViewModel
-            {
-                Cars = await this.administrationService.GetAllDeletedAdsAsync<DeleteOrUnDeleteViewModel>(),
+                Cars = await this.administrationService.GetAllAdsAsync<AdViewModel>(),
             };
             return this.View(result);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Deleted(string carId)
-        {
-            await this.administrationService.UnDeleteAsync(carId);
-            return this.Redirect("/Administration/Administration/Deleted");
-        }
-        public async Task<IActionResult> PermamentDelete()
-        {
-            var result = new AllAdsViewModel
-            {
-                Cars = await this.administrationService.GetAllDeletedAdsAsync<DeleteOrUnDeleteViewModel>(),
-            };
-            return this.View(result);
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> PermamentDelete(string carId)
-        {
-            await this.administrationService.PermamentDeleteAsync(carId);
-            return this.Redirect("/Administration/Administration/PermamentDelete");
-        }
+        
     }
 }

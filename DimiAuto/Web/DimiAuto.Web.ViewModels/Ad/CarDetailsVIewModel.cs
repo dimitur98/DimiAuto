@@ -14,6 +14,8 @@
 
     public class CarDetailsVIewModel
     {
+        public string Id { get; set; }
+
         public Condition Condition { get; set; }
 
         public Make Make { get; set; }

@@ -60,6 +60,7 @@
             {
                 CarDetailsVIewModel = new CarDetailsVIewModel
                 {
+                    Id = car.Id,
                     Cc = car.Cc,
                     Color = car.Color,
                     Door = car.Door,
