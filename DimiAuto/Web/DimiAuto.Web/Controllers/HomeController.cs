@@ -4,21 +4,26 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using DimiAuto.Data.Models;
     using DimiAuto.Services.Data;
     using DimiAuto.Web.ViewModels;
     using DimiAuto.Web.ViewModels.Ad;
     using DimiAuto.Web.ViewModels.Home;
     using HtmlAgilityPack;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
         private readonly IHomeService homeService;
+        private readonly ISearchService searchService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public HomeController(IHomeService homeService)
+        public HomeController(IHomeService homeService, ISearchService searchService, UserManager<ApplicationUser> userManager)
         {
             this.homeService = homeService;
+            this.searchService = searchService;
+            this.userManager = userManager;
         }
 
         public IActionResult Index()
@@ -49,10 +54,36 @@
             return this.View(result);
         }
 
-        public async Task<IActionResult> AllByCriteria(SearchInputModel input)
+        public async Task<IActionResult> AllByCriteria(string id, SearchInputModel input)
         {
-            var ads = await this.homeService.GetAdsByCriteriaAsync(input);
+            var user = await this.userManager.GetUserAsync(this.User);
 
+            if (id != null)
+            {
+                var searchModel = await this.searchService.GetSearchModelByIdAsync(id.Substring(3));
+                input = new SearchInputModel
+                {
+                    Condition = searchModel.Condition,
+                    Fuel = searchModel.Fuel,
+                    GearBox = searchModel.GearBox,
+                    Make = searchModel.Make,
+                    Model = searchModel.Model,
+                    PriceFrom = searchModel.PriceFrom,
+                    PriceTo = searchModel.PriceTo,
+                    TypeOfVeichle = searchModel.TypeOfVeichle,
+                    YearFrom = searchModel.YearFrom,
+                    YearTo = searchModel.YearTo,
+                };
+            }
+            else
+            {
+                if (user != null)
+                {
+                    await this.searchService.SaveSearchModel(user.Id, input);
+                }
+            }
+            var ads = await this.homeService.GetAdsByCriteriaAsync(input);
+            
             var result = new AllCarsViewModel
             {
                 AllCars = ads,

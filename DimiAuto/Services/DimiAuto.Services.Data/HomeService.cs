@@ -9,7 +9,7 @@
     using DimiAuto.Data.Common.Repositories;
     using DimiAuto.Models.CarModel;
     using DimiAuto.Services.Mapping;
-    using DimiAuto.Web.ViewModels;
+    using DimiAuto.Web.ViewModels.Home;
     using DimiAuto.Web.ViewModels.Ad;
     using Microsoft.EntityFrameworkCore;
 

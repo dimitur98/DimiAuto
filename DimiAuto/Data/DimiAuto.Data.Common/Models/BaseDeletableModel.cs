@@ -2,7 +2,7 @@
 {
     using System;
 
-    public abstract class BaseDeletableModel<TKey> : BaseModel<TKey>, IDeletableEntity
+    public abstract class BaseDeletableModel<TKey> : IDeletableEntity<TKey>, IDeletableEntity
     {
         public bool IsDeleted { get; set; }
 

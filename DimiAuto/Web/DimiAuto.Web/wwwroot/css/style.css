@@ -1599,8 +1599,8 @@ body,
 	border-radius: 4px;
 	margin: 50px;
 	overflow: hidden;
-	padding: 20px 20px;
-	width: 90%;
+	padding: 10px 10px;
+	width: 80%;
 	position:relative;
 	bottom:100px;
 }
@@ -1668,8 +1668,8 @@ body,
 }
 
 .book-ur-car select.custom-select {
-	background-image: url("../assets/img/caret-cion.png");
 	background-position: right 12px center;
+
 	background-size: 12px auto;
 }
 
@@ -3284,6 +3284,11 @@ input[type=file] {
 .detailsClass {
 	height: 20px;
 	width: 20px;
+	display: block;
+}
+.searchClass {
+	height: 40px;
+	width: 40px;
 	display: block;
 }
 

@@ -92,7 +92,7 @@ namespace DimiAuto.Web.Controllers
             {
                 ChangeAvatarViewModel = new ChangeAvatarViewModel
                 {
-                    ImgPath = user.ImgPath,
+                    ImgPath = user.UserImg,
                 },
             };
             return this.View(output);
@@ -102,9 +102,9 @@ namespace DimiAuto.Web.Controllers
         public async Task<IActionResult> ChangeAvatar(ImgUploadInputModel input)
         {
             var user = await this.userManager.GetUserAsync(this.User);
-            user.ImgPath = string.Empty;
+            user.UserImg = string.Empty;
             var result = await this.imgService.UploadImgsAsync(input);
-            user.ImgPath = result.First();
+            user.UserImg = result.First();
             await this.userManager.UpdateAsync(user);
             return this.RedirectToAction("MyAccount");
         }

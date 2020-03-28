@@ -1,15 +1,21 @@
-﻿using DimiAuto.Data.Models.CarModel;
+﻿using DimiAuto.Data.Common.Models;
+using DimiAuto.Data.Models.CarModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DimiAuto.Web.ViewModels
+namespace DimiAuto.Data.Models
 {
-    public class SearchInputModel
+   public class SearchModel : BaseDeletableModel<string>
     {
+        public SearchModel()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
         public Make Make { get; set; }
 
-        public string? Model { get; set; }
+        public string Model { get; set; }
 
         public Condition Condition { get; set; }
 
@@ -26,5 +32,9 @@ namespace DimiAuto.Web.ViewModels
         public decimal? PriceTo { get; set; }
 
         public TypeOfVeichle TypeOfVeichle { get; set; }
+
+        public string UserId { get; set; }
+
+        
     }
 }

@@ -42,10 +42,10 @@
             if (input.CarId == null)
             {
                 var user = await this.userManager.GetUserAsync(this.User);
-                user.ImgPath = user.ImgPath.Replace(input.ImgToDel, string.Empty);
-                if (user.ImgPath == string.Empty)
+                user.UserImg = user.UserImg.Replace(input.ImgToDel, string.Empty);
+                if (user.UserImg == string.Empty)
                 {
-                    user.ImgPath = GlobalConstants.DefaultImgAvatar;
+                    user.UserImg = GlobalConstants.DefaultImgAvatar;
                     await this.userManager.UpdateAsync(user);
                 }
             }

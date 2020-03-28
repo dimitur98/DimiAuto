@@ -18,7 +18,7 @@ namespace DimiAuto.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Role = Role.User;
             this.NameOfCompany = "Private person";
-            this.ImgPath = GlobalConstants.DefaultImgAvatar;
+            this.UserImg = GlobalConstants.DefaultImgAvatar;
         }
 
         // Audit info
@@ -29,7 +29,7 @@ namespace DimiAuto.Data.Models
         // Deletable entity
         public bool IsDeleted { get; set; }
 
-        public string ImgPath { get; set; }
+        public string UserImg { get; set; }
 
         public string Adress { get; set; }
 
