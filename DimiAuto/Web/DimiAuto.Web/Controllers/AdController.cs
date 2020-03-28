@@ -84,6 +84,8 @@
                     Views = car.Views,
                     YearOfProduction = car.YearOfProduction.ToString("dd.MM.yyyy"),
                     Comments = await this.commentService.GetComments<CarCommentViewModel>(car.Id),
+                    IsApproved = car.IsApproved,
+                    IsDeleted = car.IsDeleted,
                 },
             };
             

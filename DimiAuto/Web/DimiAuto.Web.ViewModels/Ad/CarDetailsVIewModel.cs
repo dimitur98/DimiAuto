@@ -62,5 +62,36 @@
         public int Views { get; set; }
 
         public IEnumerable<CarCommentViewModel> Comments { get; set; }
+
+        public bool IsApproved { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+
+        public string Statuse
+        {
+            get
+            {
+                if (this.IsApproved)
+                {
+                    if (this.IsDeleted)
+                    {
+                        return "Approved, Deleted";
+
+                    }
+                    else
+                    {
+                        return "Approved, Not deleted";
+
+                    }
+                }
+                else
+                {
+                    return "Not approved";
+                }
+
+
+            }
+        }
     }
 }

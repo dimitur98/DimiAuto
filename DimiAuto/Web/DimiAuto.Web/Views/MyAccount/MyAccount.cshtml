@@ -55,19 +55,21 @@
                                                 {
                                                     @foreach (var myCar in Model.MyCars)
                                                     {
-                                            <tr class="first odd">
-                                                <td><span class="nobr">@myCar.CreatedOn</span></td>
-                                                <td>@myCar.Make</td>
-                                                <td>@myCar.Model</td>
-                                                <td>@myCar.Modification</td>
-                                                <td><span class="price">@myCar.Price BGN</span></td>
-                                                <td><em>@myCar.Statuse</em></td>
-                                                <td class="a-center last details"><span class="nobr"> 
-                                                    <a data-toggle="tooltip" data-placement="top" title="Details" style="display:inline-block;margin-left:10px;" href="/Ad/Details/id=@myCar.Id"><img class="iconClass" src="~/images/detailsIcon.png"></a> 
-                                                    <a data-toggle="tooltip" data-placement="top" title="Edit ad" style="display:inline-block;" href="/Ad/Edit/id=@myCar.Id"><img class="iconClass" src="~/images/editIcon.png"></a> 
-                                                    <a data-toggle="tooltip" data-placement="top" title="Edit imgs" style="display:inline-block;margin-right:10px;" href="/Img/EditAdImgs/id=@myCar.Id"><img class="iconClass" src="~/images/photo.png"></a></span>
-                                                </td>
-                                            </tr>
+                                                        <tr class="first odd">
+                                                            <td><span class="nobr">@myCar.CreatedOn</span></td>
+                                                            <td>@myCar.Make</td>
+                                                            <td>@myCar.Model</td>
+                                                            <td>@myCar.Modification</td>
+                                                            <td><span class="price">@myCar.Price BGN</span></td>
+                                                            <td><em>@myCar.Statuse</em></td>
+                                                            <td class="a-center last details">
+                                                                <span class="nobr">
+                                                                    <a data-toggle="tooltip" data-placement="top" title="Details" style="display:inline-block;margin-left:10px;" href="/Ad/Details/id=@myCar.Id"><img class="iconClass" src="~/images/detailsIcon.png"></a>
+                                                                    <a data-toggle="tooltip" data-placement="top" title="Edit ad" style="display:inline-block;" href="/Ad/Edit/id=@myCar.Id"><img class="iconClass" src="~/images/editIcon.png"></a>
+                                                                    <a data-toggle="tooltip" data-placement="top" title="Edit imgs" style="display:inline-block;margin-right:10px;" href="/Img/EditAdImgs/id=@myCar.Id"><img class="iconClass" src="~/images/photo.png"></a>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
                                                     }
                                                 }
 
@@ -77,8 +79,8 @@
                                     </div>
                                     <!--table-responsive-->
                                 </div>
-
-
+                            </div>
+                        </div>
                     </section>
                     <partial name="_AccountNavPartial" />
 

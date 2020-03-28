@@ -15,7 +15,7 @@
 
 
 <!--== Car List Area Start ==-->
-<body onload="checkImg()">
+<body onload="checkBtns()">
     <section id="car-list-area" class="section-padding">
         <div class="container">
             <div class="row">
@@ -221,22 +221,23 @@
                     </div>
                 </div>
             </div>
-            <div class="scroll-top">
-                <img src="~/assets/img/scroll-top.png" alt="JSOFT">
-            </div>
+            
         </div>
+        <br>
+        <br>
         @if (this.SignInManager.IsSignedIn(this.User))
         {
             if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    
-                       
-                        <a onclick="admin('@Model.CarDetailsVIewModel.Id','approve')" class="btn btn-secondary btn-success">Approve</a>                                    
-                        <a onclick="admin('@Model.CarDetailsVIewModel.Id','deleteAd')" class="btn btn-secondary btn-danger">Delete</a>
-                        <a onclick="admin('@Model.CarDetailsVIewModel.Id','undelete')" class="btn btn-secondary ">UnDelete</a>
-                        <a onclick="admin('@Model.CarDetailsVIewModel.Id','permamentDelete')" class="btn btn-secondary btn-dark">Permament delete</a>
-                    
+
+
+                    <a onclick="admin('@Model.CarDetailsVIewModel.Id','approve')" id="approve" class="btn btn-secondary btn-success">Approve</a>
+                    <a onclick="admin('@Model.CarDetailsVIewModel.Id','deleteAd')" id="delete" class="btn btn-secondary btn-warning">Delete</a>
+                    <a onclick="admin('@Model.CarDetailsVIewModel.Id','undelete')" id="undelete" class="btn btn-secondary ">UnDelete</a>
+                    <div class="btn btn-secondary btn-light" value="@Model.CarDetailsVIewModel.Statuse" id="statuse">@Model.CarDetailsVIewModel.Statuse</div>
+
+
                 </div>
 
             }
@@ -245,22 +246,40 @@
     </section>
 </body>
 <script>
-    function admin(input,action) {
-    var token = $("#form input[name=__RequestVerificationToken]").val();
-    var json = { carId: input};
-    console.log(json);
+    function admin(input, action) {
+        var token = $("#form input[name=__RequestVerificationToken]").val();
+        var json = { carId: input };
         $.ajax({
             url: "/api/administration/administrationControl/" + action,
-        type: "POST",
-        data: JSON.stringify(json),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        headers: { 'X-CSRF-TOKEN': token },
-        success: function (data) {
-            console.log(data);
-        }
-    });
-}
+            type: "POST",
+            data: JSON.stringify(json),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            headers: { 'X-CSRF-TOKEN': token },
+            success: function (data) {
+                console.log(data["action"]);
+                console.log(data);
+                if (data["action"] == "Undelete") {
+                    console.log(document.getElementById("statuse").innerHTML);
+                    document.getElementById("statuse").innerHTML = "Approved, Not deleted";
+                    document.getElementById("delete").style.display = "block";
+                    document.getElementById("undelete").style.display = "none";
+                } else if (data["action"] == "Approve") {
+                    console.log(document.getElementById("statuse").innerHTML);
+                    document.getElementById("statuse").innerHTML = "Approved, Not deleted";
+                    document.getElementById("approve").style.display = "none";
+                    document.getElementById("delete").style.display = "block";
+                } else if (data["action"] == "Delete") {
+                    console.log(document.getElementById("statuse").innerHTML);
+
+                    document.getElementById("statuse").innerHTML = "Approved, Deleted";
+                    document.getElementById("delete").style.display = "none";
+                    document.getElementById("undelete").style.display = "block";
+
+                }
+            }
+        });
+    }
 </script>
 <script>
     function hideComments() {
@@ -275,8 +294,25 @@
     }
 </script>
 <script>
-    function checkImg() {
-        console.log("asd");
-        console.log($("#imgDef").attr("src"));
+    function checkBtns() {
+        var approve = document.getElementById("statuse").innerHTML.split(", ")[0];
+        var deleteStatuse = document.getElementById("statuse").innerHTML.split(", ")[1];
+        if (approve == "Approved") {
+            document.getElementById("approve").style.display = "none";
+            if (deleteStatuse == "Deleted") {
+                document.getElementById("delete").style.display = "none";
+                document.getElementById("undelete").style.display = "block";
+
+            } else {
+                document.getElementById("delete").style.display = "block";
+                document.getElementById("undelete").style.display = "none";
+            }
+        } else {
+            document.getElementById("approve").style.display = "block";
+            document.getElementById("delete").style.display = "none";
+            document.getElementById("undelete").style.display = "none";
+        }
+
+
     }
 </script>
