@@ -1,4 +1,5 @@
 ﻿@model DimiAuto.Web.ViewModels.Ad.AllCarsViewModel
+@using DimiAuto.Common;
 
 @{
     ViewData["Title"] = "All cars";
@@ -51,7 +52,7 @@
                                         <h5>@car.User.NameOfCompany</h5>
                                         <p>@car.MoreInformation</p>
                                         <ul class="car-info-list">
-                                            <li>@car.YearOfProduction</li>
+                                            <li>@car.YearOfProduction.ToString("dd.MM.yyyy")</li>
                                             <li>@car.Fuel</li>
                                             <li>@car.GearBox</li>
                                         </ul>

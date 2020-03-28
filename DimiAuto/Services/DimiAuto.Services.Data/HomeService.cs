@@ -8,8 +8,10 @@
 
     using DimiAuto.Data.Common.Repositories;
     using DimiAuto.Models.CarModel;
+    using DimiAuto.Services.Mapping;
     using DimiAuto.Web.ViewModels;
     using DimiAuto.Web.ViewModels.Ad;
+    using Microsoft.EntityFrameworkCore;
 
     public class HomeService : IHomeService
     {
@@ -20,39 +22,34 @@
             this.carRepository = carRepository;
         }
 
-        public IEnumerable<CarAdsViewModel> GetAllAds()
+        public async Task<IEnumerable<CarAdsViewModel>> GetAllAdsAsync()
         {
-            var result = this.carRepository.All().Select(x => new CarAdsViewModel
+            var result = await this.carRepository.All().Select(x => new CarAdsViewModel
             {
                 Id = x.Id,
                 Fuel = x.Fuel,
-                ImgPath = this.carRepository
-                    .All()
-                    .FirstOrDefault(a => a.Id == x.Id)
-                    .ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries)
-                    .First()
-                    .ToString(),
+                ImgPath = x.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).First().ToString(),
                 Km = x.Km,
                 Make = x.Make,
                 Model = x.Model,
                 Modification = x.Modification,
                 MoreInformation = x.MoreInformation.Length > 40 ? x.MoreInformation.Substring(0, 20) + "..." : x.MoreInformation,
                 Price = x.Price,
-                YearOfProduction = x.YearOfProduction.ToString("dd.mm.yyyy"),
+                YearOfProduction = x.YearOfProduction,
                 UserId = x.UserId,
                 User = x.User,
                 GearBox = x.Gearbox,
                 Condition = x.Condition,
                 TypeOfVeichle = x.TypeOfVeichle,
-            }).ToList();
+            }).ToListAsync();
 
             return result;
         }
 
-        public IEnumerable<CarAdsViewModel> GetAdsByCriteria(SearchInputModel criteria)
+        public async Task<IEnumerable<CarAdsViewModel>> GetAdsByCriteriaAsync(SearchInputModel criteria)
         {
 
-            var result = this.GetAllAds().ToList();
+            var result = await this.GetAllAdsAsync();
             var dic = criteria.GetType()
                         .GetProperties(BindingFlags.Instance | BindingFlags.Public)
                         .ToDictionary(prop => prop.Name, prop => prop.GetValue(criteria, null));
@@ -75,38 +72,14 @@
 
                 if (item.Value != null && item.Key == "YearFrom")
                 {
-                    result = result.Where(x => DateTime.Parse(x.YearOfProduction).Year >= DateTime.Parse(criteria.YearFrom).Year).ToList();
+                    result = result.Where(x => x.YearOfProduction.Year >= criteria.YearFrom).ToList();
                 }
                 else if (item.Value != null && item.Key == "YearTo")
                 {
-                    result = result.Where(x => DateTime.Parse(x.YearOfProduction).Year < DateTime.Parse(criteria.YearTo).Year).ToList();
+                    result = result.Where(x => x.YearOfProduction.Year <= criteria.YearTo).ToList();
                 }
-
             }
 
-            result = result.Select(x => new CarAdsViewModel
-            {
-                Id = x.Id,
-                Fuel = x.Fuel,
-                ImgPath = this.carRepository
-                    .All()
-                    .FirstOrDefault(a => a.Id == x.Id)
-                    .ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries)
-                    .First()
-                    .ToString(),
-                Km = x.Km,
-                Make = x.Make,
-                Model = x.Model,
-                Modification = x.Modification,
-                MoreInformation = x.MoreInformation.Length > 40 ? x.MoreInformation.Substring(0, 20) + "..." : x.MoreInformation,
-                Price = x.Price,
-                YearOfProduction = x.YearOfProduction.ToString(),
-                UserId = x.UserId,
-                User = x.User,
-                GearBox = x.GearBox,
-                TypeOfVeichle = x.TypeOfVeichle,
-                Condition = x.Condition,
-            }).ToList();
             return result;
         }
     }

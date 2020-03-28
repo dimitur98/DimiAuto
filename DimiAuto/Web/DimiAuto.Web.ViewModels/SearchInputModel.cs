@@ -17,9 +17,9 @@ namespace DimiAuto.Web.ViewModels
 
         public GearBox GearBox { get; set; }
 
-        public string? YearFrom { get; set; }
+        public int? YearFrom { get; set; }
 
-        public string? YearTo { get; set; }
+        public int? YearTo { get; set; }
 
         public decimal? PriceFrom { get; set; }
 

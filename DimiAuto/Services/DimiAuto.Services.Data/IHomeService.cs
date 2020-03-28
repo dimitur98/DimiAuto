@@ -11,8 +11,8 @@
 
     public interface IHomeService
     {
-        IEnumerable<CarAdsViewModel> GetAllAds();
+        Task<IEnumerable<CarAdsViewModel>> GetAllAdsAsync();
 
-        IEnumerable<CarAdsViewModel> GetAdsByCriteria(SearchInputModel criteria);
+        Task<IEnumerable<CarAdsViewModel>> GetAdsByCriteriaAsync(SearchInputModel criteria);
     }
 }

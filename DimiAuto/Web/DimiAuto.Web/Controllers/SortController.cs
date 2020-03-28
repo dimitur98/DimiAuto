@@ -26,10 +26,10 @@
         }
 
         [HttpPost]
-        public ActionResult<AllCarsViewModel> Sort(SortInputModel input)
+        public async Task<ActionResult<AllCarsViewModel>> Sort(SortInputModel input)
         {
             
-            var ads = this.homeService.GetAllAds();
+            var ads = await this.homeService.GetAllAdsAsync();
             if (input.OrderByYear == "1")
             {
                 ads = ads.OrderBy(x => x.YearOfProduction).ToList();

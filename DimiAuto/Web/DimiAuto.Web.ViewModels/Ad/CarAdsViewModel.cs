@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
 
     using DimiAuto.Data.Models;
@@ -21,10 +22,9 @@
         public string Modification { get; set; }
 
         public string MoreInformation { get; set; }
-
         public decimal Price { get; set; }
 
-        public string YearOfProduction { get; set; }
+        public DateTime YearOfProduction { get; set; }
 
         public Fuel Fuel { get; set; }
 

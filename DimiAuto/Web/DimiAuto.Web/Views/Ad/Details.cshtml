@@ -230,14 +230,11 @@
             if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
                 <div class="btn-group" role="group" aria-label="Basic example">
-
-
                     <a onclick="admin('@Model.CarDetailsVIewModel.Id','approve')" id="approve" class="btn btn-secondary btn-success">Approve</a>
                     <a onclick="admin('@Model.CarDetailsVIewModel.Id','deleteAd')" id="delete" class="btn btn-secondary btn-warning">Delete</a>
                     <a onclick="admin('@Model.CarDetailsVIewModel.Id','undelete')" id="undelete" class="btn btn-secondary ">UnDelete</a>
-                    <div class="btn btn-secondary btn-light" value="@Model.CarDetailsVIewModel.Statuse" id="statuse">@Model.CarDetailsVIewModel.Statuse</div>
-
-
+                    <div class="btn btn-secondary btn-light" value="@Model.CarDetailsVIewModel.Statuse" id="statuse">@Model.CarDetailsVIewModel.Statuse
+                    </div>
                 </div>
 
             }
@@ -248,7 +245,7 @@
 <script>
     function admin(input, action) {
         var token = $("#form input[name=__RequestVerificationToken]").val();
-        var json = { carId: input };
+        var json = { id: input };
         $.ajax({
             url: "/api/administration/administrationControl/" + action,
             type: "POST",
@@ -257,21 +254,16 @@
             dataType: "json",
             headers: { 'X-CSRF-TOKEN': token },
             success: function (data) {
-                console.log(data["action"]);
-                console.log(data);
+
                 if (data["action"] == "Undelete") {
-                    console.log(document.getElementById("statuse").innerHTML);
                     document.getElementById("statuse").innerHTML = "Approved, Not deleted";
                     document.getElementById("delete").style.display = "block";
                     document.getElementById("undelete").style.display = "none";
                 } else if (data["action"] == "Approve") {
-                    console.log(document.getElementById("statuse").innerHTML);
                     document.getElementById("statuse").innerHTML = "Approved, Not deleted";
                     document.getElementById("approve").style.display = "none";
                     document.getElementById("delete").style.display = "block";
                 } else if (data["action"] == "Delete") {
-                    console.log(document.getElementById("statuse").innerHTML);
-
                     document.getElementById("statuse").innerHTML = "Approved, Deleted";
                     document.getElementById("delete").style.display = "none";
                     document.getElementById("undelete").style.display = "block";

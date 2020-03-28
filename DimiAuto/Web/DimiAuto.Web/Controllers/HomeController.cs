@@ -38,26 +38,20 @@
                 new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
 
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
             var result = new AllCarsViewModel
             {
-                AllCars = this.homeService.GetAllAds(),
+                AllCars = await this.homeService.GetAllAdsAsync(),
             };
-            foreach (var car in result.AllCars)
-            {
-                if (car.ImgPath == string.Empty)
-                {
-                    car.ImgPath = "'~/images/default-image-png-18-original.png'";
-                }
-            }
+            
 
             return this.View(result);
         }
 
-        public IActionResult AllByCriteria(SearchInputModel input, string orderByPrice, string orderByYear)
+        public async Task<IActionResult> AllByCriteria(SearchInputModel input)
         {
-            var ads = this.homeService.GetAdsByCriteria(input);
+            var ads = await this.homeService.GetAdsByCriteriaAsync(input);
 
             var result = new AllCarsViewModel
             {
@@ -66,7 +60,5 @@
 
             return this.View("All", result);
         }
-        
-        
     }
 }
