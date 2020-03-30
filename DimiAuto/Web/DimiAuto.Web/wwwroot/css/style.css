@@ -3292,4 +3292,17 @@ input[type=file] {
 	display: block;
 }
 
-                                    
+.parent {
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+.image1 {
+	position: relative;
+	top: 0;
+	left: 0;
+	
+}
+
+                             

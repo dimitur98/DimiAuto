@@ -1,6 +1,8 @@
 ﻿using DimiAuto.Common;
 using DimiAuto.Data.Models;
 using DimiAuto.Services.Data;
+using DimiAuto.Web.ViewModels.Ad;
+using DimiAuto.Web.ViewModels.FavoriteAds;
 using DimiAuto.Web.ViewModels.Img;
 using DimiAuto.Web.ViewModels.MyAccount;
 using Microsoft.AspNetCore.Http;
@@ -28,6 +30,7 @@ namespace DimiAuto.Web.Controllers
             this.adService = adService;
             this.imgService = imgService;
         }
+
         [Route("/MyAccount/MyAccount", Name = "MyAccount")]
         public async Task<IActionResult> MyAccount()
         {
@@ -109,6 +112,40 @@ namespace DimiAuto.Web.Controllers
             return this.RedirectToAction("MyAccount");
         }
 
+        [Route("/MyAccount/Favorites", Name = "Favorites")]
 
+        public async Task<IActionResult> Favorites()
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var favorites = await this.adService.GetAllFavAdsOnCurrentUserAsync<UserAdViewModel>(userId);
+            var cars = new List<CarAdsViewModel>();
+            foreach (var favorite in favorites)
+            {
+                var car = new CarAdsViewModel
+                {
+                    Id = favorite.Car.Id,
+                    Fuel = favorite.Car.Fuel,
+                    ImgPath = favorite.Car.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).First().ToString(),
+                    Km = favorite.Car.Km,
+                    Make = favorite.Car.Make,
+                    Model = favorite.Car.Model,
+                    Modification = favorite.Car.Modification,
+                    MoreInformation = favorite.Car.MoreInformation.Length > 40 ? favorite.Car.MoreInformation.Substring(0, 20) + "..." : favorite.Car.MoreInformation,
+                    Price = favorite.Car.Price,
+                    YearOfProduction = favorite.Car.YearOfProduction,
+                    UserId = favorite.UserId,
+                    User = favorite.User,
+                    GearBox = favorite.Car.Gearbox,
+                    Condition = favorite.Car.Condition,
+                    TypeOfVeichle = favorite.Car.TypeOfVeichle,
+                };
+                cars.Add(car);
+            }
+            var output = new AllCarsViewModel
+            {
+                AllCars = cars,
+            };
+            return this.View(output);
+        }
     }
 }

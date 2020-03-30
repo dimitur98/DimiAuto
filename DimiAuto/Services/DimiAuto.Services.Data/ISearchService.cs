@@ -9,9 +9,9 @@
 
     public interface ISearchService
     {
-        Task SaveSearchModel(string userId, SearchInputModel search);
+        Task SaveSearchModelAsync(string userId, SearchInputModel search);
 
-        Task<IEnumerable<TModel>> GetSearchModels<TModel>(string userId);
+        Task<IEnumerable<TModel>> GetSearchModelsAsync<TModel>(string userId);
 
         Task DeleteSearchModelByIdAsync(string id);
 

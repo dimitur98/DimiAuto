@@ -9,9 +9,8 @@
                 <ul>
                     <li class="current"><a asp-route="MyAccount" >Account Dashboard</a></li>
                     <li><a asp-route="AccountInfo"><span> Account Information</span></a></li>
-                    <li><a asp-route
-                           ="ChangeAvatar"><span> Change profile picture</span></a></li>
-                    <li><a href="#"><span> Favourite ads</span></a></li>
+                    <li><a asp-route="ChangeAvatar"><span> Change profile picture</span></a></li>
+                    <li><a asp-route="Favorites"><span> Favourite ads</span></a></li>
 
                     @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                     {

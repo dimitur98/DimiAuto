@@ -21,7 +21,7 @@
         {
             this.searchModelRepository = searchModelRepository;
         }
-        public async Task SaveSearchModel(string userId, SearchInputModel search)
+        public async Task SaveSearchModelAsync(string userId, SearchInputModel search)
         {
             var searchModel = new SearchModel
             {
@@ -42,7 +42,7 @@
             await this.searchModelRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TModel>> GetSearchModels<TModel>(string userId)
+        public async Task<IEnumerable<TModel>> GetSearchModelsAsync<TModel>(string userId)
         {
             var result = await this.searchModelRepository.All().Where(x => x.UserId == userId).OrderBy(x => x.CreatedOn).To<TModel>().ToListAsync();
             return result;

@@ -3291,7 +3291,7 @@ ul.pdt-list li.item a img.image-hover {
 	list-style: none;
 }
 .products-grid .link-wishlist:before {
-	content: "\f004";
+	content: "\f00d";
 	    transform: rotate(-40deg);
     display: block;
 		font-family: 'FontAwesome';
@@ -4114,7 +4114,7 @@ margin-right: 10px;
 	background: #ed6663;
 }
 .col-item .actions-links .add-to-links a.link-wishlist:before {
-	content: "\f004";
+	content: "\00d";
 }
 .col-item .actions-links .add-to-links a.link-compare:before {
 	content: "\f012";
@@ -4947,7 +4947,7 @@ margin: 0 0;
 	margin-top: -35px;
 }
 .col-item .actions .add-to-links a.link-wishlist:before {
-	content: "\f004";
+	content: "\f00d";
 }
 .col-item .actions .add-to-links a.link-compare:before {
 	content: "\f012";
@@ -8117,7 +8117,7 @@ li .list {
 	background: none
 }
 .products-list .actions .add-to-links a.link-wishlist:before {
-	content: "\f004";
+	content: "\f00d";
 	font-size: 13px;
 }
 .products-list .actions .add-to-links a.link-compare:before {
@@ -8734,7 +8734,7 @@ padding:30px;
 }
 
 .product-view .product-shop .add-to-links .link-wishlist:before {
-	content: "\f004";
+	content: "\f00d";
 	font-family: FontAwesome;
 	font-size: 14px;
 	vertical-align: top;
@@ -10593,7 +10593,7 @@ a:hover small {
 	margin-left: 8px;
 }
 button.button.btn-share:before {
-	content: "\f004";
+	content: "\f00d";
 	font-family: FontAwesome;
 	font-size: 12px;
 	padding-right: 8px;
@@ -11766,7 +11766,7 @@ button.button span span {
 
 }
 .products-grid-home .link-wishlist:before {
-	content: "\f004";
+	content: "\f00d";
 }
 .products-grid-home .link-compare:before {
 	content: "\f012";

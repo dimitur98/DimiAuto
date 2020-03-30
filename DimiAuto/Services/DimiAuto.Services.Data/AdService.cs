@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using DimiAuto.Web.ViewModels.Ad.Comment;
+using DimiAuto.Data.Models;
 
 namespace DimiAuto.Services.Data
 {
@@ -24,12 +25,14 @@ namespace DimiAuto.Services.Data
         private readonly Cloudinary cloudinary;
         private readonly IDeletableEntityRepository<Car> carRepository;
         private readonly ICommentService commentService;
+        private readonly IDeletableEntityRepository<UserCarFavorite> favouriteRepository;
 
-        public AdService(Cloudinary cloudinary, IDeletableEntityRepository<Car> carRepository,ICommentService commentService)
+        public AdService(Cloudinary cloudinary, IDeletableEntityRepository<Car> carRepository, ICommentService commentService, IDeletableEntityRepository<UserCarFavorite> favouriteRepository)
         {
             this.cloudinary = cloudinary;
             this.carRepository = carRepository;
             this.commentService = commentService;
+            this.favouriteRepository = favouriteRepository;
         }
 
         public async Task<string> CreateAdAsync(CreateAdInputModel input, string userId)
@@ -66,7 +69,6 @@ namespace DimiAuto.Services.Data
             return car.Id;
         }
 
-
         public async Task<Car> GetCurrentCarAsync(string carId)
         {
             var car = await this.carRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == carId);
@@ -99,6 +101,32 @@ namespace DimiAuto.Services.Data
             this.carRepository.Update(car);
             await this.carRepository.SaveChangesAsync();
             return car;
+        }
+
+        public async Task AddAdToFavAsync(string carId, string userId)
+        {
+            var newRecord = new UserCarFavorite
+            {
+                CarId = carId,
+                UserId = userId,
+            };
+
+            await this.favouriteRepository.AddAsync(newRecord);
+            await this.favouriteRepository.SaveChangesAsync();
+        }
+
+        public async Task RemoveFavAdAsync(string carId, string userId)
+        {
+            var recordForRemove = await this.favouriteRepository.All().FirstOrDefaultAsync(x => x.UserId == userId && x.CarId == carId);
+            recordForRemove.IsDeleted = true;
+            this.favouriteRepository.Update(recordForRemove);
+            await this.favouriteRepository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<TModel>> GetAllFavAdsOnCurrentUserAsync<TModel>(string userId)
+        {
+            var result = await this.favouriteRepository.All().Where(x => x.UserId == userId).To<TModel>().ToListAsync();
+            return result;
         }
 
     }

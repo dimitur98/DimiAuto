@@ -25,7 +25,7 @@ namespace DimiAuto.Web.Controllers
             var user = await this.userManager.GetUserAsync(this.User);
             var output = new SearchModelsViewModel
             {
-                Searches = await this.searchService.GetSearchModels<SearchViewModel>(user.Id),
+                Searches = await this.searchService.GetSearchModelsAsync<SearchViewModel>(user.Id),
             };
             return this.View(output);
         }

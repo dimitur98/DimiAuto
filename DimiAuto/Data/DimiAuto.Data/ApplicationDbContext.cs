@@ -32,6 +32,8 @@
 
         public DbSet<SearchModel> SearchModels { get; set; }
 
+        public DbSet<UserCarFavorite> UsersCarsFavorites { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

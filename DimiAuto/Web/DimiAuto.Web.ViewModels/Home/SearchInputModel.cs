@@ -1,11 +1,13 @@
-﻿using DimiAuto.Data.Models.CarModel;
+﻿using DimiAuto.Data.Models;
+using DimiAuto.Data.Models.CarModel;
+using DimiAuto.Services.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DimiAuto.Web.ViewModels.Home
 {
-    public class SearchInputModel
+    public class SearchInputModel : IMapFrom<SearchModel>
     {
         public Make Make { get; set; }
 

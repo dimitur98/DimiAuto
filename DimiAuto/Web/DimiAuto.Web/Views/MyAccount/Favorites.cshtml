@@ -1,0 +1,89 @@
+﻿@model DimiAuto.Web.ViewModels.Ad.AllCarsViewModel
+
+@{
+    ViewData["Title"] = "Favorites";
+}
+<div id="page">
+    <section class="main-container col2-right-layout">
+        <div class="main container">
+            <div class="row">
+                <section class="col-main col-sm-9 col-xs-12 wow bounceInUp animated animated" style="visibility: visible;">
+                    <div class="category-products">
+                        <div id="remove" style="display:none;" class="alert alert-warning" role="alert">
+                            Removed from Favorites!
+                        </div>
+                        <form method="post" id="form"></form>
+                        @foreach (var car in Model.AllCars)
+                        {
+
+                            <ul class="products-grid">
+                                <li class="item col-lg-4 col-md-6 col-sm-4 col-xs-6" id="@car.Id">
+
+                                    <div class="item-inner">
+                                        <div class="item-img">
+                                            <div class="item-img-info">
+                                                <a title="Retis lapen casen" class="product-image"><img src="@car.ImgPath" alt="Retis lapen casen"></a>
+                                            </div>
+                                            <div class="item-box-hover">
+                                                <div class="box-inner">
+
+                                                    <div class="product-detail-bnt"><a class="button detail-bnt" href="/Ad/Details/id=@car.Id"><span>Quick View</span></a></div>
+                                                    <div class="actions"><span class="add-to-links"><a href="#" onclick="removeFavAd('@car.Id')" class="link-wishlist" title="Remove from favorite"><span>Remove from favorite</span></a> </span> </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="item-info">
+                                            <div class="info-inner">
+                                                <div class="item-title"><a href="/Ad/Details/id=@car.Id" title="Retis lapen casen">@car.Make @car.Model @car.Modification</a> </div>
+                                                <div class="item-content">
+
+                                                    <div class="item-price">
+                                                        <div class="price-box"><span class="regular-price"><span class="price">@car.Price BGN.</span> </span> </div>
+                                                    </div>
+                                                    <div class="other-info">
+                                                        <div class="col-km"><i class="fa fa-tachometer"></i> @car.Km km</div>
+                                                        <div class="col-engine"><i class="fa fa-gear"></i> @car.GearBox</div>
+                                                        <div class="col-date"><i class="fa fa-calendar" aria-hidden="true"></i> @car.YearOfProduction.ToString("MM.yyyy")</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+
+                            </ul>
+
+                        }
+                    </div>
+                </section>
+                <partial name="_AccountNavPartial" />
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    function removeFavAd(carId) {
+        console.log(carId);
+        var token = $("#form input[name=__RequestVerificationToken]").val();
+        var json = { carId: carId };
+        console.log(json);
+        $.ajax({
+            url: "/api/apiAd/removeFavAd",
+            type: "POST",
+            data: JSON.stringify(json),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            headers: { 'X-CSRF-TOKEN': token },
+            success: function (data) {
+                console.log("succes");
+                if (data["output"] == "removed") {
+                    $("#remove").show().delay(3000).fadeOut();
+                    $("#" + data["carId"]).remove();
+                }
+            }
+        });
+    }
+</script>

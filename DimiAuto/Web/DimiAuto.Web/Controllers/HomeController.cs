@@ -4,8 +4,10 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
+    using AutoMapper;
     using DimiAuto.Data.Models;
     using DimiAuto.Services.Data;
+    using DimiAuto.Services.Mapping;
     using DimiAuto.Web.ViewModels;
     using DimiAuto.Web.ViewModels.Ad;
     using DimiAuto.Web.ViewModels.Home;
@@ -61,25 +63,26 @@
             if (id != null)
             {
                 var searchModel = await this.searchService.GetSearchModelByIdAsync(id.Substring(3));
-                input = new SearchInputModel
-                {
-                    Condition = searchModel.Condition,
-                    Fuel = searchModel.Fuel,
-                    GearBox = searchModel.GearBox,
-                    Make = searchModel.Make,
-                    Model = searchModel.Model,
-                    PriceFrom = searchModel.PriceFrom,
-                    PriceTo = searchModel.PriceTo,
-                    TypeOfVeichle = searchModel.TypeOfVeichle,
-                    YearFrom = searchModel.YearFrom,
-                    YearTo = searchModel.YearTo,
-                };
+                //input = new SearchInputModel
+                //{
+                //    Condition = searchModel.Condition,
+                //    Fuel = searchModel.Fuel,
+                //    GearBox = searchModel.GearBox,
+                //    Make = searchModel.Make,
+                //    Model = searchModel.Model,
+                //    PriceFrom = searchModel.PriceFrom,
+                //    PriceTo = searchModel.PriceTo,
+                //    TypeOfVeichle = searchModel.TypeOfVeichle,
+                //    YearFrom = searchModel.YearFrom,
+                //    YearTo = searchModel.YearTo,
+                //};
+                input = AutoMapperConfig.MapperInstance.Map<SearchInputModel>(searchModel);
             }
             else
             {
                 if (user != null)
                 {
-                    await this.searchService.SaveSearchModel(user.Id, input);
+                    await this.searchService.SaveSearchModelAsync(user.Id, input);
                 }
             }
             var ads = await this.homeService.GetAdsByCriteriaAsync(input);
