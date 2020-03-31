@@ -7,12 +7,12 @@
     <ul class="navbar-nav">
         @if (this.SignInManager.IsSignedIn(this.User))
         {
+            
+            
             <li class="nav-item">
-                <a class="nav-link text-white" asp-controller="MyAccount" asp-action="MyAccount" title="Manage">Hello @(this.User.Identity.Name)!</a>
+                <a class="nav-link text-white" asp-area="" asp-controller="MyAccount" asp-action="MyAccount" title="Manage">Hello @(this.User.Identity.Name)!</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" asp-controller="Searchhistory" asp-action="SearchHistoryIndex" title="Search history">Search history</a>
-            </li>
+
             if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
                 <li class="nav-item">

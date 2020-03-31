@@ -1,4 +1,4 @@
-﻿@model DimiAuto.Web.ViewModels.Ad.AllCarsViewModel
+﻿@model DimiAuto.Web.ViewModels.Ad.AllCarsModel
 
 @using DimiAuto.Common;
 @using Microsoft.AspNetCore.Identity
@@ -11,105 +11,189 @@
     ViewData["Title"] = "All cars";
 }
 
+
 <body onload="checkImg()">
+
     <section id="car-list-area" class="section-padding">
-        
-        <div class="book-ur-car">
 
-                
-                <div class="pick-location bookinput-item">
-                    <select class="custom-select" id="orderByYeare">
-                        <option selected>Year</option>
-                        <option value="1">New</option>
-                        <option value="2">Old</option>
-                    </select>
-                </div>
-
-                <div class="pick-location bookinput-item">
-                    <select class="custom-select" id="orderByPricee">
-                        <option selected>Price</option>
-                        <option value="1">Descending</option>
-                        <option value="2">Ascending</option>
-                    </select>
-                </div>
-                <!--<input asp-for="OrderByPrice" style="display:none" id="orderByPrice" />
-        <input asp-for="OrderByYear" style="display:none" id="orderByYear" /> -->
-                <form id="votesForm" method="post"></form>
-                <div class="bookcar-btn bookinput-item">
-                    <button onclick="sortByCriteria()">Order</button>
-                </div>
-
-            </div>
-
-            <div class="row" id="sorted">
-                
-                <!-- Car List Content Start -->
-                <div class="col-lg-12">
-                    <div class="car-list-content">
-                        <div class="row" id="sortArea">
-                            <!-- Single Car Start -->
-
-                            @foreach (var car in Model.AllCars)
-                            {
-                               
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="single-car-wrap">
-                                        <div class="car-list-thumb">
-                                            <img style="width:600px; height:300px;" src="@car.ImgPath">
-                                        </div>
-                                        <div class="car-list-info without-bar">
-                                            <h2><a href="/Ad/Details/id=@car.Id">@car.Make @car.Model @car.Modification</a></h2>
-                                            <h5>@car.User.NameOfCompany</h5>
-                                            <p>@car.MoreInformation</p>
-                                            <ul class="car-info-list">
-                                                <li>@car.YearOfProduction.ToString("dd.MM.yyyy")</li>
-                                                <li>@car.Fuel</li>
-                                                <li>@car.GearBox</li>
-                                            </ul>
-                                            <p class="price">Price: @car.Price BGN</p>
-                                            <form id="form" method="post"></form>
-
-
-
-                                            <a href="/Ad/Details/id=@car.Id" class="rent-btn">Details</a>
-                                            @if (this.SignInManager.IsSignedIn(this.User))
-                                            {
-                                                <a data-toggle="tooltip" data-placement="top" title="Add to favorite" style="display:inline-block; float:right;" onclick="addToFav('@car.Id')"><img src="~/images/star.png" id="addToFav" class="searchClass"></a>
-                                                <!--<a data-toggle="tooltip" data-placement="top" title="Remove from favorite" style="display:inline-block; margin-right:10px; float:right;" onclick="removeFavAd('@car.Id')"><img src="~/images/favorite_remove.png" id="addToFav" class="searchClass"></a>-->
-                                            }
-
-                                            <div id="addedAd" style="display:none;" class="alert alert-warning" role="alert">
-                                                This ad is already add to Favorite!
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-
-                            <!-- Single Car End -->
-                            <!-- Page Pagination Start -->
-                            <div class="page-pagi">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                            <!-- Page Pagination End -->
+        <div class="header" id="myHeader">
+            <form asp-controller="Ad" asp-action="Compare">
+                <div class="card-group">
+                    <div class="card" id="firstCar" style="display:none;">
+                        <h5 class="card-title">First car.</h5>
+                        <img style="width:180px; height:180px;" src="@GlobalConstants.DefaultImgCar" class="card-img-top" alt="..." id="firstCarImg">
+                        <div class="card-body">
+                            <h5 class="card-title" id="firstCarMakeModel"></h5>
                         </div>
-                        <!-- Car List Content End -->
+                        <input asp-for="CompareCarsInputModel.FirstCarId" style="display: none;" id="firstCarInput">
+                    </div>
+                    <div class="card" style="display:none;" id="secondCar">
+                        <h5 class="card-title">Second car.</h5>
+                        <img style="width:180px; height:180px;" src="@GlobalConstants.DefaultImgCar" class="card-img-top" alt="..." id="secondCarImg">
+                        <div class="card-body">
+                            <h5 class="card-title" id="secondCarMakeModel"></h5>
+                        </div>
+                        <input asp-for="CompareCarsInputModel.SecondCarId" style="display: none;" id="secondCarInput">
+                    </div>
+                    <div class="card" style="display:none;" id="compareBtn">
+                        <button type="submit" class="rent-btn">Compare choosen cars</button>
+                        <a href="#" onclick="clearComparerList()" class="rent-btn">Cleare comparer list.</a>
                     </div>
                 </div>
+            </form>
+        </div>
+        <div class="book-ur-car ">
+
+
+            <div class="pick-location bookinput-item">
+                <select class="custom-select" id="orderByYeare">
+                    <option selected>Year</option>
+                    <option value="1">New</option>
+                    <option value="2">Old</option>
+                </select>
             </div>
 
-</section>
+            <div class="pick-location bookinput-item">
+                <select class="custom-select" id="orderByPricee">
+                    <option selected>Price</option>
+                    <option value="1">Descending</option>
+                    <option value="2">Ascending</option>
+                </select>
+            </div>
+            <!--<input asp-for="OrderByPrice" style="display:none" id="orderByPrice" />
+        <input asp-for="OrderByYear" style="display:none" id="orderByYear" /> -->
+            <form id="votesForm" method="post"></form>
+            <div class="bookcar-btn bookinput-item">
+                <button onclick="sortByCriteria()">Order</button>
+            </div>
+
+        </div>
+
+        <div class="row content" id="sorted">
+
+            <!-- Car List Content Start -->
+            <div class="col-lg-12">
+                <div class="car-list-content">
+                    <div class="row" id="sortArea">
+                        <!-- Single Car Start -->
+
+                        @foreach (var car in Model.AllCars)
+                        {
+
+                            <div class="col-lg-6 col-md-6">
+                                <div class="single-car-wrap">
+                                    <div class="car-list-thumb">
+                                        <img style="width:600px; height:300px;" src="@car.ImgPath">
+                                    </div>
+                                    <div class="car-list-info without-bar">
+                                        <h2><a href="/Ad/Details/id=@car.Id">@car.Make @car.Model @car.Modification</a></h2>
+                                        <h5>@car.User.NameOfCompany</h5>
+                                        <p>@car.MoreInformation</p>
+                                        <ul class="car-info-list">
+                                            <li>@car.YearOfProduction.ToString("dd.MM.yyyy")</li>
+                                            <li>@car.Fuel</li>
+                                            <li>@car.GearBox</li>
+                                        </ul>
+                                        <p class="price">Price: @car.Price BGN</p>
+                                        <form id="form" method="post"></form>
+
+
+
+                                        <a href="/Ad/Details/id=@car.Id" class="rent-btn">Details</a>
+                                        @if (this.SignInManager.IsSignedIn(this.User))
+                                        {
+                                            <a data-toggle="tooltip" data-placement="top" title="Add to favorite" style="display:inline-block; float:right;" onclick="addToFav('@car.Id')"><img src="~/images/star.png" id="addToFav" class="searchClass"></a>
+                                            <a data-toggle="tooltip" data-placement="top" title="Add for compare" style="display:inline-block; margin-right:10px; float:right;" onclick="addToCompare('@car.Id','@car.Make','@car.Model','@car.ImgPath')"><img src="~/images/compare.png" id="addToFav" class="searchClass"></a>
+                                        }
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <!-- Single Car End -->
+                        <!-- Page Pagination Start -->
+                        <div class="page-pagi">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- Page Pagination End -->
+                    </div>
+                    <!-- Car List Content End -->
+                </div>
+            </div>
+        </div>
+
+    </section>
 </body>
+
+<script>
+    function addToCompare(carId, make, model, imgPath) {
+        $("#myHeader").show();
+        if ($("#firstCar").is(":hidden")) {
+            $("#firstCar").show();
+            $("#firstCarImg").attr("src", imgPath);
+            $("#firstCarMakeModel").text(make + ' ' + model);
+            $("#firstCarInput").val(carId);
+        } else if ($("#secondCar").is(":hidden")) {
+            $("#secondCar").show();
+            $("#secondCarImg").attr("src", imgPath);
+            $("#secondCarMakeModel").text(make + ' ' + model);
+            $("#secondCarInput").val(carId);
+            $("#compareBtn").show();
+        }
+    }
+
+</script>
+<script>
+    function clearComparerList() {
+        $("#firstCarImg").attr("src", "https://via.placeholder.com/180");
+        $("#firstCarMakeModel").text(null);
+        $("#firstCarInput").val(null);
+        $("#secondCarImg").attr("src", "https://via.placeholder.com/180");
+        $("#secondCarMakeModel").text(null);
+        $("#secondCarInput").val(null);
+        $("#firstCar").hide();
+        $("#secondCar").hide();
+        $("#compareBtn").hide();
+        $("#myHeader").hide();
+    }
+</script>
+<style>
+    .header {
+        padding: 50px 16px;
+        color: #f1f1f1;
+        z-index: 9;
+        display: none;
+    }
+
+    /* Page content */
+    .content {
+        padding: 16px;
+    }
+
+    /* The sticky class is added to the header with JS when it reaches its scroll position */
+    .sticky {
+        position: fixed;
+        top: 40px;
+    }
+
+        /* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+        .sticky + .content {
+            padding-top: 180px;
+            
+        }
+</style>
 <script>
     function addToFav(carId) {
         console.log(carId);
@@ -126,9 +210,9 @@
             success: function (data) {
                 console.log(data["output"]);
                 if (data["output"] == "already added") {
-                console.log(data);
+                    console.log(data);
 
-                $("#addedAd").show().delay(3000).fadeOut();
+                    $("#addedAd").show().delay(3000).fadeOut();
                 }
             }
         });
@@ -192,5 +276,23 @@
 
                 }
         });
+    }
+</script>
+<script>
+    window.onscroll = function () { myFunction() };
+
+    // Get the header
+    var header = document.getElementById("myHeader");
+
+    // Get the offset position of the navbar
+    var sticky = header.offsetTop;
+
+    // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+    function myFunction() {
+        if (window.pageYOffset > sticky) {
+            header.classList.add("sticky");
+        } else {
+            header.classList.remove("sticky");
+        }
     }
 </script>

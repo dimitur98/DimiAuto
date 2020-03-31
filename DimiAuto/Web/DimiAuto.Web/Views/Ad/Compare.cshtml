@@ -1,0 +1,274 @@
+﻿@model DimiAuto.Web.ViewModels.Ad.CompareAds.ChoosenCarsForCompareViewModel
+@{
+    ViewData["Title"] = "Compare";
+    Layout = "/Views/MyAccount/_MyAccountLayout.cshtml";
+}
+
+<div class="main-container col1-layout wow bounceInUp animated animated" style="visibility: visible;">
+
+    <div class="main">
+        <div class="container">
+            <div class="b-compare-images">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12 col-md-offset-3">
+                        <div>
+                            <h3>@Model.FirstCar.Make @Model.FirstCar.Model @Model.FirstCar.Modification</h3>
+                            <img src="@Model.FirstCar.ImgPath" alt="image">
+                            <div class="b-compare-price"><div class="b-compare__images-item-price-vs">vs</div>@Model.FirstCar.Price BGN</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-12 ">
+                        <div>
+                            <h3>@Model.SecondCar.Make @Model.SecondCar.Model @Model.SecondCar.Modification</h3>
+                            <img src="@Model.SecondCar.ImgPath" alt="image">
+                            </div><div class="b-compare-price">@Model.SecondCar.Price BGN</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="b-compare-block">
+                <h2 style="background: #50b2fc;">Basic Information</h2>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-title">
+                            Year
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.FirstCar.YearOfProduction
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.SecondCar.YearOfProduction
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-title">
+                            Color
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.FirstCar.Color
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.SecondCar.Color
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-title">
+                            Doors
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.FirstCar.Door
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.SecondCar.Door
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-title">
+                            Kilometers
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.FirstCar.Km km.
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.SecondCar.Km km.
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-title">
+                            Type
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.FirstCar.Type
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.SecondCar.Type
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-title">
+                            Condition
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.FirstCar.Condition
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.SecondCar.Condition
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="b-compare-block">
+                <h2>MECHANICAL FEATURES</h2>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-title">
+                            Horsepowers
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.FirstCar.Horsepowers
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.FirstCar.Horsepowers
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-title">
+                            Cc(Cubic centimeters)
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.FirstCar.Cc
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.SecondCar.Cc
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-title">
+                            Fuel
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.FirstCar.Fuel
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.SecondCar.Fuel
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-title">
+                            Gearbox
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.FirstCar.Gearbox
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-value">
+                            @Model.SecondCar.Gearbox
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+            <div class="b-compare-block">
+                <h2 style="background-color: #3e6274;">Extras</h2>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="b-compare__block-inside-title">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        @if (Model.FirstCar.Extras == null)
+                        {
+                            <div class="b-compare__block-inside-value">
+                                There are no choosen extras for this car.
+                            </div>
+                        }
+                        else
+                        {
+                            @foreach (var extra in Model.FirstCar.Extras)
+                            {
+                                <div class="b-compare__block-inside-value">
+                                    @extra
+                                </div>
+                            }
+                        }
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        @if (Model.FirstCar.Extras == null)
+                        {
+                            <div class="b-compare__block-inside-value">
+                                There are no choosen extras for this car.
+                            </div>
+                        }
+                        else
+                        {
+                            @foreach (var extra in Model.SecondCar.Extras)
+                            {
+                                <div class="b-compare__block-inside-value">
+                                    @extra
+                                </div>
+                            }
+                        }
+                    </div>
+                    
+                </div>
+                                
+            </div>
+        <a href="/Home/All" class="button">Back to ads</a>
+
+
+        </div>
+    </div><!--main-container-->
+
+</div> <!--col1-layout-->

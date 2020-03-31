@@ -1,6 +1,7 @@
 ﻿namespace DimiAuto.Web.Controllers
 {
     using System;
+    using System.Collections;
     using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
@@ -14,12 +15,16 @@
     using HtmlAgilityPack;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using System.Collections;
+    using System.Web;
+    
 
     public class HomeController : BaseController
     {
         private readonly IHomeService homeService;
         private readonly ISearchService searchService;
         private readonly UserManager<ApplicationUser> userManager;
+      
 
         public HomeController(IHomeService homeService, ISearchService searchService, UserManager<ApplicationUser> userManager)
         {
@@ -47,7 +52,8 @@
 
         public async Task<IActionResult> All()
         {
-            var result = new AllCarsViewModel
+            
+            var result = new AllCarsModel
             {
                 AllCars = await this.homeService.GetAllAdsAsync(),
             };
@@ -59,7 +65,6 @@
         public async Task<IActionResult> AllByCriteria(string id, SearchInputModel input)
         {
             var user = await this.userManager.GetUserAsync(this.User);
-
             if (id != null)
             {
                 var searchModel = await this.searchService.GetSearchModelByIdAsync(id.Substring(3));
@@ -87,7 +92,7 @@
             }
             var ads = await this.homeService.GetAdsByCriteriaAsync(input);
             
-            var result = new AllCarsViewModel
+            var result = new AllCarsModel
             {
                 AllCars = ads,
             };

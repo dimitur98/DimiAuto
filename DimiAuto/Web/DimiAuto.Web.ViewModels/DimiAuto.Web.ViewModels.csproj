@@ -16,6 +16,7 @@
     <PackageReference Include="Cloudinary.Core" Version="1.31.0" />
     <PackageReference Include="jQuery.Validation" Version="1.19.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -24,6 +25,12 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\DimiAuto.Data.Models\DimiAuto.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\DimiAuto.Services.Mapping\DimiAuto.Services.Mapping.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Ad\CarDetailsModel.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
 
 </Project>

@@ -141,7 +141,7 @@ namespace DimiAuto.Web.Controllers
                 };
                 cars.Add(car);
             }
-            var output = new AllCarsViewModel
+            var output = new AllCarsModel
             {
                 AllCars = cars,
             };

@@ -26,7 +26,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult<AllCarsViewModel>> Sort(SortInputModel input)
+        public async Task<ActionResult<AllCarsModel>> Sort(SortInputModel input)
         {
             
             var ads = await this.homeService.GetAllAdsAsync();
@@ -75,11 +75,11 @@
             //    };
             //    a.Add(b);
             //}
-            //AllCarsViewModel result = new AllCarsViewModel
+            //AllCarsModel result = new AllCarsModel
             //{
             //    AllCars = ads,
             //};
-            return new AllCarsViewModel { AllCars = ads };
+            return new AllCarsModel { AllCars = ads };
         }
     }
 }

@@ -12,6 +12,7 @@
     using DimiAuto.Services.Mapping;
     using DimiAuto.Web.ViewModels.Ad;
     using DimiAuto.Web.ViewModels.Ad.Comment;
+    using DimiAuto.Web.ViewModels.Ad.CompareAds;
     using FinalProject.Models.CarModel;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -82,7 +83,7 @@
                     User = car.User,
                     UserId = car.UserId,
                     Views = car.Views,
-                    YearOfProduction = car.YearOfProduction.ToString("dd.MM.yyyy"),
+                    YearOfProduction = car.YearOfProduction.ToString("MM.yyyy"),
                     Comments = await this.commentService.GetComments<CarCommentViewModel>(car.Id),
                     IsApproved = car.IsApproved,
                     IsDeleted = car.IsDeleted,
@@ -163,6 +164,57 @@
                 YearOfProduction = car.YearOfProduction,
             };
             return this.Redirect("/MyAccount/MyAccount");
+        }
+
+        public async Task<IActionResult> Compare(AllCarsModel input)
+        {
+            var firstCar = await this.adService.GetCurrentCarAsync(input.CompareCarsInputModel.FirstCarId);
+            var secondCar = await this.adService.GetCurrentCarAsync(input.CompareCarsInputModel.SecondCarId);
+
+            var output = new ChoosenCarsForCompareViewModel
+            {
+                FirstCar = new ComparedCarViewModel
+                {
+                    Cc = firstCar.Cc,
+                    Color = firstCar.Color,
+                    Door = firstCar.Door,
+                    EuroStandart = firstCar.EuroStandart,
+                    Extras = firstCar.Extras.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList(),
+                    Fuel = firstCar.Fuel,
+                    Gearbox = firstCar.Gearbox,
+                    Horsepowers = firstCar.Horsepowers,
+                    ImgPath = firstCar.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).First().ToString(),
+                    Km = firstCar.Km,
+                    Make = firstCar.Make,
+                    Model = firstCar.Model,
+                    Modification = firstCar.Modification,                   
+                    Price = firstCar.Price,
+                    Type = firstCar.Type,
+                    Condition = firstCar.Condition,
+                    YearOfProduction = firstCar.YearOfProduction.ToString("MM.yyyy"),
+                },
+                SecondCar = new ComparedCarViewModel
+                {
+                    Cc = secondCar.Cc,
+                    Color = secondCar.Color,
+                    Door = secondCar.Door,
+                    EuroStandart = secondCar.EuroStandart,
+                    Extras = secondCar.Extras.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList(),
+                    Fuel = secondCar.Fuel,
+                    Gearbox = secondCar.Gearbox,
+                    Horsepowers = secondCar.Horsepowers,
+                    ImgPath = secondCar.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).First().ToString(),
+                    Km = secondCar.Km,
+                    Make = secondCar.Make,
+                    Model = secondCar.Model,
+                    Modification = secondCar.Modification,
+                    Price = secondCar.Price,
+                    Type = secondCar.Type,
+                    Condition = secondCar.Condition,
+                    YearOfProduction = secondCar.YearOfProduction.ToString("MM.yyyy"),
+                },
+            };
+            return this.View(output);
         }
     }
 }
