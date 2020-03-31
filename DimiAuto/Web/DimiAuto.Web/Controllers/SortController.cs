@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using DimiAuto.Data.Common.Repositories;
     using DimiAuto.Models.CarModel;
     using DimiAuto.Services.Data;
@@ -28,7 +29,6 @@
         [HttpPost]
         public async Task<ActionResult<AllCarsModel>> Sort(SortInputModel input)
         {
-            
             var ads = await this.homeService.GetAllAdsAsync();
             if (input.OrderByYear == "1")
             {
@@ -47,9 +47,10 @@
             {
                 ads = ads.OrderByDescending(x => x.Price).ToList();
             }
-            //var a = new List<CarAdsViewModel>();
-            //foreach (var x in ads)
-            //{
+
+            // var a = new List<CarAdsViewModel>();
+            // foreach (var x in ads)
+            // {
             //    var b = new CarAdsViewModel
             //    {
             //        Id = x.Id,
@@ -74,11 +75,11 @@
             //        Condition = x.Condition,
             //    };
             //    a.Add(b);
-            //}
-            //AllCarsModel result = new AllCarsModel
-            //{
+            // }
+            // AllCarsModel result = new AllCarsModel
+            // {
             //    AllCars = ads,
-            //};
+            // };
             return new AllCarsModel { AllCars = ads };
         }
     }

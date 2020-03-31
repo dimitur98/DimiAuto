@@ -1,5 +1,5 @@
 ﻿@model DimiAuto.Web.ViewModels.Ad.AllCarsModel
-
+@using DimiAuto.Web.ViewModels.Home
 @using DimiAuto.Common;
 @using Microsoft.AspNetCore.Identity
 @using DimiAuto.Data.Models
@@ -12,7 +12,7 @@
 }
 
 
-<body onload="checkImg()">
+<body onload="checkValue()">
 
     <section id="car-list-area" class="section-padding">
 
@@ -44,31 +44,45 @@
         </div>
         <div class="book-ur-car ">
 
+            <form id="votesForm" asp-controller="Home" asp-action="Sort" method="get">
 
-            <div class="pick-location bookinput-item">
-                <select class="custom-select" id="orderByYeare">
-                    <option selected>Year</option>
-                    <option value="1">New</option>
-                    <option value="2">Old</option>
-                </select>
-            </div>
+                <div class="pick-location bookinput-item">
 
-            <div class="pick-location bookinput-item">
-                <select class="custom-select" id="orderByPricee">
-                    <option selected>Price</option>
-                    <option value="1">Descending</option>
-                    <option value="2">Ascending</option>
-                </select>
-            </div>
-            <!--<input asp-for="OrderByPrice" style="display:none" id="orderByPrice" />
-        <input asp-for="OrderByYear" style="display:none" id="orderByYear" /> -->
-            <form id="votesForm" method="post"></form>
-            <div class="bookcar-btn bookinput-item">
-                <button onclick="sortByCriteria()">Order</button>
-            </div>
+                    <select class="custom-select" id="orderByYearSelect" onchange="stopDropdown()">
+                        <option value="0" selected>Order by year</option>
+                        <option value="1">New</option>
+                        <option value="2">Old</option>
+                    </select>
+                </div>
 
+                <div class="pick-location bookinput-item" >
+                    <select class="custom-select" id="orderByPriceSelect" onchange="stopDropdown()">
+                        <option value="0" selected>Order by price</option>
+                        <option value="1">Descending</option>
+                        <option value="2">Ascending</option>
+                    </select>
+                </div>
+                <input asp-for="SortInputModel.OrderByPrice" style="display:none" id="orderByPrice" />
+                <input asp-for="SortInputModel.OrderByYear" style="display:none" id="orderByYear" />
+                @if (Model.SortInputModel != null)
+                {
+                    <input asp-for="SortInputModel.SearchInputModel.Condition" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Condition)" />
+                    <input asp-for="SortInputModel.SearchInputModel.Fuel" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Fuel)" />
+                    <input asp-for="SortInputModel.SearchInputModel.GearBox" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).GearBox)" />
+                    <input asp-for="SortInputModel.SearchInputModel.Make" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Make)" />
+                    <input asp-for="SortInputModel.SearchInputModel.Model" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Model)" />
+                    <input asp-for="SortInputModel.SearchInputModel.PriceFrom" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).PriceFrom)" />
+                    <input asp-for="SortInputModel.SearchInputModel.PriceTo" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).PriceTo)" />
+                    <input asp-for="SortInputModel.SearchInputModel.TypeOfVeichle" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).TypeOfVeichle)" />
+                    <input asp-for="SortInputModel.SearchInputModel.YearFrom" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).YearFrom)" />
+                    <input asp-for="SortInputModel.SearchInputModel.YearTo" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).YearTo)" />
+                }
+
+                <div class="bookcar-btn bookinput-item">
+                    <button onclick="getValue()" type="submit">Order</button>
+                </div>
+            </form>
         </div>
-
         <div class="row content" id="sorted">
 
             <!-- Car List Content Start -->
@@ -80,7 +94,7 @@
                         @foreach (var car in Model.AllCars)
                         {
 
-                            <div class="col-lg-6 col-md-6">
+                            <div class="col-lg-6 col-md-6" onload="loadModel('@car.Id')">
                                 <div class="single-car-wrap">
                                     <div class="car-list-thumb">
                                         <img style="width:600px; height:300px;" src="@car.ImgPath">
@@ -138,6 +152,24 @@
 </body>
 
 <script>
+    function stopDropdown() {
+        console.log($('#orderByPriceSelect').val());
+        if ($('#orderByYearSelect').val() != 0) {
+            $("#orderByPriceSelect").attr("disabled", "disabled");
+        } else if ($('#orderByYearSelect').val() == 0) {
+            $("#orderByPriceSelect").attr("disabled", null);
+        }
+        if ($('#orderByPriceSelect').val() != 0) {
+            console.log("a");
+            $("#orderByYearSelect").attr("disabled", "disabled");
+        } else if ($('#orderByPriceSelect').val() == 0) {
+            $("#orderByYearSelect").attr("disabled", null);
+        }
+
+    }
+</script>
+
+<script>
     function addToCompare(carId, make, model, imgPath) {
         $("#myHeader").show();
         if ($("#firstCar").is(":hidden")) {
@@ -151,6 +183,7 @@
             $("#secondCarMakeModel").text(make + ' ' + model);
             $("#secondCarInput").val(carId);
             $("#compareBtn").show();
+
         }
     }
 
@@ -191,7 +224,6 @@
         /* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
         .sticky + .content {
             padding-top: 180px;
-            
         }
 </style>
 <script>
@@ -240,8 +272,8 @@
 
 <script>
     function getValue() {
-        var orderByPrice = document.getElementById("orderByPricee");
-        var orderByYear = document.getElementById("orderByYeare");
+        var orderByPrice = document.getElementById("orderByPriceSelect");
+        var orderByYear = document.getElementById("orderByYearSelect");
         var value = orderByPrice.options[orderByPrice.selectedIndex].value;
         var secValue = orderByYear.options[orderByYear.selectedIndex].value;
 
@@ -251,12 +283,19 @@
 
 </script>
 
+<script>
 
+    function checkValue() {
+
+        console.log("shit");
+        console.log($("#a").val());
+    }
+</script>
 
 <script>
     function sortByCriteria() {
-        var orderByPrice = document.getElementById("orderByPricee").value;
-        var orderByYear = document.getElementById("orderByYeare").value;
+        var orderByPrice = document.getElementById("orderByPriceSelect").value;
+        var orderByYear = document.getElementById("orderByYearSelect").value;
         var token = $("#votesForm input[name=__RequestVerificationToken]").val();
         var json = { orderByPrice: orderByPrice, orderByYear: orderByYear };
         var output = "";
@@ -272,9 +311,9 @@
                 console.log(data.allCars);
                 $.each(data.allCars, function (i, item) {
 
-                }
+                });
 
-                }
+            }
         });
     }
 </script>

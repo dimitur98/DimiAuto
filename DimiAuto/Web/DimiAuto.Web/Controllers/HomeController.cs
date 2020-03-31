@@ -5,6 +5,8 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Web;
+
     using AutoMapper;
     using DimiAuto.Data.Models;
     using DimiAuto.Services.Data;
@@ -12,19 +14,16 @@
     using DimiAuto.Web.ViewModels;
     using DimiAuto.Web.ViewModels.Ad;
     using DimiAuto.Web.ViewModels.Home;
+    using DimiAuto.Web.ViewModels.Sort;
     using HtmlAgilityPack;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using System.Collections;
-    using System.Web;
-    
 
     public class HomeController : BaseController
     {
         private readonly IHomeService homeService;
         private readonly ISearchService searchService;
         private readonly UserManager<ApplicationUser> userManager;
-      
 
         public HomeController(IHomeService homeService, ISearchService searchService, UserManager<ApplicationUser> userManager)
         {
@@ -52,24 +51,23 @@
 
         public async Task<IActionResult> All()
         {
-            
             var result = new AllCarsModel
             {
                 AllCars = await this.homeService.GetAllAdsAsync(),
             };
-            
-
             return this.View(result);
         }
 
         public async Task<IActionResult> AllByCriteria(string id, SearchInputModel input)
         {
+            this.ViewData["searchModel"] = input as SearchInputModel;
             var user = await this.userManager.GetUserAsync(this.User);
             if (id != null)
             {
                 var searchModel = await this.searchService.GetSearchModelByIdAsync(id.Substring(3));
-                //input = new SearchInputModel
-                //{
+
+                // input = new SearchInputModel
+                // {
                 //    Condition = searchModel.Condition,
                 //    Fuel = searchModel.Fuel,
                 //    GearBox = searchModel.GearBox,
@@ -80,7 +78,7 @@
                 //    TypeOfVeichle = searchModel.TypeOfVeichle,
                 //    YearFrom = searchModel.YearFrom,
                 //    YearTo = searchModel.YearTo,
-                //};
+                // };
                 input = AutoMapperConfig.MapperInstance.Map<SearchInputModel>(searchModel);
             }
             else
@@ -90,14 +88,48 @@
                     await this.searchService.SaveSearchModelAsync(user.Id, input);
                 }
             }
+
             var ads = await this.homeService.GetAdsByCriteriaAsync(input);
-            
+
             var result = new AllCarsModel
             {
                 AllCars = ads,
+                SortInputModel = new SortInputModel(),
             };
 
             return this.View("All", result);
+        }
+
+        public async Task<IActionResult> Sort(AllCarsModel input)
+        {
+            var ads = await this.homeService.GetAdsByCriteriaAsync(input.SortInputModel.SearchInputModel);
+            this.ViewData["searchModel"] = input.SortInputModel.SearchInputModel as SearchInputModel;
+
+            if (input.SortInputModel.OrderByYear == "1")
+            {
+                ads = ads.OrderBy(x => x.YearOfProduction).ToList();
+            }
+            else if (input.SortInputModel.OrderByPrice == "2")
+            {
+                ads = ads.OrderByDescending(x => x.YearOfProduction).ToList();
+            }
+
+            else if (input.SortInputModel.OrderByPrice == "2")
+            {
+                ads = ads.OrderBy(x => x.Price).ToList();
+            }
+            else if (input.SortInputModel.OrderByPrice == "1")
+            {
+                ads = ads.OrderByDescending(x => x.Price).ToList();
+            }
+
+            var output = new AllCarsModel
+            {
+                AllCars = ads,
+                SortInputModel = new SortInputModel(),
+
+            };
+            return this.View("All", output);
         }
     }
 }

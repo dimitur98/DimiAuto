@@ -1,21 +1,22 @@
-﻿using DimiAuto.Common;
-using DimiAuto.Data.Models;
-using DimiAuto.Services.Data;
-using DimiAuto.Web.ViewModels.Ad;
-using DimiAuto.Web.ViewModels.FavoriteAds;
-using DimiAuto.Web.ViewModels.Img;
-using DimiAuto.Web.ViewModels.MyAccount;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-
-namespace DimiAuto.Web.Controllers
+﻿namespace DimiAuto.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
+    using DimiAuto.Common;
+    using DimiAuto.Data.Models;
+    using DimiAuto.Services.Data;
+    using DimiAuto.Web.ViewModels.Ad;
+    using DimiAuto.Web.ViewModels.FavoriteAds;
+    using DimiAuto.Web.ViewModels.Img;
+    using DimiAuto.Web.ViewModels.MyAccount;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+
     public class MyAccountController : Controller
     {
         private readonly IMyAccountService myAccountService;
@@ -71,6 +72,7 @@ namespace DimiAuto.Web.Controllers
             {
                 return this.View(input);
             }
+
             var user = await this.userManager.GetUserAsync(this.User);
             user.FirstName = input.FirstName;
             user.LastName = input.LastName;
@@ -80,8 +82,8 @@ namespace DimiAuto.Web.Controllers
             if (input.NameOfCompany != GlobalConstants.PrivatePerson)
             {
                 user.NameOfCompany = input.NameOfCompany;
-
             }
+
             await this.userManager.UpdateAsync(user);
             return this.RedirectToAction("MyAccount");
         }
@@ -141,6 +143,7 @@ namespace DimiAuto.Web.Controllers
                 };
                 cars.Add(car);
             }
+
             var output = new AllCarsModel
             {
                 AllCars = cars,
