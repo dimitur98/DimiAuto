@@ -3,6 +3,7 @@ namespace DimiAuto.Data.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using DimiAuto.Common;
     using DimiAuto.Data.Common.Models;
     using DimiAuto.Models.CarModel;
@@ -16,7 +17,6 @@ namespace DimiAuto.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
-            this.Role = Role.User;
             this.NameOfCompany = "Private person";
             this.UserImg = GlobalConstants.DefaultImgAvatar;
         }
@@ -31,23 +31,31 @@ namespace DimiAuto.Data.Models
 
         public string UserImg { get; set; }
 
+        [Required]
+        [StringLength(GlobalConstants.AdressMaxLenght)]
         public string Adress { get; set; }
 
+        [Required]
+        [StringLength(GlobalConstants.NameMaxLenght)]
         public string FirstName { get; set; }
 
+        [Required]
+        [StringLength(GlobalConstants.NameMaxLenght)]
         public string LastName { get; set; }
 
+        [Required]
+        [StringLength(GlobalConstants.CityLenght)]
         public string City { get; set; }
 
+        [StringLength(GlobalConstants.NameOfCompanyLenght)]
         public string? NameOfCompany { get; set; }
 
         public string? Bulstad { get; set; }
 
         public string? TelephoneForCustomers { get; set; }
 
+        [StringLength(GlobalConstants.NameOfPageLenght)]
         public string? NameOfThePage { get; set; }
-
-        public Role Role { get; set; }
 
         public DateTime? DeletedOn { get; set; }
 

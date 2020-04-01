@@ -2,6 +2,7 @@
 using DimiAuto.Data.Models.CarModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace DimiAuto.Data.Models
@@ -33,8 +34,8 @@ namespace DimiAuto.Data.Models
 
         public TypeOfVeichle TypeOfVeichle { get; set; }
 
+        [Required]
         public string UserId { get; set; }
 
-        
     }
 }

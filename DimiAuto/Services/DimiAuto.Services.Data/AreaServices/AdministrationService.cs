@@ -22,8 +22,6 @@ namespace DimiAuto.Services.Data.AreaServices
             this.commentRepository = commentRepository;
         }
 
-     
-
         public async Task ApproveAsync(string carId)
         {
             var car = await this.carRepository.All().FirstOrDefaultAsync(x => x.Id == carId);

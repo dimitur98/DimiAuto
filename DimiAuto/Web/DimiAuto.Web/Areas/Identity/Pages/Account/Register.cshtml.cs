@@ -18,6 +18,8 @@ namespace DimiAuto.Web.Areas.Identity.Pages.Account
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
     using Microsoft.Extensions.Logging;
+    using DimiAuto.Common;
+
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
@@ -106,6 +108,7 @@ namespace DimiAuto.Web.Areas.Identity.Pages.Account
                 var result = await this._userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
                 {
+                    await this._userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
                     this._logger.LogInformation("User created a new account with password.");
 
                     var code = await this._userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -131,7 +134,7 @@ namespace DimiAuto.Web.Areas.Identity.Pages.Account
                 }
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    this.ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 

@@ -13,5 +13,27 @@
         public const string DefaultImgCar = "https://via.placeholder.com/180";
 
         public const string DefaultImgAvatar = "https://via.placeholder.com/200";
+
+        public const string UserRoleName = "User";
+
+        public const int CommentTitleLenght = 15;
+
+        public const int CarModelLenght = 20;
+
+        public const int CarLocationLenght = 50;
+
+        public const int YearRangeMin = 1900;
+
+        public const int YearRangeMax = 2050;
+
+        public const int AdressMaxLenght = 50;
+
+        public const int NameMaxLenght = 15;
+
+        public const int CityLenght = 20;
+
+        public const int NameOfPageLenght = 20;
+
+        public const int NameOfCompanyLenght = 20;
     }
 }

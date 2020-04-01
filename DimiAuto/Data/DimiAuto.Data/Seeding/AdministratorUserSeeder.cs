@@ -19,7 +19,7 @@
 
 
             var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
-            var user = await userManager.FindByNameAsync("AdminUser");
+            var user = await userManager.FindByNameAsync("AdminUser@admin.bg");
             if (user != null)
             {
                 return;
@@ -28,7 +28,7 @@
             await userManager.CreateAsync(
                 new ApplicationUser
                 {
-                    UserName = "AdminUser",
+                    UserName = "AdminUser@admin.bg",
                     Email = "AdminUser@admin.bg",
                     Adress = "Lulin 10",
                     City = "Sofia",

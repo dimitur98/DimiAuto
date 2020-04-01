@@ -14,6 +14,7 @@
     using DimiAuto.Services.Mapping;
     using DimiAuto.Common;
     using DimiAuto.Data;
+    using DimiAuto.Data.Repositories;
 
     [Authorize(Roles = "Administrator")]
     [Area("Administration")]
@@ -22,12 +23,16 @@
         private readonly IAdministrationService administrationService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ApplicationDbContext dbContext;
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
+        private readonly RoleManager<ApplicationRole> roleManager;
 
-        public AdministrationController(IAdministrationService administrationService, UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext)
+        public AdministrationController(IAdministrationService administrationService, UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext, IDeletableEntityRepository<ApplicationUser> userRepository, RoleManager<ApplicationRole> roleManager)
         {
             this.administrationService = administrationService;
             this.userManager = userManager;
             this.dbContext = dbContext;
+            this.userRepository = userRepository;
+            this.roleManager = roleManager;
         }
         public async Task<IActionResult> AllAds()
         {
@@ -40,8 +45,8 @@
 
         public async Task<IActionResult> AllUsers()
         {
-            var users = await this.userManager.Users.Where(x => x.Roles.Count == 0).To<UserViewModel>().ToListAsync();
-
+            var administratorRoleId = this.roleManager.FindByNameAsync(GlobalConstants.AdministratorRoleName).Id.ToString();
+            var users = await this.userRepository.AllWithDeleted().Where(x => x.Roles.Any(x => x.RoleId != administratorRoleId)).To<UserViewModel>().ToListAsync();
             var result = new AllUsersViewModel
             {
                 Users = users,
