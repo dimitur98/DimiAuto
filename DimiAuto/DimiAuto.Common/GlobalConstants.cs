@@ -35,5 +35,9 @@
         public const int NameOfPageLenght = 20;
 
         public const int NameOfCompanyLenght = 20;
+
+        public const string AdminUser = "AdminUser@admin.bg";
+
+        public const string NoCompanyUser = "Private person";
     }
 }

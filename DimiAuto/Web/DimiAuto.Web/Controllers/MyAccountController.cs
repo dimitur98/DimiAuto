@@ -13,10 +13,12 @@
     using DimiAuto.Web.ViewModels.FavoriteAds;
     using DimiAuto.Web.ViewModels.Img;
     using DimiAuto.Web.ViewModels.MyAccount;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     public class MyAccountController : Controller
     {
         private readonly IMyAccountService myAccountService;
@@ -32,7 +34,6 @@
             this.imgService = imgService;
         }
 
-        [Route("/MyAccount/MyAccount", Name = "MyAccount")]
         public async Task<IActionResult> MyAccount()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -46,8 +47,6 @@
             };
             return this.View(result);
         }
-
-        [Route("/MyAccount/AccountInfo", Name = "AccountInfo")]
 
         public async Task<IActionResult> AccountInfo()
         {
@@ -88,8 +87,6 @@
             return this.RedirectToAction("MyAccount");
         }
 
-        [Route("/MyAccount/ChangeAvatar", Name = "ChangeAvatar")]
-
         public async Task<IActionResult> ChangeAvatar()
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -111,10 +108,10 @@
             var result = await this.imgService.UploadImgsAsync(input);
             user.UserImg = result.First();
             await this.userManager.UpdateAsync(user);
-            return this.RedirectToAction("MyAccount");
+            return this.Redirect("MyAccount");
         }
 
-        [Route("/MyAccount/Favorites", Name = "Favorites")]
+       
 
         public async Task<IActionResult> Favorites()
         {

@@ -17,17 +17,12 @@ namespace DimiAuto.Data.Models
             this.Id = Guid.NewGuid().ToString();
         }
 
-        [Required]
-        [StringLength(GlobalConstants.CommentTitleLenght)]
-        public string Title { get; set; }
 
-        [Required]
+        public string Title { get; set; }
         public string Content { get; set; }
 
-        [Required]
         public string UserId { get; set; }
 
-        [Required]
         public string CarId { get; set; }
 
     }

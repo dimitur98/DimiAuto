@@ -19,7 +19,9 @@
     using Microsoft.AspNetCore.Identity;
     using DimiAuto.Data.Models;
     using System.Security.Claims;
+    using Microsoft.AspNetCore.Authorization;
 
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ImgDeleteController : Controller

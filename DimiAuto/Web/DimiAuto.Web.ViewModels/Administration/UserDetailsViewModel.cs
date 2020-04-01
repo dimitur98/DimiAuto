@@ -25,5 +25,13 @@ namespace DimiAuto.Web.ViewModels.Administration
         public bool IsDeleted { get; set; }
 
         public string Statuse => this.IsDeleted ? "Deleted" : "Not deleted";
+
+        public string Email { get; set; }
+
+        public string ImgPath { get; set; }
+
+        public string PhoneForCustomers { get; set; }
+
+        public string Bulstad { get; set; }
     }
 }

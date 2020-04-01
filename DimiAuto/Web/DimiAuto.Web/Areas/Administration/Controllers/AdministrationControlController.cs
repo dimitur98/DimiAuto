@@ -2,27 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DimiAuto.Data.Common.Models;
+using DimiAuto.Data.Common.Repositories;
 using DimiAuto.Data.Models;
 using DimiAuto.Services.Data.AreaServices;
 using DimiAuto.Web.ViewModels.Administration.AdministrationControl;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace DimiAuto.Web.Areas.Administration.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     [ApiController]
     [Route("api/administration/[controller]/[action]")]
     public class AdministrationControlController : ControllerBase
     {
         private readonly IAdministrationService administrationService;
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
 
-        public AdministrationControlController(IAdministrationService administrationService, UserManager<ApplicationUser> userManager)
+        public AdministrationControlController(IAdministrationService administrationService, IDeletableEntityRepository<ApplicationUser> userRepository)
         {
             this.administrationService = administrationService;
-            this.userManager = userManager;
+            this.userRepository = userRepository;
         }
 
         [HttpPost]
@@ -59,9 +64,10 @@ namespace DimiAuto.Web.Areas.Administration.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> DeleteUser(AdministrationControlInputModel input)
         {
-            var user = await this.userManager.FindByIdAsync(input.Id);
+            var user = await this.userRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == input.Id);
             user.IsDeleted = true;
-            await this.userManager.UpdateAsync(user);
+            this.userRepository.Update(user);
+            await this.userRepository.SaveChangesAsync();
             return this.Ok(new { output = "Deleted", action = "DeleteUser" });
 
         }
@@ -69,9 +75,10 @@ namespace DimiAuto.Web.Areas.Administration.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> UndeleteUser(AdministrationControlInputModel input)
         {
-            var user = await this.userManager.FindByIdAsync(input.Id);
+            var user = await this.userRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == input.Id);
             user.IsDeleted = false;
-            await this.userManager.UpdateAsync(user);
+            this.userRepository.Update(user);
+            await this.userRepository.SaveChangesAsync();
             return this.Ok(new { output = "Undeleted", action = "UndeleteUser" });
 
         }

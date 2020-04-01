@@ -1,11 +1,12 @@
 ﻿@model DimiAuto.Web.ViewModels.Administration.UserDetailsViewModel
+@using DimiAuto.Common
 
 @{
     ViewData["Title"] = "UserDetails";
 }
 
 
-<div id="page" onload="checkBtns()">
+<body id="page" onload="checkBtns()">
     <section class="main-container col2-right-layout">
         <div class="main container">
             <div class="row">
@@ -15,13 +16,18 @@
                             <div class="page-title">
                                 <h2>View personal info</h2>
                             </div>
+                            <img src="@Model.ImgPath" alt="@GlobalConstants.DefaultImgAvatar" class="img-thumbnail">
+                            <div class="form-group">
+                                <label asp-for="Email">Email</label>
+                                <div class="form-control"> @Model.Email</div>
+                            </div>
                             <div class="form-group">
                                 <label asp-for="FirstName">First name</label>
                                 <div class="form-control">@Model.FirstName</div>
                             </div>
                             <div class="form-group">
                                 <label asp-for="LastName">Last name</label>
-                                <div class="form-control" value="@Model.LastName">@Model.LastName</div>
+                                <div class="form-control">@Model.LastName</div>
                             </div>
                             <div class="form-group">
                                 <label asp-for="City">City</label>
@@ -38,9 +44,19 @@
 
                             <div class="form-group">
                                 <label asp-for="NameOfCompany">Name of company</label>
-                                <div value="@Model.NameOfCompany" class="form-control"></div>
-
+                                <div class="form-control"> @Model.NameOfCompany</div>
                             </div>
+                            @if (@Model.NameOfCompany != GlobalConstants.NoCompanyUser)
+                            {
+                                <div class="form-group">
+                                    <label asp-for="PhoneForCustomers">Phone for customers</label>
+                                    <div class="form-control"> @Model.PhoneForCustomers</div>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Bulstad">Bulstad</label>
+                                    <div class="form-control"> @Model.Bulstad</div>
+                                </div>
+                            }
                         </div>
                         <br>
                         <br>
@@ -49,7 +65,7 @@
                             <form method="post" id="form"></form>
                             <a onclick="admin('@Model.Id','deleteUser')" id="delete" class="btn btn-secondary btn-warning">Delete</a>
                             <a onclick="admin('@Model.Id','undeleteUser')" id="undelete" class="btn btn-secondary ">UnDelete</a>
-                            <div class="btn btn-secondary btn-light" value="@Model.Statuse" id="statuse">@Model.Statuse</div>
+                            <div class="btn btn-secondary btn-light" value="@Model.Statuse" id="statuse">Statuse: @Model.Statuse</div>
 
 
                         </div>
@@ -59,7 +75,7 @@
         </div>
     </section>
 
-</div>
+</body>
 
 <script>
     function admin(input, action) {
@@ -73,7 +89,7 @@
             dataType: "json",
             headers: { 'X-CSRF-TOKEN': token },
             success: function (data) {
-
+                console.log(document.getElementById("statuse").innerHTML);
                 if (data["action"] == "UndeleteUser") {
                     document.getElementById("statuse").innerHTML = "Not deleted";
                     document.getElementById("delete").style.display = "block";
@@ -101,7 +117,5 @@
             document.getElementById("delete").style.display = "block";
             document.getElementById("undelete").style.display = "none";
         }
-
-
     }
 </script>

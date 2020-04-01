@@ -14,11 +14,12 @@ namespace DimiAuto.Web.Controllers
     using DimiAuto.Web.ViewModels.Ad;
     using DimiAuto.Web.ViewModels.Ad.ApiController;
     using DimiAuto.Web.ViewModels.Ad.CompareAds;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-
+    [Authorize]
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class ApiAdController : Controller

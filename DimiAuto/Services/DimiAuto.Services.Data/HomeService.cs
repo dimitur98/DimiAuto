@@ -24,11 +24,14 @@
 
         public async Task<IEnumerable<CarAdsViewModel>> GetAllAdsAsync()
         {
-            var result = await this.carRepository.All().Select(x => new CarAdsViewModel
+            var result = await this.carRepository.All().Where(x => x.IsApproved == true).Select(x => new CarAdsViewModel
             {
                 Id = x.Id,
                 Fuel = x.Fuel,
-                ImgPath = x.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).First().ToString(),
+                ImgPath = x.ImgsPaths
+                            .Split(",", StringSplitOptions.RemoveEmptyEntries)
+                            .First()
+                            .ToString(),
                 Km = x.Km,
                 Make = x.Make,
                 Model = x.Model,

@@ -2,86 +2,95 @@
 @{
     ViewData["Title"] = "ChangeAvatar";
 }
-<body onload="loadImg()">
-    <section class="col-main col-sm-9 col-xs-12 wow bounceInUp animated animated" style="visibility: visible;">
-        <div class="my-account">
-            <div class="box-account">
-                <form runat="server" method="post" id="form" enctype="multipart/form-data" dasp-controller="Files" asp-controller="MyAccount" asp-action="ChangeAvatar">
-                    <div id="pic1">
-                        <br>
-                        <img id="img" src="@Model.ChangeAvatarViewModel.ImgPath" class="defaultImg" alt="your image" />
-                        <br>
-                        <input  asp-for="ImgUploadInputModel.File1" type='file' onchange="readURL(this)" name="File1" id="input" />
-                        <br>
-                        <button id="btnSubmit" type="submit" value="Upload Imgs" class="btn btn-primary">Upload Imgs</button>
-                        <br>
-                        <button onclick="readURL(this);" type="button" id="btn" class="btn btn-outline-secondary">Remove</button>
+    <body onload="loadImg()">
+        <div id="page">
+            <section class="main-container col2-right-layout">
+                <div class="main container">
+                    <div class="row">
+                        <section class="col-main col-sm-9 col-xs-12 wow bounceInUp animated animated" style="visibility: visible;">
+                            <div class="my-account">
+                                <div class="box-account">
+                                    <h3>Choose new profile picture.</h3>
+                                    <form runat="server" method="post" id="form" enctype="multipart/form-data" dasp-controller="Files" asp-controller="MyAccount" asp-action="ChangeAvatar">
+                                        <div id="pic1">
+                                            <br>
+                                            <img id="img" src="@Model.ChangeAvatarViewModel.ImgPath" class="defaultImg" alt="your image" />
+                                            <br>
+                                            <input asp-for="ImgUploadInputModel.File1" type='file' onchange="readURL(this)" name="File1" id="input" />
+                                            <br>
+                                            <button id="btnSubmit" type="submit" value="Upload Imgs" class="btn btn-primary">Upload Imgs</button>
+                                            <br>
+                                            <button onclick="readURL(this);" type="button" id="btn" class="btn btn-outline-secondary">Remove</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </section>
+                        <partial name="_AccountNavPartial" />
                     </div>
-                </form>
-            </div>
+                </div>
+            </section>
         </div>
+        </body>
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
 
-    </section>
-    <partial name="_AccountNavPartial" />
-</body>
-<script>
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#img")
+                            .attr('src', e.target.result);
+                    };
 
-            reader.onload = function (e) {
-                $("#img")
-                    .attr('src', e.target.result);
-            };
+                    reader.readAsDataURL(input.files[0]);
+                    $("#btn").show();
+                    $("#btnSubmit").show();
+                    $("#input").hide();
+                } else {
 
-            reader.readAsDataURL(input.files[0]);
-            $("#btn").show();
-            $("#btnSubmit").show();
-            $("#input").hide();
-        } else {
-
-            deleteAvatar($("#img").attr("src"));
-            $("#input").val(null);
-            $("#img").attr("src", "https://via.placeholder.com/200");
-            $("#btn").hide();
-            $("#btnSubmit").hide();
-            $("#input").show();
+                    deleteAvatar($("#img").attr("src"));
+                    $("#input").val(null);
+                    $("#img").attr("src", "https://via.placeholder.com/200");
+                    $("#btn").hide();
+                    $("#btnSubmit").hide();
+                    $("#input").show();
 
 
-        }
-    }
-</script>
-<script>
-    function loadImg() {
-        var img = $("#img");
-        console.log(img.attr("src"))
-        if (img.attr("src") != "https://via.placeholder.com/200") {
-            $("#btn").show();
-            $("#btnSubmit").hide();
-            $("#input").hide();
-        } else {
-            $("#btn").hide();
-            $("#btnSubmit").hide();
-            $("#input").show();
-        }
-    }
-</script>
-<script>
-    function deleteAvatar(input) {
-        console.log("asd");
-        var token = $("#form input[name=__RequestVerificationToken]").val();
-        var json = { imgToDel: input, carId: null };
-        console.log(json);
-        $.ajax({
-            url: "/api/imgDelete",
-            type: "POST",
-            data: JSON.stringify(json),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            headers: { 'X-CSRF-TOKEN': token },
-            success: function (data) {
-                console.log(data);
+                }
             }
-        });
-    }
-</script>
+        </script>
+        <script>
+            function loadImg() {
+                var img = $("#img");
+                console.log(img.attr("src"))
+                if (img.attr("src") != "https://via.placeholder.com/200") {
+                    $("#btn").show();
+                    $("#btnSubmit").hide();
+                    $("#input").hide();
+                } else {
+                    $("#btn").hide();
+                    $("#btnSubmit").hide();
+                    $("#input").show();
+                }
+            }
+        </script>
+        <script>
+            function deleteAvatar(input) {
+                console.log("asd");
+                var token = $("#form input[name=__RequestVerificationToken]").val();
+                var json = { imgToDel: input, carId: null };
+                console.log(json);
+                $.ajax({
+                    url: "/api/imgDelete",
+                    type: "POST",
+                    data: JSON.stringify(json),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    headers: { 'X-CSRF-TOKEN': token },
+                    success: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+        </script>

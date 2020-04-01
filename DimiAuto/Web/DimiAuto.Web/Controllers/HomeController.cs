@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
@@ -54,6 +55,7 @@
             var result = new AllCarsModel
             {
                 AllCars = await this.homeService.GetAllAdsAsync(),
+                SortInputModel = new SortInputModel(),
             };
             return this.View(result);
         }
@@ -64,21 +66,7 @@
             var user = await this.userManager.GetUserAsync(this.User);
             if (id != null)
             {
-                var searchModel = await this.searchService.GetSearchModelByIdAsync(id.Substring(3));
-
-                // input = new SearchInputModel
-                // {
-                //    Condition = searchModel.Condition,
-                //    Fuel = searchModel.Fuel,
-                //    GearBox = searchModel.GearBox,
-                //    Make = searchModel.Make,
-                //    Model = searchModel.Model,
-                //    PriceFrom = searchModel.PriceFrom,
-                //    PriceTo = searchModel.PriceTo,
-                //    TypeOfVeichle = searchModel.TypeOfVeichle,
-                //    YearFrom = searchModel.YearFrom,
-                //    YearTo = searchModel.YearTo,
-                // };
+                var searchModel = await this.searchService.GetSearchModelByIdAsync(id.Substring(3));                
                 input = AutoMapperConfig.MapperInstance.Map<SearchInputModel>(searchModel);
             }
             else
@@ -94,7 +82,7 @@
             var result = new AllCarsModel
             {
                 AllCars = ads,
-                SortInputModel = new SortInputModel(),
+                SortInputModel = new SortInputModel { SearchInputModel = new SearchInputModel(), },
             };
 
             return this.View("All", result);
@@ -102,8 +90,19 @@
 
         public async Task<IActionResult> Sort(AllCarsModel input)
         {
-            var ads = await this.homeService.GetAdsByCriteriaAsync(input.SortInputModel.SearchInputModel);
-            this.ViewData["searchModel"] = input.SortInputModel.SearchInputModel as SearchInputModel;
+            IEnumerable<CarAdsViewModel> ads;
+            var sortInputModel = new SortInputModel();
+            if (input.SortInputModel.SearchInputModel == null)
+            {
+                ads = await this.homeService.GetAllAdsAsync();
+            }
+            else
+            {
+                ads = await this.homeService.GetAdsByCriteriaAsync(input.SortInputModel.SearchInputModel);
+                this.ViewData["searchModel"] = input.SortInputModel.SearchInputModel as SearchInputModel;
+                sortInputModel.SearchInputModel = new SearchInputModel();
+                
+            }
 
             if (input.SortInputModel.OrderByYear == "1")
             {
@@ -113,7 +112,6 @@
             {
                 ads = ads.OrderByDescending(x => x.YearOfProduction).ToList();
             }
-
             else if (input.SortInputModel.OrderByPrice == "2")
             {
                 ads = ads.OrderBy(x => x.Price).ToList();
@@ -126,7 +124,7 @@
             var output = new AllCarsModel
             {
                 AllCars = ads,
-                SortInputModel = new SortInputModel(),
+                SortInputModel = sortInputModel,
 
             };
             return this.View("All", output);

@@ -7,10 +7,10 @@
             <div class="block-title"> My Account </div>
             <div class="block-content">
                 <ul>
-                    <li class="current"><a asp-route="MyAccount" >Account Dashboard</a></li>
-                    <li><a asp-route="AccountInfo"><span> Account Information</span></a></li>
-                    <li><a asp-route="ChangeAvatar"><span> Change profile picture</span></a></li>
-                    <li><a asp-route="Favorites"><span> Favourite ads</span></a></li>
+                    <li class="current"><a asp-area="" asp-controller="MyAccount" asp-action="MyAccount" >Account Dashboard</a></li>
+                    <li><a asp-area="" asp-controller="MyAccount" asp-action="AccountInfo"><span> Account Information</span></a></li>
+                    <li><a asp-area="" asp-controller="MyAccount" asp-action="ChangeAvatar"><span> Change profile picture</span></a></li>
+                    <li><a asp-area="" asp-controller="MyAccount" asp-action="Favorites"><span> Favourite ads</span></a></li>
 
                     @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                     {

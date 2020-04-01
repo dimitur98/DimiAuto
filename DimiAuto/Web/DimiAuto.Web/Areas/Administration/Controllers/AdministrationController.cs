@@ -45,8 +45,7 @@
 
         public async Task<IActionResult> AllUsers()
         {
-            var administratorRoleId = this.roleManager.FindByNameAsync(GlobalConstants.AdministratorRoleName).Id.ToString();
-            var users = await this.userRepository.AllWithDeleted().Where(x => x.Roles.Any(x => x.RoleId != administratorRoleId)).To<UserViewModel>().ToListAsync();
+            var users = await this.userRepository.AllWithDeleted().To<UserViewModel>().ToListAsync();
             var result = new AllUsersViewModel
             {
                 Users = users,
@@ -56,7 +55,7 @@
 
         public async Task<IActionResult> UserDetails(string id)
         {
-            var user = await this.userManager.FindByIdAsync(id.Substring(3));
+            var user = await this.userRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == id.Substring(3));
             var output = new UserDetailsViewModel
             {
                 Id = user.Id,
@@ -64,8 +63,12 @@
                 City = user.City,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                NameOfCompany = user.LastName,
+                NameOfCompany = user.NameOfCompany,
                 PhoneNumber = user.PhoneNumber,
+                Email = user.Email,
+                ImgPath = user.UserImg,
+                Bulstad = user.Bulstad,
+                PhoneForCustomers = user.TelephoneForCustomers,
             };
             return this.View(output);
         }

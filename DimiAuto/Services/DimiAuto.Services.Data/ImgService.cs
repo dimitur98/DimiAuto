@@ -9,6 +9,7 @@
 
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
+    using DimiAuto.Common;
     using DimiAuto.Data.Common.Repositories;
     using DimiAuto.Data.Models;
     using DimiAuto.Models.CarModel;
@@ -90,7 +91,14 @@
         public async Task AddImgToCurrentAdAsync(string result, string id)
         {
             var car = this.carRepository.All().FirstOrDefault(x => "id=" + x.Id == id);
-            car.ImgsPaths = result;
+            if (car.ImgsPaths == GlobalConstants.DefaultImgCar + ",")
+            {
+                car.ImgsPaths = result;
+            }
+            else
+            {
+                car.ImgsPaths += "," + result; 
+            }
             await this.carRepository.SaveChangesAsync();
         }
 

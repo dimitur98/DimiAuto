@@ -26,7 +26,10 @@
                 @if (this.SignInManager.IsSignedIn(this.User))
                 {
                     <li class="nav-item">
-                        <a class="nav-link text-white" asp-area="" asp-controller="Searchhistory" asp-action="SearchHistoryIndex" title="Search history">Search history</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="SearchHistory" asp-action="SearchHistoryIndex" title="Search history">Search history</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Ad" asp-action="CreateAd" title="Create ad">Create new ad</a>
                     </li>
                 }
                 <li class="nav-item">

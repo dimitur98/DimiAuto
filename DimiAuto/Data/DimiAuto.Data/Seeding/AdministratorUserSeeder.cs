@@ -5,9 +5,12 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-
+    using DimiAuto.Common;
+    using DimiAuto.Data.Common.Repositories;
     using DimiAuto.Data.Models;
+    using DimiAuto.Data.Repositories;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
 
     public class AdministratorUserSeeder : ISeeder
@@ -17,9 +20,9 @@
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
 
-
+            var userRepository = serviceProvider.GetService<IDeletableEntityRepository<ApplicationUser>>();
             var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
-            var user = await userManager.FindByNameAsync("AdminUser@admin.bg");
+            var user = await userRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Email == GlobalConstants.AdminUser);
             if (user != null)
             {
                 return;

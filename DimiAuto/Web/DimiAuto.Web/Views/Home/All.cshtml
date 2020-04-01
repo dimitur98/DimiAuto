@@ -64,7 +64,7 @@
                 </div>
                 <input asp-for="SortInputModel.OrderByPrice" style="display:none" id="orderByPrice" />
                 <input asp-for="SortInputModel.OrderByYear" style="display:none" id="orderByYear" />
-                @if (Model.SortInputModel != null)
+                @if (Model.SortInputModel.SearchInputModel != null)
                 {
                     <input asp-for="SortInputModel.SearchInputModel.Condition" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Condition)" />
                     <input asp-for="SortInputModel.SearchInputModel.Fuel" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Fuel)" />
@@ -96,15 +96,15 @@
 
                             <div class="col-lg-6 col-md-6" onload="loadModel('@car.Id')">
                                 <div class="single-car-wrap">
-                                    <div class="car-list-thumb">
-                                        <img style="width:600px; height:300px;" src="@car.ImgPath">
+                                    <div class="car-list-thumb">                                     
+                                            <img style="width:600px; height:300px;" src="@car.ImgPath">                                       
                                     </div>
                                     <div class="car-list-info without-bar">
                                         <h2><a href="/Ad/Details/id=@car.Id">@car.Make @car.Model @car.Modification</a></h2>
                                         <h5>@car.User.NameOfCompany</h5>
                                         <p>@car.MoreInformation</p>
                                         <ul class="car-info-list">
-                                            <li>@car.YearOfProduction.ToString("dd.MM.yyyy")</li>
+                                            <li>@car.YearOfProduction.ToString("MM.yyyy")</li>
                                             <li>@car.Fuel</li>
                                             <li>@car.GearBox</li>
                                         </ul>

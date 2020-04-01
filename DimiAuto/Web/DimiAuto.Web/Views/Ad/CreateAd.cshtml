@@ -20,7 +20,7 @@
             <label asp-for="Type"></label>
             <select asp-for="Type" class="form-control" asp-items="@Html.GetEnumSelectList<Types>()"></select>
         </div>
-        
+
         <div class="form-group">
             <label asp-for="Condition"></label>
             <select asp-for="Condition" class="form-control" asp-items="@Html.GetEnumSelectList<Condition>()"></select>
@@ -34,15 +34,18 @@
             <div class="form-group col-md-3">
                 <label asp-for="Model"></label>
                 <input asp-for="Model" type="text" class="form-control">
+                <span asp-validation-for="Model" class="text-danger"/>
             </div>
             <div class="form-group col-md-3">
                 <label asp-for="Modification"></label>
                 <input asp-for="Modification" type="text" class="form-control">
+                <span asp-validation-for="Modification" class="text-danger"/>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Price"></label>
             <input asp-for="Price" type="number" class="form-control">
+            <span asp-validation-for="Price" class="text-danger"/>
         </div>
         <div class="form-group">
             <label asp-for="GearBox"></label>
@@ -55,18 +58,22 @@
         <div class="form-group">
             <label asp-for="Hp"></label>
             <input asp-for="Hp" type="number" class="form-control">
+            <span asp-validation-for="Hp" class="text-danger"/>
         </div>
         <div class="form-group">
             <label asp-for="Cc"></label>
             <input asp-for="Cc" type="number" class="form-control">
+            <span asp-validation-for="Cc" class="text-danger"/>
         </div>
         <div class="form-group">
             <label asp-for="YearOfProduction"></label>
             <input asp-for="YearOfProduction" class="form-control">
+            <span asp-validation-for="YearOfProduction" class="text-danger"/>
         </div>
         <div class="form-group">
             <label asp-for="Km"></label>
             <input asp-for="Km" type="number" class="form-control">
+            <span asp-validation-for="Km" class="text-danger"/>
         </div>
         <div class="form-group">
             <label asp-for="Door"></label>
@@ -79,6 +86,11 @@
         <div class="form-group">
             <label asp-for="EuroStandart"></label>
             <select asp-for="EuroStandart" class="form-control" asp-items="@Html.GetEnumSelectList<EuroStandart>()"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Location"></label>
+            <input asp-for="Location" class="form-control" type="text" />
+            <span asp-validation-for="Location"  class="text-danger" />
         </div>
         <div class="form-group">
             <label asp-for="MoreInformation"></label>

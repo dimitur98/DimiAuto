@@ -34,12 +34,14 @@ function readURL2(input, carId) {
         };
         reader.readAsDataURL(input.files[0]);
         $("#btn2").show();
+        $("#input2").hide();
 
     } else {
         deleteImg($("#img2").attr("src"), carId);
         $("#input2").val(null);
         $("#img2").attr("src", "http://placehold.it/180");
         $("#btn2").hide();
+        $("#input2").show();
 
     }
 
@@ -55,12 +57,14 @@ function readURL3(input, carId) {
 
         reader.readAsDataURL(input.files[0]);
         $("#btn3").show();
+        $("#input3").hide();
 
     } else {
         deleteImg($("#img3").attr("src"), carId);
         $("#input3").val(null);
         $("#img3").attr("src", "http://placehold.it/180");
         $("#btn3").hide();
+        $("#input3").show();
 
     }
 }
@@ -76,12 +80,14 @@ function readURL4(input, carId) {
 
         reader.readAsDataURL(input.files[0]);
         $("#btn4").show();
+        $("#input4").hide();
 
     } else {
         deleteImg($("#img4").attr("src"), carId);
         $("#input4").val(null);
         $("#img4").attr("src", "http://placehold.it/180");
         $("#btn4").hide();
+        $("#input4").show();
 
     }
 
@@ -97,12 +103,14 @@ function readURL5(input, carId) {
 
         reader.readAsDataURL(input.files[0]);
         $("#btn5").show();
+        $("#input5").hide();
 
     } else {
         deleteImg($("#img5").attr("src"), carId);
         $("#input5").val(null);
         $("#img5").attr("src", "http://placehold.it/180");
         $("#btn5").hide();
+        $("#input5").show();
 
     }
 }
@@ -118,13 +126,14 @@ function readURL6(input, carId) {
 
         reader.readAsDataURL(input.files[0]);
         $("#btn6").show();
+        $("#input6").hide();
 
     } else {
         deleteImg($("#img6").attr("src"), carId);
         $("#input6").val(null);
         $("#img6").attr("src", "http://placehold.it/180");
         $("#btn6").hide();
-
+        $("#input6").show();
 
     }
 }
@@ -139,12 +148,14 @@ function readURL7(input, carId) {
 
         reader.readAsDataURL(input.files[0]);
         $("#btn7").show();
+        $("#input7").hide();
 
     } else {
         deleteImg($("#img7").attr("src"), carId);
         $("#input7").val(null);
         $("#img7").attr("src", "http://placehold.it/180");
         $("#btn7").hide();
+        $("#input7").show();
     }
 }
 
@@ -159,12 +170,14 @@ function readURL8(input, carId) {
 
         reader.readAsDataURL(input.files[0]);
         $("#btn8").show();
+        $("#input8").hide();
 
     } else {
         deleteImg($("#img8").attr("src"), carId);
         $("#input8").val(null);
         $("#img8").attr("src", "http://placehold.it/180");
         $("#btn8").hide();
+        $("#input8").show();
     }
 }
 function readURL9(input, carId) {
@@ -178,12 +191,14 @@ function readURL9(input, carId) {
 
         reader.readAsDataURL(input.files[0]);
         $("#btn9").show();
+        $("#input9").hide();
 
     } else {
         deleteImg($("#img9").attr("src"), carId);
         $("#input9").val(null);
         $("#img9").attr("src", "http://placehold.it/180");
         $("#btn9").hide();
+        $("#input9").show();
     }
 }
 function readURL10(input, carId) {
@@ -197,12 +212,14 @@ function readURL10(input, carId) {
 
         reader.readAsDataURL(input.files[0]);
         $("#btn10").show();
+        $("#input10").hide();
 
     } else {
         deleteImg($("#img10").attr("src"), carId);
         $("#input10").val(null);
         $("#img10").attr("src", "http://placehold.it/180");
         $("#btn10").hide();
+        $("#input10").show();
     }
 
 }

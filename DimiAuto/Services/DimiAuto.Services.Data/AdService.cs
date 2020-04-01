@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using DimiAuto.Web.ViewModels.Ad.Comment;
 using DimiAuto.Data.Models;
+using DimiAuto.Common;
 
 namespace DimiAuto.Services.Data
 {
@@ -63,6 +64,7 @@ namespace DimiAuto.Services.Data
                 Condition = input.Condition,
                 YearOfProduction = input.YearOfProduction,
                 UserId = userId,
+                ImgsPaths = GlobalConstants.DefaultImgCar,
             };
             await this.carRepository.AddAsync(car);
             await this.carRepository.SaveChangesAsync();

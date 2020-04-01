@@ -220,9 +220,31 @@
                         </div>
                     </div>
                 </div>
+                <div class="sidebar-content-wrap m-t-50">
+                    <!-- Single Sidebar Start -->
+                    <div class="single-sidebar">
+                        <h3>Contacts</h3>
+
+                        <div class="sidebar-body">
+                            <p><i class="fa fa-location-arrow"></i> @Model.CarDetailsVIewModel.User.Adress, @Model.CarDetailsVIewModel.User.City</p>
+                            <p><i class="fa fa-eye"></i> @Model.CarDetailsVIewModel.User.FirstName @Model.CarDetailsVIewModel.User.LastName</p>
+                            <p><i class="fa fa-product-hunt"></i> @Model.CarDetailsVIewModel.User.NameOfCompany</p>
+                            @if (Model.CarDetailsVIewModel.User.NameOfCompany == "Private person")
+                            {
+                                <p><i class="fa fa-mobile"></i> @Model.CarDetailsVIewModel.User.PhoneNumber</p>
+                            }
+                            else
+                            {
+                                <p><i class="fa fa-mobile"></i> @Model.CarDetailsVIewModel.User.TelephoneForCustomers</p>
+                            }
+
+
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
             </div>
-            
-        </div>
         <br>
         <br>
         @if (this.SignInManager.IsSignedIn(this.User))
@@ -233,8 +255,7 @@
                     <a onclick="admin('@Model.CarDetailsVIewModel.Id','approve')" id="approve" class="btn btn-secondary btn-success">Approve</a>
                     <a onclick="admin('@Model.CarDetailsVIewModel.Id','deleteAd')" id="delete" class="btn btn-secondary btn-warning">Delete</a>
                     <a onclick="admin('@Model.CarDetailsVIewModel.Id','undelete')" id="undelete" class="btn btn-secondary ">UnDelete</a>
-                    <div class="btn btn-secondary btn-light" value="@Model.CarDetailsVIewModel.Statuse" id="statuse">@Model.CarDetailsVIewModel.Statuse
-                    </div>
+                    <div class="btn btn-secondary btn-light" value="@Model.CarDetailsVIewModel.Statuse" id="statuse">Statuse: @Model.CarDetailsVIewModel.Statuse</div>
                 </div>
 
             }
@@ -289,7 +310,8 @@
     function checkBtns() {
         var approve = document.getElementById("statuse").innerHTML.split(", ")[0];
         var deleteStatuse = document.getElementById("statuse").innerHTML.split(", ")[1];
-        if (approve == "Approved") {
+        console.log(approve);
+        if (approve == "Statuse: Approved") {
             document.getElementById("approve").style.display = "none";
             if (deleteStatuse == "Deleted") {
                 document.getElementById("delete").style.display = "none";

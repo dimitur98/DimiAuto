@@ -12,10 +12,12 @@
     using DimiAuto.Services.Data;
     using DimiAuto.Web.ViewModels.Img;
     using DimiAuto.Web.ViewModels.MyAccount;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     public class ImgController : Controller
     {
         private readonly IImgService imgService;

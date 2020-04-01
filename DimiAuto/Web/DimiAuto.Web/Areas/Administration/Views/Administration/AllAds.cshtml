@@ -2,73 +2,80 @@
 @{
     ViewData["Title"] = "All ads";
 }
-
-<section class="col-main col-sm-9 col-xs-12 wow bounceInUp animated animated" style="visibility: visible;">
-    <div class="my-account">
-        <!--page-title-->
-        <!-- BEGIN DASHBOARD-->
-
-
-
-        <div class="box-account">
-            <div class="recent-orders">
-                <div class="table-responsive">
-                    <table class="data-table table-striped" id="my-orders-table">
-                        <colgroup>
-                            <col width="">
-                            <col width="">
-                            <col>
-                            <col width="1">
-                            <col width="1">
-                            <col width="20%">
-                        </colgroup>
-                        <thead>
-                            <tr class="first last">
-                                <th>Created on</th>
-                                <th>Make</th>
-                                <th>Model</th>
-                                <th>Modification</th>
-                                <th>Statuse</th>
-                                <th>Creator</th>
-                                <th>&nbsp;</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                           
-
-                                @if (Model.Cars.Count() == 0)
-                                {
-                                    <h3>There are no ads in the site.</h3>
-                                }
-                                else
-                                {
-                                    @foreach (var car in Model.Cars)
-                                    {
-                        <tr class="first odd">
-                            <td><span class="nobr">@car.CreatedOn.ToString("dd.MM.yyyy")</span></td>
-                            <td>@car.Make</td>
-                            <td>@car.Model</td>
-                            <td>@car.Modification</td>
-                            <td><span>@car.Statuse</span></td>
-                            <td><em>@car.User.UserName</em></td>
+    <div id="page">
+        <section class="main-container col2-right-layout">
+            <div class="main container">
+                <div class="row">
+                    <section class="col-main col-sm-9 col-xs-12 wow bounceInUp animated animated" style="visibility: visible;">
+                        <div class="my-account">
+                            <!--page-title-->
+                            <!-- BEGIN DASHBOARD-->
 
 
-                            <td class="a-center last details">
-                                <span class="nobr">
-                                    <a data-toggle="tooltip" data-placement="top" title="Details" style="display:inline-block;margin-left:10px;" href="/Ad/Details/id=@car.Id"><img class="iconClass" src="~/images/detailsIcon.png"></a>
-                                </span>
-                            </td>
-                        </tr>
-                                    }
 
-                                }
-                            
+                            <div class="box-account">
+                                <div class="recent-orders">
+                                    <div class="table-responsive">
+                                        <table class="data-table table-striped" id="my-orders-table">
+                                            <colgroup>
+                                                <col width="">
+                                                <col width="">
+                                                <col>
+                                                <col width="1">
+                                                <col width="1">
+                                                <col width="20%">
+                                            </colgroup>
+                                            <thead>
+                                                <tr class="first last">
+                                                    <th>Created on</th>
+                                                    <th>Make</th>
+                                                    <th>Model</th>
+                                                    <th>Modification</th>
+                                                    <th>Statuse</th>
+                                                    <th>Creator</th>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
-                        </tbody>
-                    </table>
+
+                                                @if (Model.Cars.Count() == 0)
+                                                {
+                                                    <h3>There are no ads in the site.</h3>
+                                                }
+                                                else
+                                                {
+                                                    @foreach (var car in Model.Cars)
+                                                    {
+                                                        <tr class="first odd">
+                                                            <td><span class="nobr">@car.CreatedOn.ToString("dd.MM.yyyy")</span></td>
+                                                            <td>@car.Make</td>
+                                                            <td>@car.Model</td>
+                                                            <td>@car.Modification</td>
+                                                            <td><span>@car.Statuse</span></td>
+                                                            <td><em>@car.User.UserName</em></td>
+
+
+                                                            <td class="a-center last details">
+                                                                <span class="nobr">
+                                                                    <a data-toggle="tooltip" data-placement="top" title="Details" style="display:inline-block;margin-left:10px;" href="/Ad/Details/id=@car.Id"><img class="iconClass" src="~/images/detailsIcon.png"></a>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+                                                }
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <partial @Html.Partial("~/Views/MyAccount/_AccountNavPartial.cshtml", Model)></partial>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
-</section>
-<partial @Html.Partial("~/Views/MyAccount/_AccountNavPartial.cshtml", Model)></partial>

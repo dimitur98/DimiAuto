@@ -1,6 +1,7 @@
 ﻿using DimiAuto.Data.Models;
 using DimiAuto.Services.Data;
 using DimiAuto.Web.ViewModels.SearchHistory;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace DimiAuto.Web.Controllers
 {
+    [Authorize]
     public class SearchHistoryController : Controller
     {
         private readonly ISearchService searchService;
@@ -33,7 +35,7 @@ namespace DimiAuto.Web.Controllers
         public async Task<IActionResult> DeleteSearchHistory(string id)
         {
             await this.searchService.DeleteSearchModelByIdAsync(id.Substring(3));
-            return this.Redirect("/SearchHistory/SearchHistoryIndex");
+            return this.Redirect("SearchHistoryIndex");
         }
     }
 }

@@ -13,6 +13,12 @@
                             Removed from Favorites!
                         </div>
                         <form method="post" id="form"></form>
+                        @if (Model.AllCars.Count() == 0)
+                        {
+                            <ul class="products-grid">
+                                <h3>You have no favorite ads added.</h3>
+                                </ul>
+                        }
                         @foreach (var car in Model.AllCars)
                         {
 

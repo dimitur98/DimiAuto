@@ -31,30 +31,26 @@ namespace DimiAuto.Data.Models
 
         public string UserImg { get; set; }
 
-        [Required]
-        [StringLength(GlobalConstants.AdressMaxLenght)]
+
         public string Adress { get; set; }
 
-        [Required]
-        [StringLength(GlobalConstants.NameMaxLenght)]
+
         public string FirstName { get; set; }
 
-        [Required]
-        [StringLength(GlobalConstants.NameMaxLenght)]
+
         public string LastName { get; set; }
 
-        [Required]
-        [StringLength(GlobalConstants.CityLenght)]
+
         public string City { get; set; }
 
-        [StringLength(GlobalConstants.NameOfCompanyLenght)]
+
         public string? NameOfCompany { get; set; }
 
         public string? Bulstad { get; set; }
 
         public string? TelephoneForCustomers { get; set; }
 
-        [StringLength(GlobalConstants.NameOfPageLenght)]
+
         public string? NameOfThePage { get; set; }
 
         public DateTime? DeletedOn { get; set; }

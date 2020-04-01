@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DimiAuto.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200321174054_AddComments")]
-    partial class AddComments
+    [Migration("20200401131102_InitialCrate")]
+    partial class InitialCrate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,8 +96,14 @@ namespace DimiAuto.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -131,9 +137,6 @@ namespace DimiAuto.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -142,6 +145,9 @@ namespace DimiAuto.Data.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
+
+                    b.Property<string>("UserImg")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(256)")
@@ -185,8 +191,11 @@ namespace DimiAuto.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -194,9 +203,65 @@ namespace DimiAuto.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("DimiAuto.Data.Models.SearchModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Condition")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Fuel")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GearBox")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Make")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("PriceFrom")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("PriceTo")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TypeOfVeichle")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("YearFrom")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("YearTo")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("SearchModels");
                 });
 
             modelBuilder.Entity("DimiAuto.Data.Models.Setting", b =>
@@ -229,6 +294,40 @@ namespace DimiAuto.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Settings");
+                });
+
+            modelBuilder.Entity("DimiAuto.Data.Models.UserCarFavorite", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CarId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UsersCarsFavorites");
                 });
 
             modelBuilder.Entity("DimiAuto.Models.CarModel.Car", b =>
@@ -431,6 +530,13 @@ namespace DimiAuto.Data.Migrations
                 });
 
             modelBuilder.Entity("DimiAuto.Data.Models.Comment", b =>
+                {
+                    b.HasOne("DimiAuto.Models.CarModel.Car", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("CarId");
+                });
+
+            modelBuilder.Entity("DimiAuto.Data.Models.UserCarFavorite", b =>
                 {
                     b.HasOne("DimiAuto.Models.CarModel.Car", "Car")
                         .WithMany()

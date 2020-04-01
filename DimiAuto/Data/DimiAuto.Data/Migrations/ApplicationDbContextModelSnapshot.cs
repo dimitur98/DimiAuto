@@ -135,9 +135,6 @@ namespace DimiAuto.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -249,6 +246,7 @@ namespace DimiAuto.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("YearFrom")
@@ -296,7 +294,7 @@ namespace DimiAuto.Data.Migrations
                     b.ToTable("Settings");
                 });
 
-            modelBuilder.Entity("DimiAuto.Data.Models.UserCarFavourite", b =>
+            modelBuilder.Entity("DimiAuto.Data.Models.UserCarFavorite", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -327,7 +325,7 @@ namespace DimiAuto.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UsersCarsFavourites");
+                    b.ToTable("UsersCarsFavorites");
                 });
 
             modelBuilder.Entity("DimiAuto.Models.CarModel.Car", b =>
@@ -536,7 +534,7 @@ namespace DimiAuto.Data.Migrations
                         .HasForeignKey("CarId");
                 });
 
-            modelBuilder.Entity("DimiAuto.Data.Models.UserCarFavourite", b =>
+            modelBuilder.Entity("DimiAuto.Data.Models.UserCarFavorite", b =>
                 {
                     b.HasOne("DimiAuto.Models.CarModel.Car", "Car")
                         .WithMany()

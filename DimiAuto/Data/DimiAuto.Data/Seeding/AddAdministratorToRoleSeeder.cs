@@ -17,7 +17,7 @@ namespace DimiAuto.Data.Seeding
             var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
             var roleManager = serviceProvider.GetService<RoleManager<ApplicationRole>>();
 
-            var user = await userManager.FindByNameAsync("AdminUser");
+            var user = await userManager.FindByNameAsync("AdminUser@admin.bg");
             var role = await roleManager.FindByNameAsync("Administrator");
             var exist = dbContext.UserRoles.Any(x => x.UserId == user.Id && x.RoleId == role.Id);
             if (exist)
