@@ -22,17 +22,12 @@ namespace DimiAuto.Services.Data
 {
     public class AdService : IAdService
     {
-        private readonly DbContext db;
-        private readonly Cloudinary cloudinary;
         private readonly IDeletableEntityRepository<Car> carRepository;
-        private readonly ICommentService commentService;
         private readonly IDeletableEntityRepository<UserCarFavorite> favouriteRepository;
 
-        public AdService(Cloudinary cloudinary, IDeletableEntityRepository<Car> carRepository, ICommentService commentService, IDeletableEntityRepository<UserCarFavorite> favouriteRepository)
+        public AdService(IDeletableEntityRepository<Car> carRepositorye, IDeletableEntityRepository<UserCarFavorite> favouriteRepository)
         {
-            this.cloudinary = cloudinary;
-            this.carRepository = carRepository;
-            this.commentService = commentService;
+            this.carRepository = this.carRepository;
             this.favouriteRepository = favouriteRepository;
         }
 

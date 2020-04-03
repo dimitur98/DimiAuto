@@ -112,7 +112,7 @@
             }
             input.CarCommentsInputModel.UserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             input.CarCommentsInputModel.CarId = id.Substring(3);
-            await this.commentService.Create(input.CarCommentsInputModel);
+            await this.commentService.CreateAsync(input.CarCommentsInputModel);
             return this.RedirectToAction("Details", new { id });
         }
 

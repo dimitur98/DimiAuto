@@ -9,12 +9,11 @@ namespace DimiAuto.Web.ViewModels.Ad
 {
    public class EditAddInputModel
     {
-        [Required]
+       
         public string Id { get; set; }
 
         public TypeOfVeichle TypeOfVeichle { get; set; }
 
-        public Condition TypeOfAd { get; set; }
 
         public Condition Condition { get; set; }
 
@@ -28,7 +27,7 @@ namespace DimiAuto.Web.ViewModels.Ad
 
         public Types Type { get; set; }
 
-        [Required]
+        
         [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
 
@@ -36,19 +35,19 @@ namespace DimiAuto.Web.ViewModels.Ad
 
         public Fuel Fuel { get; set; }
 
-        [Required]
+        
         [Range(0, int.MaxValue)]
         public int Hp { get; set; }
 
-        [Required]
+       
         [Range(0, int.MaxValue)]
         public int Cc { get; set; }
 
-        [Required]
+      
         [DataType(DataType.Date)]
         public DateTime YearOfProduction { get; set; }
 
-        [Required]
+        
         [Range(0, int.MaxValue)]
         public int Km { get; set; }
 
@@ -58,7 +57,7 @@ namespace DimiAuto.Web.ViewModels.Ad
 
         public EuroStandart EuroStandart { get; set; }
 
-        [Required]
+    
         [StringLength(GlobalConstants.CarLocationLenght)]
         public string Location { get; set; }
 

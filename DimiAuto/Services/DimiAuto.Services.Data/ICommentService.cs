@@ -1,15 +1,16 @@
-﻿using DimiAuto.Web.ViewModels.Ad;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DimiAuto.Services.Data
+﻿namespace DimiAuto.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using DimiAuto.Web.ViewModels.Ad;
+
     public interface ICommentService
     {
         Task<IEnumerable<TModel>> GetComments<TModel>(string carId);
 
-        Task Create(CarCommentsInputModel input);
+        Task CreateAsync(CarCommentsInputModel input);
     }
 }

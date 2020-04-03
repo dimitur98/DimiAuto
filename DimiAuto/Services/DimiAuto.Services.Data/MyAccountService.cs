@@ -17,7 +17,6 @@
 
     public class MyAccountService : IMyAccountService
     {
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<Car> carRepository;
 
         public MyAccountService(IDeletableEntityRepository<Car> carRepository)
