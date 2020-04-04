@@ -62,11 +62,11 @@
 
         public async Task<IActionResult> AllByCriteria(string id, SearchInputModel input)
         {
-            this.ViewData["searchModel"] = input as SearchInputModel;
+
             var user = await this.userManager.GetUserAsync(this.User);
             if (id != null)
             {
-                var searchModel = await this.searchService.GetSearchModelByIdAsync(id.Substring(3));                
+                var searchModel = await this.searchService.GetSearchModelByIdAsync(id.Substring(3));
                 input = AutoMapperConfig.MapperInstance.Map<SearchInputModel>(searchModel);
             }
             else
@@ -76,6 +76,7 @@
                     await this.searchService.SaveSearchModelAsync(user.Id, input);
                 }
             }
+            this.ViewData["searchModel"] = input as SearchInputModel;
 
             var ads = await this.homeService.GetAdsByCriteriaAsync(input);
 
@@ -101,14 +102,13 @@
                 ads = await this.homeService.GetAdsByCriteriaAsync(input.SortInputModel.SearchInputModel);
                 this.ViewData["searchModel"] = input.SortInputModel.SearchInputModel as SearchInputModel;
                 sortInputModel.SearchInputModel = new SearchInputModel();
-                
             }
 
-            if (input.SortInputModel.OrderByYear == "1")
+            if (input.SortInputModel.OrderByYear == "2")
             {
                 ads = ads.OrderBy(x => x.YearOfProduction).ToList();
             }
-            else if (input.SortInputModel.OrderByPrice == "2")
+            else if (input.SortInputModel.OrderByYear == "1")
             {
                 ads = ads.OrderByDescending(x => x.YearOfProduction).ToList();
             }
@@ -125,7 +125,6 @@
             {
                 AllCars = ads,
                 SortInputModel = sortInputModel,
-
             };
             return this.View("All", output);
         }

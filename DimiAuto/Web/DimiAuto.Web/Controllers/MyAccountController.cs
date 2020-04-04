@@ -111,8 +111,6 @@
             return this.Redirect("MyAccount");
         }
 
-       
-
         public async Task<IActionResult> Favorites()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);

@@ -22,7 +22,7 @@
             this.carRepository = carRepository;
         }
 
-        public async Task<IEnumerable<CarAdsViewModel>> GetAllAdsAsync()
+        public async Task<ICollection<CarAdsViewModel>> GetAllAdsAsync()
         {
             var result = await this.carRepository.All().Where(x => x.IsApproved == true).Select(x => new CarAdsViewModel
             {
@@ -49,7 +49,7 @@
             return result;
         }
 
-        public async Task<IEnumerable<CarAdsViewModel>> GetAdsByCriteriaAsync(SearchInputModel criteria)
+        public async Task<ICollection<CarAdsViewModel>> GetAdsByCriteriaAsync(SearchInputModel criteria)
         {
 
             var result = await this.GetAllAdsAsync();
@@ -60,9 +60,12 @@
             {
                 if (item.Value != null && !item.Key.Contains("From") && !item.Key.Contains("To"))
                 {
-                    result = result.Where(x => x.GetType().GetProperty(item.Key).GetValue(x, null).ToString() == item.Value.ToString()).ToList();
+                    if (item.Value.ToString() != "All")
+                    {
+                        result = result.Where(x => x.GetType().GetProperty(item.Key).GetValue(x, null).ToString() == item.Value.ToString()).ToList();
+                    }
                 }
-
+                
 
                 if (item.Value != null && item.Key == "PriceFrom")
                 {
@@ -70,7 +73,7 @@
                 }
                 else if (item.Value != null && item.Key == "PriceTo")
                 {
-                    result = result.Where(x => x.Price < criteria.PriceTo).ToList();
+                    result = result.Where(x => x.Price <= criteria.PriceTo).ToList();
                 }
 
                 if (item.Value != null && item.Key == "YearFrom")

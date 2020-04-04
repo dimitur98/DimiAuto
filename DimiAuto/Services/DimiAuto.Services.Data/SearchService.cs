@@ -21,6 +21,7 @@
         {
             this.searchModelRepository = searchModelRepository;
         }
+
         public async Task SaveSearchModelAsync(string userId, SearchInputModel search)
         {
             var searchModel = new SearchModel
@@ -37,9 +38,16 @@
                 YearTo = search.YearTo,
                 UserId = userId,
             };
-
-            await this.searchModelRepository.AddAsync(searchModel);
-            await this.searchModelRepository.SaveChangesAsync();
+            var searchModelExist = await this.searchModelRepository.All().Where(x => x.UserId == userId).FirstOrDefaultAsync(x =>
+            x.Condition == searchModel.Condition && x.Fuel == searchModel.Fuel && x.GearBox == searchModel.GearBox &&
+            x.Make == searchModel.Make && x.Model == searchModel.Model && x.PriceFrom == searchModel.PriceFrom && x.PriceTo == searchModel.PriceTo &&
+            x.YearFrom == searchModel.YearFrom && x.YearTo == searchModel.YearTo && x.TypeOfVeichle == searchModel.TypeOfVeichle);
+            if (searchModelExist == null)
+            {
+                await this.searchModelRepository.AddAsync(searchModel);
+                await this.searchModelRepository.SaveChangesAsync();
+            }
+            
         }
 
         public async Task<IEnumerable<TModel>> GetSearchModelsAsync<TModel>(string userId)

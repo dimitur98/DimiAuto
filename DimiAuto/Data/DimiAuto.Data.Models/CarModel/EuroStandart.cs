@@ -2,11 +2,12 @@
 {
     public enum EuroStandart
     {
-        Euro1 = 1,
-        Euro2 = 2,
-        Euro3 = 3,
-        Euro4 = 4,
-        Euro5 = 5,
-        Euro6 = 6,
+        All = 1,
+        Euro1 = 2,
+        Euro2 = 3,
+        Euro3 = 4,
+        Euro4 = 5,
+        Euro5 = 6,
+        Euro6 = 7,
     }
 }

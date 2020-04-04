@@ -25,9 +25,9 @@ namespace DimiAuto.Services.Data
         private readonly IDeletableEntityRepository<Car> carRepository;
         private readonly IDeletableEntityRepository<UserCarFavorite> favouriteRepository;
 
-        public AdService(IDeletableEntityRepository<Car> carRepositorye, IDeletableEntityRepository<UserCarFavorite> favouriteRepository)
+        public AdService(IDeletableEntityRepository<Car> carRepository, IDeletableEntityRepository<UserCarFavorite> favouriteRepository)
         {
-            this.carRepository = this.carRepository;
+            this.carRepository = carRepository;
             this.favouriteRepository = favouriteRepository;
         }
 
@@ -69,7 +69,6 @@ namespace DimiAuto.Services.Data
         public async Task<Car> GetCurrentCarAsync(string carId)
         {
             var car = await this.carRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == carId);
-            
             return car;
         }
 

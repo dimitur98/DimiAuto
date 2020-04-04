@@ -2,18 +2,19 @@
 {
     public enum Color
     {
-        Beige = 1,
-        White = 2,
-        Yellow = 3,
-        Green = 4,
-        Gold = 5,
-        Brown = 6,
-        Purple = 7,
-        Orange = 8,
-        Pink = 9,
-        Son = 10,
-        Gray = 11,
-        Chameleon = 12,
-        Black = 13,
+        All = 1,
+        Beige = 2,
+        White = 3,
+        Yellow = 4,
+        Green = 5,
+        Gold = 6,
+        Brown = 7,
+        Purple = 8,
+        Orange = 9,
+        Pink = 10,
+        Son = 11,
+        Gray = 12,
+        Chameleon = 13,
+        Black = 14,
     }
 }

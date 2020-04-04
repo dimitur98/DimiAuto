@@ -1,17 +1,18 @@
-﻿using DimiAuto.Data;
-using DimiAuto.Data.Models;
-using DimiAuto.Data.Repositories;
-using DimiAuto.Models.CarModel;
-using DimiAuto.Web.ViewModels.Ad;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace DimiAuto.Services.Data.Tests
+﻿namespace DimiAuto.Services.Data.Tests
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using DimiAuto.Data;
+    using DimiAuto.Data.Models;
+    using DimiAuto.Data.Repositories;
+    using DimiAuto.Models.CarModel;
+    using DimiAuto.Web.ViewModels.Ad;
+    using Microsoft.EntityFrameworkCore;
+    using Xunit;
+
     public class CommentServiceTests
     {
         [Fact]

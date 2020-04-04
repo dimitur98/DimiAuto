@@ -2,11 +2,12 @@
 {
     public enum Fuel
     {
-        Gasoline = 1,
-        Diesel = 2,
-        GasGasoline = 3,
-        MethaneGasoline = 4,
-        Hybrid = 5,
-        Electricity = 6,
+        All = 1,
+        Gasoline = 2,
+        Diesel = 3,
+        GasGasoline = 4,
+        MethaneGasoline = 5,
+        Hybrid = 6,
+        Electricity = 7,
     }
 }

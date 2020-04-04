@@ -6,6 +6,7 @@
     using System.Reflection;
     using System.Security.Claims;
     using System.Threading.Tasks;
+
     using CloudinaryDotNet;
     using DimiAuto.Common;
     using DimiAuto.Data.Models;
@@ -85,7 +86,5 @@
             await this.imgService.AddImgToCurrentAdAsync(string.Join(",", result), id);
             return this.Redirect("/MyAccount/MyAccount");
         }
-
-        
     }
 }

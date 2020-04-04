@@ -1,6 +1,4 @@
-﻿
-
-namespace DimiAuto.Web.Areas.Identity.Pages.Account
+﻿namespace DimiAuto.Web.Areas.Identity.Pages.Account
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -9,16 +7,16 @@ namespace DimiAuto.Web.Areas.Identity.Pages.Account
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
 
+    using DimiAuto.Common;
+    using DimiAuto.Data.Models;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
-    using DimiAuto.Data.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
     using Microsoft.Extensions.Logging;
-    using DimiAuto.Common;
 
     [AllowAnonymous]
     public class RegisterModel : PageModel
@@ -132,6 +130,7 @@ namespace DimiAuto.Web.Areas.Identity.Pages.Account
                         return this.LocalRedirect(returnUrl);
                     }
                 }
+
                 foreach (var error in result.Errors)
                 {
                     this.ModelState.AddModelError(string.Empty, error.Description);

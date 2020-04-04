@@ -11,7 +11,7 @@
     using DimiAuto.Services.Mapping;
     using Microsoft.AspNetCore.Identity;
 
-    public class CarAdsViewModel : IMapFrom<Car>
+    public class CarAdsViewModel 
     {
         public string Id { get; set; }
 

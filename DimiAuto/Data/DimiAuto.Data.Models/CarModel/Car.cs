@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Threading.Tasks;
+
     using DimiAuto.Common;
     using DimiAuto.Data.Common.Models;
     using DimiAuto.Data.Models;
@@ -18,7 +19,7 @@
             this.IsApproved = false;
             this.IsDeleted = false;
             this.Comments = new HashSet<Comment>();
-
+            this.Views = new HashSet<AdView>();
         }
 
         public TypeOfVeichle TypeOfVeichle { get; set; }
@@ -26,7 +27,6 @@
         public Condition Condition { get; set; }
 
         public Make Make { get; set; }
-
 
         public string Model { get; set; }
 
@@ -40,15 +40,11 @@
 
         public Fuel Fuel { get; set; }
 
-
         public int Horsepowers { get; set; }
-
 
         public int Cc { get; set; }
 
-
         public DateTime YearOfProduction { get; set; }
-
 
         public int Km { get; set; }
 
@@ -58,13 +54,11 @@
 
         public EuroStandart EuroStandart { get; set; }
 
-
         public string Location { get; set; }
-        
+
         public string MoreInformation { get; set; }
 
         public bool IsApproved { get; set; }
-
 
         public string UserId { get; set; }
 
@@ -74,7 +68,7 @@
 
         public string ImgsPaths { get; set; }
 
-        public int Views { get; set; }
+        public ICollection<AdView> Views { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
     }

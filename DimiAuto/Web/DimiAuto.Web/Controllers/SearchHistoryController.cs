@@ -1,16 +1,17 @@
-﻿using DimiAuto.Data.Models;
-using DimiAuto.Services.Data;
-using DimiAuto.Web.ViewModels.SearchHistory;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace DimiAuto.Web.Controllers
+﻿namespace DimiAuto.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using DimiAuto.Data.Models;
+    using DimiAuto.Services.Data;
+    using DimiAuto.Web.ViewModels.SearchHistory;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+
     [Authorize]
     public class SearchHistoryController : Controller
     {
@@ -22,6 +23,7 @@ namespace DimiAuto.Web.Controllers
             this.searchService = searchService;
             this.userManager = userManager;
         }
+
         public async Task<IActionResult> SearchHistoryIndex()
         {
             var user = await this.userManager.GetUserAsync(this.User);

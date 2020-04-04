@@ -38,7 +38,6 @@
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
-
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -84,7 +83,7 @@
             services.AddTransient<IMyAccountService, MyAccountService>();
             services.AddTransient<IAdministrationService, AdministrationService>();
             services.AddTransient<ISearchService, SearchService>();
-
+            services.AddTransient<IViewService, ViewService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -128,7 +127,6 @@
             app.UseEndpoints(
                 endpoints =>
                     {
-                        
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();

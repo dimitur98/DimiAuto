@@ -2,3 +2,6 @@
 
 # SA1305: Field names should not use Hungarian notation
 dotnet_diagnostic.SA1305.severity = none
+
+# CS1717: Assignment made to same variable
+dotnet_diagnostic.CS1717.severity = none

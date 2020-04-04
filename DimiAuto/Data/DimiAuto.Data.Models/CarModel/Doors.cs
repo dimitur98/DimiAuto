@@ -3,7 +3,8 @@
 
     public enum Doors
     {
-        Three = 1,
-        Five = 2,
+        All = 1,
+        Three = 2,
+        Five = 3,
     }
 }

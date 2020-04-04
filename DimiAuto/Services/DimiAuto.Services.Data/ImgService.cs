@@ -11,25 +11,19 @@
     using CloudinaryDotNet.Actions;
     using DimiAuto.Common;
     using DimiAuto.Data.Common.Repositories;
-    using DimiAuto.Data.Models;
     using DimiAuto.Models.CarModel;
     using DimiAuto.Web.ViewModels.Img;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Identity;
 
     public class ImgService : IImgService
     {
         private readonly Cloudinary cloudinary;
         private readonly IDeletableEntityRepository<Car> carRepository;
-        private readonly IAdService adService;
-        private readonly UserManager<ApplicationUser> userManager;
 
-        public ImgService(Cloudinary cloudinary, IDeletableEntityRepository<Car> carRepository, IAdService adService)
+        public ImgService(Cloudinary cloudinary, IDeletableEntityRepository<Car> carRepository)
         {
             this.cloudinary = cloudinary;
             this.carRepository = carRepository;
-            this.adService = adService;
         }
 
         public async Task<IEnumerable<string>> UploadImgsAsync(ImgUploadInputModel input)
@@ -97,8 +91,9 @@
             }
             else
             {
-                car.ImgsPaths += "," + result; 
+                car.ImgsPaths += "," + result;
             }
+
             await this.carRepository.SaveChangesAsync();
         }
 

@@ -19,6 +19,34 @@ namespace DimiAuto.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("DimiAuto.Data.Models.AdView", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CarId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Views");
+                });
+
             modelBuilder.Entity("DimiAuto.Data.Models.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
@@ -408,9 +436,6 @@ namespace DimiAuto.Data.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Views")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("YearOfProduction")
                         .HasColumnType("datetime2");
 
@@ -525,6 +550,17 @@ namespace DimiAuto.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("DimiAuto.Data.Models.AdView", b =>
+                {
+                    b.HasOne("DimiAuto.Models.CarModel.Car", "Car")
+                        .WithMany("Views")
+                        .HasForeignKey("CarId");
+
+                    b.HasOne("DimiAuto.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("DimiAuto.Data.Models.Comment", b =>

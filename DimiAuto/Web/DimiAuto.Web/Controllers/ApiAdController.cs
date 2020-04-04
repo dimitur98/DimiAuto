@@ -1,5 +1,4 @@
-﻿
-namespace DimiAuto.Web.Controllers
+﻿namespace DimiAuto.Web.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -19,6 +18,7 @@ namespace DimiAuto.Web.Controllers
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+
     [Authorize]
     [ApiController]
     [Route("api/[controller]/[action]")]
@@ -45,6 +45,7 @@ namespace DimiAuto.Web.Controllers
                 await this.adService.AddAdToFavAsync(input.CarId, userId);
                 return this.Ok(new { output = "added" });
             }
+
             return this.Ok(new { output = "already added" });
         }
 
@@ -56,8 +57,9 @@ namespace DimiAuto.Web.Controllers
             if (record != null)
             {
                 await this.adService.RemoveFavAdAsync(input.CarId, userId);
-                return this.Ok(new { output = "removed" , carId = input.CarId});
+                return this.Ok(new { output = "removed", carId = input.CarId });
             }
+
             return this.Ok();
         }
 

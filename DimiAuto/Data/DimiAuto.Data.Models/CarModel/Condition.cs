@@ -2,8 +2,9 @@
 {
     public enum Condition
     {
-        New = 1,
-        ForParts = 2,
-        WithProblem = 3,
+        All = 1,
+        New = 2,
+        ForParts = 3,
+        WithProblem = 4,
     }
 }

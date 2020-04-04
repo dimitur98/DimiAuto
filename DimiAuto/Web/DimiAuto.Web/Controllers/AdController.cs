@@ -65,6 +65,7 @@
             {
                 car.ImgsPaths = GlobalConstants.DefaultImgCar;
             }
+
             var user = await this.userRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == car.UserId);
             var output = new CarDetailsModel
             {
@@ -91,14 +92,13 @@
                     Condition = car.Condition,
                     User = user,
                     UserId = car.UserId,
-                    Views = car.Views,
                     YearOfProduction = car.YearOfProduction.ToString("MM.yyyy"),
                     Comments = await this.commentService.GetComments<CarCommentViewModel>(car.Id),
                     IsApproved = car.IsApproved,
                     IsDeleted = car.IsDeleted,
                 },
             };
-            
+
             return this.View(output);
         }
 
@@ -110,6 +110,7 @@
             {
                 return this.View(input);
             }
+            
             input.CarCommentsInputModel.UserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             input.CarCommentsInputModel.CarId = id.Substring(3);
             await this.commentService.CreateAsync(input.CarCommentsInputModel);
@@ -119,7 +120,6 @@
         [Authorize]
         public async Task<IActionResult> Edit(string id)
         {
-
             var car = await this.adService.GetCurrentCarAsync(id.Substring(3));
             var output = new EditAddInputModel
             {
@@ -153,6 +153,7 @@
             {
                 return this.View(input);
             }
+
             var car = await this.adService.EditAd(input);
             var output = new EditAddInputModel
             {
@@ -200,7 +201,7 @@
                     Km = firstCar.Km,
                     Make = firstCar.Make,
                     Model = firstCar.Model,
-                    Modification = firstCar.Modification,                   
+                    Modification = firstCar.Modification,
                     Price = firstCar.Price,
                     Type = firstCar.Type,
                     Condition = firstCar.Condition,

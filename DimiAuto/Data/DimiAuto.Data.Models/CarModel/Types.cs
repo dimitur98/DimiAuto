@@ -2,13 +2,14 @@
 {
     public enum Types
     {
-        Sedan = 1,
-        Hatchback = 2,
-        Combi = 3,
-        Coupe = 4,
-        Convertible = 5,
-        Jeep = 6,
-        Pickup = 7,
-        Van = 8,
+        All = 1,
+        Sedan = 2,
+        Hatchback = 3,
+        Combi = 4,
+        Coupe = 5,
+        Convertible = 6,
+        Jeep = 7,
+        Pickup = 8,
+        Van = 9,
     }
 }
