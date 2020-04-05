@@ -22,7 +22,7 @@ namespace DimiAuto.Services.Data
 
         Task RemoveFavAdAsync(string carId, string userId);
 
-        Task<IEnumerable<TModel>> GetAllFavAdsOnCurrentUserAsync<TModel>(string userId);
+        Task<ICollection<TModel>> GetAllFavAdsOnCurrentUserAsync<TModel>(string userId);
 
     }
 }

@@ -24,7 +24,7 @@
             this.carRepository = carRepository;
         }
 
-        public async Task<IEnumerable<TModel>> GetMyCarsAsync<TModel>(string userId)
+        public async Task<ICollection<TModel>> GetMyCarsAsync<TModel>(string userId)
         {
             return await this.carRepository.All().Where(x => x.UserId == userId).To<TModel>().ToListAsync();
         }

@@ -11,7 +11,7 @@
     {
         Task SaveSearchModelAsync(string userId, SearchInputModel search);
 
-        Task<IEnumerable<TModel>> GetSearchModelsAsync<TModel>(string userId);
+        Task<ICollection<TModel>> GetSearchModelsAsync<TModel>(string userId);
 
         Task DeleteSearchModelByIdAsync(string id);
 

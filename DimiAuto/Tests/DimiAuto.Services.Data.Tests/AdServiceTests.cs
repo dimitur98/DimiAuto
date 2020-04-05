@@ -13,7 +13,10 @@
     using DimiAuto.Models.CarModel;
     using DimiAuto.Services.Mapping;
     using DimiAuto.Web.ViewModels.Ad;
+    using DimiAuto.Web.ViewModels.Ad.CompareAds;
     using DimiAuto.Web.ViewModels.FavoriteAds;
+    using DimiAuto.Web.ViewModels.Home;
+    using DimiAuto.Web.ViewModels.Sort;
     using Microsoft.EntityFrameworkCore;
     using Moq;
     using Xunit;
@@ -210,5 +213,95 @@
             Assert.Null(userCarFavRecord);
         }
      
+        [Fact]
+        public async Task GetAllFavAdsOnCurrentUserTests()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
+            var userCarFavRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
+
+            var service = new AdService(carRepository, userCarFavRepository);
+
+            var firstCar = new CreateAdInputModel
+            {
+                Cc = 1,
+                Color = 0,
+                Condition = Condition.New,
+                Door = Doors.Three,
+                EuroStandart = EuroStandart.Euro1,
+                Extras = "4x4",
+                Fuel = Fuel.Diesel,
+                GearBox = GearBox.Automatic,
+                Hp = 1,
+                ImgsPaths = GlobalConstants.DefaultImgCar,
+                Km = 100,
+                Location = "Sofia",
+                Make = Make.Audi,
+                Model = "test",
+                Modification = "test",
+                MoreInformation = "test test",
+                Price = 100,
+                Type = Types.Convertible,
+                TypeOfVeichle = TypeOfVeichle.Truck,
+                YearOfProduction = DateTime.Parse("01.01.1999"),
+            };
+            var secondCar = new CreateAdInputModel
+            {
+                Cc = 1,
+                Color = 0,
+                Condition = Condition.New,
+                Door = Doors.Three,
+                EuroStandart = EuroStandart.Euro1,
+                Extras = "4x4",
+                Fuel = Fuel.Gasoline,
+                GearBox = GearBox.Manual,
+                Hp = 1,
+                ImgsPaths = GlobalConstants.DefaultImgCar,
+                Km = 100,
+                Location = "Sofia",
+                Make = Make.Bmw,
+                Model = "test",
+                Modification = "test",
+                MoreInformation = "test test",
+                Price = 100,
+                Type = Types.Convertible,
+                TypeOfVeichle = TypeOfVeichle.Truck,
+                YearOfProduction = DateTime.Parse("01.01.1999"),
+            }; 
+            var thirdCar = new CreateAdInputModel
+            {
+                Cc = 1,
+                Color = 0,
+                Condition = Condition.New,
+                Door = Doors.Three,
+                EuroStandart = EuroStandart.Euro1,
+                Extras = "4x4",
+                Fuel = Fuel.Diesel,
+                GearBox = GearBox.Automatic,
+                Hp = 1,
+                ImgsPaths = GlobalConstants.DefaultImgCar,
+                Km = 100,
+                Location = "Sofia",
+                Make = Make.Ford,
+                Model = "test",
+                Modification = "test",
+                MoreInformation = "test test",
+                Price = 100000,
+                Type = Types.Convertible,
+                TypeOfVeichle = TypeOfVeichle.Truck,
+                YearOfProduction = DateTime.Parse("01.01.2000"),
+            };
+            var firstCarId = await service.CreateAdAsync(firstCar, "1");
+            var secondCarId = await service.CreateAdAsync(secondCar, "1");
+            await service.CreateAdAsync(thirdCar, "1");
+
+            await service.AddAdToFavAsync(firstCarId, "1");
+            await service.AddAdToFavAsync(secondCarId, "1");
+            AutoMapperConfig.RegisterMappings(typeof(UserAdViewModel).Assembly);
+
+            var result = await service.GetAllFavAdsOnCurrentUserAsync<UserAdViewModel>("1");
+
+            Assert.Equal(2, result.Count);
+        }
     }
 }

@@ -9,7 +9,7 @@
 
     public interface ICommentService
     {
-        Task<IEnumerable<TModel>> GetComments<TModel>(string carId);
+        Task<ICollection<TModel>> GetComments<TModel>(string carId);
 
         Task CreateAsync(CarCommentsInputModel input);
     }

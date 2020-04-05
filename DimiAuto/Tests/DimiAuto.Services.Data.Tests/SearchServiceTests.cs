@@ -2,7 +2,9 @@
 using DimiAuto.Data.Models;
 using DimiAuto.Data.Models.CarModel;
 using DimiAuto.Data.Repositories;
+using DimiAuto.Services.Mapping;
 using DimiAuto.Web.ViewModels.Home;
+using DimiAuto.Web.ViewModels.SearchHistory;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -95,6 +97,40 @@ namespace DimiAuto.Services.Data.Tests
 
             var wrongIdResult = await service.GetSearchModelByIdAsync("test");
             Assert.Null(wrongIdResult);
+        }
+
+        [Fact]
+        public async Task GetSearchModelsByUserIdTest()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var searchRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
+            var service = new SearchService(searchRepository);
+
+            var searchModel = new SearchInputModel
+            {
+                Condition = Condition.New,
+                GearBox = GearBox.Automatic,
+                TypeOfVeichle = TypeOfVeichle.Car,
+                Model = "test",
+                Make = Make.All,
+                Fuel = Fuel.Diesel,
+            };
+            var secondSearchModel = new SearchInputModel
+            {
+                Condition = Condition.New,
+                GearBox = GearBox.Automatic,
+                TypeOfVeichle = TypeOfVeichle.Car,
+                Model = "test2",
+                Make = Make.Audi,
+                Fuel = Fuel.Electricity,
+            };
+            await service.SaveSearchModelAsync("1", searchModel);
+            await service.SaveSearchModelAsync("1", secondSearchModel);
+
+            AutoMapperConfig.RegisterMappings(typeof(SearchViewModel).Assembly);
+            var result = await service.GetSearchModelsAsync<SearchViewModel>("1");
+
+            Assert.Equal(2, result.Count);
         }
     }
 }

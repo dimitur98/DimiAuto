@@ -42,10 +42,13 @@
             await this.commentRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TModel>> GetComments<TModel>(string carId)
+        public async Task<ICollection<TModel>> GetComments<TModel>(string carId)
         {
             var comments = await this.commentRepository.All().Where(x => x.CarId == carId).To<TModel>().ToListAsync();
             return comments;
         }
+
+        
+
     }
 }

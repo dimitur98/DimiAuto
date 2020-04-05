@@ -33,6 +33,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\DimiAuto.Data\DimiAuto.Data.csproj" />
     <ProjectReference Include="..\..\Services\DimiAuto.Services.Data\DimiAuto.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Services\DimiAuto.Services.Messaging\DimiAuto.Services.Messaging.csproj" />
   </ItemGroup>
 
 </Project>

@@ -14,6 +14,5 @@
 
         public SortInputModel SortInputModel { get; set; }
 
-       
     }
 }

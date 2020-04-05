@@ -7,6 +7,6 @@ namespace DimiAuto.Services.Data
 {
     public interface IMyAccountService
     {
-        Task<IEnumerable<TModel>> GetMyCarsAsync<TModel>(string userId);
+        Task<ICollection<TModel>> GetMyCarsAsync<TModel>(string userId);
     }
 }

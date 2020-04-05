@@ -1,5 +1,6 @@
 ﻿namespace DimiAuto.Web
 {
+    using System;
     using System.Reflection;
 
     using CloudinaryDotNet;
@@ -47,7 +48,11 @@
                         options.CheckConsentNeeded = context => true;
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
-
+            //services.AddSession(options =>
+            //{
+            //    options.Cookie.HttpOnly = true;
+            //    options.IdleTimeout = new TimeSpan(0, 4, 0, 0);
+            //});
             services.AddControllersWithViews(configure =>
                     {
                         configure.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
@@ -123,7 +128,7 @@
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            //app.UseSession();
             app.UseEndpoints(
                 endpoints =>
                     {

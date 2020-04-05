@@ -119,7 +119,7 @@ namespace DimiAuto.Services.Data
             await this.favouriteRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TModel>> GetAllFavAdsOnCurrentUserAsync<TModel>(string userId)
+        public async Task<ICollection<TModel>> GetAllFavAdsOnCurrentUserAsync<TModel>(string userId)
         {
             var result = await this.favouriteRepository.All().Where(x => x.UserId == userId).To<TModel>().ToListAsync();
             return result;

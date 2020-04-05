@@ -50,7 +50,7 @@
             
         }
 
-        public async Task<IEnumerable<TModel>> GetSearchModelsAsync<TModel>(string userId)
+        public async Task<ICollection<TModel>> GetSearchModelsAsync<TModel>(string userId)
         {
             var result = await this.searchModelRepository.All().Where(x => x.UserId == userId).OrderBy(x => x.CreatedOn).To<TModel>().ToListAsync();
             return result;
