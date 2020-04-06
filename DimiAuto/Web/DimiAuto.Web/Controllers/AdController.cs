@@ -27,12 +27,14 @@
         private readonly IAdService adService;
         private readonly ICommentService commentService;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
+        private readonly IViewService viewService;
 
-        public AdController(IAdService adService, ICommentService commentService, IDeletableEntityRepository<ApplicationUser> userRepository)
+        public AdController(IAdService adService, ICommentService commentService, IDeletableEntityRepository<ApplicationUser> userRepository, IViewService viewService)
         {
             this.adService = adService;
             this.commentService = commentService;
             this.userRepository = userRepository;
+            this.viewService = viewService;
         }
 
         [Authorize]
@@ -59,12 +61,35 @@
 
         public async Task<IActionResult> Details(string id)
         {
-           // var a = Assembly("All.cshtml");
-            var car = await this.adService.GetCurrentCarAsync(id.Substring(3));
+            id = id.Substring(3);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                var a = this.HttpContext.Session.GetString("view");
+                if (this.HttpContext.Session.GetString("view") != id)
+                {
+                    this.HttpContext.Session.SetString("view", id);
+                    await this.viewService.AddViewAsync("unregistered user", id);
+                }
+            }
+            else
+            {
+                var curentUser = await this.userRepository.All().FirstOrDefaultAsync(x => x.Id == userId);
+                if (this.HttpContext.Session.GetString("view") != curentUser.Email)
+                {
+                    this.HttpContext.Session.SetString("view", curentUser.Email);
+                    await this.viewService.AddViewAsync(userId, id);
+                }
+            }
+
+            // var a = Assembly("All.cshtml");
+            var car = await this.adService.GetCurrentCarAsync(id);
             if (car.ImgsPaths == string.Empty)
             {
                 car.ImgsPaths = GlobalConstants.DefaultImgCar;
             }
+            
 
             var user = await this.userRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == car.UserId);
             var output = new CarDetailsModel
@@ -94,8 +119,10 @@
                     UserId = car.UserId,
                     YearOfProduction = car.YearOfProduction.ToString("MM.yyyy"),
                     Comments = await this.commentService.GetComments<CarCommentViewModel>(car.Id),
+                    Views = this.viewService.GetViewsCount(id),
                     IsApproved = car.IsApproved,
                     IsDeleted = car.IsDeleted,
+                    CurrentUserId = userId,
                 },
             };
 
@@ -106,10 +133,6 @@
         [HttpPost]
         public async Task<IActionResult> Details(string id, CarDetailsModel input)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(input);
-            }
             
             input.CarCommentsInputModel.UserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             input.CarCommentsInputModel.CarId = id.Substring(3);
@@ -229,6 +252,17 @@
                 },
             };
             return this.View(output);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> DeleteComment(string id)
+        {
+            var result = id.Split("&", StringSplitOptions.RemoveEmptyEntries);
+            var carId = result[1].Substring(6);
+            id = "id=" + carId;
+            var commentId = result[0].Substring(10);
+            await this.commentService.DeleteCommentAsync(commentId);
+            return this.RedirectToAction("Details", new { id });
         }
     }
 }

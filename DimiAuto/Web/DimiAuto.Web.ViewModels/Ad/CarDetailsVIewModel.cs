@@ -67,6 +67,7 @@
 
         public bool IsDeleted { get; set; }
 
+        public string CurrentUserId { get; set; }
 
         public string Statuse
         {

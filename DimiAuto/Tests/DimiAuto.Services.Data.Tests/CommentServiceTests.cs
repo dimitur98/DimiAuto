@@ -21,9 +21,8 @@
         public async Task CreateCommentTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
-            var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
             var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
-            var commentService = new CommentService(commentRepository, carRepository);
+            var commentService = new CommentService(commentRepository);
             var userId = "userId";
             var carId = "carId";
             var comment = new CarCommentsInputModel
@@ -44,7 +43,7 @@
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
             var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
-            var commentService = new CommentService(commentRepository, carRepository);
+            var commentService = new CommentService(commentRepository);
             var userId = "userId";
             var car = new Car
             {
@@ -75,6 +74,36 @@
             var addedComment = await commentService.GetComments<CarCommentViewModel>(carId);
             Assert.Equal(2, addedComment.Count);
         }
+        [Fact]
+        public async Task DeleteCommentTest()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
+            var commentService = new CommentService(commentRepository);
+            var userId = "userId";
+            var carId = "carId";
+            var comment = new CarCommentsInputModel
+            {
+                UserId = userId,
+                CarId = carId,
+                Content = "test comment",
+                Title = "test",
+            };
+            var secComment = new CarCommentsInputModel
+            {
+                UserId = userId,
+                CarId = carId,
+                Content = "secTest comment",
+                Title = "secTest",
+            };
+            await commentService.CreateAsync(comment);
+            await commentService.CreateAsync(secComment);
+            Assert.Equal(2, await commentRepository.All().CountAsync());
+            var commentShouldBeDeleted = await commentRepository.All().FirstAsync();
+            var commentId = commentShouldBeDeleted.Id;
+            await commentService.DeleteCommentAsync(commentId);
 
+            Assert.Equal(1, await commentRepository.All().CountAsync());
+        }
     }
 }

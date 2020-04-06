@@ -17,11 +17,13 @@ namespace DimiAuto.Data.Models
             this.Id = Guid.NewGuid().ToString();
         }
 
-
         public string Title { get; set; }
+
         public string Content { get; set; }
 
         public string UserId { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
 
         public string CarId { get; set; }
 

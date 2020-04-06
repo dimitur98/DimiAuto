@@ -16,15 +16,12 @@
 
     public class CommentService : ICommentService
     {
-        private readonly IAuditInfo auditInfo;
         private readonly IDeletableEntityRepository<Comment> commentRepository;
-        private readonly IDeletableEntityRepository<Car> carRepository;
-        private readonly IAdService adService;
 
-        public CommentService(IDeletableEntityRepository<Comment> commentRepository, IDeletableEntityRepository<Car> carRepository)
+
+        public CommentService(IDeletableEntityRepository<Comment> commentRepository)
         {
             this.commentRepository = commentRepository;
-            this.carRepository = carRepository;
         }
 
         public async Task CreateAsync(CarCommentsInputModel input)
@@ -44,11 +41,17 @@
 
         public async Task<ICollection<TModel>> GetComments<TModel>(string carId)
         {
-            var comments = await this.commentRepository.All().Where(x => x.CarId == carId).To<TModel>().ToListAsync();
+            var comments = await this.commentRepository.All().Where(x => x.CarId == carId).OrderBy(x => x.CreatedOn).To<TModel>().ToListAsync();
             return comments;
         }
 
-        
+        public async Task DeleteCommentAsync(string id)
+        {
+           var comment = await this.commentRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+           comment.IsDeleted = true;
+           this.commentRepository.Update(comment);
+           await this.commentRepository.SaveChangesAsync();
+        }
 
     }
 }

@@ -4,14 +4,16 @@ using DimiAuto.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DimiAuto.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200406140426_ViewsCorrections")]
+    partial class ViewsCorrections
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,7 +29,6 @@ namespace DimiAuto.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CarId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
@@ -43,7 +44,6 @@ namespace DimiAuto.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -229,15 +229,13 @@ namespace DimiAuto.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CarId");
 
                     b.HasIndex("IsDeleted");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
@@ -566,9 +564,7 @@ namespace DimiAuto.Data.Migrations
                 {
                     b.HasOne("DimiAuto.Models.CarModel.Car", "Car")
                         .WithMany("Views")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("CarId");
                 });
 
             modelBuilder.Entity("DimiAuto.Data.Models.Comment", b =>
@@ -576,10 +572,6 @@ namespace DimiAuto.Data.Migrations
                     b.HasOne("DimiAuto.Models.CarModel.Car", null)
                         .WithMany("Comments")
                         .HasForeignKey("CarId");
-
-                    b.HasOne("DimiAuto.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("DimiAuto.Data.Models.UserCarFavorite", b =>

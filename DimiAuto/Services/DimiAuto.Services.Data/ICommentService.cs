@@ -12,5 +12,7 @@
         Task<ICollection<TModel>> GetComments<TModel>(string carId);
 
         Task CreateAsync(CarCommentsInputModel input);
+
+        Task DeleteCommentAsync(string id);
     }
 }
