@@ -56,7 +56,7 @@
                                                     @foreach (var myCar in Model.MyCars)
                                                     {
                                                         <tr class="first odd">
-                                                            <td><span class="nobr">@myCar.CreatedOn</span></td>
+                                                            <td><span class="nobr"><time datetime="@myCar.CreatedOn.ToString("O")"></time></span></td>
                                                             <td>@myCar.Make</td>
                                                             <td>@myCar.Model</td>
                                                             <td>@myCar.Modification</td>

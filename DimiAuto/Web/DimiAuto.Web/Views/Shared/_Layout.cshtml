@@ -71,7 +71,8 @@
     margin-top: 100px;
     ">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+      <p class="m-0 text-center text-white">Copyright &copy; DimiAuto 2020</p>
+        <p class="m-0 text-center text-white"><a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></p>
     </div>
     <!-- /.container -->
   </footer>
@@ -102,18 +103,19 @@
         <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
 
 
+        <script src="~/lib/moment/min/moment-with-locales.min.js" asp-append-version="true"></script>
 
 
-        <script  asp-append-version="true" src="~/secondBootstrap/js/jquery.min.js"></script>
-        <script asp-append-version="true"  src="~/secondBootstrap/js/bootstrap.min.js"></script>
+        <script asp-append-version="true" src="~/secondBootstrap/js/jquery.min.js"></script>
+        <script asp-append-version="true" src="~/secondBootstrap/js/bootstrap.min.js"></script>
         <script asp-append-version="true" src="~/secondBootstrap/js/bootstrap-slider.min.js"></script>
         <script asp-append-version="true" src="~/secondBootstrap/js/bootstrap-select.min.js"></script>
-        <script asp-append-version="true"  src="~/secondBootstrap/js/parallax.js"></script>
-        <script asp-append-version="true"  src="~/secondBootstrap/js/revslider.js"></script>
-        <script asp-append-version="true"  src="~/secondBootstrap/js/common.js"></script>
-        <script asp-append-version="true"  src="~/secondBootstrap/js/jquery.bxslider.min.js"></script>
-        <script asp-append-version="true"  src="~/secondBootstrap/js/owl.carousel.min.js"></script>
-        <script asp-append-version="true"  src="~/secondBootstrap/js/jquery.mobile-menu.min.js"></script>
+        <script asp-append-version="true" src="~/secondBootstrap/js/parallax.js"></script>
+        <script asp-append-version="true" src="~/secondBootstrap/js/revslider.js"></script>
+        <script asp-append-version="true" src="~/secondBootstrap/js/common.js"></script>
+        <script asp-append-version="true" src="~/secondBootstrap/js/jquery.bxslider.min.js"></script>
+        <script asp-append-version="true" src="~/secondBootstrap/js/owl.carousel.min.js"></script>
+        <script asp-append-version="true" src="~/secondBootstrap/js/jquery.mobile-menu.min.js"></script>
         <script asp-append-version="true" src="~/secondBootstrap/js/countdown.js"></script>
         <script>
             jQuery(document).ready(function () {
@@ -214,6 +216,8 @@
         <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/lib/moment/min/moment-with-locales.min.js" asp-append-version="true"></script>
+
     </environment>
 
     @this.RenderSection("Scripts", required: false)

@@ -32,7 +32,7 @@ namespace DimiAuto.Services.Data.AreaServices
 
         public async Task<IEnumerable<TModel>> GetAllAdsAsync<TModel>()
         {
-            var result = await this.carRepository.AllWithDeleted().OrderBy(x => x.CreatedOn).ThenBy(x => x.Model ).To<TModel>().ToListAsync();
+            var result = await this.carRepository.AllWithDeleted().OrderByDescending(x => x.CreatedOn).ThenBy(x => x.Model ).To<TModel>().ToListAsync();
             return result;
         }
 
@@ -44,8 +44,6 @@ namespace DimiAuto.Services.Data.AreaServices
             await this.carRepository.SaveChangesAsync();
 
         }
-
-       
 
         public async Task UnDeleteAsync(string carId)
         {

@@ -26,7 +26,7 @@
 
         public async Task<ICollection<TModel>> GetMyCarsAsync<TModel>(string userId)
         {
-            return await this.carRepository.All().Where(x => x.UserId == userId).To<TModel>().ToListAsync();
+            return await this.carRepository.All().Where(x => x.UserId == userId).OrderByDescending(x => x.CreatedOn).To<TModel>().ToListAsync();
         }
     }
 }

@@ -41,7 +41,7 @@
 
         public async Task<ICollection<TModel>> GetComments<TModel>(string carId)
         {
-            var comments = await this.commentRepository.All().Where(x => x.CarId == carId).OrderBy(x => x.CreatedOn).To<TModel>().ToListAsync();
+            var comments = await this.commentRepository.All().Where(x => x.CarId == carId).OrderByDescending(x => x.CreatedOn).To<TModel>().ToListAsync();
             return comments;
         }
 

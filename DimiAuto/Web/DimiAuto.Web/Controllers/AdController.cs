@@ -136,13 +136,13 @@
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Details(string id, CarDetailsModel input)
+        public async Task<IActionResult> Details(CarDetailsModel input)
         {
             
             input.CarCommentsInputModel.UserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            input.CarCommentsInputModel.CarId = id.Substring(3);
+            
             await this.commentService.CreateAsync(input.CarCommentsInputModel);
-            return this.RedirectToAction("Details", new { id });
+            return this.RedirectToAction("Details", new { id=input.CarCommentsInputModel.CarId });
         }
 
         [Authorize]

@@ -45,7 +45,7 @@
 
         public async Task<IActionResult> AllUsers()
         {
-            var users = await this.userRepository.AllWithDeleted().To<UserViewModel>().ToListAsync();
+            var users = await this.userRepository.AllWithDeleted().OrderByDescending(x => x.CreatedOn).To<UserViewModel>().ToListAsync();
             var result = new AllUsersViewModel
             {
                 Users = users,

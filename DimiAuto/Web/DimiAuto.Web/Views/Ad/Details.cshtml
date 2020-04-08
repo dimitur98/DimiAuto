@@ -178,7 +178,7 @@
                                                             </a>
                                                             <div class="media-body">
                                                                 <span class="text-muted pull-right">
-                                                                    <small class="text-muted">@comment.CreatedOn</small>
+                                                                    <small class="text-muted"><time datetime="@comment.CreatedOn.ToString("O")"></time></small>
                                                                 </span>
                                                                 <strong class="text-success">@comment.Title</strong>
                                                                 @if (comment.UserId == Model.CarDetailsVIewModel.CurrentUserId)
@@ -205,8 +205,8 @@
                                 Add comment for the ad.
                             </div>
                             <div class="review-form">
-                                <form method="post" asp-controller="Ad" asp-action="ch" id="form">
-
+                                <form method="post" asp-controller="Ad" asp-action="Details" id="form">
+                                    <input asp-for="CarCommentsInputModel.CarId" value="@Model.CarDetailsVIewModel.Id" type="hidden">
                                     <div class="col-lg-6 col-md-6">
                                         <div class="name-input">
                                             <input asp-for="CarCommentsInputModel.Title" type="text" placeholder="Title">
