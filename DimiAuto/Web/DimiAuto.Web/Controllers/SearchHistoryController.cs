@@ -36,7 +36,7 @@
 
         public async Task<IActionResult> DeleteSearchHistory(string id)
         {
-            await this.searchService.DeleteSearchModelByIdAsync(id.Substring(3));
+            await this.searchService.DeleteSearchModelByIdAsync(id);
             return this.Redirect("SearchHistoryIndex");
         }
     }

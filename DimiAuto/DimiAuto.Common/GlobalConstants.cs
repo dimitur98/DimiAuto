@@ -39,5 +39,9 @@
         public const string AdminUser = "AdminUser@admin.bg";
 
         public const string NoCompanyUser = "Private person";
+
+        public const int ItemsPerPage = 10;
+
+        public const string DefaultSearchModelUserId = "default";
     }
 }

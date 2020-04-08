@@ -16,5 +16,7 @@
         Task DeleteSearchModelByIdAsync(string id);
 
         Task<SearchModel> GetSearchModelByIdAsync(string id);
+
+        Task<SearchModel> GetDefaultSearchModel();
     }
 }

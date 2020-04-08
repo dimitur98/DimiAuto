@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-
+    using DimiAuto.Common;
     using DimiAuto.Data.Common.Models;
     using DimiAuto.Data.Common.Repositories;
     using DimiAuto.Data.Models;
@@ -69,6 +69,11 @@
         {
             var result = await this.searchModelRepository.All().FirstOrDefaultAsync(x => x.Id == id);
             return result;
+        }
+
+        public async Task<SearchModel> GetDefaultSearchModel()
+        {
+            return await this.searchModelRepository.All().FirstOrDefaultAsync(x => x.UserId == GlobalConstants.DefaultSearchModelUserId);
         }
     }
 }

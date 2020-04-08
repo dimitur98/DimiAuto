@@ -71,6 +71,7 @@
                 options.IdleTimeout = new TimeSpan(365, 0, 0, 0);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
+                
             });
             Account account = new Account(
                                  this.configuration["Cloudinary:AppName"],

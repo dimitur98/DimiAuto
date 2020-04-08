@@ -88,6 +88,17 @@
 
             return result;
         }
+
+        public  AllCarsModel Paging(AllCarsModel data, int? take = null, int skip = 0)
+        {
+            data.AllCars = data.AllCars.Skip(skip).ToList();
+            if (take.HasValue)
+            {
+                data.AllCars = data.AllCars.Take(take.Value).ToList();
+            }
+
+            return data;
+        }
     }
 
 }

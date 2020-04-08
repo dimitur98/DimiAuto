@@ -10,9 +10,15 @@
     {
         public CompareCarsInputModel CompareCarsInputModel { get; set; }
 
-        public IEnumerable<CarAdsViewModel> AllCars { get; set; }
+        public ICollection<CarAdsViewModel> AllCars { get; set; }
 
         public SortInputModel SortInputModel { get; set; }
+
+        public string Action { get; set; }
+
+        public int CurrentPage { get; set; }
+
+        public int PagesCount { get; set; }
 
     }
 }

@@ -9,7 +9,9 @@
     using System.Web;
 
     using AutoMapper;
+    using DimiAuto.Common;
     using DimiAuto.Data.Models;
+    using DimiAuto.Data.Models.CarModel;
     using DimiAuto.Services.Data;
     using DimiAuto.Services.Mapping;
     using DimiAuto.Web.ViewModels;
@@ -50,23 +52,51 @@
                 new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
 
-        public async Task<IActionResult> All()
+        //public async Task<IActionResult> All(int page = 1)
+        //{
+        //    var searchModel = new SearchInputModel
+        //    {
+        //        Condition = Condition.All,
+        //        Fuel = Fuel.All,
+        //        TypeOfVeichle = TypeOfVeichle.All,
+        //        GearBox = GearBox.All,
+        //        Make = Make.All,
+        //        Model = null,
+        //        YearTo = null,
+        //        YearFrom = null,
+        //        PriceFrom = null,
+        //        PriceTo = null,
+        //    };
+        //    var result = new AllCarsModel
+        //    {
+        //        AllCars = await this.homeService.GetAllAdsAsync(),
+        //        SortInputModel = new SortInputModel { SearchInputModel = searchModel, },
+        //        CurrentPage = page,
+        //        Action = "All",
+        //    };
+        //    var count = result.AllCars.Count;
+        //    result.PagesCount = (int)Math.Ceiling((double)count /GlobalConstants.ItemsPerPage);
+        //    if (result.PagesCount == 0)
+        //    {
+        //        result.PagesCount = 1;
+        //    }
+        //    var output = this.homeService.Paging(result, GlobalConstants.ItemsPerPage, (page - 1) * GlobalConstants.ItemsPerPage);
+        //    this.ViewData["searchModel"] = searchModel as SearchInputModel;
+
+        //    return this.View(output);
+        //}
+
+        public async Task<IActionResult> AllByCriteria(string id, SearchInputModel input, int page = 1)
         {
-            var result = new AllCarsModel
+            if (input.Make == 0)
             {
-                AllCars = await this.homeService.GetAllAdsAsync(),
-                SortInputModel = new SortInputModel(),
-            };
-            return this.View(result);
-        }
-
-        public async Task<IActionResult> AllByCriteria(string id, SearchInputModel input)
-        {
-
+                var searchModel = await this.searchService.GetDefaultSearchModel();
+                input = AutoMapperConfig.MapperInstance.Map<SearchInputModel>(searchModel);
+            }
             var user = await this.userManager.GetUserAsync(this.User);
             if (id != null)
             {
-                var searchModel = await this.searchService.GetSearchModelByIdAsync(id.Substring(3));
+                var searchModel = await this.searchService.GetSearchModelByIdAsync(id);
                 input = AutoMapperConfig.MapperInstance.Map<SearchInputModel>(searchModel);
             }
             else
@@ -84,14 +114,29 @@
             {
                 AllCars = ads,
                 SortInputModel = new SortInputModel { SearchInputModel = new SearchInputModel(), },
+                CurrentPage = page,
+                Action = "AllByCriteria",
             };
 
-            return this.View("All", result);
+            var count = result.AllCars.Count;
+            result.PagesCount = (int)Math.Ceiling((double)count / GlobalConstants.ItemsPerPage);
+            if (result.PagesCount == 0)
+            {
+                result.PagesCount = 1;
+            }
+            var output = this.homeService.Paging(result, GlobalConstants.ItemsPerPage, (page - 1) * GlobalConstants.ItemsPerPage);
+
+            return this.View("All", output);
         }
 
-        public async Task<IActionResult> Sort(AllCarsModel input)
+        public async Task<IActionResult> Sort(SortInputModel sortModel, AllCarsModel input, SearchInputModel searchModle, int page = 1 )
         {
-            IEnumerable<CarAdsViewModel> ads;
+            ICollection<CarAdsViewModel> ads;
+                //this is true only when you go through pages
+            if (searchModle.Make != 0)
+            {
+                input.SortInputModel = new SortInputModel {OrderByYear = sortModel.OrderByYear, OrderByPrice = sortModel.OrderByPrice, SearchInputModel = searchModle };
+            }
             var sortInputModel = new SortInputModel();
             if (input.SortInputModel.SearchInputModel == null)
             {
@@ -101,6 +146,8 @@
             {
                 ads = await this.homeService.GetAdsByCriteriaAsync(input.SortInputModel.SearchInputModel);
                 this.ViewData["searchModel"] = input.SortInputModel.SearchInputModel as SearchInputModel;
+                this.ViewData["orderByYear"] = input.SortInputModel.OrderByYear;
+                this.ViewData["orderByPrice"] = input.SortInputModel.OrderByPrice;
                 sortInputModel.SearchInputModel = new SearchInputModel();
             }
 
@@ -121,12 +168,22 @@
                 ads = ads.OrderByDescending(x => x.Price).ToList();
             }
 
-            var output = new AllCarsModel
+            var result = new AllCarsModel
             {
                 AllCars = ads,
                 SortInputModel = sortInputModel,
+                CurrentPage = page,
+                Action = "Sort",
             };
-            return this.View("All", output);
+
+            var count = result.AllCars.Count;
+            result.PagesCount = (int)Math.Ceiling((double)count / GlobalConstants.ItemsPerPage);
+            if (result.PagesCount == 0)
+            {
+                result.PagesCount = 1;
+            }
+            var output = this.homeService.Paging(result, GlobalConstants.ItemsPerPage, (page - 1) * GlobalConstants.ItemsPerPage);
+            return this.View("All", result);
         }
     }
 }

@@ -21,6 +21,7 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Caching.Distributed;
 
     public class AdController : Controller
     {
@@ -28,13 +29,15 @@
         private readonly ICommentService commentService;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IViewService viewService;
+        private readonly IDistributedCache distributedCache;
 
-        public AdController(IAdService adService, ICommentService commentService, IDeletableEntityRepository<ApplicationUser> userRepository, IViewService viewService)
+        public AdController(IAdService adService, ICommentService commentService, IDeletableEntityRepository<ApplicationUser> userRepository, IViewService viewService, IDistributedCache distributedCache)
         {
             this.adService = adService;
             this.commentService = commentService;
             this.userRepository = userRepository;
             this.viewService = viewService;
+            this.distributedCache = distributedCache;
         }
 
         [Authorize]
@@ -61,24 +64,26 @@
 
         public async Task<IActionResult> Details(string id)
         {
-            id = id.Substring(3);
+            
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var g = this.HttpContext.Connection.RemoteIpAddress.ToString();
 
             if (userId == null)
             {
-                var a = this.HttpContext.Session.GetString("view");
-                if (this.HttpContext.Session.GetString("view") != id)
+                var a = this.HttpContext.Request.PathBase;
+                var b = this.HttpContext.Request.Path;
+                if (await this.distributedCache.GetStringAsync("view") != id)
                 {
-                    this.HttpContext.Session.SetString("view", id);
+                    await this.distributedCache.SetStringAsync("view", id);
                     await this.viewService.AddViewAsync("unregistered user", id);
                 }
             }
             else
             {
                 var curentUser = await this.userRepository.All().FirstOrDefaultAsync(x => x.Id == userId);
-                if (this.HttpContext.Session.GetString("view") != curentUser.Email)
+                if (await this.distributedCache.GetStringAsync("view") != curentUser.Email)
                 {
-                    this.HttpContext.Session.SetString("view", curentUser.Email);
+                    await this.distributedCache.SetStringAsync("view", curentUser.Email);
                     await this.viewService.AddViewAsync(userId, id);
                 }
             }
@@ -255,14 +260,10 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> DeleteComment(string id)
+        public async Task<IActionResult> DeleteComment(string commentId, string carId)
         {
-            var result = id.Split("&", StringSplitOptions.RemoveEmptyEntries);
-            var carId = result[1].Substring(6);
-            id = "id=" + carId;
-            var commentId = result[0].Substring(10);
             await this.commentService.DeleteCommentAsync(commentId);
-            return this.RedirectToAction("Details", new { id });
+            return this.RedirectToAction("Details", new { id = carId });
         }
     }
 }
