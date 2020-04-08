@@ -12,7 +12,7 @@
 }
 
 
-<body onload="checkValue()">
+<body>
 
     <section id="car-list-area" class="section-padding">
 
@@ -35,7 +35,7 @@
                         </div>
                         <input asp-for="CompareCarsInputModel.SecondCarId" style="display: none;" id="secondCarInput">
                     </div>
-                    <div class="card" style="display:none;" id="compareBtn">
+                    <div class="card" style="display:none;" id="compareBtns">
                         <button type="submit" class="rent-btn">Compare choosen cars</button>
                         <a href="#" onclick="clearComparerList()" class="rent-btn">Cleare comparer list.</a>
                     </div>
@@ -80,6 +80,9 @@
 
                 <div class="bookcar-btn bookinput-item">
                     <button onclick="getValue()" type="submit">Order</button>
+                </div>
+                <div class="bookcar-btn bookinput-item">
+                    <button onclick="loadComparerList()" type="button">Show comparer list</button>
                 </div>
             </form>
         </div>
@@ -240,7 +243,28 @@
 
     }
 </script>
-
+<script>
+    function loadComparerList() {
+        console.log(sessionStorage.getItem("firstCarImg"));
+        console.log(sessionStorage.getItem("firstCarMakeModel"));
+        console.log(sessionStorage.getItem("firstCarId"));
+        if (sessionStorage.getItem("firstCarId") != null) {
+            $("#myHeader").toggle();
+            $("#firstCar").toggle();
+            $("#firstCarImg").attr("src", sessionStorage.getItem("firstCarImg"));
+            $("#firstCarMakeModel").text(sessionStorage.getItem("firstCarMakeModel"));
+            $("#firstCarInput").val(sessionStorage.getItem("firstCarId"));
+        }
+        if (sessionStorage.getItem("secondCarId") != null) {
+            $("#secondCar").toggle();
+            $("#secondCarImg").attr("src", sessionStorage.getItem("secondCarImg"));
+            $("#secondCarMakeModel").text(sessionStorage.getItem("secondCarMakeModel"));
+            $("#secondCarInput").val(sessionStorage.getItem("secondCarId"));
+            $("#compareBtns").toggle();
+        }
+        
+    }
+</script>
 <script>
     function addToCompare(carId, make, model, imgPath) {
         $("#myHeader").show();
@@ -249,13 +273,18 @@
             $("#firstCarImg").attr("src", imgPath);
             $("#firstCarMakeModel").text(make + ' ' + model);
             $("#firstCarInput").val(carId);
+            sessionStorage.setItem("firstCarId", carId);
+            sessionStorage.setItem("firstCarImg", imgPath);
+            sessionStorage.setItem("firstCarMakeModel", make + " " + model);
         } else if ($("#secondCar").is(":hidden")) {
             $("#secondCar").show();
             $("#secondCarImg").attr("src", imgPath);
             $("#secondCarMakeModel").text(make + ' ' + model);
             $("#secondCarInput").val(carId);
-            $("#compareBtn").show();
-
+            $("#compareBtns").show();
+            sessionStorage.setItem("secondCarId", carId);
+            sessionStorage.setItem("secondCarImg", imgPath);
+            sessionStorage.setItem("secondCarMakeModel", make + " " + model);
         }
     }
 
@@ -270,8 +299,9 @@
         $("#secondCarInput").val(null);
         $("#firstCar").hide();
         $("#secondCar").hide();
-        $("#compareBtn").hide();
+        $("#compareBtns").hide();
         $("#myHeader").hide();
+        sessionStorage.clear();
     }
 </script>
 <style>
@@ -322,25 +352,7 @@
         });
     }
 </script>
-<!--<script>
-    function removeFavAd(carId) {
-        console.log(carId);
-        var token = $("#form input[name=__RequestVerificationToken]").val();
-        var json = { carId: carId };
-        console.log(json);
-        $.ajax({
-            url: "/api/apiAd/removeFavAd",
-            type: "POST",
-            data: JSON.stringify(json),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            headers: { 'X-CSRF-TOKEN': token },
-            success: function (data) {
-                console.log("succes");
-            }
-        });
-    }
-</script>-->
+
 
 <script>
     function getValue() {
@@ -355,40 +367,8 @@
 
 </script>
 
-<script>
 
-    function checkValue() {
 
-        console.log("shit");
-        console.log($("#a").val());
-    }
-</script>
-
-<script>
-    function sortByCriteria() {
-        var orderByPrice = document.getElementById("orderByPriceSelect").value;
-        var orderByYear = document.getElementById("orderByYearSelect").value;
-        var token = $("#votesForm input[name=__RequestVerificationToken]").val();
-        var json = { orderByPrice: orderByPrice, orderByYear: orderByYear };
-        var output = "";
-
-        $.ajax({
-            url: "/api/sort",
-            type: "POST",
-            data: JSON.stringify(json),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            headers: { 'X-CSRF-TOKEN': token },
-            success: function (data) {
-                console.log(data.allCars);
-                $.each(data.allCars, function (i, item) {
-
-                });
-
-            }
-        });
-    }
-</script>
 <script>
     window.onscroll = function () { myFunction() };
 
