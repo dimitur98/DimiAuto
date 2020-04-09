@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DimiAuto.Models.CarModel;
+using DimiAuto.Web.ViewModels.MyAccount;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +9,6 @@ namespace DimiAuto.Services.Data
 {
     public interface IMyAccountService
     {
-        Task<ICollection<TModel>> GetMyCarsAsync<TModel>(string userId);
+        Task<ICollection<MyCarsViewModel>> GetMyCarsAsync(string userId);
     }
 }

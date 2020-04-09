@@ -18,15 +18,32 @@
     public class MyAccountService : IMyAccountService
     {
         private readonly IDeletableEntityRepository<Car> carRepository;
+        private readonly IAdService adService;
 
-        public MyAccountService(IDeletableEntityRepository<Car> carRepository)
+        public MyAccountService(IDeletableEntityRepository<Car> carRepository, IAdService adService)
         {
             this.carRepository = carRepository;
+            this.adService = adService;
         }
 
-        public async Task<ICollection<TModel>> GetMyCarsAsync<TModel>(string userId)
+        public async Task<ICollection<MyCarsViewModel>> GetMyCarsAsync(string userId)
         {
-            return await this.carRepository.All().Where(x => x.UserId == userId).OrderByDescending(x => x.CreatedOn).To<TModel>().ToListAsync();
+            return await this.carRepository.All()
+                .Where(x => x.UserId == userId)
+                .OrderByDescending(x => x.CreatedOn)
+                .Select(x => new MyCarsViewModel 
+                { 
+                    Id = x.Id,
+                    Model = x.Model,
+                    Make = x.Make,
+                    CreatedOn = x.CreatedOn,
+                    IsApproved = x.IsApproved,
+                    ModelToString = this.adService.EnumParser(x.Make.ToString(), x.Model),
+                    Modification = x.Modification,
+                    Price = x.Price,
+                    
+                })
+                .ToListAsync();
         }
     }
 }

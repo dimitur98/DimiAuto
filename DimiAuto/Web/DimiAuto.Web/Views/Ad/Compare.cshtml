@@ -12,14 +12,14 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-4 col-xs-12 col-md-offset-3">
                         <div>
-                            <h3>@Model.FirstCar.Make @Model.FirstCar.Model @Model.FirstCar.Modification</h3>
+                            <h3>@Model.FirstCar.Make @Model.FirstCar.ModelToString @Model.FirstCar.Modification</h3>
                             <img src="@Model.FirstCar.ImgPath" alt="image">
                             <div class="b-compare-price"><div class="b-compare__images-item-price-vs">vs</div>@Model.FirstCar.Price BGN</div>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-4 col-xs-12 ">
                         <div>
-                            <h3>@Model.SecondCar.Make @Model.SecondCar.Model @Model.SecondCar.Modification</h3>
+                            <h3>@Model.SecondCar.Make @Model.SecondCar.ModelToString @Model.SecondCar.Modification</h3>
                             <img src="@Model.SecondCar.ImgPath" alt="image">
                             </div><div class="b-compare-price">@Model.SecondCar.Price BGN</div>
                         </div>

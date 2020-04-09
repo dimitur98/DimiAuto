@@ -19,9 +19,12 @@
 
         public string Model { get; set; }
 
+        public string ModelToString { get; set; }
+
         public string Modification { get; set; }
 
         public string MoreInformation { get; set; }
+
         public decimal Price { get; set; }
 
         public DateTime YearOfProduction { get; set; }
@@ -41,5 +44,8 @@
         public Condition Condition { get; set; }
 
         public TypeOfVeichle TypeOfVeichle { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
     }
 }

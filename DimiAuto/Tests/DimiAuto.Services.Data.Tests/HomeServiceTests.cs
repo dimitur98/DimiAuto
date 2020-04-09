@@ -5,6 +5,7 @@ using DimiAuto.Data.Repositories;
 using DimiAuto.Models.CarModel;
 using DimiAuto.Web.ViewModels.Home;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +22,9 @@ namespace DimiAuto.Services.Data.Tests
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
+            var adService = new Mock<IAdService>();
 
-            var service = new HomeService(carRepository);
+            var service = new HomeService(carRepository, adService.Object);
 
             await carRepository.AddAsync(new Car { Make = Make.Audi, Model = "A8", ImgsPaths = GlobalConstants.DefaultImgCar, });
             await carRepository.AddAsync(new Car { Make = Make.Bmw, Model = "M8", IsApproved = true, ImgsPaths = GlobalConstants.DefaultImgCar, });
@@ -45,8 +47,9 @@ namespace DimiAuto.Services.Data.Tests
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
+            var adService = new Mock<IAdService>();
 
-            var service = new HomeService(carRepository);
+            var service = new HomeService(carRepository, adService.Object);
 
             await carRepository.AddAsync(new Car {Condition = Condition.New, Make = Make.Audi, Model = "A8", ImgsPaths = GlobalConstants.DefaultImgCar, Price = 1, YearOfProduction = DateTime.Parse("01.2020"), });
             await carRepository.AddAsync(new Car { Condition = Condition.New, Make = Make.Bmw, Model = "M8", IsApproved = true, ImgsPaths = GlobalConstants.DefaultImgCar, Price = 8, YearOfProduction = DateTime.Parse("03.2020"), });

@@ -38,7 +38,8 @@
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await this.userManager.GetUserAsync(this.User);
-            var myCars = await this.myAccountService.GetMyCarsAsync<MyCarsViewModel>(userId);
+            var myCars = await this.myAccountService.GetMyCarsAsync(userId);
+            
             var result = new MyAccountViewModel
             {
                 FirstName = user.FirstName,
@@ -135,6 +136,7 @@
                     GearBox = favorite.Car.Gearbox,
                     Condition = favorite.Car.Condition,
                     TypeOfVeichle = favorite.Car.TypeOfVeichle,
+                    ModelToString = this.adService.EnumParser(favorite.Car.Make.ToString(), favorite.Car.Model),
                 };
                 cars.Add(car);
             }

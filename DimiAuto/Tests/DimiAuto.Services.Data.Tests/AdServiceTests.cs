@@ -23,7 +23,6 @@
 
     public class AdServiceTests
     {
-     
         [Fact]
         public async Task CreatAdAsyncTest()
         {
@@ -64,6 +63,7 @@
             Assert.Equal(car.Make, inputModel.Make);
             Assert.Equal(car.Price, inputModel.Price);
         }
+
         [Fact]
         public async Task GetCurrentCarAsyncTest()
         {
@@ -104,6 +104,7 @@
             Assert.Same(car, carByService);
             Assert.Equal(car.Id, carByService.Id);
         }
+
         [Fact]
         public async Task EditAdTests()
         {
@@ -146,7 +147,7 @@
             var editMoreInfo = "edit test";
             var editAd = new EditAddInputModel
             {
-                Id = "id=" + car.Id,
+                Id = car.Id,
                 Cc = editCC,
                 Color = car.Color,
                 Door = car.Door,
@@ -163,9 +164,9 @@
                 MoreInformation = editMoreInfo,
                 Price = car.Price,
                 Type = car.Type,
-                Condition = car.Condition,                
+                Condition = car.Condition,
                 YearOfProduction = car.YearOfProduction,
-                TypeOfVeichle = car.TypeOfVeichle,                
+                TypeOfVeichle = car.TypeOfVeichle,
             };
             var edittedCar = await service.EditAd(editAd);
             Assert.Equal(edittedCar.Make, editMake);
@@ -212,7 +213,7 @@
             var userCarFavRecord = await userCarFavRepository.All().FirstOrDefaultAsync(x => x.UserId == userId);
             Assert.Null(userCarFavRecord);
         }
-     
+
         [Fact]
         public async Task GetAllFavAdsOnCurrentUserTests()
         {
@@ -267,7 +268,7 @@
                 Type = Types.Convertible,
                 TypeOfVeichle = TypeOfVeichle.Truck,
                 YearOfProduction = DateTime.Parse("01.01.1999"),
-            }; 
+            };
             var thirdCar = new CreateAdInputModel
             {
                 Cc = 1,
@@ -302,6 +303,48 @@
             var result = await service.GetAllFavAdsOnCurrentUserAsync<UserAdViewModel>("1");
 
             Assert.Equal(2, result.Count);
+        }
+
+        [Fact]
+        public void EnumParserTestsShouldReturnStringModel()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
+            var userCarFavRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
+
+            var service = new AdService(carRepository, userCarFavRepository);
+
+            // should return - 80
+            var audi = service.EnumParser("Audi", "1");
+
+            // should return - 640
+            var bmw = service.EnumParser("Bmw", "40");
+
+            // should return - Marea
+            var fiat = service.EnumParser("Fiat", "12");
+
+            // should return - iMiEV
+            var mitsubishi = service.EnumParser("Mitsubishi", "10");
+
+            Assert.Equal("80", audi);
+            Assert.Equal("640", bmw);
+            Assert.Equal("Marea", fiat);
+            Assert.Equal("iMiEV", mitsubishi);
+        }
+
+        [Fact]
+        public void EnumParserTestShouldRetunNull()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
+            var userCarFavRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
+
+            var service = new AdService(carRepository, userCarFavRepository);
+
+
+            Assert.Throws<NullReferenceException>(() => service.EnumParser("Lada", "1"));
+            Assert.Throws<IndexOutOfRangeException>(() => service.EnumParser("Audi", "100"));
+
         }
     }
 }

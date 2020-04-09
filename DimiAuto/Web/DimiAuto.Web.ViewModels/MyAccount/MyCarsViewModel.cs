@@ -15,9 +15,11 @@ namespace DimiAuto.Web.ViewModels.MyAccount
 
         public string Model { get; set; }
 
+        public string ModelToString { get; set; }
+
         public string Modification { get; set; }
 
-        public string Price { get; set; }
+        public decimal Price { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

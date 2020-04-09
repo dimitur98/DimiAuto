@@ -6,7 +6,7 @@
     ViewData["Title"] = "CreateAd";
 }
 
-    <form style="position:relative; top:80px;" asp-controller="Ad" asp-action="CreateAd" method="post" class="form">
+    <form style="position:relative; top:80px;" asp-controller="Ad" asp-action="CreateAd" method="post" class="form" id="form">
         <!-- <div asp-validation-summary="All"></div> -->
 
 
@@ -29,12 +29,12 @@
         <div class="form-row">
             <div class="form-group col-md-3">
                 <label asp-for="Make"></label>
-                <select asp-for="Make" class="form-control" asp-items="@Html.GetEnumSelectList<Make>()"></select>
+                <select asp-for="Make" class="form-control" asp-items="@Html.GetEnumSelectList<Make>()" id="make" onchange="loadModels()"></select>
             </div>
             <div class="form-group col-md-3">
                 <label asp-for="Model"></label>
-                <input asp-for="Model" type="text" class="form-control">
-                <span asp-validation-for="Model" class="text-danger"/>
+                <select asp-for="Model" class="form-control" id="model"></select>                
+                <span asp-validation-for="Model" class="text-danger" />
             </div>
             <div class="form-group col-md-3">
                 <label asp-for="Modification"></label>
@@ -189,6 +189,40 @@
         document.getElementById("extras").value = extras;
     }
 
+</script>
+
+<script>
+    function loadModels() {
+        var make = $("#make option:selected").text();
+        var token = $("#form input[name=__RequestVerificationToken]").val();
+        var json = { make: make };
+        console.log(token);
+        console.log(json);
+        $.ajax({
+            url: "/api/apiAd/loadMakeModels",
+            type: "POST",
+            data: JSON.stringify(json),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            headers: { 'X-CSRF-TOKEN': token },
+            success: function (data) {
+                $('#model')
+                    .find('option')
+                    .remove()
+                    .end();
+                var models = data["models"];
+                for (var i = 0; i < models.length; i++) {
+                    if (models[i][0] == "_") {
+                        models[i] = models[i].substring(1);
+                    }
+                    $("#model").append(`<option value="${i + 1}">
+                                       ${models[i]}
+                                  </option>`);
+                    console.log(models[i]);
+                }
+            }
+        });
+    }
 </script>
 
 

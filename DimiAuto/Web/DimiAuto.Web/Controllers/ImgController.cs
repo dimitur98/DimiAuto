@@ -51,7 +51,7 @@
 
         public async Task<IActionResult> EditAdImgs(string id)
         {
-            var car = await this.adService.GetCurrentCarAsync(id.Substring(3));
+            var car = await this.adService.GetCurrentCarAsync(id);
             var uploadedImgs = car.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).ToArray();
             var imgsPaths = new string[10];
             for (int i = 0; i < uploadedImgs.Length; i++)

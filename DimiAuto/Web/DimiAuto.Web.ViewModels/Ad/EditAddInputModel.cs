@@ -19,9 +19,9 @@ namespace DimiAuto.Web.ViewModels.Ad
 
         public Make Make { get; set; }
 
-        [Required]
-        [StringLength(GlobalConstants.CarModelLenght)]
         public string Model { get; set; }
+
+        public string ModelToString { get; set; }
 
         public string Modification { get; set; }
 

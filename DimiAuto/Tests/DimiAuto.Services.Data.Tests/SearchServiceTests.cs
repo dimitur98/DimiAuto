@@ -6,6 +6,7 @@ using DimiAuto.Services.Mapping;
 using DimiAuto.Web.ViewModels.Home;
 using DimiAuto.Web.ViewModels.SearchHistory;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,7 +22,8 @@ namespace DimiAuto.Services.Data.Tests
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var searchRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
-            var service = new SearchService(searchRepository);
+            var adService = new Mock<IAdService>();
+            var service = new SearchService(searchRepository, adService.Object);
 
             var searchModel = new SearchInputModel
             {
@@ -50,7 +52,10 @@ namespace DimiAuto.Services.Data.Tests
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var searchRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
-            var service = new SearchService(searchRepository);
+            var adService = new Mock<IAdService>();
+
+
+            var service = new SearchService(searchRepository, adService.Object);
 
             var searchModel = new SearchInputModel
             {
@@ -75,7 +80,9 @@ namespace DimiAuto.Services.Data.Tests
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var searchRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
-            var service = new SearchService(searchRepository);
+            var adService = new Mock<IAdService>();
+
+            var service = new SearchService(searchRepository, adService.Object);
 
             var searchModel = new SearchInputModel
             {
@@ -104,7 +111,9 @@ namespace DimiAuto.Services.Data.Tests
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var searchRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
-            var service = new SearchService(searchRepository);
+            var adService = new Mock<IAdService>();
+
+            var service = new SearchService(searchRepository, adService.Object);
 
             var searchModel = new SearchInputModel
             {
@@ -128,7 +137,7 @@ namespace DimiAuto.Services.Data.Tests
             await service.SaveSearchModelAsync("1", secondSearchModel);
 
             AutoMapperConfig.RegisterMappings(typeof(SearchViewModel).Assembly);
-            var result = await service.GetSearchModelsAsync<SearchViewModel>("1");
+            var result = await service.GetSearchModelsAsync("1");
 
             Assert.Equal(2, result.Count);
         }

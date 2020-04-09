@@ -8,6 +8,7 @@
 
     using DimiAuto.Data.Common.Repositories;
     using DimiAuto.Data.Models;
+    using DimiAuto.Data.Models.CarModel;
     using DimiAuto.Models.CarModel;
     using DimiAuto.Services.Data;
     using DimiAuto.Web.ViewModels.Ad;
@@ -18,8 +19,8 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using Newtonsoft.Json;
 
-    [Authorize]
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class ApiAdController : Controller
@@ -35,6 +36,7 @@
             this.carRepository = carRepository;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<string>> AddToFav(ApiInputModel input)
         {
@@ -49,6 +51,7 @@
             return this.Ok(new { output = "already added" });
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<string>> RemoveFavAd(ApiInputModel input)
         {
@@ -63,6 +66,7 @@
             return this.Ok();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<string>> AddCarForCompare(ApiInputModel input)
         {
@@ -103,6 +107,16 @@
             {
                 return this.Ok(new { result = "full" });
             }
+        }
+
+        [HttpPost]
+        public async Task <ActionResult<string>> LoadMakeModels(LoadModelInput input)
+        {
+            var modelClass = typeof(Models);
+            var modelEnum = modelClass.GetNestedType(input.Make);
+            var models = modelEnum.GetEnumNames().ToArray();
+            var a = JsonConvert.SerializeObject(models);
+            return this.Ok(new { models = models});
         }
     }
 }

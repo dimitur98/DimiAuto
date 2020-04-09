@@ -1,5 +1,6 @@
 ﻿@model DimiAuto.Web.ViewModels.Home.SearchInputModel
 @using DimiAuto.Data.Models.CarModel
+
 @{
     this.ViewData["Title"] = "Home Page";
 }
@@ -14,6 +15,7 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="book-a-car">
+                        <form method="post" id="form"></form>
                         <form asp-controller="Home" asp-action="AllByCriteria" method="get">
 
                             <div class="pickup-location book-item">
@@ -28,10 +30,11 @@
                             <div class="pick-up-date book-item form-row">
                                 <div class="col-md-6">
                                     <h4>Choose make</h4>
-                                    <select asp-for="Make" class="form-control" asp-items="@Html.GetEnumSelectList<Make>()"></select>
+                                    <select asp-for="Make" class="form-control" asp-items="@Html.GetEnumSelectList<Make>()" id="make" onchange="loadModels()"></select>
                                 </div>
-                                <div class="return-car col-md-6">
-                                    <input asp-for="Model" type="text" placeholder="Model" />
+                                <div class=" col-md-6">
+                                    <h4>Choose model</h4>
+                                    <select asp-for="Model" class="form-control" id="model"></select>
                                 </div>
                             </div>
                             <div class="pick-up-date book-item form-row">
@@ -88,4 +91,36 @@
 
 </section>
 
-
+<script>
+    function loadModels() {
+        var make = $("#make option:selected").text();
+        var token = $("#form input[name=__RequestVerificationToken]").val();
+        var json = { make: make };
+        console.log(token);
+        console.log(json);
+        $.ajax({
+            url: "/api/apiAd/loadMakeModels",
+            type: "POST",
+            data: JSON.stringify(json),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            headers: { 'X-CSRF-TOKEN': token },
+            success: function (data) {
+                $('#model')
+                    .find('option')
+                    .remove()
+                    .end();
+                var models = data["models"];
+                for (var i = 0; i < models.length; i++) {
+                    if (models[i][0] == "_") {
+                        models[i] = models[i].substring(1);
+                    }
+                    $("#model").append(`<option value="${i+1}">
+                                       ${models[i]}
+                                  </option>`);
+                    console.log(models[i]);
+                }
+            }
+        });
+    }
+</script>

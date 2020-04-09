@@ -24,5 +24,7 @@ namespace DimiAuto.Services.Data
 
         Task<ICollection<TModel>> GetAllFavAdsOnCurrentUserAsync<TModel>(string userId);
 
+        string EnumParser(string make, string model);
+
     }
 }

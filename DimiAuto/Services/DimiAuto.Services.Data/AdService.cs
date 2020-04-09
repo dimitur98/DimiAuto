@@ -1,25 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
-using DimiAuto.Data.Common.Repositories;
-using DimiAuto.Services.Mapping;
-using DimiAuto.Web.ViewModels.Ad;
-using DimiAuto.Models.CarModel;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.ObjectModel;
-using DimiAuto.Web.ViewModels.Ad.Comment;
-using DimiAuto.Data.Models;
-using DimiAuto.Common;
-
-namespace DimiAuto.Services.Data
+﻿namespace DimiAuto.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
+    using DimiAuto.Common;
+    using DimiAuto.Data.Common.Repositories;
+    using DimiAuto.Data.Models;
+    using DimiAuto.Models.CarModel;
+    using DimiAuto.Services.Mapping;
+    using DimiAuto.Web.ViewModels.Ad;
+    using DimiAuto.Web.ViewModels.Ad.Comment;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
+    using DimiAuto.Data.Models.CarModel;
+
     public class AdService : IAdService
     {
         private readonly IDeletableEntityRepository<Car> carRepository;
@@ -74,7 +75,7 @@ namespace DimiAuto.Services.Data
 
         public async Task<Car> EditAd(EditAddInputModel input)
         {
-            var car = await this.carRepository.All().FirstOrDefaultAsync(x => x.Id == input.Id.Substring(3));
+            var car = await this.carRepository.All().FirstOrDefaultAsync(x => x.Id == input.Id);
             car.Horsepowers = input.Hp;
             car.Cc = input.Cc;
             car.Color = input.Color;
@@ -121,8 +122,22 @@ namespace DimiAuto.Services.Data
 
         public async Task<ICollection<TModel>> GetAllFavAdsOnCurrentUserAsync<TModel>(string userId)
         {
-            var result = await this.favouriteRepository.All().Where(x => x.UserId == userId).To<TModel>().ToListAsync();
+            var result = await this.favouriteRepository.All().Where(x => x.UserId == userId).OrderByDescending(x => x.CreatedOn).To<TModel>().ToListAsync();
             return result;
+        }
+
+        public string EnumParser(string make, string model)
+        {
+            var modelNum = int.Parse(model) - 1;
+            var modelClass = typeof(Models);
+            var modelEnum = modelClass.GetNestedType(make);
+            var models = modelEnum.GetEnumNames();
+            var modelName = models[modelNum];
+            if (modelName[0] == '_')
+            {
+                modelName = modelName.Substring(1);
+            }
+            return modelName;
         }
 
     }

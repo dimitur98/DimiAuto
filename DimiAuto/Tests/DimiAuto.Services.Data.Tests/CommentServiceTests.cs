@@ -37,7 +37,7 @@
             Assert.NotNull(createdComment);
         }
 
-         [Fact]
+        [Fact]
         public async Task GetComments()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
@@ -48,7 +48,6 @@
             var car = new Car
             {
                 ImgsPaths = "asd",
-                
             };
             await carRepository.AddAsync(car);
             await carRepository.SaveChangesAsync();

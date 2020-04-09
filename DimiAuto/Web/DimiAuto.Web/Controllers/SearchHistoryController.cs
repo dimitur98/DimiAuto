@@ -29,7 +29,7 @@
             var user = await this.userManager.GetUserAsync(this.User);
             var output = new SearchModelsViewModel
             {
-                Searches = await this.searchService.GetSearchModelsAsync<SearchViewModel>(user.Id),
+                Searches = await this.searchService.GetSearchModelsAsync(user.Id),
             };
             return this.View(output);
         }

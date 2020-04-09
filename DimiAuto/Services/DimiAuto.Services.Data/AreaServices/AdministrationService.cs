@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DimiAuto.Services.Mapping;
 using DimiAuto.Data.Models;
+using DimiAuto.Web.ViewModels.Administration;
+using Microsoft.AspNetCore.Identity;
 
 namespace DimiAuto.Services.Data.AreaServices
 {
@@ -15,11 +17,15 @@ namespace DimiAuto.Services.Data.AreaServices
     {
         private readonly IDeletableEntityRepository<Car> carRepository;
         private readonly IDeletableEntityRepository<Comment> commentRepository;
+        private readonly IAdService adService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public AdministrationService(IDeletableEntityRepository<Car> carRepository, IDeletableEntityRepository<Comment> commentRepository)
+        public AdministrationService(IDeletableEntityRepository<Car> carRepository, IDeletableEntityRepository<Comment> commentRepository, IAdService adService, UserManager<ApplicationUser> userManager)
         {
             this.carRepository = carRepository;
             this.commentRepository = commentRepository;
+            this.adService = adService;
+            this.userManager = userManager;
         }
 
         public async Task ApproveAsync(string carId)
@@ -30,9 +36,25 @@ namespace DimiAuto.Services.Data.AreaServices
             await this.carRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TModel>> GetAllAdsAsync<TModel>()
+        public async Task<IEnumerable<AdViewModel>> GetAllAdsAsync()
         {
-            var result = await this.carRepository.AllWithDeleted().OrderByDescending(x => x.CreatedOn).ThenBy(x => x.Model ).To<TModel>().ToListAsync();
+
+            var result = await this.carRepository.AllWithDeleted()
+                .OrderByDescending(x => x.CreatedOn)
+                .ThenBy(x => x.Model ).Select(x => new AdViewModel 
+                { 
+                    Make = x.Make,
+                    Model = x.Model,
+                    ModelToString = this.adService.EnumParser(x.Make.ToString(), x.Model),
+                    CreatedOn = x.CreatedOn,
+                    Id = x.Id,
+                    IsApproved = x.IsApproved,
+                    IsDeleted= x.IsDeleted,
+                    Modification = x.Modification,
+                    UserId = x.UserId,
+                    User = x.User,
+                })
+                .ToListAsync();
             return result;
         }
 

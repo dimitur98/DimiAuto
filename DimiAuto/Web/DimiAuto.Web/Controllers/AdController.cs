@@ -22,6 +22,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Caching.Distributed;
+    using DimiAuto.Data.Models.CarModel;
 
     public class AdController : Controller
     {
@@ -64,7 +65,7 @@
 
         public async Task<IActionResult> Details(string id)
         {
-            
+
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var g = this.HttpContext.Connection.RemoteIpAddress.ToString();
 
@@ -94,7 +95,7 @@
             {
                 car.ImgsPaths = GlobalConstants.DefaultImgCar;
             }
-            
+
 
             var user = await this.userRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == car.UserId);
             var output = new CarDetailsModel
@@ -128,6 +129,7 @@
                     IsApproved = car.IsApproved,
                     IsDeleted = car.IsDeleted,
                     CurrentUserId = userId,
+                    ModelToString = this.adService.EnumParser(car.Make.ToString(), car.Model),
                 },
             };
 
@@ -138,17 +140,17 @@
         [HttpPost]
         public async Task<IActionResult> Details(CarDetailsModel input)
         {
-            
+
             input.CarCommentsInputModel.UserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
+
             await this.commentService.CreateAsync(input.CarCommentsInputModel);
-            return this.RedirectToAction("Details", new { id=input.CarCommentsInputModel.CarId });
+            return this.RedirectToAction("Details", new { id = input.CarCommentsInputModel.CarId });
         }
 
         [Authorize]
         public async Task<IActionResult> Edit(string id)
         {
-            var car = await this.adService.GetCurrentCarAsync(id.Substring(3));
+            var car = await this.adService.GetCurrentCarAsync(id);
             var output = new EditAddInputModel
             {
                 Cc = car.Cc,
@@ -169,6 +171,7 @@
                 Type = car.Type,
                 Condition = car.Condition,
                 YearOfProduction = car.YearOfProduction,
+                Id = car.Id,
             };
             return this.View(output);
         }
@@ -234,6 +237,7 @@
                     Type = firstCar.Type,
                     Condition = firstCar.Condition,
                     YearOfProduction = firstCar.YearOfProduction.ToString("MM.yyyy"),
+                    ModelToString = this.adService.EnumParser(firstCar.Make.ToString(), firstCar.Model),
                 },
                 SecondCar = new ComparedCarViewModel
                 {
@@ -254,6 +258,8 @@
                     Type = secondCar.Type,
                     Condition = secondCar.Condition,
                     YearOfProduction = secondCar.YearOfProduction.ToString("MM.yyyy"),
+                    ModelToString = this.adService.EnumParser(secondCar.Make.ToString(), secondCar.Model),
+
                 },
             };
             return this.View(output);
@@ -265,5 +271,8 @@
             await this.commentService.DeleteCommentAsync(commentId);
             return this.RedirectToAction("Details", new { id = carId });
         }
+
+
     }
 }
+

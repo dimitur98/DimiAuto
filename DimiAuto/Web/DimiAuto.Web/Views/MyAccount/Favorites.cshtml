@@ -9,7 +9,7 @@
             <div class="row">
                 <section class="col-main col-sm-9 col-xs-12 wow bounceInUp animated animated" style="visibility: visible;">
                     <div class="category-products">
-                        <div id="remove" style="display:none;" class="alert alert-warning" role="alert">
+                        <div id="remove" style="display:none;" class="alert alert-success" role="alert">
                             Removed from Favorites!
                         </div>
                         <form method="post" id="form"></form>
@@ -17,51 +17,51 @@
                         {
                             <ul class="products-grid">
                                 <h3>You have no favorite ads added.</h3>
-                                </ul>
-                        }
-                        @foreach (var car in Model.AllCars)
-                        {
-
-                            <ul class="products-grid">
-                                <li class="item col-lg-4 col-md-6 col-sm-4 col-xs-6" id="@car.Id">
-
-                                    <div class="item-inner">
-                                        <div class="item-img">
-                                            <div class="item-img-info">
-                                                <a title="Retis lapen casen" class="product-image"><img src="@car.ImgPath" alt="Retis lapen casen"></a>
-                                            </div>
-                                            <div class="item-box-hover">
-                                                <div class="box-inner">
-
-                                                    <div class="product-detail-bnt"><a class="button detail-bnt" href="/Ad/Details/id=@car.Id"><span>Quick View</span></a></div>
-                                                    <div class="actions"><span class="add-to-links"><a href="#" onclick="removeFavAd('@car.Id')" class="link-wishlist" title="Remove from favorite"><span>Remove from favorite</span></a> </span> </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="item-info">
-                                            <div class="info-inner">
-                                                <div class="item-title"><a href="/Ad/Details/id=@car.Id" title="Retis lapen casen">@car.Make @car.Model @car.Modification</a> </div>
-                                                <div class="item-content">
-
-                                                    <div class="item-price">
-                                                        <div class="price-box"><span class="regular-price"><span class="price">@car.Price BGN.</span> </span> </div>
-                                                    </div>
-                                                    <div class="other-info">
-                                                        <div class="col-km"><i class="fa fa-tachometer"></i> @car.Km km</div>
-                                                        <div class="col-engine"><i class="fa fa-gear"></i> @car.GearBox</div>
-                                                        <div class="col-date"><i class="fa fa-calendar" aria-hidden="true"></i> @car.YearOfProduction.ToString("MM.yyyy")</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </li>
-
                             </ul>
-
                         }
+
+                        <ul class="products-grid">
+                            <div class="row">
+                                @foreach (var car in Model.AllCars)
+                                {
+                                    <li class="item col-lg-4 col-md-3 col-sm-4 col-xs-6" id="@car.Id">
+
+                                        <div class="item-inner">
+                                            <div class="item-img">
+                                                <div class="item-img-info">
+                                                    <a title="Retis lapen casen" class="product-image"><img src="@car.ImgPath" alt="Retis lapen casen"></a>
+                                                </div>
+                                                <div class="item-box-hover">
+                                                    <div class="box-inner">
+
+                                                        <div class="product-detail-bnt"><a class="button detail-bnt" href="/Ad/Details/id=@car.Id"><span>Quick View</span></a></div>
+                                                        <div class="actions"><span class="add-to-links"><a href="#" onclick="removeFavAd('@car.Id')" class="link-wishlist" title="Remove from favorite"><span>Remove from favorite</span></a> </span> </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="item-info">
+                                                <div class="info-inner">
+                                                    <div class="item-title"><a href="/Ad/Details/id=@car.Id" title="Retis lapen casen">@car.Make @car.ModelToString @car.Modification</a> </div>
+                                                    <div class="item-content">
+
+                                                        <div class="item-price">
+                                                            <div class="price-box"><span class="regular-price"><span class="price">@car.Price BGN.</span> </span> </div>
+                                                        </div>
+                                                        <div class="other-info">
+                                                            <div class="col-km"><i class="fa fa-tachometer"></i> @car.Km km</div>
+                                                            <div class="col-engine"><i class="fa fa-gear"></i> @car.GearBox</div>
+                                                            <div class="col-date"><i class="fa fa-calendar" aria-hidden="true"></i> @car.YearOfProduction.ToString("MM.yyyy")</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                }
+                            </div>
+                        </ul>
                     </div>
                 </section>
                 <partial name="_AccountNavPartial" />

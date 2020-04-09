@@ -17,6 +17,7 @@
         public Make Make { get; set; }
 
         public string Model { get; set; }
+        public string ModelToString { get; set; }
 
         public string Modification { get; set; }
 
@@ -30,7 +31,6 @@
 
         public bool IsDeleted { get; set; }
 
-
         public string Statuse
         {
             get
@@ -40,12 +40,10 @@
                     if (this.IsDeleted)
                     {
                         return "Approved, Deleted";
-
                     }
                     else
                     {
                         return "Approved, Not deleted";
-
                     }
                 }
                 else
@@ -53,19 +51,13 @@
                     if (this.IsDeleted)
                     {
                         return "Not approved, Deleted";
-
                     }
                     else
                     {
                         return "Not approved, Not deleted";
-
                     }
                 }
-                
             }
-
-            
         }
-
     }
 }

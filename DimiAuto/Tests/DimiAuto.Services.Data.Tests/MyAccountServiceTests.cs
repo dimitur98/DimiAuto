@@ -8,6 +8,7 @@ using DimiAuto.Services.Mapping;
 using DimiAuto.Web.ViewModels.Ad;
 using DimiAuto.Web.ViewModels.MyAccount;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,8 +24,9 @@ namespace DimiAuto.Services.Data.Tests
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
+            var adService = new Mock<IAdService>();
 
-            var service = new MyAccountService(carRepository);
+            var service = new MyAccountService(carRepository, adService.Object);
 
             var firstCar = new Car
             {
@@ -49,6 +51,7 @@ namespace DimiAuto.Services.Data.Tests
                 TypeOfVeichle = TypeOfVeichle.Truck,
                 YearOfProduction = DateTime.Parse("01.01.1999"),
                 UserId = "1",
+
             };
 
             var secondCar = new Car
@@ -81,7 +84,7 @@ namespace DimiAuto.Services.Data.Tests
             await carRepository.SaveChangesAsync();
 
             AutoMapperConfig.RegisterMappings(typeof(MyCarsViewModel).Assembly);
-            var result = await service.GetMyCarsAsync<MyCarsViewModel>("1");
+            var result = await service.GetMyCarsAsync("1");
             Assert.Equal(1, result.Count);
         }
     }

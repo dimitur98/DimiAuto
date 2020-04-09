@@ -11,15 +11,18 @@
     using DimiAuto.Data.Models;
     using DimiAuto.Services.Mapping;
     using DimiAuto.Web.ViewModels.Home;
+    using DimiAuto.Web.ViewModels.SearchHistory;
     using Microsoft.EntityFrameworkCore;
 
     public class SearchService : ISearchService
     {
         private readonly IDeletableEntityRepository<SearchModel> searchModelRepository;
+        private readonly IAdService adService;
 
-        public SearchService(IDeletableEntityRepository<SearchModel> searchModelRepository)
+        public SearchService(IDeletableEntityRepository<SearchModel> searchModelRepository, IAdService adService)
         {
             this.searchModelRepository = searchModelRepository;
+            this.adService = adService;
         }
 
         public async Task SaveSearchModelAsync(string userId, SearchInputModel search)
@@ -50,9 +53,23 @@
             
         }
 
-        public async Task<ICollection<TModel>> GetSearchModelsAsync<TModel>(string userId)
+        public async Task<ICollection<SearchViewModel>> GetSearchModelsAsync(string userId)
         {
-            var result = await this.searchModelRepository.All().Where(x => x.UserId == userId).OrderBy(x => x.CreatedOn).To<TModel>().ToListAsync();
+            var result = await this.searchModelRepository.All().Where(x => x.UserId == userId).OrderBy(x => x.CreatedOn).Select(x => new SearchViewModel 
+            {
+                Id = x.Id,
+                Model = x.Model,
+                Make = x.Make,
+                Condition = x.Condition,
+                Fuel = x.Fuel,
+                GearBox = x.GearBox,
+                ModelToString = this.adService.EnumParser(x.Make.ToString(), x.Model),
+                PriceFrom = x.PriceFrom,
+                PriceTo = x.PriceTo,
+                TypeOfVeichle = x.TypeOfVeichle,
+                YearFrom = x.YearFrom,
+                YearTo = x.YearTo,
+            }).ToListAsync();
             return result;
         }
 

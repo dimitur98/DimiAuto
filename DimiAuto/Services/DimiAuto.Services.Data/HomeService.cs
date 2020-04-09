@@ -16,10 +16,12 @@
     public class HomeService : IHomeService
     {
         private readonly IDeletableEntityRepository<Car> carRepository;
+        private readonly IAdService adService;
 
-        public HomeService(IDeletableEntityRepository<Car> carRepository)
+        public HomeService(IDeletableEntityRepository<Car> carRepository, IAdService adService)
         {
             this.carRepository = carRepository;
+            this.adService = adService;
         }
 
         public async Task<ICollection<CarAdsViewModel>> GetAllAdsAsync()
@@ -44,7 +46,10 @@
                 GearBox = x.Gearbox,
                 Condition = x.Condition,
                 TypeOfVeichle = x.TypeOfVeichle,
-            }).ToListAsync();
+                CreatedOn = x.CreatedOn,
+                ModelToString = this.adService.EnumParser(x.Make.ToString(), x.Model),
+
+            }).OrderByDescending(x => x.CreatedOn).ToListAsync();
 
             return result;
         }

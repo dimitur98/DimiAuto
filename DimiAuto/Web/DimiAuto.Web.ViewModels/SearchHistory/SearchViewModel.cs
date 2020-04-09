@@ -13,7 +13,9 @@ namespace DimiAuto.Web.ViewModels.SearchHistory
 
         public Make Make { get; set; }
 
-        public string? Model { get; set; }
+        public string Model { get; set; }
+
+        public string ModelToString { get; set; }
 
         public Condition Condition { get; set; }
 

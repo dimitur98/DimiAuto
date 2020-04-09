@@ -22,6 +22,8 @@
 
         public string Model { get; set; }
 
+        public string ModelToString { get; set; }
+
         public string Modification { get; set; }
 
         public Types Type { get; set; }

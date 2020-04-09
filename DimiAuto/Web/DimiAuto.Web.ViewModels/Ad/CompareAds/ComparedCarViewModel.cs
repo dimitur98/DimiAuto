@@ -1,20 +1,24 @@
-﻿using DimiAuto.Data.Models.CarModel;
-using DimiAuto.Models.CarModel;
-using DimiAuto.Services.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DimiAuto.Web.ViewModels.Ad.CompareAds
+﻿namespace DimiAuto.Web.ViewModels.Ad.CompareAds
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    using DimiAuto.Data.Models.CarModel;
+    using DimiAuto.Models.CarModel;
+    using DimiAuto.Services.Mapping;
+
     public class ComparedCarViewModel : IMapFrom<Car>
     {
+       
 
         public Condition Condition { get; set; }
 
         public Make Make { get; set; }
 
         public string Model { get; set; }
+
+        public string ModelToString { get; set; }
 
         public string Modification { get; set; }
 

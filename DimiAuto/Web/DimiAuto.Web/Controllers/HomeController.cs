@@ -21,6 +21,7 @@
     using HtmlAgilityPack;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using System.Reflection;
 
     public class HomeController : BaseController
     {
@@ -37,6 +38,7 @@
 
         public IActionResult Index()
         {
+
             return this.View();
         }
 

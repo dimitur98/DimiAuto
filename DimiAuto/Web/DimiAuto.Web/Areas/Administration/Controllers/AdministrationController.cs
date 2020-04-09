@@ -15,6 +15,7 @@
     using DimiAuto.Common;
     using DimiAuto.Data;
     using DimiAuto.Data.Repositories;
+    using DimiAuto.Services.Data;
 
     [Authorize(Roles = "Administrator")]
     [Area("Administration")]
@@ -25,20 +26,23 @@
         private readonly ApplicationDbContext dbContext;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly RoleManager<ApplicationRole> roleManager;
+        private readonly IAdService adService;
 
-        public AdministrationController(IAdministrationService administrationService, UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext, IDeletableEntityRepository<ApplicationUser> userRepository, RoleManager<ApplicationRole> roleManager)
+        public AdministrationController(IAdministrationService administrationService, UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext, 
+            IDeletableEntityRepository<ApplicationUser> userRepository, RoleManager<ApplicationRole> roleManager, IAdService adService)
         {
             this.administrationService = administrationService;
             this.userManager = userManager;
             this.dbContext = dbContext;
             this.userRepository = userRepository;
             this.roleManager = roleManager;
+            this.adService = adService;
         }
         public async Task<IActionResult> AllAds()
         {
             var result = new AllAdsViewModel
             {
-                Cars = await this.administrationService.GetAllAdsAsync<AdViewModel>(),
+                Cars = await this.administrationService.GetAllAdsAsync(),
             };
             return this.View(result);
         }

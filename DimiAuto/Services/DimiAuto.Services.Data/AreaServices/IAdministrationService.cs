@@ -1,4 +1,5 @@
 ﻿using DimiAuto.Models.CarModel;
+using DimiAuto.Web.ViewModels.Administration;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +13,7 @@ namespace DimiAuto.Services.Data.AreaServices
 
         Task ApproveAsync(string carId);
 
-        Task<IEnumerable<TModel>> GetAllAdsAsync<TModel>();
+        Task<IEnumerable<AdViewModel>> GetAllAdsAsync();
 
         Task DeleteAsync(string carId);
 
