@@ -52,7 +52,7 @@
                 Price = 100,
                 Type = Types.Convertible,
                 TypeOfVeichle = TypeOfVeichle.Truck,
-                YearOfProduction = DateTime.Parse("01.01.1999"),
+                YearOfProduction = "01.1999",
             };
             var result = await service.CreateAdAsync(inputModel, "1");
             var carsInDb = await carRepository.All().CountAsync();
@@ -94,7 +94,7 @@
                 Price = 100,
                 Type = Types.Convertible,
                 TypeOfVeichle = TypeOfVeichle.Truck,
-                YearOfProduction = DateTime.Parse("01.01.1999"),
+                YearOfProduction = "01.1999",
             };
 
             await service.CreateAdAsync(inputModel, "1");
@@ -135,7 +135,7 @@
                 Price = 100,
                 Type = Types.Convertible,
                 TypeOfVeichle = TypeOfVeichle.Truck,
-                YearOfProduction = DateTime.Parse("01.01.1999"),
+                YearOfProduction = "01.1999",
             };
             await service.CreateAdAsync(inputModel, "1");
             var car = await carRepository.All().FirstOrDefaultAsync(x => x.Model == "test");
@@ -244,7 +244,7 @@
                 Price = 100,
                 Type = Types.Convertible,
                 TypeOfVeichle = TypeOfVeichle.Truck,
-                YearOfProduction = DateTime.Parse("01.01.1999"),
+                YearOfProduction = "01.1999",
             };
             var secondCar = new CreateAdInputModel
             {
@@ -267,7 +267,7 @@
                 Price = 100,
                 Type = Types.Convertible,
                 TypeOfVeichle = TypeOfVeichle.Truck,
-                YearOfProduction = DateTime.Parse("01.01.1999"),
+                YearOfProduction = "01.1999",
             };
             var thirdCar = new CreateAdInputModel
             {
@@ -290,7 +290,7 @@
                 Price = 100000,
                 Type = Types.Convertible,
                 TypeOfVeichle = TypeOfVeichle.Truck,
-                YearOfProduction = DateTime.Parse("01.01.2000"),
+                YearOfProduction = "01.2000",
             };
             var firstCarId = await service.CreateAdAsync(firstCar, "1");
             var secondCarId = await service.CreateAdAsync(secondCar, "1");

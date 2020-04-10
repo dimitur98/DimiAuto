@@ -20,6 +20,7 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
     using DimiAuto.Data.Models.CarModel;
+    using System.Globalization;
 
     public class AdService : IAdService
     {
@@ -58,7 +59,7 @@
                 Price = input.Price,
                 Type = input.Type,
                 Condition = input.Condition,
-                YearOfProduction = input.YearOfProduction,
+                YearOfProduction = DateTime.ParseExact(input.YearOfProduction, "mm.yyyy", CultureInfo.InvariantCulture),
                 UserId = userId,
                 ImgsPaths = GlobalConstants.DefaultImgCar,
             };

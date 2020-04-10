@@ -70,7 +70,6 @@
                         result = result.Where(x => x.GetType().GetProperty(item.Key).GetValue(x, null).ToString() == item.Value.ToString()).ToList();
                     }
                 }
-                
 
                 if (item.Value != null && item.Key == "PriceFrom")
                 {

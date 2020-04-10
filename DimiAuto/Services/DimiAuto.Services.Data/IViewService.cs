@@ -7,7 +7,7 @@ namespace DimiAuto.Services.Data
 {
     public interface IViewService
     {
-        Task AddViewAsync(string userId, string carId);
+        Task AddViewAsync(string user, string carId);
 
         int GetViewsCount(string carId);
     }

@@ -67,30 +67,20 @@
         {
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var g = this.HttpContext.Connection.RemoteIpAddress.ToString();
+            var ip = this.HttpContext.Connection.RemoteIpAddress.ToString();
 
-            if (userId == null)
-            {
-                var a = this.HttpContext.Request.PathBase;
-                var b = this.HttpContext.Request.Path;
-                if (await this.distributedCache.GetStringAsync("view") != id)
-                {
-                    await this.distributedCache.SetStringAsync("view", id);
-                    await this.viewService.AddViewAsync("unregistered user", id);
-                }
-            }
-            else
-            {
-                var curentUser = await this.userRepository.All().FirstOrDefaultAsync(x => x.Id == userId);
-                if (await this.distributedCache.GetStringAsync("view") != curentUser.Email)
-                {
-                    await this.distributedCache.SetStringAsync("view", curentUser.Email);
-                    await this.viewService.AddViewAsync(userId, id);
-                }
-            }
 
             // var a = Assembly("All.cshtml");
             var car = await this.adService.GetCurrentCarAsync(id);
+            if (userId == null)
+            {
+                await this.viewService.AddViewAsync(ip, car.Id);
+            }
+            else
+            {
+                await this.viewService.AddViewAsync(userId, car.Id);
+            }
+
             if (car.ImgsPaths == string.Empty)
             {
                 car.ImgsPaths = GlobalConstants.DefaultImgCar;

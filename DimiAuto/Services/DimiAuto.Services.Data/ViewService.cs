@@ -19,16 +19,19 @@ namespace DimiAuto.Services.Data
             this.viewRepository = viewRepository;
         }
 
-        public async Task AddViewAsync(string userId, string carId)
+        public async Task AddViewAsync(string user, string carId)
         {
-
-            var newView = new AdView
+            var view = await this.viewRepository.All().FirstOrDefaultAsync(x => x.User == user && x.CarId == carId);
+            if (view == null)
             {
-                CarId = carId,
-                UserId = userId,
-            };
-            await this.viewRepository.AddAsync(newView);
-            await this.viewRepository.SaveChangesAsync();
+                var newView = new AdView
+                {
+                    CarId = carId,
+                    User = user,
+                };
+                await this.viewRepository.AddAsync(newView);
+                await this.viewRepository.SaveChangesAsync();
+            }
 
         }
 

@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
     using System.Web;
 
@@ -21,7 +22,6 @@
     using HtmlAgilityPack;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using System.Reflection;
 
     public class HomeController : BaseController
     {
@@ -85,9 +85,8 @@
         //    var output = this.homeService.Paging(result, GlobalConstants.ItemsPerPage, (page - 1) * GlobalConstants.ItemsPerPage);
         //    this.ViewData["searchModel"] = searchModel as SearchInputModel;
 
-        //    return this.View(output);
-        //}
-
+        // return this.View(output);
+        // }
         public async Task<IActionResult> AllByCriteria(string id, SearchInputModel input, int page = 1)
         {
             if (input.Make == 0)
@@ -95,6 +94,7 @@
                 var searchModel = await this.searchService.GetDefaultSearchModel();
                 input = AutoMapperConfig.MapperInstance.Map<SearchInputModel>(searchModel);
             }
+
             var user = await this.userManager.GetUserAsync(this.User);
             if (id != null)
             {
@@ -108,6 +108,7 @@
                     await this.searchService.SaveSearchModelAsync(user.Id, input);
                 }
             }
+
             this.ViewData["searchModel"] = input as SearchInputModel;
 
             var ads = await this.homeService.GetAdsByCriteriaAsync(input);
@@ -126,19 +127,22 @@
             {
                 result.PagesCount = 1;
             }
+
             var output = this.homeService.Paging(result, GlobalConstants.ItemsPerPage, (page - 1) * GlobalConstants.ItemsPerPage);
 
             return this.View("All", output);
         }
 
-        public async Task<IActionResult> Sort(SortInputModel sortModel, AllCarsModel input, SearchInputModel searchModle, int page = 1 )
+        public async Task<IActionResult> Sort(SortInputModel sortModel, AllCarsModel input, SearchInputModel searchModle, int page = 1)
         {
             ICollection<CarAdsViewModel> ads;
-                //this is true only when you go through pages
+
+                // this is true only when you go through pages
             if (searchModle.Make != 0)
             {
-                input.SortInputModel = new SortInputModel {OrderByYear = sortModel.OrderByYear, OrderByPrice = sortModel.OrderByPrice, SearchInputModel = searchModle };
+                input.SortInputModel = new SortInputModel { OrderByYear = sortModel.OrderByYear, OrderByPrice = sortModel.OrderByPrice, SearchInputModel = searchModle };
             }
+
             var sortInputModel = new SortInputModel();
             if (input.SortInputModel.SearchInputModel == null)
             {
@@ -184,6 +188,7 @@
             {
                 result.PagesCount = 1;
             }
+
             var output = this.homeService.Paging(result, GlobalConstants.ItemsPerPage, (page - 1) * GlobalConstants.ItemsPerPage);
             return this.View("All", result);
         }

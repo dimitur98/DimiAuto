@@ -46,8 +46,8 @@
         public int Cc { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
-        public DateTime YearOfProduction { get; set; }
+        
+        public string YearOfProduction { get; set; }
 
         [Required]
         [Range(0, int.MaxValue)]

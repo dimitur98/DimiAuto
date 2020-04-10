@@ -11,10 +11,9 @@ namespace DimiAuto.Data.Models
     {
         [Required]
         public string CarId { get; set; }
-        public virtual Car Car { get; set; }
 
         [Required]
-        public string UserId { get; set; }
+        public string User { get; set; }
 
     }
 }
