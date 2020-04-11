@@ -129,16 +129,21 @@
 
         public string EnumParser(string make, string model)
         {
-            var modelNum = int.Parse(model) - 1;
-            var modelClass = typeof(Models);
-            var modelEnum = modelClass.GetNestedType(make);
-            var models = modelEnum.GetEnumNames();
-            var modelName = models[modelNum];
-            if (modelName[0] == '_')
+            if (make != "All")
             {
-                modelName = modelName.Substring(1);
+                var modelNum = int.Parse(model) - 1;
+                var modelClass = typeof(Models);
+                var modelEnum = modelClass.GetNestedType(make);
+                var models = modelEnum.GetEnumNames();
+                var modelName = models[modelNum];
+                if (modelName[0] == '_')
+                {
+                    modelName = modelName.Substring(1);
+                }
+
+                return modelName;
             }
-            return modelName;
+            return "-";
         }
 
     }

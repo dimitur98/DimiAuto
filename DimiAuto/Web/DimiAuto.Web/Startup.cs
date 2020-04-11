@@ -25,6 +25,7 @@
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Caching.SqlServer;
 
+
     public class Startup
     {
         private readonly IConfiguration configuration;
@@ -42,6 +43,13 @@
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddAuthentication().AddFacebook(option =>
+            {
+                option.AppId = this.configuration["Facebook:AppKey"];
+                option.AppSecret = this.configuration["Facebook:AppSecret"];
+                }
+            );
+
 
             services.Configure<CookiePolicyOptions>(
                 options =>
@@ -49,7 +57,7 @@
                         options.CheckConsentNeeded = context => true;
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
-            
+
             services.AddControllersWithViews(configure =>
                     {
                         configure.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
@@ -71,7 +79,7 @@
                 options.IdleTimeout = new TimeSpan(365, 0, 0, 0);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
-                
+
             });
             Account account = new Account(
                                  this.configuration["Cloudinary:AppName"],
@@ -123,6 +131,8 @@
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                //app.UseExceptionHandler("/Home/Error");
+
             }
             else
             {

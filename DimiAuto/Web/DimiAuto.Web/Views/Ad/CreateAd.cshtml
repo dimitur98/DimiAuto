@@ -5,177 +5,179 @@
 @{
     ViewData["Title"] = "CreateAd";
 }
+    <div class="container">
+        <form style="position:relative; top:80px;" asp-controller="Ad" asp-action="CreateAd" method="post" class="form" id="form">
+            <!-- <div asp-validation-summary="All"></div> -->
 
-    <form style="position:relative; top:80px;" asp-controller="Ad" asp-action="CreateAd" method="post" class="form" id="form">
-        <!-- <div asp-validation-summary="All"></div> -->
 
-
-        <div class="form-group">
-            <label asp-for="TypeOfVeichle"></label>
-            <select asp-for="TypeOfVeichle" class="form-control" asp-items="@Html.GetEnumSelectList<TypeOfVeichle>()"></select>
-        </div>
-        <!--<span asp-validation-for="TypeOfVeichle" />-->
-
-        <div class="form-group">
-            <label asp-for="Type"></label>
-            <select asp-for="Type" class="form-control" asp-items="@Html.GetEnumSelectList<Types>()"></select>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Condition"></label>
-            <select asp-for="Condition" class="form-control" asp-items="@Html.GetEnumSelectList<Condition>()"></select>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-3">
-                <label asp-for="Make"></label>
-                <select asp-for="Make" class="form-control" asp-items="@Html.GetEnumSelectList<Make>()" id="make" onchange="loadModels()"></select>
+            <div class="form-group">
+                <label asp-for="TypeOfVeichle"></label>
+                <select asp-for="TypeOfVeichle" class="form-control" asp-items="@Html.GetEnumSelectList<TypeOfVeichle>()"></select>
             </div>
-            <div class="form-group col-md-3">
-                <label asp-for="Model"></label>
-                <select asp-for="Model" class="form-control" id="model"></select>                
-                <span asp-validation-for="Model" class="text-danger" />
+            <!--<span asp-validation-for="TypeOfVeichle" />-->
+
+            <div class="form-group">
+                <label asp-for="Type"></label>
+                <select asp-for="Type" class="form-control" asp-items="@Html.GetEnumSelectList<Types>()"></select>
             </div>
-            <div class="form-group col-md-3">
-                <label asp-for="Modification"></label>
-                <input asp-for="Modification" type="text" class="form-control">
-                <span asp-validation-for="Modification" class="text-danger"/>
+
+            <div class="form-group">
+                <label asp-for="Condition"></label>
+                <select asp-for="Condition" class="form-control" asp-items="@Html.GetEnumSelectList<Condition>()"></select>
             </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Price"></label>
-            <input asp-for="Price" type="number" class="form-control">
-            <span asp-validation-for="Price" class="text-danger"/>
-        </div>
-        <div class="form-group">
-            <label asp-for="GearBox"></label>
-            <select asp-for="GearBox" class="form-control" asp-items="@Html.GetEnumSelectList<GearBox>()"></select>
-        </div>
-        <div class="form-group">
-            <label asp-for="Fuel"></label>
-            <select asp-for="Fuel" class="form-control" asp-items="@Html.GetEnumSelectList<Fuel>()"></select>
-        </div>
-        <div class="form-group">
-            <label asp-for="Hp"></label>
-            <input asp-for="Hp" type="number" class="form-control">
-            <span asp-validation-for="Hp" class="text-danger"/>
-        </div>
-        <div class="form-group">
-            <label asp-for="Cc"></label>
-            <input asp-for="Cc" type="number" class="form-control">
-            <span asp-validation-for="Cc" class="text-danger"/>
-        </div>
-        <div class="form-group">
-            <label asp-for="YearOfProduction"></label>
-            <input asp-for="YearOfProduction" placeholder="dd.yyyy" class="form-control">
-            <span asp-validation-for="YearOfProduction" class="text-danger"/>
-        </div>
-        <div class="form-group">
-            <label asp-for="Km"></label>
-            <input asp-for="Km" type="number" class="form-control">
-            <span asp-validation-for="Km" class="text-danger"/>
-        </div>
-        <div class="form-group">
-            <label asp-for="Door"></label>
-            <select asp-for="Door" class="form-control" asp-items="@Html.GetEnumSelectList<Doors>()"></select>
-        </div>
-        <div class="form-group">
-            <label asp-for="Color"></label>
-            <select asp-for="Color" class="form-control" asp-items="@Html.GetEnumSelectList<Color>()"></select>
-        </div>
-        <div class="form-group">
-            <label asp-for="EuroStandart"></label>
-            <select asp-for="EuroStandart" class="form-control" asp-items="@Html.GetEnumSelectList<EuroStandart>()"></select>
-        </div>
-        <div class="form-group">
-            <label asp-for="Location"></label>
-            <input asp-for="Location" class="form-control" type="text" />
-            <span asp-validation-for="Location"  class="text-danger" />
-        </div>
-        <div class="form-group">
-            <label asp-for="MoreInformation"></label>
-            <textarea asp-for="MoreInformation" type="text" class="form-control"></textarea>
-        </div>
-        <!--,,,,,,,,,,,,,,moreInformation,extras-->
-        <div style="padding-top:10px; padding-bottom:5px; "><b>Extras</b></div>
-        <div style="width: 980; border-style: outset">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td width="100%" valign="top" style="padding-left:200px">
-                        <table cellpadding="70" cellspacing="50" border="0">
-                            <td valign="top">
-                                <b>Comfort</b>
-                                <div class="form-group">
-                                    <input type="checkbox" class="checks" value="Air condiitioning">Air condiitioning<br>
-                                    <input type="checkbox" class="checks" value="Climatronic">Climatronic<br>
-                                    <input type="checkbox" class="checks" value="Leather interior">Leather interior<br>
-                                    <input type="checkbox" class="checks" value="Electric windows">Electric windows<br>
-                                    <input type="checkbox" class="checks" value="Electric mirrors">Electric mirrors<br>
-                                    <input type="checkbox" class="checks" value="Electric seats">Electric seats<br>
-                                    <input type="checkbox" class="checks" value="Seat heating">Seat heating<br>
-                                    <input type="checkbox" class="checks" value="Sunroof">Sunroof<br>
-                                    <input type="checkbox" class="checks" value="Stereo">Stereo<br>
-                                    <input type="checkbox" class="checks" value="Alloy wheels">Alloy wheels<br>
-                                    <input type="checkbox" class="checks" value="Dvd/TV">Dvd/TV<br>
-                                    <input type="checkbox" class="checks" value="Multi steering wheel">Multi steering wheel<br>
-                                </div>
-                            </td>
-                            <td valign="top">
-                                <b>Security</b>
-                                <div class="form-group">
-                                    <input type="checkbox" class="checks" value="4X4">4X4<br>
-                                    <input type="checkbox" class="checks" value="ABS">ABS<br>
-                                    <input type="checkbox" class="checks" value="ESP">ESP<br>
-                                    <input type="checkbox" class="checks" value="Airbag">Airbag<br>
-                                    <input type="checkbox" class="checks" value="Xenon lights">Xenon lights<br>
-                                    <input type="checkbox" class="checks" value="Halogen head lights">Halogen head lights<br>
-                                    <input type="checkbox" class="checks" value="Traction control">Traction control<br>
-                                    <input type="checkbox" class="checks" value="Parktronic">Parktronic<br>
-                                    <input type="checkbox" class="checks" value="Alarm">Alarm<br>
-                                    <input type="checkbox" class="checks" value="Immobilizer">Immobilizer<br>
-                                    <input type="checkbox" class="checks" value="Insurance">Insurance<br>
-                                    <input type="checkbox" class="checks" value="Armored">Armored<br>
-                                    <input type="checkbox" class="checks" value="Start-Stop system">Start-Stop system<br>
-                                    <input type="checkbox" class="checks" value="Keyless-Go">Keyless-Go<br>
 
-                                </div>
-                            </td>
-                            <td valign="top">
-                                <b>Others</b>
-                                <div class="form-group">
-                                    <input type="checkbox" class="checks" value="Tiptronic">Tiptronic/Multitronic<br>
-                                    <input type="checkbox" class="checks" value="Autopilot">Autopilot<br>
-                                    <input type="checkbox" class="checks" value="PowerSteering">Power steering<br>
-                                    <input type="checkbox" class="checks" value="Onboard Computer">Onboard computer<br>
-                                    <input type="checkbox" class="checks" value="Service Book">Service book<br>
-                                    <input type="checkbox" class="checks" value="Warranty">Warranty<br>
-                                    <input type="checkbox" class="checks" value="Navigation system">Navigation system<br>
-                                    <input type="checkbox" class="checks" value="Right hand drive">Right hand drive<br>
-                                    <input type="checkbox" class="checks" value="Tuning">Tuning<br>
-                                    <input type="checkbox" class="checks" value="Panoramic roof">Panoramic roof<br>
-                                    <input type="checkbox" class="checks" value="TAXI">TAXI<br>
-                                    <input type="checkbox" class="checks" value="Retro">Retro<br>
-                                    <input type="checkbox" class="checks" value="Tow">Tow<br>
-                                    <input type="checkbox" class="checks" value="Seven seats">7 seats (6 + 1)<br>
-                                    <input type="checkbox" class="checks" value="Refrigerated" name="test">Refrigerated<br>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label asp-for="Make"></label>
+                    <select asp-for="Make" class="form-control" asp-items="@Html.GetEnumSelectList<Make>()" id="make" onchange="loadModels()"></select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="Model"></label>
+                    <select asp-for="Model" class="form-control" id="model"></select>
+                    <span asp-validation-for="Model" class="text-danger" />
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="Modification"></label>
+                    <input asp-for="Modification" type="text" class="form-control">
+                    <span asp-validation-for="Modification" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" type="number" class="form-control">
+                <span asp-validation-for="Price" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <label asp-for="GearBox"></label>
+                <select asp-for="GearBox" class="form-control" asp-items="@Html.GetEnumSelectList<GearBox>()"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fuel"></label>
+                <select asp-for="Fuel" class="form-control" asp-items="@Html.GetEnumSelectList<Fuel>()"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hp"></label>
+                <input asp-for="Hp" type="number" class="form-control">
+                <span asp-validation-for="Hp" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Cc"></label>
+                <input asp-for="Cc" type="number" class="form-control">
+                <span asp-validation-for="Cc" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <label asp-for="YearOfProduction"></label>
+                <input asp-for="YearOfProduction" placeholder="dd.yyyy" class="form-control">
+                <span asp-validation-for="YearOfProduction" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Km"></label>
+                <input asp-for="Km" type="number" class="form-control">
+                <span asp-validation-for="Km" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Door"></label>
+                <select asp-for="Door" class="form-control" asp-items="@Html.GetEnumSelectList<Doors>()"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Color"></label>
+                <select asp-for="Color" class="form-control" asp-items="@Html.GetEnumSelectList<Color>()"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="EuroStandart"></label>
+                <select asp-for="EuroStandart" class="form-control" asp-items="@Html.GetEnumSelectList<EuroStandart>()"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location"></label>
+                <input asp-for="Location" class="form-control" type="text" />
+                <span asp-validation-for="Location" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <label asp-for="MoreInformation"></label>
+                <textarea asp-for="MoreInformation" type="text" class="form-control"></textarea>
+            </div>
+            <!--,,,,,,,,,,,,,,moreInformation,extras-->
+            <div style="padding-top:10px; padding-bottom:5px; "><b>Extras</b></div>
+            <div style="width: 980; border-style: outset">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="100%" valign="top" style="padding-left:200px">
+                            <table cellpadding="70" cellspacing="50" border="0">
+                                <td valign="top">
+                                    <b>Comfort</b>
+                                    <div class="form-group">
+                                        <input type="checkbox" class="checks" value="Air condiitioning">Air condiitioning<br>
+                                        <input type="checkbox" class="checks" value="Climatronic">Climatronic<br>
+                                        <input type="checkbox" class="checks" value="Leather interior">Leather interior<br>
+                                        <input type="checkbox" class="checks" value="Electric windows">Electric windows<br>
+                                        <input type="checkbox" class="checks" value="Electric mirrors">Electric mirrors<br>
+                                        <input type="checkbox" class="checks" value="Electric seats">Electric seats<br>
+                                        <input type="checkbox" class="checks" value="Seat heating">Seat heating<br>
+                                        <input type="checkbox" class="checks" value="Sunroof">Sunroof<br>
+                                        <input type="checkbox" class="checks" value="Stereo">Stereo<br>
+                                        <input type="checkbox" class="checks" value="Alloy wheels">Alloy wheels<br>
+                                        <input type="checkbox" class="checks" value="Dvd/TV">Dvd/TV<br>
+                                        <input type="checkbox" class="checks" value="Multi steering wheel">Multi steering wheel<br>
+                                    </div>
+                                </td>
+                                <td valign="top">
+                                    <b>Security</b>
+                                    <div class="form-group">
+                                        <input type="checkbox" class="checks" value="4X4">4X4<br>
+                                        <input type="checkbox" class="checks" value="ABS">ABS<br>
+                                        <input type="checkbox" class="checks" value="ESP">ESP<br>
+                                        <input type="checkbox" class="checks" value="Airbag">Airbag<br>
+                                        <input type="checkbox" class="checks" value="Xenon lights">Xenon lights<br>
+                                        <input type="checkbox" class="checks" value="Halogen head lights">Halogen head lights<br>
+                                        <input type="checkbox" class="checks" value="Traction control">Traction control<br>
+                                        <input type="checkbox" class="checks" value="Parktronic">Parktronic<br>
+                                        <input type="checkbox" class="checks" value="Alarm">Alarm<br>
+                                        <input type="checkbox" class="checks" value="Immobilizer">Immobilizer<br>
+                                        <input type="checkbox" class="checks" value="Insurance">Insurance<br>
+                                        <input type="checkbox" class="checks" value="Armored">Armored<br>
+                                        <input type="checkbox" class="checks" value="Start-Stop system">Start-Stop system<br>
+                                        <input type="checkbox" class="checks" value="Keyless-Go">Keyless-Go<br>
+
+                                    </div>
+                                </td>
+                                <td valign="top">
+                                    <b>Others</b>
+                                    <div class="form-group">
+                                        <input type="checkbox" class="checks" value="Tiptronic">Tiptronic/Multitronic<br>
+                                        <input type="checkbox" class="checks" value="Autopilot">Autopilot<br>
+                                        <input type="checkbox" class="checks" value="PowerSteering">Power steering<br>
+                                        <input type="checkbox" class="checks" value="Onboard Computer">Onboard computer<br>
+                                        <input type="checkbox" class="checks" value="Service Book">Service book<br>
+                                        <input type="checkbox" class="checks" value="Warranty">Warranty<br>
+                                        <input type="checkbox" class="checks" value="Navigation system">Navigation system<br>
+                                        <input type="checkbox" class="checks" value="Right hand drive">Right hand drive<br>
+                                        <input type="checkbox" class="checks" value="Tuning">Tuning<br>
+                                        <input type="checkbox" class="checks" value="Panoramic roof">Panoramic roof<br>
+                                        <input type="checkbox" class="checks" value="TAXI">TAXI<br>
+                                        <input type="checkbox" class="checks" value="Retro">Retro<br>
+                                        <input type="checkbox" class="checks" value="Tow">Tow<br>
+                                        <input type="checkbox" class="checks" value="Seven seats">7 seats (6 + 1)<br>
+                                        <input type="checkbox" class="checks" value="Refrigerated" name="test">Refrigerated<br>
 
 
-                                </div>
-                            </td>
-                            <input asp-for="Extras" style="display:none" id="extras"></input>
-                        </table>
-                    </td>
-            </table>
-        </div>
+                                    </div>
+                                </td>
+                                <input asp-for="Extras" style="display:none" id="extras"></input>
+                            </table>
+                        </td>
+                </table>
+            </div>
 
 
-        <input type="submit" class="btn btn-primary" onclick="getValue()" value="Create" style="float:right" />
-    </form>
-<br>
-<br>
-
-
-<br>
+            <input type="submit" class="btn btn-primary" onclick="getValue()" value="Create" style="float:right" />
+        </form>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
 <script>
     function getValue() {
         var checks = document.getElementsByClassName("checks")

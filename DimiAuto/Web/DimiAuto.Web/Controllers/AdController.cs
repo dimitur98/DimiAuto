@@ -60,7 +60,7 @@
 
             var id = await this.adService.CreateAdAsync(input, userId);
 
-            return this.Redirect($"/Img/Upload/id={id}");
+            return this.Redirect($"/Img/Upload?id={id}");
         }
 
         public async Task<IActionResult> Details(string id)

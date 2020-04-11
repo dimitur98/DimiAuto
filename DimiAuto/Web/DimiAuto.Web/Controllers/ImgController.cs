@@ -51,7 +51,7 @@
 
         public async Task<IActionResult> EditAdImgs(string id)
         {
-            var car = await this.adService.GetCurrentCarAsync(id);
+            var car = await this.adService.GetCurrentCarAsync(id.Substring(3));
             var uploadedImgs = car.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).ToArray();
             var imgsPaths = new string[10];
             for (int i = 0; i < uploadedImgs.Length; i++)
@@ -63,7 +63,7 @@
             {
                 ImgEditViewModel = new ImgEditViewModel
                 {
-                    CarId = car.Id,
+                    CarId = id,
                     File1 = imgsPaths[0],
                     File2 = imgsPaths[1],
                     File3 = imgsPaths[2],
@@ -80,10 +80,10 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditAdImgs(string id, ImgUploadInputModel input)
+        public async Task<IActionResult> EditAdImgs(string id,ImgUploadInputModel input)
         {
             var result = await this.imgService.UploadImgsAsync(input);
-            await this.imgService.AddImgToCurrentAdAsync(string.Join(",", result), id);
+            await this.imgService.AddImgToCurrentAdAsync(string.Join(",", result), id.Substring(3));
             return this.Redirect("/MyAccount/MyAccount");
         }
     }

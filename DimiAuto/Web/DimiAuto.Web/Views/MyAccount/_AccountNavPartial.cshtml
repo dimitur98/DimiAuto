@@ -1,28 +1,34 @@
 ﻿@using DimiAuto.Common
+
 @{
     ViewData["Title"] = "_AccountNavPartial";
+
 }
-    <aside class="col-right sidebar col-sm-3 col-xs-12 wow bounceInUp animated animated" style="visibility: visible;">
-        <div class="block block-account">
-            <div class="block-title"> My Account </div>
-            <div class="block-content">
-                <ul>
-                    <li class="current"><a asp-area="" asp-controller="MyAccount" asp-action="MyAccount" >Account Dashboard</a></li>
-                    <li><a asp-area="" asp-controller="MyAccount" asp-action="AccountInfo"><span> Account Information</span></a></li>
-                    <li><a asp-area="" asp-controller="MyAccount" asp-action="ChangeAvatar"><span> Change profile picture</span></a></li>
-                    <li><a asp-area="" asp-controller="MyAccount" asp-action="Favorites"><span> Favourite ads</span></a></li>
+<aside class="col-right sidebar col-sm-3 col-xs-12 wow bounceInUp animated animated" style="visibility: visible;">
+    <div class="block block-account">
+        <div class="block-title"> My Account </div>
+        <div class="block-content">
+            <ul>
+                <li class="current"><a asp-area="" asp-controller="MyAccount" asp-action="MyAccount">Account Dashboard</a></li>
+                <li><a asp-area="" asp-controller="MyAccount" asp-action="AccountInfo"><span> Account Information</span></a></li>
+                <li><a asp-area="" asp-controller="MyAccount" asp-action="ChangeAvatar"><span> Change profile picture</span></a></li>
+                <li><a asp-area="" asp-controller="MyAccount" asp-action="Favorites"><span> Favourite ads</span></a></li>
+                <li><a asp-area="Identity" asp-page="/Account/Manage/ChangePassword"><span> Change password</span></a></li>
+                <li><a asp-area="Identity" asp-page="/Account/Manage/PersonalData"><span> Delete account</span></a></li>
 
-                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                    {
-                        <li><span> <h3>ADMIN MENU</h3></span></li>
-                        <li><a asp-area="Administration" asp-controller="Administration" asp-action="AllAds"><span>All ads</span></a></li>
-                        <li><a asp-area="Administration" asp-controller="Administration" asp-action="AllUsers"><span>All users</span></a></li>
 
-                    }
 
-                </ul>
-            </div>
+                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                {
+                    <li><span> <h3>ADMIN MENU</h3></span></li>
+                    <li><a asp-area="Administration" asp-controller="Administration" asp-action="AllAds"><span>All ads</span></a></li>
+                    <li><a asp-area="Administration" asp-controller="Administration" asp-action="AllUsers"><span>All users</span></a></li>
+
+                }
+
+            </ul>
         </div>
+    </div>
 
-    </aside>
+</aside>
 

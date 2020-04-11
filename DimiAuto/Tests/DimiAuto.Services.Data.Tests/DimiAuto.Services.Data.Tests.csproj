@@ -34,6 +34,7 @@
     <ProjectReference Include="..\..\Data\DimiAuto.Data\DimiAuto.Data.csproj" />
     <ProjectReference Include="..\..\Services\DimiAuto.Services.Data\DimiAuto.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\DimiAuto.Services.Messaging\DimiAuto.Services.Messaging.csproj" />
+    <ProjectReference Include="..\..\Web\DimiAuto.Web\DimiAuto.Web.csproj" />
   </ItemGroup>
 
 </Project>
