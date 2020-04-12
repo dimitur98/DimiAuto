@@ -1,31 +1,28 @@
-﻿using DimiAuto.Data.Common.Repositories;
-using DimiAuto.Models.CarModel;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DimiAuto.Services.Mapping;
-using DimiAuto.Data.Models;
-using DimiAuto.Web.ViewModels.Administration;
-using Microsoft.AspNetCore.Identity;
-
-namespace DimiAuto.Services.Data.AreaServices
+﻿namespace DimiAuto.Services.Data.AreaServices
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using DimiAuto.Data.Common.Repositories;
+    using DimiAuto.Data.Models;
+    using DimiAuto.Models.CarModel;
+    using DimiAuto.Services.Mapping;
+    using DimiAuto.Web.ViewModels.Administration;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+
     public class AdministrationService : IAdministrationService
     {
         private readonly IDeletableEntityRepository<Car> carRepository;
-        private readonly IDeletableEntityRepository<Comment> commentRepository;
         private readonly IAdService adService;
-        private readonly UserManager<ApplicationUser> userManager;
 
-        public AdministrationService(IDeletableEntityRepository<Car> carRepository, IDeletableEntityRepository<Comment> commentRepository, IAdService adService, UserManager<ApplicationUser> userManager)
+        public AdministrationService(IDeletableEntityRepository<Car> carRepository, IAdService adService)
         {
             this.carRepository = carRepository;
-            this.commentRepository = commentRepository;
             this.adService = adService;
-            this.userManager = userManager;
         }
 
         public async Task ApproveAsync(string carId)
@@ -36,20 +33,19 @@ namespace DimiAuto.Services.Data.AreaServices
             await this.carRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<AdViewModel>> GetAllAdsAsync()
+        public async Task<ICollection<AdViewModel>> GetAllAdsAsync()
         {
-
             var result = await this.carRepository.AllWithDeleted()
                 .OrderByDescending(x => x.CreatedOn)
-                .ThenBy(x => x.Model ).Select(x => new AdViewModel 
-                { 
+                .ThenBy(x => x.Model).Select(x => new AdViewModel
+                {
                     Make = x.Make,
                     Model = x.Model,
                     ModelToString = this.adService.EnumParser(x.Make.ToString(), x.Model),
                     CreatedOn = x.CreatedOn,
                     Id = x.Id,
                     IsApproved = x.IsApproved,
-                    IsDeleted= x.IsDeleted,
+                    IsDeleted = x.IsDeleted,
                     Modification = x.Modification,
                     UserId = x.UserId,
                     User = x.User,
@@ -76,8 +72,8 @@ namespace DimiAuto.Services.Data.AreaServices
 
         }
 
-        //public async Task PermamentDeleteAsync(string carId)
-        //{
+        // public async Task PermamentDeleteAsync(string carId)
+        // {
         //    var car = await this.carRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == carId);
         //    if (car.Comments.Count >= 1)
         //    {
@@ -86,10 +82,10 @@ namespace DimiAuto.Services.Data.AreaServices
         //            this.commentRepository.HardDelete(comment);
         //        await this.commentRepository.SaveChangesAsync();
 
-        //        }
+        // }
         //    }
         //    this.carRepository.HardDelete(car);
         //    await this.carRepository.SaveChangesAsync();
-        //}
+        // }
     }
 }

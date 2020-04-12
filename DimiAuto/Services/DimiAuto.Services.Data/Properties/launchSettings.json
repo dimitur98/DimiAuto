@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "DimiAuto.Services.Data": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    }
+  }
+}

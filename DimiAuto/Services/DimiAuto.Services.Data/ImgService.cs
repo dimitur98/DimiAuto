@@ -19,6 +19,7 @@
     {
         private readonly Cloudinary cloudinary;
         private readonly IDeletableEntityRepository<Car> carRepository;
+        private const int ImgMaxLength = 10 * 1024 * 1024;
 
         public ImgService(Cloudinary cloudinary, IDeletableEntityRepository<Car> carRepository)
         {
@@ -56,11 +57,11 @@
                     continue;
                 }
 
-                if (file.Length > 10485760)
+                if (file.Length >= ImgMaxLength)
                 {
                     continue;
                 }
-                
+
                 byte[] destinationImage;
                 using (var memoryStream = new MemoryStream())
                 {

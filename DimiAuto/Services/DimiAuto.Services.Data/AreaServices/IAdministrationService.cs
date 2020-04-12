@@ -13,7 +13,7 @@ namespace DimiAuto.Services.Data.AreaServices
 
         Task ApproveAsync(string carId);
 
-        Task<IEnumerable<AdViewModel>> GetAllAdsAsync();
+        Task<ICollection<AdViewModel>> GetAllAdsAsync();
 
         Task DeleteAsync(string carId);
 

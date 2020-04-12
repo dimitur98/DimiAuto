@@ -77,6 +77,11 @@
         public async Task<Car> EditAd(EditAddInputModel input)
         {
             var car = await this.carRepository.All().FirstOrDefaultAsync(x => x.Id == input.Id);
+            if (car == null)
+            {
+                throw new NullReferenceException();
+            }
+
             car.Horsepowers = input.Hp;
             car.Cc = input.Cc;
             car.Color = input.Color;
@@ -103,6 +108,11 @@
 
         public async Task AddAdToFavAsync(string carId, string userId)
         {
+            var car = await this.carRepository.All().FirstOrDefaultAsync(x => x.Id == carId);
+            if (car == null)
+            {
+                throw new NullReferenceException();
+            }
             var newRecord = new UserCarFavorite
             {
                 CarId = carId,

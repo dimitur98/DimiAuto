@@ -15,7 +15,7 @@
     using DimiAuto.Web.ViewModels.Img;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
-
+    using Moq;
     using Xunit;
 
     public class ImgServiceTests
@@ -28,7 +28,7 @@
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
-            var cloudinaryAccount = new CloudinaryDotNet.Account("dimitur98", "221677949159372", "aXcL2eFHKK0zsdjgfSWFmr4q4lM");
+            var cloudinaryAccount = new CloudinaryDotNet.Account("name", "apiKey", "apiSecret");
             var cloudinary = new Cloudinary(cloudinaryAccount);
             var service = new ImgService(cloudinary, carRepository);
 
@@ -65,29 +65,6 @@
             Assert.Equal(imgUrl, car.ImgsPaths);
         }
 
-        [Fact]
-        public async Task ImgUploadTest()
-        {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
-            var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
-            var cloudinaryAccount = new CloudinaryDotNet.Account("dimitur98", "221677949159372", "aXcL2eFHKK0zsdjgfSWFmr4q4lM");
-            var cloudinary = new Cloudinary(cloudinaryAccount);
-            var service = new ImgService(cloudinary, carRepository);
-            IEnumerable<string> result = new List<string>();
-            using (var stream = File.OpenRead("avatar.jpg"))
-            {
-                var file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name))
-                {
-                    Headers = new HeaderDictionary(),
-                    ContentType = "image/jpg",
-                };
-                var imgs = new ImgUploadInputModel
-                {
-                    File1 = file,
-                };
-                result = await service.UploadImgsAsync(imgs);
-            }
-
-        }
+        
     }
 }

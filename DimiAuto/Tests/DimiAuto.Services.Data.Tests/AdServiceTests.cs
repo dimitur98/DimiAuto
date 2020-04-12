@@ -179,15 +179,53 @@
         }
 
         [Fact]
-        public async Task AddToFavAsyncTests()
+        public async Task EditAdWithWronIdShouldRedturnNullReferenceException()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
             var userCarFavRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
 
             var service = new AdService(carRepository, userCarFavRepository);
+            var editAd = new EditAddInputModel
+            {
+                Id = "fakeId",
+                Cc = 0,
+                Color = Color.Beige,
+                Door = Doors.Five,
+                EuroStandart = EuroStandart.Euro5,
+                Extras = "asd",
+                Fuel = Fuel.Diesel,
+                GearBox = GearBox.Automatic,
+                Hp = 2,
+                Km = 2,
+                Location = "Sofia",
+                Make = Make.AstonMartin,
+                Model = "tesr",
+                Modification = "test",
+                MoreInformation = "test",
+                Price = 33,
+                Type = Types.Combi,
+                Condition = Condition.ForParts,
+                YearOfProduction = DateTime.Parse("03.1999"),
+                TypeOfVeichle = TypeOfVeichle.All,
+            };
+            Assert.ThrowsAsync<NullReferenceException>(async ()=> await service.EditAd(editAd));
+
+        }
+
+        [Fact]
+        public async Task AddToFavAsyncTests()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
+            var userCarFavRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
+
+            var car = new Car();
+            await carRepository.AddAsync(car);
+            await carRepository.SaveChangesAsync();
+            var service = new AdService(carRepository, userCarFavRepository);
             var userId = "UserId";
-            var carId = "CarId";
+            var carId = car.Id;
             await service.AddAdToFavAsync(carId, userId);
 
             var userCarFavRecord = await userCarFavRepository.All().FirstAsync();
@@ -199,6 +237,19 @@
         }
 
         [Fact]
+        public async Task AddToFavWithNotFoundCarShouldReturnNullRefferenceException()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
+            var userCarFavRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
+            var service = new AdService(carRepository, userCarFavRepository);
+
+            var userId = "UserId";
+            var carId = "notFoundId";
+           Assert.ThrowsAsync<NullReferenceException>(async () => await service.AddAdToFavAsync(carId, userId));
+        }
+
+        [Fact]
         public async Task RemoveFavAdAsync()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
@@ -206,11 +257,19 @@
             var userCarFavRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
 
             var service = new AdService(carRepository, userCarFavRepository);
+
+            var car = new Car();
+            await carRepository.AddAsync(car);
+            await carRepository.SaveChangesAsync();
+
             var userId = "UserId";
-            var carId = "CarId";
+            var carId = car.Id;
+
             await service.AddAdToFavAsync(carId, userId);
             await service.RemoveFavAdAsync(carId, userId);
+
             var userCarFavRecord = await userCarFavRepository.All().FirstOrDefaultAsync(x => x.UserId == userId);
+
             Assert.Null(userCarFavRecord);
         }
 
