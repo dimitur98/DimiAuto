@@ -22,7 +22,7 @@
 
     [Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class ImgDeleteController : Controller
     {
         private readonly Cloudinary cloudinary;
@@ -37,31 +37,35 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult<string>> ImgDelete(ImgDeleteInputModel input)
+        public async Task<ActionResult<string>> DeleteAvatarImg(ImgDeleteInputModel input)
         {
-            if (input.CarId == null)
-            {
-                var user = await this.userManager.GetUserAsync(this.User);
-                user.UserImg = user.UserImg.Replace(input.ImgToDel, string.Empty);
-                if (user.UserImg == string.Empty)
-                {
-                    user.UserImg = GlobalConstants.DefaultImgAvatar;
-                    await this.userManager.UpdateAsync(user);
-                }
-            }
-            else
-            {
-                var car = await this.carRepository.All().FirstOrDefaultAsync(x => x.Id == input.CarId);
-                car.ImgsPaths = car.ImgsPaths.Replace(input.ImgToDel, string.Empty);
-                if (car.ImgsPaths == string.Empty)
-                {
-                    car.ImgsPaths = GlobalConstants.DefaultImgCar;
-                }
+            var user = await this.userManager.GetUserAsync(this.User);
+            user.UserImg = user.UserImg.Replace(input.ImgToDel, string.Empty);
 
-                this.carRepository.Update(car);
-                await this.carRepository.SaveChangesAsync();
+            user.UserImg = GlobalConstants.DefaultImgAvatar;
+            await this.userManager.UpdateAsync(user);
+
+            return await this.DeleteImgFromCloud(input);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<string>> DeleteCarImg(ImgDeleteInputModel input)
+        {
+            var car = await this.carRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == input.CarId);
+            car.ImgsPaths = car.ImgsPaths.Replace(input.ImgToDel, string.Empty);
+            if (car.ImgsPaths == string.Empty)
+            {
+                car.ImgsPaths = GlobalConstants.DefaultImgCar;
             }
 
+            this.carRepository.Update(car);
+            await this.carRepository.SaveChangesAsync();
+
+            return await this.DeleteImgFromCloud(input);
+        }
+
+        private async Task<ActionResult<string>> DeleteImgFromCloud(ImgDeleteInputModel input)
+        {
             var img = Regex.Match(input.ImgToDel, @"[a-zA-Z0-9.]+$").ToString();
             img = img.Substring(0, img.Length - 4);
             DeletionParams deletionParams = new DeletionParams(img)

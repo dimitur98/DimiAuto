@@ -42,16 +42,25 @@
         [HttpPost]
         public async Task<IActionResult> Upload(string id, ImgUploadInputModel input)
         {
+            if (id == null)
+            {
+                throw new NullReferenceException();
+            }
+
             var result = await this.imgService.UploadImgsAsync(input);
             this.ViewBag.ImgsPaths = result.ToString();
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             await this.imgService.AddImgToCurrentAdAsync(string.Join(",", result), id);
             return this.Redirect("/");
         }
 
         public async Task<IActionResult> EditAdImgs(string id)
         {
-            var car = await this.adService.GetCurrentCarAsync(id.Substring(3));
+            var car = await this.adService.GetCurrentCarAsync(id);
+            if (car == null)
+            {
+                throw new NullReferenceException();
+            }
+
             var uploadedImgs = car.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).ToArray();
             var imgsPaths = new string[10];
             for (int i = 0; i < uploadedImgs.Length; i++)

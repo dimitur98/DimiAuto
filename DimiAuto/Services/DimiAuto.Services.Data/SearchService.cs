@@ -50,7 +50,7 @@
                 await this.searchModelRepository.AddAsync(searchModel);
                 await this.searchModelRepository.SaveChangesAsync();
             }
-            
+
         }
 
         public async Task<ICollection<SearchViewModel>> GetSearchModelsAsync(string userId)
@@ -76,6 +76,10 @@
         public async Task DeleteSearchModelByIdAsync(string id)
         {
             var searchModel = await this.searchModelRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            if (searchModel == null)
+            {
+                throw new NullReferenceException();
+            }
             searchModel.IsDeleted = true;
             this.searchModelRepository.Update(searchModel);
             await this.searchModelRepository.SaveChangesAsync();
@@ -85,6 +89,11 @@
         public async Task<SearchModel> GetSearchModelByIdAsync(string id)
         {
             var result = await this.searchModelRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            if (result == null)
+            {
+                throw new NullReferenceException();
+            }
+
             return result;
         }
 

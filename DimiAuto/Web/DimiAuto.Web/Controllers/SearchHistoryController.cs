@@ -36,6 +36,11 @@
 
         public async Task<IActionResult> DeleteSearchHistory(string id)
         {
+            if (id == null)
+            {
+                throw new NullReferenceException();
+            }
+
             await this.searchService.DeleteSearchModelByIdAsync(id);
             return this.Redirect("SearchHistoryIndex");
         }

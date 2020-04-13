@@ -110,13 +110,12 @@
         }
 
         [HttpPost]
-        public async Task <ActionResult<string>> LoadMakeModels(LoadModelInput input)
+        public ActionResult<string> LoadMakeModels(LoadModelInput input)
         {
             var modelClass = typeof(Models);
             var modelEnum = modelClass.GetNestedType(input.Make);
             var models = modelEnum.GetEnumNames().ToArray();
-            var a = JsonConvert.SerializeObject(models);
-            return this.Ok(new { models = models});
+            return this.Ok(new { models = models });
         }
     }
 }

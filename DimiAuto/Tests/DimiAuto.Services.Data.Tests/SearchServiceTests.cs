@@ -76,6 +76,19 @@ namespace DimiAuto.Services.Data.Tests
         }
 
         [Fact]
+        public async Task GetSearchmodelByWrongIdShouldReturnNullReferenceException()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var searchRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
+            var adService = new Mock<IAdService>();
+
+            var service = new SearchService(searchRepository, adService.Object);
+
+
+            Assert.ThrowsAsync<NullReferenceException>(async () => await service.GetSearchModelByIdAsync("wrongId"));
+        }
+
+        [Fact]
         public async Task GetSearchModelByIdTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
@@ -101,9 +114,6 @@ namespace DimiAuto.Services.Data.Tests
             Assert.Equal(searchModel.Model, result.Model);
             Assert.Equal(searchModel.GearBox, result.GearBox);
             Assert.Equal(searchModel.Fuel, result.Fuel);
-
-            var wrongIdResult = await service.GetSearchModelByIdAsync("test");
-            Assert.Null(wrongIdResult);
         }
 
         [Fact]

@@ -1,4 +1,4 @@
-﻿@model DimiAuto.Web.ViewModels.Ad.AllCarsModel
+﻿@model DimiAuto.Web.ViewModels.FavoriteAds.AllFavoriteAdsViewModel
 
 @{
     ViewData["Title"] = "Favorites";
@@ -13,7 +13,7 @@
                             Removed from Favorites!
                         </div>
                         <form method="post" id="form"></form>
-                        @if (Model.AllCars.Count() == 0)
+                        @if (Model.FavotitesAds.Count() == 0)
                         {
                             <ul class="products-grid">
                                 <h3>You have no favorite ads added.</h3>
@@ -22,7 +22,7 @@
 
                         <ul class="products-grid">
                             <div class="row">
-                                @foreach (var car in Model.AllCars)
+                                @foreach (var car in Model.FavotitesAds)
                                 {
                                     <li class="item col-lg-4 col-md-3 col-sm-4 col-xs-6" id="@car.Id">
 
@@ -34,7 +34,7 @@
                                                 <div class="item-box-hover">
                                                     <div class="box-inner">
 
-                                                        <div class="product-detail-bnt"><a class="button detail-bnt" href="/Ad/Details/id=@car.Id"><span>Quick View</span></a></div>
+                                                        <div class="product-detail-bnt"><a class="button detail-bnt" href="/Ad/Details?id=@car.Id"><span>Quick View</span></a></div>
                                                         <div class="actions"><span class="add-to-links"><a href="#" onclick="removeFavAd('@car.Id')" class="link-wishlist" title="Remove from favorite"><span>Remove from favorite</span></a> </span> </div>
                                                     </div>
                                                 </div>

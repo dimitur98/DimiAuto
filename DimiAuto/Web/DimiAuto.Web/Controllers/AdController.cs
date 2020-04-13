@@ -65,12 +65,15 @@
 
         public async Task<IActionResult> Details(string id)
         {
+            if (id == null)
+            {
+                throw new NullReferenceException();
+            }
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var ip = this.HttpContext.Connection.RemoteIpAddress.ToString();
 
-
-            // var a = Assembly("All.cshtml");
+           // var a = Assembly("All.cshtml");
             var car = await this.adService.GetCurrentCarAsync(id);
             if (userId == null)
             {
@@ -85,7 +88,6 @@
             {
                 car.ImgsPaths = GlobalConstants.DefaultImgCar;
             }
-
 
             var user = await this.userRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == car.UserId);
             var output = new CarDetailsModel
@@ -140,6 +142,11 @@
         [Authorize]
         public async Task<IActionResult> Edit(string id)
         {
+            if (id == null)
+            {
+                throw new NullReferenceException();
+            }
+
             var car = await this.adService.GetCurrentCarAsync(id);
             var output = new EditAddInputModel
             {
@@ -176,27 +183,28 @@
             }
 
             var car = await this.adService.EditAd(input);
-            var output = new EditAddInputModel
-            {
-                Cc = car.Cc,
-                Color = car.Color,
-                Door = car.Door,
-                EuroStandart = car.EuroStandart,
-                Extras = car.Extras,
-                Fuel = car.Fuel,
-                GearBox = car.Gearbox,
-                Hp = car.Horsepowers,
-                Km = car.Km,
-                Location = car.Location,
-                Make = car.Make,
-                Model = car.Model,
-                Modification = car.Modification,
-                MoreInformation = car.MoreInformation,
-                Price = car.Price,
-                Type = car.Type,
-                Condition = car.Condition,
-                YearOfProduction = car.YearOfProduction,
-            };
+
+            // var output = new EditAddInputModel
+            // {
+            //    Cc = car.Cc,
+            //    Color = car.Color,
+            //    Door = car.Door,
+            //    EuroStandart = car.EuroStandart,
+            //    Extras = car.Extras,
+            //    Fuel = car.Fuel,
+            //    GearBox = car.Gearbox,
+            //    Hp = car.Horsepowers,
+            //    Km = car.Km,
+            //    Location = car.Location,
+            //    Make = car.Make,
+            //    Model = car.Model,
+            //    Modification = car.Modification,
+            //    MoreInformation = car.MoreInformation,
+            //    Price = car.Price,
+            //    Type = car.Type,
+            //    Condition = car.Condition,
+            //    YearOfProduction = car.YearOfProduction,
+            // };
             return this.Redirect("/MyAccount/MyAccount");
         }
 
@@ -205,6 +213,11 @@
         {
             var firstCar = await this.adService.GetCurrentCarAsync(input.CompareCarsInputModel.FirstCarId);
             var secondCar = await this.adService.GetCurrentCarAsync(input.CompareCarsInputModel.SecondCarId);
+
+            if (firstCar == null || secondCar == null)
+            {
+                throw new NullReferenceException();
+            }
 
             var output = new ChoosenCarsForCompareViewModel
             {
@@ -249,7 +262,6 @@
                     Condition = secondCar.Condition,
                     YearOfProduction = secondCar.YearOfProduction.ToString("MM.yyyy"),
                     ModelToString = this.adService.EnumParser(secondCar.Make.ToString(), secondCar.Model),
-
                 },
             };
             return this.View(output);
@@ -261,8 +273,5 @@
             await this.commentService.DeleteCommentAsync(commentId);
             return this.RedirectToAction("Details", new { id = carId });
         }
-
-
     }
 }
-

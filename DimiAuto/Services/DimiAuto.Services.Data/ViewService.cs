@@ -39,7 +39,5 @@ namespace DimiAuto.Services.Data
         {
             return this.viewRepository.All().Where(x => x.CarId == carId).Count();
         }
-
-        
     }
 }

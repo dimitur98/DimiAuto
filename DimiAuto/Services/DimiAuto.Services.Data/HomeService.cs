@@ -56,7 +56,6 @@
 
         public async Task<ICollection<CarAdsViewModel>> GetAdsByCriteriaAsync(SearchInputModel criteria)
         {
-
             var result = await this.GetAllAdsAsync();
             var dic = criteria.GetType()
                         .GetProperties(BindingFlags.Instance | BindingFlags.Public)
@@ -93,7 +92,7 @@
             return result;
         }
 
-        public  AllCarsModel Paging(AllCarsModel data, int? take = null, int skip = 0)
+        public AllCarsModel Paging(AllCarsModel data, int? take = null, int skip = 0)
         {
             data.AllCars = data.AllCars.Skip(skip).ToList();
             if (take.HasValue)
@@ -104,5 +103,4 @@
             return data;
         }
     }
-
 }

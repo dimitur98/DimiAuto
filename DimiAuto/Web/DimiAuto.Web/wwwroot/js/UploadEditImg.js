@@ -248,7 +248,7 @@ function deleteImg(input, carId) {
     var json = { imgToDel: input, carId: carId };
     console.log(json);
     $.ajax({
-        url: "/api/imgDelete",
+        url: "/api/imgDelete/deleteCarImg",
         type: "POST",
         data: JSON.stringify(json),
         contentType: "application/json; charset=utf-8",

@@ -86,6 +86,10 @@
         public async Task AddImgToCurrentAdAsync(string result, string id)
         {
             var car = this.carRepository.All().FirstOrDefault(x => x.Id == id);
+            if (car == null)
+            {
+                throw new NullReferenceException();
+            }
             if (car.ImgsPaths == GlobalConstants.DefaultImgCar)
             {
                 car.ImgsPaths = result;

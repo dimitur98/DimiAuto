@@ -190,7 +190,7 @@
             }
 
             var output = this.homeService.Paging(result, GlobalConstants.ItemsPerPage, (page - 1) * GlobalConstants.ItemsPerPage);
-            return this.View("All", result);
+            return this.View("All", output);
         }
     }
 }

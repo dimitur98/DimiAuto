@@ -31,8 +31,8 @@
             return await this.carRepository.All()
                 .Where(x => x.UserId == userId)
                 .OrderByDescending(x => x.CreatedOn)
-                .Select(x => new MyCarsViewModel 
-                { 
+                .Select(x => new MyCarsViewModel
+                {
                     Id = x.Id,
                     Model = x.Model,
                     Make = x.Make,
@@ -41,7 +41,6 @@
                     ModelToString = this.adService.EnumParser(x.Make.ToString(), x.Model),
                     Modification = x.Modification,
                     Price = x.Price,
-                    
                 })
                 .ToListAsync();
         }

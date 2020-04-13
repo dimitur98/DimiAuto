@@ -39,7 +39,7 @@
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await this.userManager.GetUserAsync(this.User);
             var myCars = await this.myAccountService.GetMyCarsAsync(userId);
-            
+
             var result = new MyAccountViewModel
             {
                 FirstName = user.FirstName,
@@ -141,11 +141,29 @@
                 cars.Add(car);
             }
 
-            var output = new AllCarsModel
+            var output = new AllFavoriteAdsViewModel
             {
-                AllCars = cars,
+                FavotitesAds = cars,
             };
             return this.View(output);
+        }
+
+        public IActionResult ChangePassword()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            var user = await this.userManager.GetUserAsync(this.User);
+            await this.userManager.ChangePasswordAsync(user, input.OldPassword, input.NewPassword);
+            return this.RedirectToAction("MyAccount");
         }
     }
 }

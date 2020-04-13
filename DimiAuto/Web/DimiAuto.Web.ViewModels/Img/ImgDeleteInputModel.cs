@@ -7,7 +7,6 @@ namespace DimiAuto.Web.ViewModels.Img
 {
     public class ImgDeleteInputModel
     {
-        [Required]
         public string CarId { get; set; }
 
         [Required]
