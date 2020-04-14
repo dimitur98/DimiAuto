@@ -1,33 +1,35 @@
-﻿using DimiAuto.Common;
-using DimiAuto.Data.Models.CarModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace DimiAuto.Web.ViewModels.Ad
+﻿namespace DimiAuto.Web.ViewModels.Ad
 {
-   public class EditAddInputModel
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Text;
+
+    using DimiAuto.Common;
+    using DimiAuto.Data.Models.CarModel;
+    using DimiAuto.Web.ViewModels.Attribute;
+
+    public class EditAddInputModel
     {
-       
+
         public string Id { get; set; }
 
+        [Display(Name = "Type of vehicle")]
         public TypeOfVeichle TypeOfVeichle { get; set; }
-
 
         public Condition Condition { get; set; }
 
         public Make Make { get; set; }
 
+        [Required]
+        [StringLength(GlobalConstants.CarModelLenght)]
         public string Model { get; set; }
-
-        public string ModelToString { get; set; }
 
         public string Modification { get; set; }
 
         public Types Type { get; set; }
 
-        
+        [Required]
         [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
 
@@ -35,19 +37,21 @@ namespace DimiAuto.Web.ViewModels.Ad
 
         public Fuel Fuel { get; set; }
 
-        
+        [Required]
         [Range(0, int.MaxValue)]
         public int Hp { get; set; }
 
-       
+        [Required]
         [Range(0, int.MaxValue)]
         public int Cc { get; set; }
 
-      
-        [DataType(DataType.Date)]
-        public DateTime YearOfProduction { get; set; }
+        [Required]
+        [YearOfProductionValidate(ErrorMessage = "Year of production should be in format 'mm.yyyy' and should be valid!")]
+        [MaxLength(GlobalConstants.YearOfProductionMaxLenght)]
+        [Display(Name = "Year of production")]
+        public string YearOfProduction { get; set; }
 
-        
+        [Required]
         [Range(0, int.MaxValue)]
         public int Km { get; set; }
 
@@ -55,12 +59,14 @@ namespace DimiAuto.Web.ViewModels.Ad
 
         public Color Color { get; set; }
 
+        [Display(Name = "Euro standart")]
         public EuroStandart EuroStandart { get; set; }
 
-    
+        [Required]
         [StringLength(GlobalConstants.CarLocationLenght)]
         public string Location { get; set; }
 
+        [Display(Name = "More information")]
         public string MoreInformation { get; set; }
 
         public string Extras { get; set; }

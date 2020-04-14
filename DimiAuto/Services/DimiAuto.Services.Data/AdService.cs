@@ -105,7 +105,7 @@
             car.Price = input.Price;
             car.Type = input.Type;
             car.TypeOfVeichle = input.TypeOfVeichle;
-            car.YearOfProduction = input.YearOfProduction;
+            car.YearOfProduction = DateTime.ParseExact(input.YearOfProduction, "mm.yyyy", CultureInfo.InvariantCulture);
             this.carRepository.Update(car);
             await this.carRepository.SaveChangesAsync();
             return car;

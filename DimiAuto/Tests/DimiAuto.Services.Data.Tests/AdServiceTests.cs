@@ -165,7 +165,7 @@
                 Price = car.Price,
                 Type = car.Type,
                 Condition = car.Condition,
-                YearOfProduction = car.YearOfProduction,
+                YearOfProduction = car.YearOfProduction.ToString("mm.yyyy"),
                 TypeOfVeichle = car.TypeOfVeichle,
             };
             var edittedCar = await service.EditAd(editAd);
@@ -179,7 +179,7 @@
         }
 
         [Fact]
-        public async Task EditAdWithWronIdShouldRedturnNullReferenceException()
+        public async Task EditAdWithWrongIdShouldRedturnNullReferenceException()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
@@ -206,7 +206,7 @@
                 Price = 33,
                 Type = Types.Combi,
                 Condition = Condition.ForParts,
-                YearOfProduction = DateTime.Parse("03.1999"),
+                YearOfProduction = "03.1999",
                 TypeOfVeichle = TypeOfVeichle.All,
             };
             Assert.ThrowsAsync<NullReferenceException>(async ()=> await service.EditAd(editAd));

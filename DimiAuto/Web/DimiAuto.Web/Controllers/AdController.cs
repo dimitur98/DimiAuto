@@ -167,7 +167,7 @@
                 Price = car.Price,
                 Type = car.Type,
                 Condition = car.Condition,
-                YearOfProduction = car.YearOfProduction,
+                YearOfProduction = car.YearOfProduction.ToString("mm.yyyy"),
                 Id = car.Id,
             };
             return this.View(output);

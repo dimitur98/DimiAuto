@@ -43,5 +43,7 @@
         public const int ItemsPerPage = 3;
 
         public const string DefaultSearchModelUserId = "default";
+
+        public const int YearOfProductionMaxLenght = 7;
     }
 }

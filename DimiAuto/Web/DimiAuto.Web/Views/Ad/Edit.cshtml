@@ -6,7 +6,7 @@
 <div class="container">
     <body onload="loadModels()">
         <form style="position:relative; top:80px;" asp-controller="Ad" asp-action="Edit" method="post" class="form" id="form">
-            <!-- <div asp-validation-summary="All"></div> -->
+            <div asp-validation-summary="All" class="text-danger"></div>
             <input asp-for="Id" type="hidden">
 
             <div class="form-group">
@@ -33,6 +33,7 @@
                 <div class="form-group col-md-3">
                     <label asp-for="Model"></label>
                     <select asp-for="Model" class="form-control" id="model"></select>
+                    <span asp-validation-for="Model" class="text-danger" />
                 </div>
                 <div class="form-group col-md-3">
                     <label asp-for="Modification"></label>
@@ -60,8 +61,9 @@
                 <input asp-for="Cc" type="number" class="form-control">
             </div>
             <div class="form-group">
-                <label asp-for="YearOfProduction"></label>
+                <label asp-for="YearOfProduction"> Year of production</label>
                 <input asp-for="YearOfProduction" class="form-control">
+                <span asp-validation-for="YearOfProduction" class="text-danger" />
             </div>
             <div class="form-group">
                 <label asp-for="Km"></label>
@@ -78,6 +80,11 @@
             <div class="form-group">
                 <label asp-for="EuroStandart"></label>
                 <select asp-for="EuroStandart" class="form-control" asp-items="@Html.GetEnumSelectList<EuroStandart>()"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location"></label>
+                <input asp-for="Location" class="form-control" type="text" />
+                <span asp-validation-for="Location" class="text-danger" />
             </div>
             <div class="form-group">
                 <label asp-for="MoreInformation"></label>
@@ -187,15 +194,18 @@
                     .remove()
                     .end();
                 var models = data["models"];
-                for (var i = 0; i < models.length; i++) {
-                    if (models[i][0] == "_") {
-                        models[i] = models[i].substring(1);
-                    }
-                    $("#model").append(`<option value="${i + 1}">
+                if (models != "-") {
+                    for (var i = 0; i < models.length; i++) {
+                        if (models[i][0] == "_") {
+                            models[i] = models[i].substring(1);
+                        }
+                        $("#model").append(`<option value="${i + 1}">
                                                    ${models[i]}
                                               </option>`);
-                    console.log(models[i]);
-                }
+                        console.log(models[i]);
+                    }
+                } 
+
             }
         });
     }

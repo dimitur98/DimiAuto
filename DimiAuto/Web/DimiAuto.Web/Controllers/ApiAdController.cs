@@ -112,6 +112,10 @@
         [HttpPost]
         public ActionResult<string> LoadMakeModels(LoadModelInput input)
         {
+            if (input.Make == "All")
+            {
+                return this.Ok(new { models = "-" });
+            }
             var modelClass = typeof(Models);
             var modelEnum = modelClass.GetNestedType(input.Make);
             var models = modelEnum.GetEnumNames().ToArray();

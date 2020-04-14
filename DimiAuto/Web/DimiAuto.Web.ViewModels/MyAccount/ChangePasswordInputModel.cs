@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace DimiAuto.Web.ViewModels.MyAccount
+﻿namespace DimiAuto.Web.ViewModels.MyAccount
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Text;
+
     public class ChangePasswordInputModel
     {
         [Required]

@@ -111,15 +111,17 @@
                     .remove()
                     .end();
                 var models = data["models"];
-                for (var i = 0; i < models.length; i++) {
-                    if (models[i][0] == "_") {
-                        models[i] = models[i].substring(1);
+                 if (models != "-") {
+                    for (var i = 0; i < models.length; i++) {
+                        if (models[i][0] == "_") {
+                            models[i] = models[i].substring(1);
+                        }
+                        $("#model").append(`<option value="${i + 1}">
+                                                   ${models[i]}
+                                              </option>`);
+                        console.log(models[i]);
                     }
-                    $("#model").append(`<option value="${i+1}">
-                                       ${models[i]}
-                                  </option>`);
-                    console.log(models[i]);
-                }
+                } 
             }
         });
     }
