@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Text;
@@ -13,14 +14,14 @@
     using DimiAuto.Common;
     using DimiAuto.Data.Common.Repositories;
     using DimiAuto.Data.Models;
+    using DimiAuto.Data.Models.CarModel;
     using DimiAuto.Models.CarModel;
     using DimiAuto.Services.Mapping;
     using DimiAuto.Web.ViewModels.Ad;
     using DimiAuto.Web.ViewModels.Ad.Comment;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
-    using DimiAuto.Data.Models.CarModel;
-    using System.Globalization;
+    using DimiAuto.Data;
 
     public class AdService : IAdService
     {
@@ -64,7 +65,7 @@
                 ImgsPaths = GlobalConstants.DefaultImgCar,
             };
             await this.carRepository.AddAsync(car);
-            await this.carRepository.SaveChangesAsync();
+            await this.carRepository.SaveChangesAsync();        
             return car.Id;
         }
 

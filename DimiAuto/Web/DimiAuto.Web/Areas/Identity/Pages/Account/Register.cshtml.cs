@@ -63,6 +63,13 @@
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
+            [Required]
+            [StringLength(GlobalConstants.NameMaxLenght)]
+            public string FirstName { get; set; }
+
+            [Required]
+            [StringLength(GlobalConstants.NameMaxLenght)]
+            public string LastName { get; set; }
 
             [Required]
             [Display(Name = "Telephone")]

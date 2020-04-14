@@ -23,6 +23,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Caching.Distributed;
     using DimiAuto.Data.Models.CarModel;
+    using Microsoft.AspNetCore.Identity;
 
     public class AdController : Controller
     {
@@ -31,14 +32,18 @@
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IViewService viewService;
         private readonly IDistributedCache distributedCache;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public AdController(IAdService adService, ICommentService commentService, IDeletableEntityRepository<ApplicationUser> userRepository, IViewService viewService, IDistributedCache distributedCache)
+        public AdController(IAdService adService, ICommentService commentService,
+            IDeletableEntityRepository<ApplicationUser> userRepository, 
+            IViewService viewService, IDistributedCache distributedCache, UserManager<ApplicationUser> userManager)
         {
             this.adService = adService;
             this.commentService = commentService;
             this.userRepository = userRepository;
             this.viewService = viewService;
             this.distributedCache = distributedCache;
+            this.userManager = userManager;
         }
 
         [Authorize]
@@ -89,7 +94,8 @@
                 car.ImgsPaths = GlobalConstants.DefaultImgCar;
             }
 
-            var user = await this.userRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == car.UserId);
+            var user = await this.userManager.GetUserAsync(this.User);
+
             var output = new CarDetailsModel
             {
                 CarDetailsVIewModel = new CarDetailsVIewModel

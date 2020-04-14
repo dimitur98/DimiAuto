@@ -10,5 +10,7 @@ namespace DimiAuto.Services.Data
     public interface IMyAccountService
     {
         Task<ICollection<MyCarsViewModel>> GetMyCarsAsync(string userId);
+
+        Task DeleteAccount(string userId);
     }
 }

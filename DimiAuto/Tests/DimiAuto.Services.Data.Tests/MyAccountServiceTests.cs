@@ -1,5 +1,6 @@
 ﻿using DimiAuto.Common;
 using DimiAuto.Data;
+using DimiAuto.Data.Common.Repositories;
 using DimiAuto.Data.Models;
 using DimiAuto.Data.Models.CarModel;
 using DimiAuto.Data.Repositories;
@@ -24,9 +25,13 @@ namespace DimiAuto.Services.Data.Tests
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
+            var viewsRepository = new EfDeletableEntityRepository<AdView>(new ApplicationDbContext(options.Options));
+            var commentRepository = new EfDeletableEntityRepository<Comment> (new ApplicationDbContext(options.Options));
+            var searchModelRepository = new EfDeletableEntityRepository<SearchModel> (new ApplicationDbContext(options.Options));
+            var favoriteRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
             var adService = new Mock<IAdService>();
 
-            var service = new MyAccountService(carRepository, adService.Object);
+            var service = new MyAccountService(carRepository, adService.Object, viewsRepository, commentRepository, searchModelRepository, favoriteRepository);
 
             var firstCar = new Car
             {

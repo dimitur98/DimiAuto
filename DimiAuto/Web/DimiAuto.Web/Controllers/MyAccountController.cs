@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
 
     using DimiAuto.Common;
+    using DimiAuto.Data;
     using DimiAuto.Data.Models;
     using DimiAuto.Services.Data;
     using DimiAuto.Web.ViewModels.Ad;
@@ -25,13 +26,16 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IAdService adService;
         private readonly IImgService imgService;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
-        public MyAccountController(IMyAccountService myAccountService, UserManager<ApplicationUser> userManager, IAdService adService, IImgService imgService)
+        public MyAccountController(IMyAccountService myAccountService, UserManager<ApplicationUser> userManager,
+            IAdService adService, IImgService imgService, SignInManager<ApplicationUser> signInManager)
         {
             this.myAccountService = myAccountService;
             this.userManager = userManager;
             this.adService = adService;
             this.imgService = imgService;
+            this.signInManager = signInManager;
         }
 
         public async Task<IActionResult> MyAccount()
@@ -162,8 +166,38 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            await this.userManager.ChangePasswordAsync(user, input.OldPassword, input.NewPassword);
+            await this.userManager.ChangePasswordAsync(user, input.OldPassword, input.NewPassword);            
             return this.RedirectToAction("MyAccount");
+        }
+
+        public IActionResult DeleteAccount()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteAccount(DeleteAccountInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            if (user.Email == input.Email && user.FirstName == input.FirstName && user.LastName == input.LastName)
+            {
+                await this.signInManager.SignOutAsync();
+                await this.userManager.RemoveFromRoleAsync(user, GlobalConstants.UserRoleName);
+                await this.myAccountService.DeleteAccount(user.Id);
+                await this.userManager.DeleteAsync(user);
+                return this.Redirect("/");
+            }
+            else
+            {
+                return this.View(input);
+            }
+
+            
         }
     }
 }
