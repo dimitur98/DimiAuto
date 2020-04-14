@@ -82,7 +82,7 @@
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Cascade;
             }
-            
+
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)
