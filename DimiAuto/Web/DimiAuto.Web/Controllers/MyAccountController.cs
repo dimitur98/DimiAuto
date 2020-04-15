@@ -99,7 +99,7 @@
             {
                 ChangeAvatarViewModel = new ChangeAvatarViewModel
                 {
-                    ImgPath = user.UserImg,
+                    ImgPath = GlobalConstants.CloudinaryPathDimitur98 + user.UserImg,
                 },
             };
             return this.View(output);

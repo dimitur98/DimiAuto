@@ -22,7 +22,7 @@
                 <div class="card-group">
                     <div class="card" id="firstCar" style="display:none;">
                         <h5 class="card-title">First car.</h5>
-                        <img style="width:180px; height:180px;" src="@GlobalConstants.DefaultImgCar" class="card-img-top" alt="..." id="firstCarImg">
+                        <img style="width:180px; height:180px;" src="" class="card-img-top" alt="..." id="firstCarImg">
                         <div class="card-body">
                             <h5 class="card-title" id="firstCarMakeModel"></h5>
                         </div>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="card" style="display:none;" id="secondCar">
                         <h5 class="card-title">Second car.</h5>
-                        <img style="width:180px; height:180px;" src="@GlobalConstants.DefaultImgCar" class="card-img-top" alt="..." id="secondCarImg">
+                        <img style="width:180px; height:180px;" src="" class="card-img-top" alt="..." id="secondCarImg">
                         <div class="card-body">
                             <h5 class="card-title" id="secondCarMakeModel"></h5>
                         </div>
@@ -297,10 +297,10 @@
 </script>
 <script>
     function clearComparerList() {
-        $("#firstCarImg").attr("src", "https://via.placeholder.com/180");
+        $("#firstCarImg").attr("src", "");
         $("#firstCarMakeModel").text(null);
         $("#firstCarInput").val(null);
-        $("#secondCarImg").attr("src", "https://via.placeholder.com/180");
+        $("#secondCarImg").attr("src", "");
         $("#secondCarMakeModel").text(null);
         $("#secondCarInput").val(null);
         $("#firstCar").hide();

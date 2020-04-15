@@ -37,25 +37,28 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult<string>> DeleteAvatarImg(ImgDeleteInputModel input)
+        public async Task<bool> DeleteAvatarImg(ImgDeleteInputModel input)
         {
             var user = await this.userManager.GetUserAsync(this.User);
-            user.UserImg = user.UserImg.Replace(input.ImgToDel, string.Empty);
+            var imgParts = input.ImgToDel.Split("/", StringSplitOptions.RemoveEmptyEntries).ToList();
+            var img = imgParts[imgParts.Count - 2] + "/" + imgParts[imgParts.Count - 1];
+            user.UserImg = user.UserImg.Replace(img, GlobalConstants.DefaultImgAvatar);
 
-            user.UserImg = GlobalConstants.DefaultImgAvatar;
             await this.userManager.UpdateAsync(user);
 
             return await this.DeleteImgFromCloud(input);
         }
 
         [HttpPost]
-        public async Task<ActionResult<string>> DeleteCarImg(ImgDeleteInputModel input)
+        public async Task<bool> DeleteCarImg(ImgDeleteInputModel input)
         {
             var car = await this.carRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == input.CarId);
-            car.ImgsPaths = car.ImgsPaths.Replace(input.ImgToDel, string.Empty);
-            if (car.ImgsPaths == string.Empty)
+            var imgParts = input.ImgToDel.Split("/", StringSplitOptions.RemoveEmptyEntries).ToList();
+            var img = imgParts[imgParts.Count - 2] + "/" + imgParts[imgParts.Count - 1];
+            if (car.ImgsPaths.Contains(img))
             {
-                car.ImgsPaths = GlobalConstants.DefaultImgCar;
+              var newImgsPaths = car.ImgsPaths.Replace(img, GlobalConstants.DefaultImgCar);
+              car.ImgsPaths = newImgsPaths;
             }
 
             this.carRepository.Update(car);
@@ -64,16 +67,21 @@
             return await this.DeleteImgFromCloud(input);
         }
 
-        private async Task<ActionResult<string>> DeleteImgFromCloud(ImgDeleteInputModel input)
+        private async Task<bool> DeleteImgFromCloud(ImgDeleteInputModel input)
         {
-            var img = Regex.Match(input.ImgToDel, @"[a-zA-Z0-9.]+$").ToString();
-            img = img.Substring(0, img.Length - 4);
-            DeletionParams deletionParams = new DeletionParams(img)
+            if (input.ImgToDel != GlobalConstants.CloudinaryPathDimitur98 + GlobalConstants.DefaultImgCar || 
+                input.ImgToDel != GlobalConstants.CloudinaryPathDimitur98 + GlobalConstants.DefaultImgAvatar)
             {
-                PublicId = img.ToString(),
-            };
-            var deletionResult = await this.cloudinary.DestroyAsync(deletionParams);
-            return deletionResult.ToString();
+                var img = Regex.Match(input.ImgToDel, @"[a-zA-Z0-9.]+$").ToString();
+                img = img.Substring(0, img.Length - 4);
+                DeletionParams deletionParams = new DeletionParams(img)
+                {
+                    PublicId = img.ToString(),
+                };
+                await this.cloudinary.DestroyAsync(deletionParams);
+                return true;
+            }
+            return false;
         }
     }
 }

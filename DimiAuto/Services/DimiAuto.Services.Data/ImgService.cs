@@ -76,7 +76,9 @@
                         File = new FileDescription(file.FileName, destinationStream),
                     };
                     var res = await this.cloudinary.UploadAsync(uploadParams);
-                    list.Add(res.Uri.AbsoluteUri);
+                    var url = res.Uri.AbsoluteUri.Split("/", StringSplitOptions.RemoveEmptyEntries).ToList();
+
+                    list.Add(url[url.Count - 2] + "/" + url[url.Count - 1]);
                 }
             }
 

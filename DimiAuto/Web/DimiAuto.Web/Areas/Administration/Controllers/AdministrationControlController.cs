@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DimiAuto.Data.Common.Models;
-using DimiAuto.Data.Common.Repositories;
-using DimiAuto.Data.Models;
-using DimiAuto.Services.Data.AreaServices;
-using DimiAuto.Web.ViewModels.Administration.AdministrationControl;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace DimiAuto.Web.Areas.Administration.Controllers
+﻿namespace DimiAuto.Web.Areas.Administration.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using DimiAuto.Data.Common.Models;
+    using DimiAuto.Data.Common.Repositories;
+    using DimiAuto.Data.Models;
+    using DimiAuto.Services.Data.AreaServices;
+    using DimiAuto.Web.ViewModels.Administration.AdministrationControl;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+
     [Authorize(Roles = "Administrator")]
     [ApiController]
     [Route("api/administration/[controller]/[action]")]

@@ -12,6 +12,7 @@
     using DimiAuto.Web.ViewModels.Home;
     using DimiAuto.Web.ViewModels.Ad;
     using Microsoft.EntityFrameworkCore;
+    using DimiAuto.Common;
 
     public class HomeService : IHomeService
     {
@@ -30,7 +31,7 @@
             {
                 Id = x.Id,
                 Fuel = x.Fuel,
-                ImgPath = x.ImgsPaths
+                ImgPath = GlobalConstants.CloudinaryPathDimitur98 + x.ImgsPaths
                             .Split(",", StringSplitOptions.RemoveEmptyEntries)
                             .First()
                             .ToString(),

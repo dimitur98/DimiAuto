@@ -10,9 +10,9 @@
 
         public const int ImgInputFields = 10;
 
-        public const string DefaultImgCar = "https://via.placeholder.com/180";
+        public const string DefaultImgCar = "v1586939183/thfnuz2coeraduttwb54.jpg";
 
-        public const string DefaultImgAvatar = "https://via.placeholder.com/200";
+        public const string DefaultImgAvatar = "v1586940693/a2lj8vldxdpmmpyjjamz.jpg";
 
         public const string UserRoleName = "User";
 
@@ -45,5 +45,7 @@
         public const string DefaultSearchModelUserId = "default";
 
         public const int YearOfProductionMaxLenght = 7;
+
+        public const string CloudinaryPathDimitur98 = "http://res.cloudinary.com/dimitur98/image/upload/";
     }
 }

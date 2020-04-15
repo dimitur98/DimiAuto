@@ -42,10 +42,10 @@
         [HttpPost]
         public async Task<IActionResult> Upload(string id, ImgUploadInputModel input)
         {
-            if (id == null)
-            {
-                throw new NullReferenceException();
-            }
+            //if (id == null)
+            //{
+            //    throw new NullReferenceException();
+            //}
 
             var result = await this.imgService.UploadImgsAsync(input);
             this.ViewBag.ImgsPaths = result.ToString();
@@ -55,7 +55,7 @@
 
         public async Task<IActionResult> EditAdImgs(string id)
         {
-            var car = await this.adService.GetCurrentCarAsync(id);
+            var car = await this.adService.GetCurrentCarAsync(id.Substring(3));
             if (car == null)
             {
                 throw new NullReferenceException();
@@ -72,25 +72,29 @@
             {
                 ImgEditViewModel = new ImgEditViewModel
                 {
-                    CarId = id,
-                    File1 = imgsPaths[0],
-                    File2 = imgsPaths[1],
-                    File3 = imgsPaths[2],
-                    File4 = imgsPaths[3],
-                    File5 = imgsPaths[4],
-                    File6 = imgsPaths[5],
-                    File7 = imgsPaths[6],
-                    File8 = imgsPaths[7],
-                    File9 = imgsPaths[8],
-                    File10 = imgsPaths[9],
+                    CarId = id.Substring(3),
+                    File1 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[0],
+                    File2 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[1],
+                    File3 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[2],
+                    File4 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[3],
+                    File5 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[4],
+                    File6 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[5],
+                    File7 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[6],
+                    File8 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[7],
+                    File9 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[8],
+                    File10 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[9],
                 },
             };
             return this.View(output);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditAdImgs(string id,ImgUploadInputModel input)
+        public async Task<IActionResult> EditAdImgs(string id, ImgUploadInputModel input)
         {
+            if (id == null)
+            {
+                throw new NullReferenceException();
+            }
             var result = await this.imgService.UploadImgsAsync(input);
             await this.imgService.AddImgToCurrentAdAsync(string.Join(",", result), id.Substring(3));
             return this.Redirect("/MyAccount/MyAccount");

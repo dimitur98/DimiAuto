@@ -59,7 +59,7 @@
 
         public async Task<IActionResult> UserDetails(string id)
         {
-            var user = await this.userRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == id.Substring(3));
+            var user = await this.userRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == id);
             var output = new UserDetailsViewModel
             {
                 Id = user.Id,
@@ -70,7 +70,7 @@
                 NameOfCompany = user.NameOfCompany,
                 PhoneNumber = user.PhoneNumber,
                 Email = user.Email,
-                ImgPath = user.UserImg,
+                ImgPath = GlobalConstants.CloudinaryPathDimitur98 + user.UserImg,
                 Bulstad = user.Bulstad,
                 PhoneForCustomers = user.TelephoneForCustomers,
             };
