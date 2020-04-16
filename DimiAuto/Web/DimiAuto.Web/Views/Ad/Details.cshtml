@@ -179,7 +179,7 @@
                                                                         <small class="text-muted"><time datetime="@comment.CreatedOn.ToString("O")"></time></small>
                                                                     </span>
                                                                     <strong class="text-success">@comment.Title</strong>
-                                                                    @if (comment.UserId == Model.CarDetailsVIewModel.CurrentUserId)
+                                                                    @if (comment.UserId == Model.CarDetailsVIewModel.CurrentUserId || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                                                                     {
                                                                         <a class="fa fa-minus-circle" href="/Ad/DeleteComment?commentId=@comment.Id&carId=@Model.CarDetailsVIewModel.Id"></a>
                                                                     }

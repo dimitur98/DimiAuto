@@ -38,7 +38,7 @@
         {
             if (id == null)
             {
-                throw new NullReferenceException();
+                return this.View("Error");
             }
 
             await this.searchService.DeleteSearchModelByIdAsync(id);

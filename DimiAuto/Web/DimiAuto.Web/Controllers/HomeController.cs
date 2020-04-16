@@ -54,46 +54,48 @@
                 new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
 
-        //public async Task<IActionResult> All(int page = 1)
-        //{
-        //    var searchModel = new SearchInputModel
-        //    {
-        //        Condition = Condition.All,
-        //        Fuel = Fuel.All,
-        //        TypeOfVeichle = TypeOfVeichle.All,
-        //        GearBox = GearBox.All,
-        //        Make = Make.All,
-        //        Model = null,
-        //        YearTo = null,
-        //        YearFrom = null,
-        //        PriceFrom = null,
-        //        PriceTo = null,
-        //    };
-        //    var result = new AllCarsModel
-        //    {
-        //        AllCars = await this.homeService.GetAllAdsAsync(),
-        //        SortInputModel = new SortInputModel { SearchInputModel = searchModel, },
-        //        CurrentPage = page,
-        //        Action = "All",
-        //    };
-        //    var count = result.AllCars.Count;
-        //    result.PagesCount = (int)Math.Ceiling((double)count /GlobalConstants.ItemsPerPage);
-        //    if (result.PagesCount == 0)
-        //    {
-        //        result.PagesCount = 1;
-        //    }
-        //    var output = this.homeService.Paging(result, GlobalConstants.ItemsPerPage, (page - 1) * GlobalConstants.ItemsPerPage);
-        //    this.ViewData["searchModel"] = searchModel as SearchInputModel;
+        public async Task<IActionResult> All(int page = 1)
+        {
+            var searchModel = new SearchInputModel
+            {
+                Condition = Condition.All,
+                Fuel = Fuel.All,
+                TypeOfVeichle = TypeOfVeichle.All,
+                GearBox = GearBox.All,
+                Make = Make.All,
+                Model = null,
+                YearTo = null,
+                YearFrom = null,
+                PriceFrom = null,
+                PriceTo = null,
+            };
+            var result = new AllCarsModel
+            {
+                AllCars = await this.homeService.GetAllAdsAsync(),
+                SortInputModel = new SortInputModel { SearchInputModel = searchModel, },
+                CurrentPage = page,
+                Action = "All",
+            };
+            var count = result.AllCars.Count;
+            result.PagesCount = (int)Math.Ceiling((double)count / GlobalConstants.ItemsPerPage);
+            if (result.PagesCount == 0)
+            {
+                result.PagesCount = 1;
+            }
 
-        // return this.View(output);
-        // }
+            var output = this.homeService.Paging(result, GlobalConstants.ItemsPerPage, (page - 1) * GlobalConstants.ItemsPerPage);
+            this.ViewData["searchModel"] = searchModel as SearchInputModel;
+
+            return this.View(output);
+         }
+
         public async Task<IActionResult> AllByCriteria(string id, SearchInputModel input, int page = 1)
         {
-            if (input.Make == 0)
-            {
-                var searchModel = await this.searchService.GetDefaultSearchModel();
-                input = AutoMapperConfig.MapperInstance.Map<SearchInputModel>(searchModel);
-            }
+            //if (input.Make == 0)
+            //{
+            //    var searchModel = await this.searchService.GetDefaultSearchModel();
+            //    input = AutoMapperConfig.MapperInstance.Map<SearchInputModel>(searchModel);
+            //}
 
             var user = await this.userManager.GetUserAsync(this.User);
             if (id != null)

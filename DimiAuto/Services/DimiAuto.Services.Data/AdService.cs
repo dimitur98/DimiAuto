@@ -12,6 +12,7 @@
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
     using DimiAuto.Common;
+    using DimiAuto.Data;
     using DimiAuto.Data.Common.Repositories;
     using DimiAuto.Data.Models;
     using DimiAuto.Data.Models.CarModel;
@@ -21,7 +22,6 @@
     using DimiAuto.Web.ViewModels.Ad.Comment;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
-    using DimiAuto.Data;
 
     public class AdService : IAdService
     {
@@ -65,7 +65,7 @@
                 ImgsPaths = GlobalConstants.DefaultImgCar,
             };
             await this.carRepository.AddAsync(car);
-            await this.carRepository.SaveChangesAsync();        
+            await this.carRepository.SaveChangesAsync();
             return car.Id;
         }
 
@@ -160,8 +160,8 @@
 
                 return modelName;
             }
+
             return "-";
         }
-
     }
 }

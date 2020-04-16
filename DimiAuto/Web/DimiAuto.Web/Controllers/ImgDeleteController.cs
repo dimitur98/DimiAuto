@@ -69,7 +69,7 @@
 
         private async Task<bool> DeleteImgFromCloud(ImgDeleteInputModel input)
         {
-            if (input.ImgToDel != GlobalConstants.CloudinaryPathDimitur98 + GlobalConstants.DefaultImgCar || 
+            if (input.ImgToDel != GlobalConstants.CloudinaryPathDimitur98 + GlobalConstants.DefaultImgCar ||
                 input.ImgToDel != GlobalConstants.CloudinaryPathDimitur98 + GlobalConstants.DefaultImgAvatar)
             {
                 var img = Regex.Match(input.ImgToDel, @"[a-zA-Z0-9.]+$").ToString();
@@ -81,6 +81,7 @@
                 await this.cloudinary.DestroyAsync(deletionParams);
                 return true;
             }
+
             return false;
         }
     }

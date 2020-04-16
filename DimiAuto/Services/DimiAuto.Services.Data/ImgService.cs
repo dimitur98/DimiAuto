@@ -17,9 +17,10 @@
 
     public class ImgService : IImgService
     {
+        private const int ImgMaxLength = 10 * 1024 * 1024;
+
         private readonly Cloudinary cloudinary;
         private readonly IDeletableEntityRepository<Car> carRepository;
-        private const int ImgMaxLength = 10 * 1024 * 1024;
 
         public ImgService(Cloudinary cloudinary, IDeletableEntityRepository<Car> carRepository)
         {
@@ -32,7 +33,6 @@
             var list = new List<string>();
             for (int i = 1; i <= 10; i++)
             {
-
                 var file = (IFormFile)input.GetType().GetProperty("File" + i).GetValue(input, null);
                 if (file == null)
                 {
@@ -45,12 +45,11 @@
                     && !string.Equals(fileFileExtension, ".jpeg", StringComparison.OrdinalIgnoreCase))
                 {
                     continue;
-
                 }
 
                 if (!string.Equals(file.ContentType, "image/jpg", StringComparison.OrdinalIgnoreCase) &&
                     !string.Equals(file.ContentType, "image/jpeg", StringComparison.OrdinalIgnoreCase) &&
-                    !string.Equals(file.ContentType, "image/pjpeg", StringComparison.OrdinalIgnoreCase) &&                    
+                    !string.Equals(file.ContentType, "image/pjpeg", StringComparison.OrdinalIgnoreCase) &&
                     !string.Equals(file.ContentType, "image/x-png", StringComparison.OrdinalIgnoreCase) &&
                     !string.Equals(file.ContentType, "image/png", StringComparison.OrdinalIgnoreCase))
                 {
@@ -92,6 +91,7 @@
             {
                 throw new NullReferenceException();
             }
+
             if (car.ImgsPaths == GlobalConstants.DefaultImgCar)
             {
                 car.ImgsPaths = result;
@@ -103,6 +103,5 @@
 
             await this.carRepository.SaveChangesAsync();
         }
-
     }
 }

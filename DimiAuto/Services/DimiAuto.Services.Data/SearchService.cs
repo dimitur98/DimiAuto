@@ -80,6 +80,7 @@
             {
                 throw new NullReferenceException();
             }
+
             searchModel.IsDeleted = true;
             this.searchModelRepository.Update(searchModel);
             await this.searchModelRepository.SaveChangesAsync();

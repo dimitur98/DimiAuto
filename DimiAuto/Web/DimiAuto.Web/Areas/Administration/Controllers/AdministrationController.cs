@@ -52,7 +52,7 @@
             var users = await this.userRepository.AllWithDeleted().OrderByDescending(x => x.CreatedOn).To<UserViewModel>().ToListAsync();
             var result = new AllUsersViewModel
             {
-                Users = users,
+                Users = users.SkipLast(1),
             };
             return this.View(result);
         }

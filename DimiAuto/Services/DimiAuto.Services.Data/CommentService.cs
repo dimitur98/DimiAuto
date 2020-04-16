@@ -50,13 +50,12 @@
            var comment = await this.commentRepository.All().FirstOrDefaultAsync(x => x.Id == id);
            if (comment == null)
            {
-               throw new NullReferenceException();
+                throw new NullReferenceException();
            }
 
            comment.IsDeleted = true;
            this.commentRepository.Update(comment);
            await this.commentRepository.SaveChangesAsync();
         }
-
     }
 }

@@ -51,7 +51,7 @@
                 MoreInformation = "test test",
                 Price = 100,
                 Type = Types.Convertible,
-                TypeOfVeichle = TypeOfVeichle.Truck,
+                TypeOfVeichle = TypeOfVeichle.Car,
                 YearOfProduction = "01.1999",
             };
             var result = await service.CreateAdAsync(inputModel, "1");
@@ -93,7 +93,7 @@
                 MoreInformation = "test test",
                 Price = 100,
                 Type = Types.Convertible,
-                TypeOfVeichle = TypeOfVeichle.Truck,
+                TypeOfVeichle = TypeOfVeichle.Car,
                 YearOfProduction = "01.1999",
             };
 
@@ -134,7 +134,7 @@
                 MoreInformation = "test test",
                 Price = 100,
                 Type = Types.Convertible,
-                TypeOfVeichle = TypeOfVeichle.Truck,
+                TypeOfVeichle = TypeOfVeichle.Car,
                 YearOfProduction = "01.1999",
             };
             await service.CreateAdAsync(inputModel, "1");
@@ -302,7 +302,7 @@
                 MoreInformation = "test test",
                 Price = 100,
                 Type = Types.Convertible,
-                TypeOfVeichle = TypeOfVeichle.Truck,
+                TypeOfVeichle = TypeOfVeichle.Car,
                 YearOfProduction = "01.1999",
             };
             var secondCar = new CreateAdInputModel
@@ -325,7 +325,7 @@
                 MoreInformation = "test test",
                 Price = 100,
                 Type = Types.Convertible,
-                TypeOfVeichle = TypeOfVeichle.Truck,
+                TypeOfVeichle = TypeOfVeichle.Car,
                 YearOfProduction = "01.1999",
             };
             var thirdCar = new CreateAdInputModel
@@ -348,7 +348,7 @@
                 MoreInformation = "test test",
                 Price = 100000,
                 Type = Types.Convertible,
-                TypeOfVeichle = TypeOfVeichle.Truck,
+                TypeOfVeichle = TypeOfVeichle.Car,
                 YearOfProduction = "01.2000",
             };
             var firstCarId = await service.CreateAdAsync(firstCar, "1");

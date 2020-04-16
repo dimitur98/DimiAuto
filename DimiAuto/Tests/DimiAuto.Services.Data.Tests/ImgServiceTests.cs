@@ -52,7 +52,7 @@
                 MoreInformation = "test test",
                 Price = 100,
                 Type = Types.Convertible,
-                TypeOfVeichle = TypeOfVeichle.Truck,
+                TypeOfVeichle = TypeOfVeichle.Car,
                 YearOfProduction = DateTime.ParseExact("01.1999", "mm.yyyy", CultureInfo.InvariantCulture),
                 UserId = "1",
             };

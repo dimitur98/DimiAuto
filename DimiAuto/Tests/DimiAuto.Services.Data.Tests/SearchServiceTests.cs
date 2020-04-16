@@ -54,7 +54,6 @@ namespace DimiAuto.Services.Data.Tests
             var searchRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
             var adService = new Mock<IAdService>();
 
-
             var service = new SearchService(searchRepository, adService.Object);
 
             var searchModel = new SearchInputModel
@@ -73,6 +72,17 @@ namespace DimiAuto.Services.Data.Tests
             await service.DeleteSearchModelByIdAsync(searchModelFromDb.Id);
             var dbRecords = await searchRepository.All().CountAsync();
             Assert.Equal(0, dbRecords);
+        }
+
+        [Fact]
+        public void DeleteNotFindSearchServiceShouldReturnNullReferenceExceptionTest()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var searchRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
+            var adService = new Mock<IAdService>();
+            var service = new SearchService(searchRepository, adService.Object);
+
+            Assert.ThrowsAsync<NullReferenceException>(async () => await service.DeleteSearchModelByIdAsync("NotFindModelId"));
         }
 
         [Fact]

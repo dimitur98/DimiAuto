@@ -116,9 +116,10 @@
             {
                 return this.Ok(new { models = "-" });
             }
+
             var modelClass = typeof(Models);
             var modelEnum = modelClass.GetNestedType(input.Make);
-            var models = modelEnum.GetEnumNames().ToArray();
+            var models = modelEnum.GetEnumNames().ToList();
             return this.Ok(new { models = models });
         }
     }

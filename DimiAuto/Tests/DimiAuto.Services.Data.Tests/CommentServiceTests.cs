@@ -73,6 +73,7 @@
             var addedComment = await commentService.GetComments<CarCommentViewModel>(carId);
             Assert.Equal(2, addedComment.Count);
         }
+
         [Fact]
         public async Task DeleteCommentTest()
         {
@@ -103,6 +104,16 @@
             await commentService.DeleteCommentAsync(commentId);
 
             Assert.Equal(1, await commentRepository.All().CountAsync());
+        }
+
+        [Fact]
+        public void DeleteNotFindCommentShouldReturnNullReferenceException()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
+            var commentService = new CommentService(commentRepository);
+
+            Assert.ThrowsAsync<NullReferenceException>(async () => await commentService.DeleteCommentAsync("NotFoundId"));
         }
     }
 }

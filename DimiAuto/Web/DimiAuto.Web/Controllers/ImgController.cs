@@ -42,10 +42,10 @@
         [HttpPost]
         public async Task<IActionResult> Upload(string id, ImgUploadInputModel input)
         {
-            //if (id == null)
-            //{
-            //    throw new NullReferenceException();
-            //}
+            if (id == null)
+            {
+                throw new NullReferenceException();
+            }
 
             var result = await this.imgService.UploadImgsAsync(input);
             this.ViewBag.ImgsPaths = result.ToString();
@@ -93,8 +93,9 @@
         {
             if (id == null)
             {
-                throw new NullReferenceException();
+                return this.View("Error");
             }
+
             var result = await this.imgService.UploadImgsAsync(input);
             await this.imgService.AddImgToCurrentAdAsync(string.Join(",", result), id.Substring(3));
             return this.Redirect("/MyAccount/MyAccount");

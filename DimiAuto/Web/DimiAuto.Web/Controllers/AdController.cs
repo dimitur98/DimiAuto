@@ -11,6 +11,7 @@
     using DimiAuto.Common;
     using DimiAuto.Data.Common.Repositories;
     using DimiAuto.Data.Models;
+    using DimiAuto.Data.Models.CarModel;
     using DimiAuto.Services.Data;
     using DimiAuto.Services.Mapping;
     using DimiAuto.Web.ViewModels.Ad;
@@ -22,7 +23,6 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Caching.Distributed;
-    using DimiAuto.Data.Models.CarModel;
 
     public class AdController : Controller
     {
@@ -67,7 +67,7 @@
         {
             if (id == null)
             {
-                throw new NullReferenceException();
+                return this.View("Error");
             }
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -132,7 +132,6 @@
         [HttpPost]
         public async Task<IActionResult> Details(CarDetailsModel input)
         {
-
             input.CarCommentsInputModel.UserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             await this.commentService.CreateAsync(input.CarCommentsInputModel);
@@ -144,7 +143,7 @@
         {
             if (id == null)
             {
-                throw new NullReferenceException();
+                return this.View("Error");
             }
 
             var car = await this.adService.GetCurrentCarAsync(id);
@@ -216,7 +215,7 @@
 
             if (firstCar == null || secondCar == null)
             {
-                throw new NullReferenceException();
+                return this.View("Error");
             }
 
             var output = new ChoosenCarsForCompareViewModel

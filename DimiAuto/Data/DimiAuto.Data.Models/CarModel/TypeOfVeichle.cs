@@ -9,7 +9,5 @@ namespace DimiAuto.Data.Models.CarModel
         All = 1,
         Car = 2,
         Bus = 3,
-        Motor = 4,
-        Truck = 5,
     }
 }

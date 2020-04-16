@@ -10,7 +10,6 @@ namespace DimiAuto.Data.Models.CarModel
     {
         public enum Audi
         {
-
             _80 = 1,
             S2 = 2,
             _100 = 3,
@@ -42,7 +41,7 @@ namespace DimiAuto.Data.Models.CarModel
             Q8 = 29,
             R8 = 30,
             TT = 31,
-
+            All = 32,
         }
 
         public enum Bmw
@@ -110,6 +109,7 @@ namespace DimiAuto.Data.Models.CarModel
             Z1 = 61,
             Z3 = 62,
             Z4 = 63,
+            All = 64,
         }
 
         public enum Citroen
@@ -132,6 +132,7 @@ namespace DimiAuto.Data.Models.CarModel
             C6 = 16,
             CCrosser = 17,
             C8 = 18,
+            All = 19,
         }
 
         public enum Fiat
@@ -173,6 +174,7 @@ namespace DimiAuto.Data.Models.CarModel
             Mobi = 25,
             Argo = 26,
             Cronos = 27,
+            All = 28,
         }
 
         public enum Ford
@@ -192,6 +194,7 @@ namespace DimiAuto.Data.Models.CarModel
             Edge = 13,
             Explorer = 14,
             Expedition = 15,
+            All = 16,
         }
 
         public enum Honda
@@ -236,6 +239,7 @@ namespace DimiAuto.Data.Models.CarModel
             StepWGN = 38,
             URV = 39,
             WRV = 40,
+            All = 41,
         }
 
         public enum Hyundai
@@ -258,6 +262,7 @@ namespace DimiAuto.Data.Models.CarModel
             Kona = 16,
             Nexo = 17,
             Palisade = 18,
+            All = 19,
         }
 
         public enum Kia
@@ -282,6 +287,7 @@ namespace DimiAuto.Data.Models.CarModel
             Sorento = 18,
             Mohave = 19,
             Telluride = 20,
+            All = 21,
         }
 
         public enum Mazda
@@ -299,6 +305,7 @@ namespace DimiAuto.Data.Models.CarModel
             CX8 = 11,
             CX9 = 12,
             BT50 = 13,
+            All = 14,
         }
 
         public enum MercedesBenz
@@ -507,6 +514,7 @@ namespace DimiAuto.Data.Models.CarModel
             X220 = 202,
             X250 = 203,
             X350 = 204,
+            All = 205,
         }
 
         public enum Mitsubishi
@@ -529,6 +537,7 @@ namespace DimiAuto.Data.Models.CarModel
             Outlander = 16,
             Pajero = 17,
             Space = 18,
+            All = 19,
         }
 
         public enum Nissan
@@ -576,6 +585,7 @@ namespace DimiAuto.Data.Models.CarModel
             Versa = 41,
             XTerra = 42,
             XTrail = 43,
+            All = 44,
         }
 
         public enum Opel
@@ -615,6 +625,7 @@ namespace DimiAuto.Data.Models.CarModel
             Vectra = 33,
             Vivaro = 34,
             Zafira = 35,
+            All = 36,
         }
 
         public enum Peugoet
@@ -660,6 +671,7 @@ namespace DimiAuto.Data.Models.CarModel
             Ranch = 39,
             RCZ = 40,
             Traveller = 41,
+            All = 42,
         }
 
         public enum Renault
@@ -704,6 +716,7 @@ namespace DimiAuto.Data.Models.CarModel
             VelSatis = 38,
             Wind = 39,
             Zoe = 40,
+            All = 41,
         }
 
         public enum Seat
@@ -724,6 +737,7 @@ namespace DimiAuto.Data.Models.CarModel
             Terra = 14,
             Toledo = 15,
             Vario = 16,
+            All = 17,
         }
 
         public enum Skoda
@@ -743,6 +757,7 @@ namespace DimiAuto.Data.Models.CarModel
             Roomster = 13,
             Superb = 14,
             Yeti = 15,
+            All = 16,
         }
 
         public enum Toyota
@@ -787,6 +802,7 @@ namespace DimiAuto.Data.Models.CarModel
             Verso = 38,
             VersoS = 39,
             Yaris = 40,
+            All = 41,
         }
 
         public enum Vw
@@ -826,6 +842,7 @@ namespace DimiAuto.Data.Models.CarModel
             Transporter = 33,
             up = 34,
             Vento = 35,
+            All = 36,
         }
 
         public enum Bentley
@@ -834,6 +851,7 @@ namespace DimiAuto.Data.Models.CarModel
             Continental = 2,
             FlyingSpur = 3,
             Mulsanne = 4,
+            All = 5,
         }
 
         public enum AstonMartin
@@ -842,11 +860,13 @@ namespace DimiAuto.Data.Models.CarModel
             DB11 = 1,
             DB9 = 2,
             Vantage = 3,
+            All = 4,
         }
 
         public enum Bugatti
         {
             Veyron = 1,
+            All = 2,
         }
 
         public enum Chevrolet
@@ -893,6 +913,7 @@ namespace DimiAuto.Data.Models.CarModel
             Trax = 40,
             Venture = 41,
             Volt = 42,
+            All = 43,
         }
 
         public enum Dodge
@@ -912,6 +933,7 @@ namespace DimiAuto.Data.Models.CarModel
             Shadow = 13,
             Stealth = 14,
             Stratus = 15,
+            All = 16,
         }
 
         public enum Ferrari
@@ -924,6 +946,7 @@ namespace DimiAuto.Data.Models.CarModel
             California = 6,
             F12 = 7,
             Portofino = 8,
+            All = 9,
         }
 
         public enum Hummer
@@ -931,6 +954,7 @@ namespace DimiAuto.Data.Models.CarModel
             H1 = 1,
             H2 = 2,
             H3 = 3,
+            All = 4,
         }
 
         public enum Jeep
@@ -944,6 +968,7 @@ namespace DimiAuto.Data.Models.CarModel
             Patriot = 7,
             Renegade = 8,
             Wrangler = 9,
+            All = 10,
         }
 
         public enum Lamborghini
@@ -953,6 +978,7 @@ namespace DimiAuto.Data.Models.CarModel
             Gallardo = 2,
             Huracan = 3,
             Urus = 4,
+            All = 5,
         }
 
         public enum LandRover
@@ -962,6 +988,7 @@ namespace DimiAuto.Data.Models.CarModel
             Discovery = 2,
             Freelander = 3,
             RangeRover = 4,
+            All = 5,
         }
 
         public enum Maserati
@@ -971,6 +998,7 @@ namespace DimiAuto.Data.Models.CarModel
             Granturismo = 3,
             Levante = 4,
             Quattroporte = 5,
+            All = 6,
         }
 
         public enum McLaren
@@ -978,6 +1006,7 @@ namespace DimiAuto.Data.Models.CarModel
             _570S = 1,
             _600 = 2,
             MP412C = 3,
+            All = 4,
         }
 
         public enum Porsche
@@ -993,12 +1022,14 @@ namespace DimiAuto.Data.Models.CarModel
             Cayenne = 9,
             Macan = 10,
             Panamera = 11,
+            All = 12,
         }
 
         public enum RollsRoyce
         {
             Cullinan = 1,
             Silver = 2,
+            All = 3,
         }
 
         public enum Tesla
@@ -1006,6 +1037,7 @@ namespace DimiAuto.Data.Models.CarModel
             Model3 = 1,
             ModelS = 2,
             ModelX = 3,
+            All = 4,
         }
     }
 }

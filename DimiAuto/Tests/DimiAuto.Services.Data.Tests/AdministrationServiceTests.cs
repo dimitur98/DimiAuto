@@ -116,7 +116,7 @@
                 MoreInformation = "test test",
                 Price = 100,
                 Type = Types.Convertible,
-                TypeOfVeichle = TypeOfVeichle.Truck,
+                TypeOfVeichle = TypeOfVeichle.Car,
                 YearOfProduction = DateTime.ParseExact("01.1999", "mm.yyyy", CultureInfo.InvariantCulture),
             };
             car2 = new Car
@@ -139,7 +139,7 @@
                 MoreInformation = "test2 test2",
                 Price = 100,
                 Type = Types.Convertible,
-                TypeOfVeichle = TypeOfVeichle.Truck,
+                TypeOfVeichle = TypeOfVeichle.Car,
                 YearOfProduction = DateTime.ParseExact("01.1999", "mm.yyyy", CultureInfo.InvariantCulture),
             };
             firstCarId = car.Id;

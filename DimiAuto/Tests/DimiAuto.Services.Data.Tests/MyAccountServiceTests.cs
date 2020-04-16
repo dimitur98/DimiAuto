@@ -53,7 +53,7 @@ namespace DimiAuto.Services.Data.Tests
                 MoreInformation = "test test",
                 Price = 100,
                 Type = Types.Convertible,
-                TypeOfVeichle = TypeOfVeichle.Truck,
+                TypeOfVeichle = TypeOfVeichle.Car,
                 YearOfProduction = DateTime.Parse("01.01.1999"),
                 UserId = "1",
 
@@ -79,7 +79,7 @@ namespace DimiAuto.Services.Data.Tests
                 MoreInformation = "test test",
                 Price = 100,
                 Type = Types.Convertible,
-                TypeOfVeichle = TypeOfVeichle.Truck,
+                TypeOfVeichle = TypeOfVeichle.Car,
                 YearOfProduction = DateTime.Parse("01.01.1999"),
                 UserId = "2",
             };

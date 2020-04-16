@@ -6,13 +6,13 @@
     using System.Reflection;
     using System.Threading.Tasks;
 
+    using DimiAuto.Common;
     using DimiAuto.Data.Common.Repositories;
     using DimiAuto.Models.CarModel;
     using DimiAuto.Services.Mapping;
-    using DimiAuto.Web.ViewModels.Home;
     using DimiAuto.Web.ViewModels.Ad;
+    using DimiAuto.Web.ViewModels.Home;
     using Microsoft.EntityFrameworkCore;
-    using DimiAuto.Common;
 
     public class HomeService : IHomeService
     {
@@ -49,7 +49,6 @@
                 TypeOfVeichle = x.TypeOfVeichle,
                 CreatedOn = x.CreatedOn,
                 ModelToString = this.adService.EnumParser(x.Make.ToString(), x.Model),
-
             }).OrderByDescending(x => x.CreatedOn).ToListAsync();
 
             return result;
@@ -61,32 +60,37 @@
             var dic = criteria.GetType()
                         .GetProperties(BindingFlags.Instance | BindingFlags.Public)
                         .ToDictionary(prop => prop.Name, prop => prop.GetValue(criteria, null));
+            var make = dic["Make"].ToString();
+            var model = dic["Model"] == null ? string.Empty : dic["Model"].ToString();
+            var modelToString = this.adService.EnumParser(make, model);
             foreach (var item in dic)
             {
                 if (item.Value != null && !item.Key.Contains("From") && !item.Key.Contains("To"))
                 {
-                    if (item.Value.ToString() != "All")
+                    if (item.Value.ToString() != "All" && !(modelToString == "All" && item.Key.ToString() == "Model"))
                     {
                         result = result.Where(x => x.GetType().GetProperty(item.Key).GetValue(x, null).ToString() == item.Value.ToString()).ToList();
                     }
                 }
+                else
+                {
+                    if (item.Value != null && item.Key == "PriceFrom")
+                    {
+                        result = result.Where(x => x.Price >= criteria.PriceFrom).ToList();
+                    }
+                    else if (item.Value != null && item.Key == "PriceTo")
+                    {
+                        result = result.Where(x => x.Price <= criteria.PriceTo).ToList();
+                    }
 
-                if (item.Value != null && item.Key == "PriceFrom")
-                {
-                    result = result.Where(x => x.Price >= criteria.PriceFrom).ToList();
-                }
-                else if (item.Value != null && item.Key == "PriceTo")
-                {
-                    result = result.Where(x => x.Price <= criteria.PriceTo).ToList();
-                }
-
-                if (item.Value != null && item.Key == "YearFrom")
-                {
-                    result = result.Where(x => x.YearOfProduction.Year >= criteria.YearFrom).ToList();
-                }
-                else if (item.Value != null && item.Key == "YearTo")
-                {
-                    result = result.Where(x => x.YearOfProduction.Year <= criteria.YearTo).ToList();
+                    if (item.Value != null && item.Key == "YearFrom")
+                    {
+                        result = result.Where(x => x.YearOfProduction.Year >= criteria.YearFrom).ToList();
+                    }
+                    else if (item.Value != null && item.Key == "YearTo")
+                    {
+                        result = result.Where(x => x.YearOfProduction.Year <= criteria.YearTo).ToList();
+                    }
                 }
             }
 

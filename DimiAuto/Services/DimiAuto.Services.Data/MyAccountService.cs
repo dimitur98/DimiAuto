@@ -37,8 +37,7 @@
         }
 
         public async Task<ICollection<MyCarsViewModel>> GetMyCarsAsync(string userId)
-        {
-            return await this.carRepository.All()
+        => await this.carRepository.All()
                 .Where(x => x.UserId == userId)
                 .OrderByDescending(x => x.CreatedOn)
                 .Select(x => new MyCarsViewModel
@@ -53,7 +52,6 @@
                     Price = x.Price,
                 })
                 .ToListAsync();
-        }
 
         public async Task DeleteAccount(string userId)
         {
@@ -62,7 +60,7 @@
             var favorites = await this.favoriteRepository.AllWithDeleted().Where(x => x.UserId == userId).ToListAsync();
             var comments = await this.commentRepository.AllWithDeleted().Where(x => x.UserId == userId).ToListAsync();
             var searchHistory = await this.searchModelRepository.AllWithDeleted().Where(x => x.UserId == userId).ToListAsync();
-           
+
             foreach (var view in views)
             {
                 this.viewsRepository.HardDelete(view);
@@ -86,6 +84,7 @@
                 this.searchModelRepository.HardDelete(model);
                 await this.viewsRepository.SaveChangesAsync();
             }
+
             foreach (var car in cars)
             {
                 this.carRepository.HardDelete(car);

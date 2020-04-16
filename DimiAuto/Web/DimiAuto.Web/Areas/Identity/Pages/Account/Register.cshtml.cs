@@ -83,8 +83,8 @@
             [Display(Name = "City")]
             public string City { get; set; }
 
-            [Display(Name = "Name of the firm")]
-            public string? NameOfFirm { get; set; }
+            [Display(Name = "Name of the company")]
+            public string? NameOfCompany { get; set; }
 
             [Display(Name = "Bulstad")]
             public string? Bulstad { get; set; }
@@ -108,7 +108,20 @@
             this.ExternalLogins = (await this._signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (this.ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = this.Input.Email, Email = this.Input.Email };
+                var user = new ApplicationUser 
+                { 
+                    UserName = this.Input.Email,
+                    Email = this.Input.Email,
+                    Adress = this.Input.Adress,
+                    Bulstad = this.Input.Bulstad,
+                    City = this.Input.City,
+                    FirstName = this.Input.FirstName,
+                    LastName = this.Input.LastName,
+                    NameOfCompany = this.Input.NameOfCompany,
+                    NameOfThePage = this.Input.NameOfThePage,
+                    TelephoneForCustomers = this.Input.TelephoneForCustomers,
+                    PhoneNumber = this.Input.Telephone,
+                };
 
                 var result = await this._userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
