@@ -69,7 +69,7 @@
                     {
                         <input asp-for="SortInputModel.SearchInputModel.Condition" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Condition)" />
                         <input asp-for="SortInputModel.SearchInputModel.Fuel" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Fuel)" />
-                        <input asp-for="SortInputModel.SearchInputModel.GearBox" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).GearBox)" />
+                        <input asp-for="SortInputModel.SearchInputModel.Gearbox" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Gearbox)" />
                         <input asp-for="SortInputModel.SearchInputModel.Make" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Make)" />
                         <input asp-for="SortInputModel.SearchInputModel.Model" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Model)" />
                         <input asp-for="SortInputModel.SearchInputModel.PriceFrom" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).PriceFrom)" />
@@ -111,7 +111,7 @@
                                             <ul class="car-info-list">
                                                 <li>@car.YearOfProduction.ToString("MM.yyyy")</li>
                                                 <li>@car.Fuel</li>
-                                                <li>@car.GearBox</li>
+                                                <li>@car.Gearbox</li>
                                             </ul>
                                             <p class="price">Price: @car.Price BGN</p>
                                             <form id="form" method="post"></form>
@@ -158,7 +158,7 @@
                                                    asp-route-Condition="@((ViewData["searchModel"] as SearchInputModel).Condition)"
                                                    asp-route-Location="@((ViewData["searchModel"] as SearchInputModel).Location)"
                                                    asp-route-Fuel="@((ViewData["searchModel"] as SearchInputModel).Fuel)"
-                                                   asp-route-GearBox="@((ViewData["searchModel"] as SearchInputModel).GearBox)"
+                                                   asp-route-Gearbox="@((ViewData["searchModel"] as SearchInputModel).Gearbox)"
                                                    asp-route-PriceFrom="@((ViewData["searchModel"] as SearchInputModel).PriceFrom)"
                                                    asp-route-PriceTo="@((ViewData["searchModel"] as SearchInputModel).PriceTo)"
                                                    asp-route-YearFrom="@((ViewData["searchModel"] as SearchInputModel).YearFrom)"
@@ -184,7 +184,7 @@
                                                    asp-route-Condition="@((ViewData["searchModel"] as SearchInputModel).Condition)"
                                                    asp-route-Location="@((ViewData["searchModel"] as SearchInputModel).Location)"
                                                    asp-route-Fuel="@((ViewData["searchModel"] as SearchInputModel).Fuel)"
-                                                   asp-route-GearBox="@((ViewData["searchModel"] as SearchInputModel).GearBox)"
+                                                   asp-route-Gearbox="@((ViewData["searchModel"] as SearchInputModel).Gearbox)"
                                                    asp-route-PriceFrom="@((ViewData["searchModel"] as SearchInputModel).PriceFrom)"
                                                    asp-route-PriceTo="@((ViewData["searchModel"] as SearchInputModel).PriceTo)"
                                                    asp-route-YearFrom="@((ViewData["searchModel"] as SearchInputModel).YearFrom)"
@@ -213,7 +213,7 @@
                                                    asp-route-Condition="@((ViewData["searchModel"] as SearchInputModel).Condition)"
                                                    asp-route-Location="@((ViewData["searchModel"] as SearchInputModel).Location)"
                                                    asp-route-Fuel="@((ViewData["searchModel"] as SearchInputModel).Fuel)"
-                                                   asp-route-GearBox="@((ViewData["searchModel"] as SearchInputModel).GearBox)"
+                                                   asp-route-Gearbox="@((ViewData["searchModel"] as SearchInputModel).Gearbox)"
                                                    asp-route-PriceFrom="@((ViewData["searchModel"] as SearchInputModel).PriceFrom)"
                                                    asp-route-PriceTo="@((ViewData["searchModel"] as SearchInputModel).PriceTo)"
                                                    asp-route-YearFrom="@((ViewData["searchModel"] as SearchInputModel).YearFrom)"

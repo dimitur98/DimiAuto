@@ -41,7 +41,7 @@
                 EuroStandart = EuroStandart.Euro1,
                 Extras = "4x4",
                 Fuel = Fuel.Diesel,
-                Gearbox = GearBox.Automatic,
+                Gearbox = Gearbox.Automatic,
                 Horsepowers = 1,
                 ImgsPaths = GlobalConstants.DefaultImgCar,
                 Km = 100,

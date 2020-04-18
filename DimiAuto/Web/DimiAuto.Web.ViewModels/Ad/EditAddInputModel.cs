@@ -33,7 +33,7 @@
         [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
 
-        public GearBox GearBox { get; set; }
+        public Gearbox Gearbox { get; set; }
 
         public Fuel Fuel { get; set; }
 

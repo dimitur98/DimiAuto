@@ -17,7 +17,6 @@
 
     public class ImgService : IImgService
     {
-        private const int ImgMaxLength = 10 * 1024 * 1024;
 
         private readonly Cloudinary cloudinary;
         private readonly IDeletableEntityRepository<Car> carRepository;
@@ -56,7 +55,7 @@
                     continue;
                 }
 
-                if (file.Length >= ImgMaxLength)
+                if (file.Length >= GlobalConstants.ImgMaxLength)
                 {
                     continue;
                 }

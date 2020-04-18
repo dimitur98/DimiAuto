@@ -259,7 +259,7 @@ namespace DimiAuto.Data.Migrations
                     b.Property<int>("Fuel")
                         .HasColumnType("int");
 
-                    b.Property<int>("GearBox")
+                    b.Property<int>("Gearbox")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")

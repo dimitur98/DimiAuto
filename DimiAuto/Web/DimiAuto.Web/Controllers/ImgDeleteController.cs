@@ -57,7 +57,7 @@
             var img = imgParts[imgParts.Count - 2] + "/" + imgParts[imgParts.Count - 1];
             if (car.ImgsPaths.Contains(img))
             {
-              var newImgsPaths = car.ImgsPaths.Replace(img, GlobalConstants.DefaultImgCar);
+              var newImgsPaths = car.ImgsPaths.Replace(img, string.Empty);
               car.ImgsPaths = newImgsPaths;
             }
 

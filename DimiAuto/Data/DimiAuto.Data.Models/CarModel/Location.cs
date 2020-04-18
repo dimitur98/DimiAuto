@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DimiAuto.Data.Models.CarModel
+﻿namespace DimiAuto.Data.Models.CarModel
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Text;
+
     public enum Location
     {
         All = 1,
@@ -12,7 +14,8 @@ namespace DimiAuto.Data.Models.CarModel
         Varna = 4,
         Vratsa = 5,
         Dupnitsa = 6,
-        Stara_Zagora = 7,
+        [Display(Name = "Stara Zagora")]
+        StaraZagora = 7,
         Montana = 8,
         Burgas = 9,
         Pleven = 10,

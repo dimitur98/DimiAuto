@@ -35,7 +35,7 @@
 
         public string ImgPath { get; set; }
 
-        public GearBox GearBox { get; set; }
+        public Gearbox Gearbox { get; set; }
 
         public string UserId { get; set; }
 

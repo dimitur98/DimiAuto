@@ -25,7 +25,7 @@ namespace DimiAuto.Data.Models
 
         public Fuel Fuel { get; set; }
 
-        public GearBox GearBox { get; set; }
+        public Gearbox Gearbox { get; set; }
 
         public int? YearFrom { get; set; }
 

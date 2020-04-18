@@ -62,7 +62,7 @@
                 Location = Location.All,
                 Fuel = Fuel.All,
                 TypeOfVeichle = TypeOfVeichle.All,
-                GearBox = GearBox.All,
+                Gearbox = Gearbox.All,
                 Make = Make.All,
                 Model = null,
                 YearTo = null,

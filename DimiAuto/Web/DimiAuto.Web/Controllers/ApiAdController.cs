@@ -118,7 +118,7 @@
             }
 
             var modelClass = typeof(Models);
-            var modelEnum = modelClass.GetNestedType(input.Make);
+            var modelEnum = modelClass.GetNestedType(input.Make.Replace(" ", string.Empty));
             var models = modelEnum.GetEnumNames().ToList();
             return this.Ok(new { models = models });
         }

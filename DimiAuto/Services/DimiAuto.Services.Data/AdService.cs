@@ -49,7 +49,7 @@
                 Door = input.Door,
                 EuroStandart = input.EuroStandart,
                 Extras = input.Extras,
-                Gearbox = input.GearBox,
+                Gearbox = input.Gearbox,
                 Horsepowers = input.Hp,
                 Km = input.Km,
                 Location = input.Location,
@@ -96,7 +96,7 @@
             car.EuroStandart = input.EuroStandart;
             car.Extras = input.Extras;
             car.Fuel = input.Fuel;
-            car.Gearbox = input.GearBox;
+            car.Gearbox = input.Gearbox;
             car.Km = input.Km;
             car.Location = input.Location;
             car.Make = input.Make;

@@ -1,6 +1,6 @@
 ﻿namespace DimiAuto.Data.Models.CarModel
 {
-    public enum GearBox
+    public enum Gearbox
     {
         All = 1,
         Manual = 2,

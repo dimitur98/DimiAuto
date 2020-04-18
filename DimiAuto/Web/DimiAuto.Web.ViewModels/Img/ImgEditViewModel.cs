@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DimiAuto.Web.ViewModels.Img
+﻿namespace DimiAuto.Web.ViewModels.Img
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     public class ImgEditViewModel
     {
         public string CarId { get; set; }

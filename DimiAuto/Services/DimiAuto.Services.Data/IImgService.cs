@@ -13,5 +13,6 @@ namespace DimiAuto.Services.Data
 
         Task<IEnumerable<string>> UploadImgsAsync(ImgUploadInputModel input);
 
+
     }
 }

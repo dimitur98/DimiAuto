@@ -76,7 +76,7 @@ namespace DimiAuto.Data.Migrations
                     Model = table.Column<string>(nullable: true),
                     Condition = table.Column<int>(nullable: false),
                     Fuel = table.Column<int>(nullable: false),
-                    GearBox = table.Column<int>(nullable: false),
+                    Gearbox = table.Column<int>(nullable: false),
                     YearFrom = table.Column<int>(nullable: true),
                     YearTo = table.Column<int>(nullable: true),
                     PriceFrom = table.Column<decimal>(nullable: true),

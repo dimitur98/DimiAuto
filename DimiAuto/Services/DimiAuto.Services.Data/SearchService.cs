@@ -31,7 +31,7 @@
             {
                 Condition = search.Condition,
                 Fuel = search.Fuel,
-                GearBox = search.GearBox,
+                Gearbox = search.Gearbox,
                 Make = search.Make,
                 Model = search.Model,
                 PriceFrom = search.PriceFrom,
@@ -43,7 +43,7 @@
                 Location = search.Location,
             };
             var searchModelExist = await this.searchModelRepository.All().Where(x => x.UserId == userId).FirstOrDefaultAsync(x =>
-            x.Condition == searchModel.Condition && x.Fuel == searchModel.Fuel && x.GearBox == searchModel.GearBox &&
+            x.Condition == searchModel.Condition && x.Fuel == searchModel.Fuel && x.Gearbox == searchModel.Gearbox &&
             x.Make == searchModel.Make && x.Model == searchModel.Model && x.PriceFrom == searchModel.PriceFrom && x.PriceTo == searchModel.PriceTo &&
             x.YearFrom == searchModel.YearFrom && x.YearTo == searchModel.YearTo && x.TypeOfVeichle == searchModel.TypeOfVeichle && x.Location == searchModel.Location);
             if (searchModelExist == null)
@@ -64,7 +64,7 @@
                 Make = x.Make,
                 Condition = x.Condition,
                 Fuel = x.Fuel,
-                GearBox = x.GearBox,
+                Gearbox = x.Gearbox,
                 ModelToString = this.adService.EnumParser(x.Make.ToString(), x.Model),
                 PriceFrom = x.PriceFrom,
                 PriceTo = x.PriceTo,

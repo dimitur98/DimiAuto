@@ -30,7 +30,7 @@
 
         public decimal Price { get; set; }
 
-        public GearBox Gearbox { get; set; }
+        public Gearbox Gearbox { get; set; }
 
         public Fuel Fuel { get; set; }
 

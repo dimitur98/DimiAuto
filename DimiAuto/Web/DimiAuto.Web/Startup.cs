@@ -67,19 +67,19 @@
             });
             services.AddRazorPages();
 
-            //services.AddDistributedSqlServerCache(options =>
-            //{
-            //    options.ConnectionString = this.configuration.GetConnectionString("DefaultConnection");
-            //    options.SchemaName = "dbo";
-            //    options.TableName = "CacheRecords";
-            //});
-            //services.AddSession(options =>
-            //{
-            //    options.IdleTimeout = new TimeSpan(365, 0, 0, 0);
-            //    options.Cookie.HttpOnly = true;
-            //    options.Cookie.IsEssential = true;
+            services.AddDistributedSqlServerCache(options =>
+            {
+                options.ConnectionString = this.configuration.GetConnectionString("DefaultConnection");
+                options.SchemaName = "dbo";
+                options.TableName = "CacheRecords";
+            });
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = new TimeSpan(365, 0, 0, 0);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
 
-            //});
+            });
             Account account = new Account(
                                  this.configuration["Cloudinary:AppName"],
                                  this.configuration["Cloudinary:AppKey"],
@@ -142,7 +142,7 @@
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            //app.UseSession();
+            app.UseSession();
 
             app.UseRouting();
 

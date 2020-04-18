@@ -125,6 +125,7 @@ namespace DimiAuto.Data.Models.CarModel
             ZX = 9,
             Synergie = 10,
             Xsara = 11,
+            [Display(Name = "Xsara Picasso")]
             XsaraPicasso = 12,
             C5 = 13,
             C3 = 14,
@@ -145,10 +146,12 @@ namespace DimiAuto.Data.Models.CarModel
             Barchetta = 6,
             Brava = 7,
             Bravo = 8,
+            [Display(Name = "Cinquecento Sporting")]
             CinquecentoSporting = 9,
             Ulysse = 10,
             Palio = 11,
             Marea = 12,
+            [Display(Name = "Marea Weekend")]
             MareaWeekend = 13,
             Multipla = 14,
             Seicento = 15,
@@ -158,6 +161,7 @@ namespace DimiAuto.Data.Models.CarModel
             Idea = 19,
             Croma = 20,
             Sedici = 21,
+            [Display(Name = "Grande Punto")]
             GrandePunto = 22,
             Linea = 23,
             _500C = 24,
@@ -169,6 +173,7 @@ namespace DimiAuto.Data.Models.CarModel
             Ducato = 30,
             Doblò = 31,
             Tipo = 32,
+            [Display(Name = "124 Spider")]
             _124Spider = 33,
             Toro = 34,
             Mobi = 25,
@@ -292,10 +297,10 @@ namespace DimiAuto.Data.Models.CarModel
 
         public enum Mazda
         {
-            Mazda2 = 1,
+            _2 = 1,
             Compact = 2,
-            Mazda3 = 3,
-            Mazda6 = 4,
+            _3 = 3,
+            _6 = 4,
             MX5 = 5,
             CX3 = 6,
             CX30 = 7,
@@ -583,7 +588,9 @@ namespace DimiAuto.Data.Models.CarModel
             Titan = 39,
             Vanette = 40,
             Versa = 41,
+            [Display(Name = "X-Terra")]
             XTerra = 42,
+            [Display(Name = "X-Trail")]
             XTrail = 43,
             All = 44,
         }
@@ -693,8 +700,11 @@ namespace DimiAuto.Data.Models.CarModel
             Espace = 15,
             Express = 16,
             Fluence = 17,
+            [Display(Name = "Grand Espace")]
             GrandEspace = 18,
+            [Display(Name = "Grand Modus")]
             GrandModus = 19,
+            [Display(Name = "Grand Scenic")]
             GrandScenic = 20,
             Kadjar = 21,
             Kangoo = 22,
@@ -713,6 +723,7 @@ namespace DimiAuto.Data.Models.CarModel
             Trafic = 35,
             Twingo = 36,
             Twizy = 37,
+            [Display(Name = "Vel Statis")]
             VelSatis = 38,
             Wind = 39,
             Zoe = 40,
@@ -765,6 +776,7 @@ namespace DimiAuto.Data.Models.CarModel
             _4Runner = 1,
             Auris = 2,
             Avensis = 3,
+            [Display(Name = "Avensis Verso")]
             AvensisVerso = 4,
             Aygo = 5,
             CHR = 6,
@@ -773,6 +785,7 @@ namespace DimiAuto.Data.Models.CarModel
             Celica = 9,
             Century = 10,
             Corolla = 11,
+            [Display(Name = "Corolla Verso")]
             CorollaVerso = 12,
             FJ = 13,
             GT86 = 14,
@@ -780,6 +793,7 @@ namespace DimiAuto.Data.Models.CarModel
             Highlander = 16,
             Hilux = 17,
             IQ = 18,
+            [Display(Name = "Land Cruiser")]
             LandCruiser = 19,
             MR2 = 20,
             Paseo = 21,
@@ -787,6 +801,7 @@ namespace DimiAuto.Data.Models.CarModel
             Previa = 23,
             Prius = 24,
             Proace = 25,
+            [Display(Name = "RAV 4")]
             RAV4 = 26,
             Scion = 27,
             Sequoia = 28,
@@ -797,6 +812,7 @@ namespace DimiAuto.Data.Models.CarModel
             Tacoma = 33,
             Tercel = 34,
             Tundra = 35,
+            [Display(Name = "Urban Cruiser")]
             UrbanCruiser = 36,
             Venza = 37,
             Verso = 38,
@@ -825,6 +841,7 @@ namespace DimiAuto.Data.Models.CarModel
             LT = 16,
             Lupo = 17,
             Multivan = 18,
+            [Display(Name = "New Beetle")]
             NewBeetle = 19,
             Passat = 20,
             Phaeton = 21,
@@ -849,6 +866,7 @@ namespace DimiAuto.Data.Models.CarModel
         {
             Bentayga = 1,
             Continental = 2,
+            [Display(Name = "Flying Spur")]
             FlyingSpur = 3,
             Mulsanne = 4,
             All = 5,
@@ -884,6 +902,7 @@ namespace DimiAuto.Data.Models.CarModel
             Colorado = 11,
             Corvette = 12,
             Cruze = 13,
+            [Display(Name = "El Camino")]
             ElCamino = 14,
             Epica = 15,
             Equinox = 16,
@@ -909,6 +928,7 @@ namespace DimiAuto.Data.Models.CarModel
             Tacuma = 36,
             Tahoe = 37,
             Trailblazer = 38,
+            [Display(Name = "Trans Sport")]
             TransSport = 39,
             Trax = 40,
             Venture = 41,
@@ -924,6 +944,7 @@ namespace DimiAuto.Data.Models.CarModel
             Charger = 4,
             Dakota = 5,
             Durango = 6,
+            [Display(Name = "Grand Caravan")]
             GrandCaravan = 7,
             Journey = 8,
             Magnum = 9,
@@ -964,6 +985,7 @@ namespace DimiAuto.Data.Models.CarModel
             Comanche = 3,
             Commander = 4,
             Compass = 5,
+            [Display(Name = "Grand Cherokee")]
             GrandCherokee = 6,
             Patriot = 7,
             Renegade = 8,
@@ -987,6 +1009,7 @@ namespace DimiAuto.Data.Models.CarModel
             Defender = 1,
             Discovery = 2,
             Freelander = 3,
+            [Display(Name = "Range Rover")]
             RangeRover = 4,
             All = 5,
         }
@@ -1017,7 +1040,8 @@ namespace DimiAuto.Data.Models.CarModel
             _928 = 4,
             _944 = 5,
             Boxster = 6,
-            BoxterS = 7,
+            [Display(Name = "Bosxster S")]
+            BoxsterS = 7,
             Carrera = 8,
             Cayenne = 9,
             Macan = 10,
@@ -1034,8 +1058,11 @@ namespace DimiAuto.Data.Models.CarModel
 
         public enum Tesla
         {
+            [Display(Name = "Model 3")]
             Model3 = 1,
+            [Display(Name = "Model S")]
             ModelS = 2,
+            [Display(Name = "Model X")]
             ModelX = 3,
             All = 4,
         }

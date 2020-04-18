@@ -21,9 +21,9 @@ namespace DimiAuto.Services.Data
 
         public async Task AddViewAsync(string user, string carId)
         {
-            var view = await this.viewRepository.All().FirstOrDefaultAsync(x => x.User == user && x.CarId == carId);
-            if (view == null)
-            {
+            //var view = await this.viewRepository.All().FirstOrDefaultAsync(x => x.User == user && x.CarId == carId);
+            //if (view == null)
+            //{
                 var newView = new AdView
                 {
                     CarId = carId,
@@ -31,8 +31,7 @@ namespace DimiAuto.Services.Data
                 };
                 await this.viewRepository.AddAsync(newView);
                 await this.viewRepository.SaveChangesAsync();
-            }
-
+            
         }
 
         public int GetViewsCount(string carId)

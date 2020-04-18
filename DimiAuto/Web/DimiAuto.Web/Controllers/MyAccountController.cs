@@ -137,7 +137,7 @@
                     YearOfProduction = favorite.Car.YearOfProduction,
                     UserId = favorite.UserId,
                     User = favorite.User,
-                    GearBox = favorite.Car.Gearbox,
+                    Gearbox = favorite.Car.Gearbox,
                     Condition = favorite.Car.Condition,
                     TypeOfVeichle = favorite.Car.TypeOfVeichle,
                     ModelToString = this.adService.EnumParser(favorite.Car.Make.ToString(), favorite.Car.Model),

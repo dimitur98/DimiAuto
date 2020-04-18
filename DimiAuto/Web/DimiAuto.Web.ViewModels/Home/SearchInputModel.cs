@@ -22,7 +22,7 @@
 
         public Fuel Fuel { get; set; }
 
-        public GearBox GearBox { get; set; }
+        public Gearbox Gearbox { get; set; }
 
         [Range(GlobalConstants.YearRangeMin, GlobalConstants.YearRangeMax)]
         public int? YearFrom { get; set; }

@@ -48,7 +48,6 @@
     <ProjectReference Include="..\..\Services\DimiAuto.Services.Data\DimiAuto.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\DimiAuto.Services.Mapping\DimiAuto.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\DimiAuto.Services.Messaging\DimiAuto.Services.Messaging.csproj" />
-    <ProjectReference Include="..\..\Services\DimiAuto.Services\DimiAuto.Services.csproj" />
     <ProjectReference Include="..\DimiAuto.Web.Infrastructure\DimiAuto.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\DimiAuto.Web.ViewModels\DimiAuto.Web.ViewModels.csproj" />
   </ItemGroup>

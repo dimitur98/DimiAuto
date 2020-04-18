@@ -46,7 +46,10 @@
             {
                 throw new NullReferenceException();
             }
-
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
             var result = await this.imgService.UploadImgsAsync(input);
             this.ViewBag.ImgsPaths = result.ToString();
             await this.imgService.AddImgToCurrentAdAsync(string.Join(",", result), id);
@@ -55,7 +58,7 @@
 
         public async Task<IActionResult> EditAdImgs(string id)
         {
-            var car = await this.adService.GetCurrentCarAsync(id.Substring(3));
+            var car = await this.adService.GetCurrentCarAsync(id);
             if (car == null)
             {
                 throw new NullReferenceException();
@@ -72,7 +75,7 @@
             {
                 ImgEditViewModel = new ImgEditViewModel
                 {
-                    CarId = id.Substring(3),
+                    CarId = id,
                     File1 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[0],
                     File2 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[1],
                     File3 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[2],
@@ -96,8 +99,37 @@
                 return this.View("Error");
             }
 
+            if (!this.ModelState.IsValid)
+            {
+                var car = await this.adService.GetCurrentCarAsync(id);
+                var uploadedImgs = car.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).ToArray();
+                var imgsPaths = new string[10];
+                for (int i = 0; i < uploadedImgs.Length; i++)
+                {
+                    imgsPaths[i] = uploadedImgs[i];
+                }
+                var output = new ImgEditModel
+                {
+                    ImgEditViewModel = new ImgEditViewModel
+                    {
+                        CarId = id,
+                        File1 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[0],
+                        File2 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[1],
+                        File3 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[2],
+                        File4 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[3],
+                        File5 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[4],
+                        File6 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[5],
+                        File7 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[6],
+                        File8 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[7],
+                        File9 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[8],
+                        File10 = GlobalConstants.CloudinaryPathDimitur98 + imgsPaths[9],
+                    },
+                };
+                return this.View(output);
+            }
+
             var result = await this.imgService.UploadImgsAsync(input);
-            await this.imgService.AddImgToCurrentAdAsync(string.Join(",", result), id.Substring(3));
+            await this.imgService.AddImgToCurrentAdAsync(string.Join(",", result), id);
             return this.Redirect("/MyAccount/MyAccount");
         }
     }

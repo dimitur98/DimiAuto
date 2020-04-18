@@ -28,7 +28,7 @@ namespace DimiAuto.Services.Data.Tests
             var searchModel = new SearchInputModel
             {
                 Condition = Condition.New,
-                GearBox = GearBox.Automatic,
+                Gearbox = Gearbox.Automatic,
                 TypeOfVeichle = TypeOfVeichle.Car,
                 Model = "test",
                 Make = Make.All,
@@ -44,7 +44,7 @@ namespace DimiAuto.Services.Data.Tests
             Assert.Equal(1, dbCounts);
             Assert.Equal(searchModel.Make, savedSearchModel.Make);
             Assert.Equal(searchModel.Model, savedSearchModel.Model);
-            Assert.Equal(searchModel.GearBox, savedSearchModel.GearBox);
+            Assert.Equal(searchModel.Gearbox, savedSearchModel.Gearbox);
         }
 
         [Fact]
@@ -59,7 +59,7 @@ namespace DimiAuto.Services.Data.Tests
             var searchModel = new SearchInputModel
             {
                 Condition = Condition.New,
-                GearBox = GearBox.Automatic,
+                Gearbox = Gearbox.Automatic,
                 TypeOfVeichle = TypeOfVeichle.Car,
                 Model = "test",
                 Make = Make.All,
@@ -110,7 +110,7 @@ namespace DimiAuto.Services.Data.Tests
             var searchModel = new SearchInputModel
             {
                 Condition = Condition.New,
-                GearBox = GearBox.Automatic,
+                Gearbox = Gearbox.Automatic,
                 TypeOfVeichle = TypeOfVeichle.Car,
                 Model = "test",
                 Make = Make.All,
@@ -122,7 +122,7 @@ namespace DimiAuto.Services.Data.Tests
             var result = await service.GetSearchModelByIdAsync(searchModelFromDb.Id);
             Assert.Equal(searchModel.Make, result.Make);
             Assert.Equal(searchModel.Model, result.Model);
-            Assert.Equal(searchModel.GearBox, result.GearBox);
+            Assert.Equal(searchModel.Gearbox, result.Gearbox);
             Assert.Equal(searchModel.Fuel, result.Fuel);
         }
 
@@ -138,7 +138,7 @@ namespace DimiAuto.Services.Data.Tests
             var searchModel = new SearchInputModel
             {
                 Condition = Condition.New,
-                GearBox = GearBox.Automatic,
+                Gearbox = Gearbox.Automatic,
                 TypeOfVeichle = TypeOfVeichle.Car,
                 Model = "test",
                 Make = Make.All,
@@ -147,7 +147,7 @@ namespace DimiAuto.Services.Data.Tests
             var secondSearchModel = new SearchInputModel
             {
                 Condition = Condition.New,
-                GearBox = GearBox.Automatic,
+                Gearbox = Gearbox.Automatic,
                 TypeOfVeichle = TypeOfVeichle.Car,
                 Model = "test2",
                 Make = Make.Audi,

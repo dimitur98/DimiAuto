@@ -30,15 +30,15 @@
         private readonly ICommentService commentService;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IViewService viewService;
-        //private readonly IDistributedCache distributedCache;
+        private readonly IDistributedCache distributedCache;
 
-        public AdController(IAdService adService, ICommentService commentService, IDeletableEntityRepository<ApplicationUser> userRepository, IViewService viewService)
+        public AdController(IAdService adService, ICommentService commentService, IDeletableEntityRepository<ApplicationUser> userRepository, IViewService viewService, IDistributedCache distributedCache)
         {
             this.adService = adService;
             this.commentService = commentService;
             this.userRepository = userRepository;
             this.viewService = viewService;
-            //this.distributedCache = distributedCache;
+            this.distributedCache = distributedCache;
         }
 
         [Authorize]
@@ -72,13 +72,22 @@
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var ip = this.HttpContext.Connection.ToString();
-            this.ViewData["ip"] = this.User.ToString(); ;
+            var a = this.HttpContext.Connection.RemoteIpAddress.ToString();
+            this.ViewData["ip"] = this.HttpContext.Request.Cookies["myId"].ToString();
 
            // var a = Assembly("All.cshtml");
             var car = await this.adService.GetCurrentCarAsync(id);
             if (userId == null)
             {
-                await this.viewService.AddViewAsync(ip, car.Id);
+                var uniqCarId = car.Make + car.Model + car.UserId + car.CreatedOn.ToString();
+                if (this.HttpContext.Request.Cookies["myId"] == null || !this.HttpContext.Request.Cookies["myId"].Contains(uniqCarId))
+                {
+
+                    var myId = Guid.NewGuid().ToString() + uniqCarId;
+                    this.HttpContext.Response.Cookies.Append("myId", myId);
+                    var a = this.HttpContext.Response.Cookies("myId")
+                    await this.viewService.AddViewAsync("notRegisterUser", car.Id);
+                }
             }
             else
             {
@@ -184,7 +193,7 @@
                 EuroStandart = car.EuroStandart,
                 Extras = car.Extras,
                 Fuel = car.Fuel,
-                GearBox = car.Gearbox,
+                Gearbox = car.Gearbox,
                 Hp = car.Horsepowers,
                 Km = car.Km,
                 Location = car.Location,
@@ -220,7 +229,7 @@
             //    EuroStandart = car.EuroStandart,
             //    Extras = car.Extras,
             //    Fuel = car.Fuel,
-            //    GearBox = car.Gearbox,
+            //    Gearbox = car.Gearbox,
             //    Hp = car.Horsepowers,
             //    Km = car.Km,
             //    Location = car.Location,
@@ -255,11 +264,11 @@
                     Color = firstCar.Color,
                     Door = firstCar.Door,
                     EuroStandart = firstCar.EuroStandart,
-                    Extras = firstCar.Extras.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList(),
+                    Extras = firstCar.Extras == null ? new List<string>() : firstCar.Extras.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList(),
                     Fuel = firstCar.Fuel,
                     Gearbox = firstCar.Gearbox,
                     Horsepowers = firstCar.Horsepowers,
-                    ImgPath = firstCar.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).First().ToString(),
+                    ImgPath = GlobalConstants.CloudinaryPathDimitur98 + firstCar.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).First().ToString(),
                     Km = firstCar.Km,
                     Make = firstCar.Make,
                     Model = firstCar.Model,
@@ -276,11 +285,11 @@
                     Color = secondCar.Color,
                     Door = secondCar.Door,
                     EuroStandart = secondCar.EuroStandart,
-                    Extras = secondCar.Extras.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList(),
+                    Extras = secondCar.Extras == null ? new List<string>() : secondCar.Extras.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList(),
                     Fuel = secondCar.Fuel,
                     Gearbox = secondCar.Gearbox,
                     Horsepowers = secondCar.Horsepowers,
-                    ImgPath = secondCar.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).First().ToString(),
+                    ImgPath = GlobalConstants.CloudinaryPathDimitur98 + secondCar.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).First().ToString(),
                     Km = secondCar.Km,
                     Make = secondCar.Make,
                     Model = secondCar.Model,

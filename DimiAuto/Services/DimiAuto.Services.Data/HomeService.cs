@@ -44,7 +44,7 @@
                 YearOfProduction = x.YearOfProduction,
                 UserId = x.UserId,
                 User = x.User,
-                GearBox = x.Gearbox,
+                Gearbox = x.Gearbox,
                 Condition = x.Condition,
                 TypeOfVeichle = x.TypeOfVeichle,
                 CreatedOn = x.CreatedOn,

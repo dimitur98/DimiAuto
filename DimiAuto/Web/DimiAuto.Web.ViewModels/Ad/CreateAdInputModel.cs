@@ -9,16 +9,20 @@
     using DimiAuto.Services.Mapping;
     using DimiAuto.Web.ViewModels.Attribute;
     using FinalProject.Models.CarModel;
+    using DimiAuto.Web;
 
     public class CreateAdInputModel
     {
         public string Id { get; set; }
 
+        [CanNotChooseAll(ErrorMessage = "You can't choose 'All' for 'Type of vehicle' field!")]
         [Display(Name = "Type of vehicle")]
         public TypeOfVeichle TypeOfVeichle { get; set; }
 
+        [CanNotChooseAll(ErrorMessage = "You can't choose 'All' for 'Condition' field!")]
         public Condition Condition { get; set; }
 
+        [CanNotChooseAll(ErrorMessage = "You can't choose 'All' for 'Make' field!")]
         public Make Make { get; set; }
 
         [Required]
@@ -27,14 +31,17 @@
 
         public string Modification { get; set; }
 
+        [CanNotChooseAll(ErrorMessage = "You can't choose 'All' for 'Type' field!")]
         public Types Type { get; set; }
 
         [Required]
         [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
 
-        public GearBox GearBox { get; set; }
+        [CanNotChooseAll(ErrorMessage = "You can't choose 'All' for 'Gearbox' field!")]
+        public Gearbox Gearbox { get; set; }
 
+        [CanNotChooseAll(ErrorMessage = "You can't choose 'All' for 'Fuel' field!")]
         public Fuel Fuel { get; set; }
 
         [Required]
@@ -55,14 +62,17 @@
         [Range(0, int.MaxValue)]
         public int Km { get; set; }
 
+        [CanNotChooseAll(ErrorMessage = "You can't choose 'All' for 'Door' field!")]
         public Doors Door { get; set; }
 
+        [CanNotChooseAll(ErrorMessage = "You can't choose 'All' for 'Color' field!")]
         public Color Color { get; set; }
 
+        [CanNotChooseAll(ErrorMessage = "You can't choose 'All' for 'Euro standart' field!")]
         [Display(Name = "Euro standart")]
         public EuroStandart EuroStandart { get; set; }
 
-        
+        [CanNotChooseAll(ErrorMessage = "You can't choose 'All' for 'Location' field!")]
         public Location Location { get; set; }
 
         [Display(Name = "More information")]

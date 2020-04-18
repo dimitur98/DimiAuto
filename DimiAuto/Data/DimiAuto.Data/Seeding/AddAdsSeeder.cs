@@ -33,7 +33,7 @@ namespace DimiAuto.Data.Seeding
                     Door = Doors.Five,
                     EuroStandart = EuroStandart.Euro4,
                     Fuel = Fuel.Diesel,
-                    Gearbox = GearBox.Automatic,
+                    Gearbox = Gearbox.Automatic,
                     Horsepowers = 100 + i,
                     IsApproved = true,
                     Km = 10000 + (i * i),
