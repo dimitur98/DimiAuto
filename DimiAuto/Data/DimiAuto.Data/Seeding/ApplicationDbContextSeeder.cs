@@ -30,6 +30,7 @@
                               new AdministratorUserSeeder(),
                               new AddAdministratorToRoleSeeder(),
                               new AddDefaulSearchModelSeeder(),
+                              new AddAdsSeeder(),
                           };
 
             foreach (var seeder in seeders)

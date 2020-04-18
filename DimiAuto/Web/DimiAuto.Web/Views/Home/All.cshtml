@@ -12,225 +12,230 @@
 }
 
 
-<div  class="container">
-<body>
+<div class="container">
+    <body>
 
-    <section id="car-list-area" class="section-padding">
+        <section id="car-list-area" class="section-padding">
 
-        <div class="header" id="myHeader">
-            <form asp-controller="Ad" asp-action="Compare">
-                <div class="card-group">
-                    <div class="card" id="firstCar" style="display:none;">
-                        <h5 class="card-title">First car.</h5>
-                        <img style="width:180px; height:180px;" src="" class="card-img-top" alt="..." id="firstCarImg">
-                        <div class="card-body">
-                            <h5 class="card-title" id="firstCarMakeModel"></h5>
+            <div class="header" id="myHeader">
+                <form asp-controller="Ad" asp-action="Compare">
+                    <div class="card-group">
+                        <div class="card" id="firstCar" style="display:none;">
+                            <h5 class="card-title">First car.</h5>
+                            <img style="width:180px; height:180px;" src="" class="card-img-top" alt="..." id="firstCarImg">
+                            <div class="card-body">
+                                <h5 class="card-title" id="firstCarMakeModel"></h5>
+                            </div>
+                            <input asp-for="CompareCarsInputModel.FirstCarId" style="display: none;" id="firstCarInput">
                         </div>
-                        <input asp-for="CompareCarsInputModel.FirstCarId" style="display: none;" id="firstCarInput">
-                    </div>
-                    <div class="card" style="display:none;" id="secondCar">
-                        <h5 class="card-title">Second car.</h5>
-                        <img style="width:180px; height:180px;" src="" class="card-img-top" alt="..." id="secondCarImg">
-                        <div class="card-body">
-                            <h5 class="card-title" id="secondCarMakeModel"></h5>
+                        <div class="card" style="display:none;" id="secondCar">
+                            <h5 class="card-title">Second car.</h5>
+                            <img style="width:180px; height:180px;" src="" class="card-img-top" alt="..." id="secondCarImg">
+                            <div class="card-body">
+                                <h5 class="card-title" id="secondCarMakeModel"></h5>
+                            </div>
+                            <input asp-for="CompareCarsInputModel.SecondCarId" style="display: none;" id="secondCarInput">
                         </div>
-                        <input asp-for="CompareCarsInputModel.SecondCarId" style="display: none;" id="secondCarInput">
+                        <div class="card" style="display:none;" id="compareBtns">
+                            <button type="submit" class="rent-btn">Compare choosen cars</button>
+                            <a href="#" onclick="clearComparerList()" class="rent-btn">Cleare comparer list.</a>
+                        </div>
                     </div>
-                    <div class="card" style="display:none;" id="compareBtns">
-                        <button type="submit" class="rent-btn">Compare choosen cars</button>
-                        <a href="#" onclick="clearComparerList()" class="rent-btn">Cleare comparer list.</a>
+                </form>
+            </div>
+            <div class="book-ur-car ">
+
+                <form id="votesForm" asp-controller="Home" asp-action="Sort" method="get">
+
+                    <div class="pick-location bookinput-item">
+
+                        <select class="custom-select" id="orderByYearSelect" onchange="stopDropdown()">
+                            <option value="0" selected>Order by year</option>
+                            <option value="1">New</option>
+                            <option value="2">Old</option>
+                        </select>
                     </div>
-                </div>
-            </form>
-        </div>
-        <div class="book-ur-car ">
 
-            <form id="votesForm" asp-controller="Home" asp-action="Sort" method="get">
+                    <div class="pick-location bookinput-item">
+                        <select class="custom-select" id="orderByPriceSelect" onchange="stopDropdown()">
+                            <option value="0" selected>Order by price</option>
+                            <option value="1">Descending</option>
+                            <option value="2">Ascending</option>
+                        </select>
+                    </div>
+                    <input asp-for="SortInputModel.OrderByPrice" style="display:none" id="orderByPrice" />
+                    <input asp-for="SortInputModel.OrderByYear" style="display:none" id="orderByYear" />
+                    @if (Model.SortInputModel.SearchInputModel != null)
+                    {
+                        <input asp-for="SortInputModel.SearchInputModel.Condition" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Condition)" />
+                        <input asp-for="SortInputModel.SearchInputModel.Fuel" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Fuel)" />
+                        <input asp-for="SortInputModel.SearchInputModel.GearBox" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).GearBox)" />
+                        <input asp-for="SortInputModel.SearchInputModel.Make" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Make)" />
+                        <input asp-for="SortInputModel.SearchInputModel.Model" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Model)" />
+                        <input asp-for="SortInputModel.SearchInputModel.PriceFrom" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).PriceFrom)" />
+                        <input asp-for="SortInputModel.SearchInputModel.PriceTo" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).PriceTo)" />
+                        <input asp-for="SortInputModel.SearchInputModel.TypeOfVeichle" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).TypeOfVeichle)" />
+                        <input asp-for="SortInputModel.SearchInputModel.YearFrom" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).YearFrom)" />
+                        <input asp-for="SortInputModel.SearchInputModel.YearTo" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).YearTo)" />
+                        <input asp-for="SortInputModel.SearchInputModel.Location" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Location)" />
+                    }
 
-                <div class="pick-location bookinput-item">
+                    <div class="bookcar-btn bookinput-item">
+                        <button onclick="getValue()" type="submit">Order</button>
+                    </div>
+                    <div class="bookcar-btn bookinput-item">
+                        <button onclick="loadComparerList()" type="button">Show comparer list</button>
+                    </div>
+                </form>
+            </div>
+            <div class="row content" id="sorted">
 
-                    <select class="custom-select" id="orderByYearSelect" onchange="stopDropdown()">
-                        <option value="0" selected>Order by year</option>
-                        <option value="1">New</option>
-                        <option value="2">Old</option>
-                    </select>
-                </div>
+                <!-- Car List Content Start -->
+                <div class="col-lg-12">
+                    <div class="car-list-content">
+                        <div class="row" id="sortArea">
+                            <!-- Single Car Start -->
 
-                <div class="pick-location bookinput-item">
-                    <select class="custom-select" id="orderByPriceSelect" onchange="stopDropdown()">
-                        <option value="0" selected>Order by price</option>
-                        <option value="1">Descending</option>
-                        <option value="2">Ascending</option>
-                    </select>
-                </div>
-                <input asp-for="SortInputModel.OrderByPrice" style="display:none" id="orderByPrice" />
-                <input asp-for="SortInputModel.OrderByYear" style="display:none" id="orderByYear" />
-                @if (Model.SortInputModel.SearchInputModel != null)
-                {
-                    <input asp-for="SortInputModel.SearchInputModel.Condition" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Condition)" />
-                    <input asp-for="SortInputModel.SearchInputModel.Fuel" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Fuel)" />
-                    <input asp-for="SortInputModel.SearchInputModel.GearBox" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).GearBox)" />
-                    <input asp-for="SortInputModel.SearchInputModel.Make" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Make)" />
-                    <input asp-for="SortInputModel.SearchInputModel.Model" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).Model)" />
-                    <input asp-for="SortInputModel.SearchInputModel.PriceFrom" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).PriceFrom)" />
-                    <input asp-for="SortInputModel.SearchInputModel.PriceTo" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).PriceTo)" />
-                    <input asp-for="SortInputModel.SearchInputModel.TypeOfVeichle" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).TypeOfVeichle)" />
-                    <input asp-for="SortInputModel.SearchInputModel.YearFrom" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).YearFrom)" />
-                    <input asp-for="SortInputModel.SearchInputModel.YearTo" style="display:none" value="@((ViewData["searchModel"] as SearchInputModel).YearTo)" />
-                }
+                            @foreach (var car in Model.AllCars)
+                            {
 
-                <div class="bookcar-btn bookinput-item">
-                    <button onclick="getValue()" type="submit">Order</button>
-                </div>
-                <div class="bookcar-btn bookinput-item">
-                    <button onclick="loadComparerList()" type="button">Show comparer list</button>
-                </div>
-            </form>
-        </div>
-        <div class="row content" id="sorted">
-
-            <!-- Car List Content Start -->
-            <div class="col-lg-12">
-                <div class="car-list-content">
-                    <div class="row" id="sortArea">
-                        <!-- Single Car Start -->
-
-                        @foreach (var car in Model.AllCars)
-                        {
-
-                            <div class="col-lg-6 col-md-6" onload="loadModel('@car.Id')">
-                                <div class="single-car-wrap">
-                                    <div class="car-list-thumb">
-                                        <img style="width:600px; height:300px;" src="@car.ImgPath">
-                                    </div>
-                                    <div class="car-list-info without-bar">
-                                        <h2><a href="/Ad/Details/id=@car.Id">@car.Make @car.ModelToString @car.Modification</a></h2>
-                                        <h5>@car.User.NameOfCompany</h5>
-                                        <p>@car.MoreInformation</p>
-                                        <ul class="car-info-list">
-                                            <li>@car.YearOfProduction.ToString("MM.yyyy")</li>
-                                            <li>@car.Fuel</li>
-                                            <li>@car.GearBox</li>
-                                        </ul>
-                                        <p class="price">Price: @car.Price BGN</p>
-                                        <form id="form" method="post"></form>
-
-
-
-                                        <a href="/Ad/Details?id=@car.Id" class="rent-btn">Details</a>
-                                        @if (this.SignInManager.IsSignedIn(this.User))
-                                        {
-                                            <a data-toggle="tooltip" data-placement="top" title="Add to favorite" style="display:inline-block; float:right;" onclick="addToFav('@car.Id')"><img src="~/images/star.png" id="addToFav" class="searchClass"></a>
-                                            <a data-toggle="tooltip" data-placement="top" title="Add for compare" style="display:inline-block; margin-right:10px; float:right;" onclick="addToCompare('@car.Id','@car.Make','@car.Model','@car.ImgPath')"><img src="~/images/compare.png" id="addToFav" class="searchClass"></a>
-                                        }
-
-                                        <div style="display: none;" class="alert alert-danger" role="alert" id="@car.Id">
-                                            This ad is already added to favorite!
+                                <div class="col-lg-6 col-md-6" onload="loadModel('@car.Id')">
+                                    <div class="single-car-wrap">
+                                        <div class="car-list-thumb">
+                                            <img style="width:600px; height:300px;" src="@car.ImgPath">
                                         </div>
-                                        <div style="display: none;" class="alert alert-success" role="alert" id="add_@car.Id">
-                                            This ad is added to favorite successfully!
+                                        <div class="car-list-info without-bar">
+                                            <h2><a href="/Ad/Details/id=@car.Id">@car.Make @car.ModelToString @car.Modification</a></h2>
+                                            <h5>@car.User.NameOfCompany</h5>
+                                            <p>@car.MoreInformation</p>
+                                            <ul class="car-info-list">
+                                                <li>@car.YearOfProduction.ToString("MM.yyyy")</li>
+                                                <li>@car.Fuel</li>
+                                                <li>@car.GearBox</li>
+                                            </ul>
+                                            <p class="price">Price: @car.Price BGN</p>
+                                            <form id="form" method="post"></form>
+
+
+
+                                            <a href="/Ad/Details?id=@car.Id" class="rent-btn">Details</a>
+                                            @if (this.SignInManager.IsSignedIn(this.User))
+                                            {
+                                                <a data-toggle="tooltip" data-placement="top" title="Add to favorite" style="display:inline-block; float:right;" onclick="addToFav('@car.Id')"><img src="~/images/star.png" id="addToFav" class="searchClass"></a>
+                                                <a data-toggle="tooltip" data-placement="top" title="Add for compare" style="display:inline-block; margin-right:10px; float:right;" onclick="addToCompare('@car.Id','@car.Make','@car.Model','@car.ImgPath')"><img src="~/images/compare.png" id="addToFav" class="searchClass"></a>
+                                            }
+
+                                            <div style="display: none;" class="alert alert-danger" role="alert" id="@car.Id">
+                                                This ad is already added to favorite!
+                                            </div>
+                                            <div style="display: none;" class="alert alert-success" role="alert" id="add_@car.Id">
+                                                This ad is added to favorite successfully!
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        }
+                            }
 
-                        <!-- Single Car End -->
-                        <!-- Page Pagination Start -->
-                        <div class="page-pagi">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    @if (this.Model.CurrentPage == 1)
-                                    {
-                                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                                    }
-                                    else
-                                    {
-                                        <li class="page-item">
-                                            <a class="page-link"
-                                               asp-area=""
-                                               asp-controller="Home"
-                                               asp-action="@Model.Action"
-                                               asp-route-page="@(this.Model.CurrentPage - 1)"
-                                               asp-route-Make="@((ViewData["searchModel"] as SearchInputModel).Make)"
-                                               asp-route-Model="@((ViewData["searchModel"] as SearchInputModel).Model)"
-                                               asp-route-Condition="@((ViewData["searchModel"] as SearchInputModel).Condition)"
-                                               asp-route-Fuel="@((ViewData["searchModel"] as SearchInputModel).Fuel)"
-                                               asp-route-GearBox="@((ViewData["searchModel"] as SearchInputModel).GearBox)"
-                                               asp-route-PriceFrom="@((ViewData["searchModel"] as SearchInputModel).PriceFrom)"
-                                               asp-route-PriceTo="@((ViewData["searchModel"] as SearchInputModel).PriceTo)"
-                                               asp-route-YearFrom="@((ViewData["searchModel"] as SearchInputModel).YearFrom)"
-                                               asp-route-YearTo="@((ViewData["searchModel"] as SearchInputModel).YearTo)"
-                                               asp-route-TypeOfVeichle="@((ViewData["searchModel"] as SearchInputModel).TypeOfVeichle)"
-                                               asp-route-OrderByPrice="@ViewData["orderByPrice"]"
-                                               asp-route-OrderByYear="@ViewData["orderByYear"]">Previous
-                                            </a>
-                                        </li>
-                                    }
-                                    @for (int i = 1; i <= this.Model.PagesCount; i++)
-                                    {
-                                        var active = i == this.Model.CurrentPage ? "active" : string.Empty;
-                                        <li class="page-item @active">
-                                            <a class="page-link"
-                                               asp-area=""
-                                               asp-controller="Home"
-                                               asp-action="@Model.Action"
-                                               asp-route-page="@i"
-                                               asp-route-Make="@((ViewData["searchModel"] as SearchInputModel).Make)"
-                                               asp-route-Model="@((ViewData["searchModel"] as SearchInputModel).Model)"
-                                               asp-route-Condition="@((ViewData["searchModel"] as SearchInputModel).Condition)"
-                                               asp-route-Fuel="@((ViewData["searchModel"] as SearchInputModel).Fuel)"
-                                               asp-route-GearBox="@((ViewData["searchModel"] as SearchInputModel).GearBox)"
-                                               asp-route-PriceFrom="@((ViewData["searchModel"] as SearchInputModel).PriceFrom)"
-                                               asp-route-PriceTo="@((ViewData["searchModel"] as SearchInputModel).PriceTo)"
-                                               asp-route-YearFrom="@((ViewData["searchModel"] as SearchInputModel).YearFrom)"
-                                               asp-route-YearTo="@((ViewData["searchModel"] as SearchInputModel).YearTo)"
-                                               asp-route-TypeOfVeichle="@((ViewData["searchModel"] as SearchInputModel).TypeOfVeichle)"
-                                               asp-route-OrderByPrice="@ViewData["orderByPrice"]"
-                                               asp-route-OrderByYear="@ViewData["orderByYear"]">@i</a>
-                                        </li>
-                                    }
-                                    @if (this.Model.CurrentPage == this.Model.PagesCount)
-                                    {
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    }
-                                    else
-                                    {
-                                        <li class="page-item">
-                                            <a class="page-link"
-                                               asp-area=""
-                                               asp-controller="Home"
-                                               asp-action="@Model.Action"
-                                               asp-route-page="@(this.Model.CurrentPage + 1)"
-                                               asp-route-Make="@((ViewData["searchModel"] as SearchInputModel).Make)"
-                                               asp-route-Model="@((ViewData["searchModel"] as SearchInputModel).Model)"
-                                               asp-route-Condition="@((ViewData["searchModel"] as SearchInputModel).Condition)"
-                                               asp-route-Fuel="@((ViewData["searchModel"] as SearchInputModel).Fuel)"
-                                               asp-route-GearBox="@((ViewData["searchModel"] as SearchInputModel).GearBox)"
-                                               asp-route-PriceFrom="@((ViewData["searchModel"] as SearchInputModel).PriceFrom)"
-                                               asp-route-PriceTo="@((ViewData["searchModel"] as SearchInputModel).PriceTo)"
-                                               asp-route-YearFrom="@((ViewData["searchModel"] as SearchInputModel).YearFrom)"
-                                               asp-route-YearTo="@((ViewData["searchModel"] as SearchInputModel).YearTo)"
-                                               asp-route-TypeOfVeichle="@((ViewData["searchModel"] as SearchInputModel).TypeOfVeichle)"
-                                               asp-route-OrderByPrice="@ViewData["orderByPrice"]"
-                                               asp-route-OrderByYear="@ViewData["orderByYear"]">Next</a>
-                                        </li>
-                                    }
-                                </ul>
-                            </nav>
+                            <!-- Single Car End -->
+                            <!-- Page Pagination Start -->
+                            <div class="page-pagi">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        @if (this.Model.CurrentPage == 1)
+                                        {
+                                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link"
+                                                   asp-area=""
+                                                   asp-controller="Home"
+                                                   asp-action="@Model.Action"
+                                                   asp-route-page="@(this.Model.CurrentPage - 1)"
+                                                   asp-route-Make="@((ViewData["searchModel"] as SearchInputModel).Make)"
+                                                   asp-route-Model="@((ViewData["searchModel"] as SearchInputModel).Model)"
+                                                   asp-route-Condition="@((ViewData["searchModel"] as SearchInputModel).Condition)"
+                                                   asp-route-Location="@((ViewData["searchModel"] as SearchInputModel).Location)"
+                                                   asp-route-Fuel="@((ViewData["searchModel"] as SearchInputModel).Fuel)"
+                                                   asp-route-GearBox="@((ViewData["searchModel"] as SearchInputModel).GearBox)"
+                                                   asp-route-PriceFrom="@((ViewData["searchModel"] as SearchInputModel).PriceFrom)"
+                                                   asp-route-PriceTo="@((ViewData["searchModel"] as SearchInputModel).PriceTo)"
+                                                   asp-route-YearFrom="@((ViewData["searchModel"] as SearchInputModel).YearFrom)"
+                                                   asp-route-YearTo="@((ViewData["searchModel"] as SearchInputModel).YearTo)"
+                                                   asp-route-TypeOfVeichle="@((ViewData["searchModel"] as SearchInputModel).TypeOfVeichle)"
+                                                   asp-route-OrderByPrice="@ViewData["orderByPrice"]"
+                                                   asp-route-OrderByYear="@ViewData["orderByYear"]">
+                                                    Previous
+                                                </a>
+                                            </li>
+                                        }
+                                        @for (int i = 1; i <= this.Model.PagesCount; i++)
+                                        {
+                                            var active = i == this.Model.CurrentPage ? "active" : string.Empty;
+                                            <li class="page-item @active">
+                                                <a class="page-link"
+                                                   asp-area=""
+                                                   asp-controller="Home"
+                                                   asp-action="@Model.Action"
+                                                   asp-route-page="@i"
+                                                   asp-route-Make="@((ViewData["searchModel"] as SearchInputModel).Make)"
+                                                   asp-route-Model="@((ViewData["searchModel"] as SearchInputModel).Model)"
+                                                   asp-route-Condition="@((ViewData["searchModel"] as SearchInputModel).Condition)"
+                                                   asp-route-Location="@((ViewData["searchModel"] as SearchInputModel).Location)"
+                                                   asp-route-Fuel="@((ViewData["searchModel"] as SearchInputModel).Fuel)"
+                                                   asp-route-GearBox="@((ViewData["searchModel"] as SearchInputModel).GearBox)"
+                                                   asp-route-PriceFrom="@((ViewData["searchModel"] as SearchInputModel).PriceFrom)"
+                                                   asp-route-PriceTo="@((ViewData["searchModel"] as SearchInputModel).PriceTo)"
+                                                   asp-route-YearFrom="@((ViewData["searchModel"] as SearchInputModel).YearFrom)"
+                                                   asp-route-YearTo="@((ViewData["searchModel"] as SearchInputModel).YearTo)"
+                                                   asp-route-TypeOfVeichle="@((ViewData["searchModel"] as SearchInputModel).TypeOfVeichle)"
+                                                   asp-route-OrderByPrice="@ViewData["orderByPrice"]"
+                                                   asp-route-OrderByYear="@ViewData["orderByYear"]">@i</a>
+                                            </li>
+                                        }
+                                        @if (this.Model.CurrentPage == this.Model.PagesCount)
+                                        {
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#">Next</a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link"
+                                                   asp-area=""
+                                                   asp-controller="Home"
+                                                   asp-action="@Model.Action"
+                                                   asp-route-page="@(this.Model.CurrentPage + 1)"
+                                                   asp-route-Make="@((ViewData["searchModel"] as SearchInputModel).Make)"
+                                                   asp-route-Model="@((ViewData["searchModel"] as SearchInputModel).Model)"
+                                                   asp-route-Condition="@((ViewData["searchModel"] as SearchInputModel).Condition)"
+                                                   asp-route-Location="@((ViewData["searchModel"] as SearchInputModel).Location)"
+                                                   asp-route-Fuel="@((ViewData["searchModel"] as SearchInputModel).Fuel)"
+                                                   asp-route-GearBox="@((ViewData["searchModel"] as SearchInputModel).GearBox)"
+                                                   asp-route-PriceFrom="@((ViewData["searchModel"] as SearchInputModel).PriceFrom)"
+                                                   asp-route-PriceTo="@((ViewData["searchModel"] as SearchInputModel).PriceTo)"
+                                                   asp-route-YearFrom="@((ViewData["searchModel"] as SearchInputModel).YearFrom)"
+                                                   asp-route-YearTo="@((ViewData["searchModel"] as SearchInputModel).YearTo)"
+                                                   asp-route-TypeOfVeichle="@((ViewData["searchModel"] as SearchInputModel).TypeOfVeichle)"
+                                                   asp-route-OrderByPrice="@ViewData["orderByPrice"]"
+                                                   asp-route-OrderByYear="@ViewData["orderByYear"]">Next</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!-- Page Pagination End -->
                         </div>
-                        <!-- Page Pagination End -->
+                        <!-- Car List Content End -->
                     </div>
-                    <!-- Car List Content End -->
                 </div>
             </div>
-        </div>
-       
 
-    </section>
-</body>
+
+        </section>
+    </body>
 </div>
 <script>
     function stopDropdown() {
@@ -268,7 +273,7 @@
             $("#secondCarInput").val(sessionStorage.getItem("secondCarId"));
             $("#compareBtns").toggle();
         }
-        
+
     }
 </script>
 <script>
@@ -352,9 +357,9 @@
                 if (data["output"] == "already added") {
                     console.log(data);
 
-                    $("#"+carId).show().delay(2000).fadeOut();
-                }else if (data["output"] == "added") {
-                    $("#add_"+carId).show().delay(2000).fadeOut();
+                    $("#" + carId).show().delay(2000).fadeOut();
+                } else if (data["output"] == "added") {
+                    $("#add_" + carId).show().delay(2000).fadeOut();
                 }
             }
         });

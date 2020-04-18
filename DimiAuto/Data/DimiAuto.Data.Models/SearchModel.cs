@@ -16,9 +16,12 @@ namespace DimiAuto.Data.Models
 
         public Make Make { get; set; }
 
+
         public string Model { get; set; }
 
         public Condition Condition { get; set; }
+
+        public Location Location { get; set; }
 
         public Fuel Fuel { get; set; }
 

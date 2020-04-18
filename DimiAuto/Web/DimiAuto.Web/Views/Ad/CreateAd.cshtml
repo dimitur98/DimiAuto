@@ -13,6 +13,7 @@
         <div class="form-group">
             <label asp-for="TypeOfVeichle"></label>
             <select asp-for="TypeOfVeichle" class="form-control" asp-items="@Html.GetEnumSelectList<TypeOfVeichle>()"></select>
+            <span asp-validation-for="Location" class="text-danger" />
         </div>
         <!--<span asp-validation-for="TypeOfVeichle" />-->
 
@@ -89,7 +90,7 @@
         </div>
         <div class="form-group">
             <label asp-for="Location"></label>
-            <input asp-for="Location" class="form-control" type="text" />
+            <select asp-for="Location" class="form-control" asp-items="@Html.GetEnumSelectList<Location>()"></select>
             <span asp-validation-for="Location" class="text-danger" />
         </div>
         <div class="form-group">

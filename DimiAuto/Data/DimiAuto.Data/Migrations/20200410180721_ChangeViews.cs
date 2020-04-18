@@ -17,6 +17,8 @@ namespace DimiAuto.Data.Migrations
                 defaultValue: "");
         }
 
+
+
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(

@@ -27,6 +27,11 @@
                                 <select asp-for="TypeOfVeichle" class="custom-select" asp-items="@Html.GetEnumSelectList<TypeOfVeichle>()"></select>
                             </div>
 
+                            <div class="pickup-location book-item">
+                                <h4>Choose location:</h4>
+                                <select asp-for="Location" class="custom-select" asp-items="@Html.GetEnumSelectList<Location>()"></select>
+                            </div>
+
                             <div class="pick-up-date book-item form-row">
                                 <div class="col-md-6">
                                     <h4>Choose make</h4>

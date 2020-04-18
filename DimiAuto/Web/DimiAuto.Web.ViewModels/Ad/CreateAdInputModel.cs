@@ -62,9 +62,8 @@
         [Display(Name = "Euro standart")]
         public EuroStandart EuroStandart { get; set; }
 
-        [Required]
-        [StringLength(GlobalConstants.CarLocationLenght)]
-        public string Location { get; set; }
+        
+        public Location Location { get; set; }
 
         [Display(Name = "More information")]
         public string MoreInformation { get; set; }

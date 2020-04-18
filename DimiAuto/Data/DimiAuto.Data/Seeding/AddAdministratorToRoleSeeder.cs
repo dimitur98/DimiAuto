@@ -24,14 +24,12 @@ namespace DimiAuto.Data.Seeding
             {
                 return;
             }
-             
+
             await dbContext.UserRoles.AddAsync(new IdentityUserRole<string>
             {
                 RoleId = role.Id,
                 UserId = user.Id,
             });
-
-
         }
     }
 }

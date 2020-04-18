@@ -20,6 +20,7 @@
             this.IsDeleted = false;
             this.Comments = new HashSet<Comment>();
             this.Views = new HashSet<AdView>();
+            this.ImgsPaths = GlobalConstants.DefaultImgCar;
         }
 
         public TypeOfVeichle TypeOfVeichle { get; set; }
@@ -54,7 +55,7 @@
 
         public EuroStandart EuroStandart { get; set; }
 
-        public string Location { get; set; }
+        public Location Location { get; set; }
 
         public string MoreInformation { get; set; }
 

@@ -6,9 +6,11 @@ namespace DimiAuto.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+
+
             migrationBuilder.DropForeignKey(
-                name: "FK_Views_AspNetUsers_UserId",
-                table: "Views");
+                 name: "FK_Views_AspNetUsers_UserId",
+                 table: "Views");
 
             migrationBuilder.DropIndex(
                 name: "IX_Views_UserId",
@@ -45,6 +47,8 @@ namespace DimiAuto.Data.Migrations
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
+
+
         }
     }
 }

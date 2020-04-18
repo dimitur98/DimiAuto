@@ -1,14 +1,15 @@
-﻿using DimiAuto.Common;
-using DimiAuto.Data.Models;
-using DimiAuto.Data.Models.CarModel;
-using DimiAuto.Services.Mapping;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace DimiAuto.Web.ViewModels.Home
+﻿namespace DimiAuto.Web.ViewModels.Home
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Text;
+
+    using DimiAuto.Common;
+    using DimiAuto.Data.Models;
+    using DimiAuto.Data.Models.CarModel;
+    using DimiAuto.Services.Mapping;
+
     public class SearchInputModel : IMapFrom<SearchModel>
     {
         public Make Make { get; set; }
@@ -16,6 +17,8 @@ namespace DimiAuto.Web.ViewModels.Home
         public string? Model { get; set; }
 
         public Condition Condition { get; set; }
+
+        public Location Location { get; set; }
 
         public Fuel Fuel { get; set; }
 

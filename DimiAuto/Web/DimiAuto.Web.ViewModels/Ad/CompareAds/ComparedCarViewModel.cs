@@ -10,7 +10,7 @@
 
     public class ComparedCarViewModel : IMapFrom<Car>
     {
-       
+
 
         public Condition Condition { get; set; }
 

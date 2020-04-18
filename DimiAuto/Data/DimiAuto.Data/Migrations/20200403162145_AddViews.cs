@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace DimiAuto.Data.Migrations
+﻿namespace DimiAuto.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddViews : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

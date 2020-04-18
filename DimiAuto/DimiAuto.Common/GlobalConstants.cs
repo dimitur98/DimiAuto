@@ -40,7 +40,7 @@
 
         public const string NoCompanyUser = "Private person";
 
-        public const int ItemsPerPage = 3;
+        public const int ItemsPerPage = 6;
 
         public const string DefaultSearchModelUserId = "default";
 

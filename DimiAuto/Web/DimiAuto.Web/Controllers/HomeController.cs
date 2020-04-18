@@ -59,6 +59,7 @@
             var searchModel = new SearchInputModel
             {
                 Condition = Condition.All,
+                Location = Location.All,
                 Fuel = Fuel.All,
                 TypeOfVeichle = TypeOfVeichle.All,
                 GearBox = GearBox.All,

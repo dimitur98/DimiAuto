@@ -45,7 +45,7 @@
                 Horsepowers = 1,
                 ImgsPaths = GlobalConstants.DefaultImgCar,
                 Km = 100,
-                Location = "Sofia",
+                Location = Location.Sofia,
                 Make = Make.Audi,
                 Model = "test",
                 Modification = "test",

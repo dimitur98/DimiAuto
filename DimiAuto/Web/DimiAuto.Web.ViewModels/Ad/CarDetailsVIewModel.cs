@@ -49,7 +49,7 @@
 
         public EuroStandart EuroStandart { get; set; }
 
-        public string Location { get; set; }
+        public Location Location { get; set; }
 
         public string MoreInformation { get; set; }
 

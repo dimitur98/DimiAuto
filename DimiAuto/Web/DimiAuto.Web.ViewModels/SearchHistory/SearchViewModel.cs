@@ -17,6 +17,8 @@ namespace DimiAuto.Web.ViewModels.SearchHistory
 
         public string ModelToString { get; set; }
 
+        public Location Location { get; set; }
+
         public Condition Condition { get; set; }
 
         public Fuel Fuel { get; set; }

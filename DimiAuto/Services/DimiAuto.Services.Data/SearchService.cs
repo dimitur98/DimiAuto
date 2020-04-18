@@ -40,11 +40,12 @@
                 YearFrom = search.YearFrom,
                 YearTo = search.YearTo,
                 UserId = userId,
+                Location = search.Location,
             };
             var searchModelExist = await this.searchModelRepository.All().Where(x => x.UserId == userId).FirstOrDefaultAsync(x =>
             x.Condition == searchModel.Condition && x.Fuel == searchModel.Fuel && x.GearBox == searchModel.GearBox &&
             x.Make == searchModel.Make && x.Model == searchModel.Model && x.PriceFrom == searchModel.PriceFrom && x.PriceTo == searchModel.PriceTo &&
-            x.YearFrom == searchModel.YearFrom && x.YearTo == searchModel.YearTo && x.TypeOfVeichle == searchModel.TypeOfVeichle);
+            x.YearFrom == searchModel.YearFrom && x.YearTo == searchModel.YearTo && x.TypeOfVeichle == searchModel.TypeOfVeichle && x.Location == searchModel.Location);
             if (searchModelExist == null)
             {
                 await this.searchModelRepository.AddAsync(searchModel);
@@ -58,6 +59,7 @@
             var result = await this.searchModelRepository.All().Where(x => x.UserId == userId).OrderBy(x => x.CreatedOn).Select(x => new SearchViewModel 
             {
                 Id = x.Id,
+                Location = x.Location,
                 Model = x.Model,
                 Make = x.Make,
                 Condition = x.Condition,

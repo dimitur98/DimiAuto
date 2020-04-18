@@ -19,46 +19,42 @@
                                             <div class="pick-location bookinput-item">
                                                 Type: @search.TypeOfVeichle
                                             </div>
-
                                             <div class="pick-location bookinput-item">
                                                 Condition: @search.Condition
                                             </div>
-
                                             <div class="pick-location bookinput-item">
                                                 Make: @search.Make
                                             </div>
-
                                             <div class="pick-location bookinput-item">
                                                 Model: @search.ModelToString
                                             </div>
-
                                             <div class="pick-location bookinput-item">
-                                                Fuel: @search.Fuel
+                                                Location: @search.Location
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="pick-location bookinput-item">
+                                                Fuel: @search.Fuel
+                                            </div>
+                                            <div class="pick-location bookinput-item">
                                                 Gearbox: @search.GearBox
                                             </div>
-
                                             <div class="pick-location bookinput-item">
                                                 YearFrom: @search.YearFrom
                                             </div>
-
                                             <div class="pick-location bookinput-item">
                                                 YearTo: @search.YearTo
                                             </div>
-
                                             <div class="pick-location bookinput-item">
                                                 PriceFrom: @search.PriceFrom
                                             </div>
-
+                                        </div>
+                                        <div class="row">
                                             <div class="pick-location bookinput-item">
                                                 PriceTo: @search.PriceTo
                                             </div>
                                         </div>
                                         <div class="row">
-
                                             <span class="nobr" style="margin: auto; max-width: 100px;">
                                                 <a class="bookcar-btn" data-toggle="tooltip" data-placement="top" title="Use criteria" style="display:inline-block;margin-left:10px;" href="/Home/AllByCriteria?id=@search.Id"><img class="searchClass" src="~/images/searching-car.png"></a>
                                                 <a class="bookcar-btn" data-toggle="tooltip" data-placement="top" title="Delete search history" style="display:inline-block;" href="/SearchHistory/DeleteSearchHistory?id=@search.Id"><img class="searchClass" src="~/images/deleteSearch.png"></a>
