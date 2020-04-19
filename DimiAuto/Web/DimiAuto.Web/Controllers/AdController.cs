@@ -71,22 +71,22 @@
             }
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var ip = this.HttpContext.Connection.ToString();
-            var a = this.HttpContext.Connection.RemoteIpAddress.ToString();
-            this.ViewData["ip"] = this.HttpContext.Request.Cookies["myId"].ToString();
 
-           // var a = Assembly("All.cshtml");
             var car = await this.adService.GetCurrentCarAsync(id);
             if (userId == null)
             {
                 var uniqCarId = car.Make + car.Model + car.UserId + car.CreatedOn.ToString();
                 if (this.HttpContext.Request.Cookies["myId"] == null || !this.HttpContext.Request.Cookies["myId"].Contains(uniqCarId))
                 {
-
                     var myId = Guid.NewGuid().ToString() + uniqCarId;
-                    this.HttpContext.Response.Cookies.Append("myId", myId);
-                    var a = this.HttpContext.Response.Cookies("myId")
-                    await this.viewService.AddViewAsync("notRegisterUser", car.Id);
+                    var cookieOptions = new CookieOptions
+                    {
+                        IsEssential = true,
+                        MaxAge = new TimeSpan(365, 0, 0, 0),
+                    };
+
+                    this.HttpContext.Response.Cookies.Append("myId", myId, cookieOptions);
+                    await this.viewService.AddViewAsync(GlobalConstants.NotRegisterUserId, car.Id);
                 }
             }
             else
@@ -98,36 +98,9 @@
             {
                 car.ImgsPaths = GlobalConstants.DefaultImgCar;
             }
+
             var user = await this.userRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == car.UserId);
 
-            //var a = new CarDetailsModel { CarDetailsVIewModel = new CarDetailsVIewModel { Id = car.Id, }, };
-            //var b = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ Cc = car.Cc, }, };
-            //var c = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ Color = car.Color, }, };
-            //var d = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ Door = car.Door, }, };
-            //var e = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ EuroStandart = car.EuroStandart, }, };
-            //var ad = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ Extras = car.Extras.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList(), }, };
-            //var ae = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ Fuel = car.Fuel, }, };
-            //var aw = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ Gearbox = car.Gearbox, }, };
-            //var ar = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ Horsepowers = car.Horsepowers, }, };
-            //var av = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ ImgsPaths = car.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList(), }, };
-            //var ac = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ Km = car.Km, }, };
-            //var ax = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ Location = car.Location, }, };
-            //var az = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ Make = car.Make, }, };
-            //var ag = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ Model = car.Model, }, };
-            //var ah = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ Modification = car.Modification, }, };
-            //var aj = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ MoreInformation = car.MoreInformation, }, };
-            //var ak = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ Price = car.Price, }, };
-            //var al = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ Type = car.Type, }, };
-            //var ao = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ Condition = car.Condition, }, };
-            //var ba = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ User = user, }, };
-            //var bd = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ UserId = car.UserId, }, };
-            //var be = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ YearOfProduction = car.YearOfProduction.ToString("MM.yyyy"), }, };
-            //var bw = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ Comments = await this.commentService.GetComments<CarCommentViewModel>(car.Id), }, };
-            //var bq = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ Views = this.viewService.GetViewsCount(id), }, };
-            //var bc = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ IsApproved = car.IsApproved, }, };
-            //var bx = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ IsDeleted = car.IsDeleted, }, };
-            //var bz = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ CurrentUserId = userId, }, };
-            //var bv = new CarDetailsModel{ CarDetailsVIewModel = new CarDetailsVIewModel{ ModelToString = this.adService.EnumParser(car.Make.ToString(), car.Model), }, };
             var output = new CarDetailsModel
             {
                 CarDetailsVIewModel = new CarDetailsVIewModel
@@ -221,27 +194,6 @@
 
             var car = await this.adService.EditAd(input);
 
-            // var output = new EditAddInputModel
-            // {
-            //    Cc = car.Cc,
-            //    Color = car.Color,
-            //    Door = car.Door,
-            //    EuroStandart = car.EuroStandart,
-            //    Extras = car.Extras,
-            //    Fuel = car.Fuel,
-            //    Gearbox = car.Gearbox,
-            //    Hp = car.Horsepowers,
-            //    Km = car.Km,
-            //    Location = car.Location,
-            //    Make = car.Make,
-            //    Model = car.Model,
-            //    Modification = car.Modification,
-            //    MoreInformation = car.MoreInformation,
-            //    Price = car.Price,
-            //    Type = car.Type,
-            //    Condition = car.Condition,
-            //    YearOfProduction = car.YearOfProduction,
-            // };
             return this.Redirect("/MyAccount/MyAccount");
         }
 

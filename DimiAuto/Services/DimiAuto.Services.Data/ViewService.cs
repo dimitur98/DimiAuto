@@ -1,4 +1,5 @@
-﻿using DimiAuto.Data.Common.Repositories;
+﻿using DimiAuto.Common;
+using DimiAuto.Data.Common.Repositories;
 using DimiAuto.Data.Models;
 using DimiAuto.Models.CarModel;
 using Microsoft.EntityFrameworkCore;
@@ -21,17 +22,30 @@ namespace DimiAuto.Services.Data
 
         public async Task AddViewAsync(string user, string carId)
         {
-            //var view = await this.viewRepository.All().FirstOrDefaultAsync(x => x.User == user && x.CarId == carId);
-            //if (view == null)
-            //{
-                var newView = new AdView
+            if (user != GlobalConstants.NotRegisterUserId)
+            {
+                var view = await this.viewRepository.All().FirstOrDefaultAsync(x => x.User == user && x.CarId == carId);
+                if (view == null)
                 {
-                    CarId = carId,
-                    User = user,
-                };
-                await this.viewRepository.AddAsync(newView);
-                await this.viewRepository.SaveChangesAsync();
-            
+                    await this.CreateViewAsync(user, carId);
+                }
+            }
+            else
+            {
+                await this.CreateViewAsync(user, carId);
+            }
+
+        }
+
+        private async Task CreateViewAsync(string user, string carId)
+        {
+            var newView = new AdView
+            {
+                CarId = carId,
+                User = user,
+            };
+            await this.viewRepository.AddAsync(newView);
+            await this.viewRepository.SaveChangesAsync();
         }
 
         public int GetViewsCount(string carId)

@@ -49,5 +49,7 @@
         public const string CloudinaryPathDimitur98 = "http://res.cloudinary.com/dimitur98/image/upload/";
 
         public const int ImgMaxLength = 10 * 1024 * 1024;
+
+        public const string NotRegisterUserId = "notRegisterUser";
     }
 }
