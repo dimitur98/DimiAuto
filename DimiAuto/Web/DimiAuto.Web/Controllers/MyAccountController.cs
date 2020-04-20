@@ -188,7 +188,7 @@
             {
                 await this.signInManager.SignOutAsync();
                 await this.userManager.RemoveFromRoleAsync(user, GlobalConstants.UserRoleName);
-                await this.myAccountService.DeleteAccount(user.Id);
+                await this.myAccountService.DeleteAccountDataAsync(user.Id);
                 await this.userManager.DeleteAsync(user);
                 return this.Redirect("/");
             }

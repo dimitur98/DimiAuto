@@ -94,9 +94,9 @@
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
-
             // Application services
-            services.AddTransient<IEmailSender, SendGridEmailSender>();
+            services.AddTransient<IEmailSender, SendGridEmailSender>(provider =>
+                new SendGridEmailSender(this.configuration["SendGrid:AppKey"], this.configuration["SendGrid:Email"], this.configuration["SendGrid:Username"]));
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IAdService, AdService>();
             services.AddTransient<IHomeService, HomeService>();

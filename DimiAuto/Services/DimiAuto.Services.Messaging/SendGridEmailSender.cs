@@ -4,27 +4,31 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using Microsoft.Extensions.Configuration;
     using SendGrid;
     using SendGrid.Helpers.Mail;
 
     public class SendGridEmailSender : IEmailSender
     {
         private readonly SendGridClient client;
+        private readonly string email;
+        private readonly string username;
 
-        public SendGridEmailSender()
+        public SendGridEmailSender(string appKey, string email, string username)
         {
-            this.client = new SendGridClient("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");
+            this.client = new SendGridClient(appKey);
+            this.email = email;
+            this.username = username;
         }
 
-        public async Task SendEmailAsync(string from, string fromName, string to, string subject, string htmlContent, IEnumerable<EmailAttachment> attachments = null)
+        public async Task SendEmailAsync( string to, string subject, string htmlContent, IEnumerable<EmailAttachment> attachments = null)
         {
             if (string.IsNullOrWhiteSpace(subject) && string.IsNullOrWhiteSpace(htmlContent))
             {
                 throw new ArgumentException("Subject and message should be provided.");
             }
 
-            var fromAddress = new EmailAddress(from, fromName);
+            var fromAddress = new EmailAddress(this.email, this.username);
             var toAddress = new EmailAddress(to);
             var message = MailHelper.CreateSingleEmail(fromAddress, toAddress, subject, null, htmlContent);
             if (attachments?.Any() == true)

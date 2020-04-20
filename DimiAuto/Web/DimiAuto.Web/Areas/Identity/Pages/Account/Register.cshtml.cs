@@ -22,8 +22,7 @@
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private const string Email = "dimitur.mihailov_98@abv.bg";
-        private const string Username = "dimitur98";
+       
 
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -141,7 +140,7 @@
                         values: new { area = "Identity", userId = user.Id, code = code },
                         protocol: this.Request.Scheme);
 
-                    await this._emailSender.SendEmailAsync(Email, Username ,this.Input.Email, "Confirm your email",
+                    await this._emailSender.SendEmailAsync(this.Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (this._userManager.Options.SignIn.RequireConfirmedAccount)

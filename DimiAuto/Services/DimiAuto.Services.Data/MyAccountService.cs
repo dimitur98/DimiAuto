@@ -53,7 +53,7 @@
                 })
                 .ToListAsync();
 
-        public async Task DeleteAccount(string userId)
+        public async Task DeleteAccountDataAsync(string userId)
         {
             var cars = await this.carRepository.AllWithDeleted().Where(x => x.UserId == userId).ToListAsync();
             var views = await this.viewsRepository.AllWithDeleted().Where(x => x.User == userId).ToListAsync();
@@ -70,24 +70,25 @@
             foreach (var favorite in favorites)
             {
                 this.favoriteRepository.HardDelete(favorite);
-                await this.viewsRepository.SaveChangesAsync();
+                await this.favoriteRepository.SaveChangesAsync();
             }
 
             foreach (var comment in comments)
             {
                 this.commentRepository.HardDelete(comment);
-                await this.viewsRepository.SaveChangesAsync();
+                await this.commentRepository.SaveChangesAsync();
             }
 
             foreach (var model in searchHistory)
             {
                 this.searchModelRepository.HardDelete(model);
-                await this.viewsRepository.SaveChangesAsync();
+                await this.searchModelRepository.SaveChangesAsync();
             }
 
             foreach (var car in cars)
             {
                 this.carRepository.HardDelete(car);
+                await this.carRepository.SaveChangesAsync();
             }
         }
     }

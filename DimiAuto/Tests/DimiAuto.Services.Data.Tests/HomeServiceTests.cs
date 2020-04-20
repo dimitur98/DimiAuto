@@ -58,10 +58,10 @@ namespace DimiAuto.Services.Data.Tests
             await carRepository.AddAsync(new Car { Condition = Condition.New, Make = Make.Opel, IsDeleted = true, ImgsPaths = GlobalConstants.DefaultImgCar, Price = 13, YearOfProduction = DateTime.Parse("01.2018"), });
             await carRepository.SaveChangesAsync();
 
-            var searchModelByPrice = new SearchInputModel {Condition = Condition.All, Fuel = Fuel.All, Gearbox = Gearbox.All, Make = Make.All,TypeOfVeichle = TypeOfVeichle.All, PriceFrom = 1, PriceTo = 1200 };
-            var searchModelByYear = new SearchInputModel { Condition = Condition.All, Fuel = Fuel.All, Gearbox = Gearbox.All, Make = Make.All, TypeOfVeichle = TypeOfVeichle.Car, YearFrom = 2018, YearTo = 2019 };
-            var searchModelByMultipleCriteria = new SearchInputModel { Condition = Condition.All, Fuel = Fuel.Gasoline, Gearbox = Gearbox.Manual, Make = Make.All, TypeOfVeichle = TypeOfVeichle.Car };
-            var searchModelByMultipleCriteriaNoMatch = new SearchInputModel { Condition = Condition.ForParts, Fuel = Fuel.Gasoline, Gearbox = Gearbox.Manual, Make = Make.All, TypeOfVeichle = TypeOfVeichle.Car };
+            var searchModelByPrice = new SearchInputModel { Location = Location.All, Condition = Condition.All, Fuel = Fuel.All, Gearbox = Gearbox.All, Make = Make.All, TypeOfVeichle = TypeOfVeichle.All, PriceFrom = 1, PriceTo = 1200 };
+            var searchModelByYear = new SearchInputModel { Location = Location.All, Condition = Condition.All, Fuel = Fuel.All, Gearbox = Gearbox.All, Make = Make.All, TypeOfVeichle = TypeOfVeichle.Car, YearFrom = 2018, YearTo = 2019 };
+            var searchModelByMultipleCriteria = new SearchInputModel { Location = Location.All, Condition = Condition.All, Fuel = Fuel.Gasoline, Gearbox = Gearbox.Manual, Make = Make.All, TypeOfVeichle = TypeOfVeichle.Car };
+            var searchModelByMultipleCriteriaNoMatch = new SearchInputModel { Location = Location.All, Condition = Condition.ForParts, Fuel = Fuel.Gasoline, Gearbox = Gearbox.Manual, Make = Make.All, TypeOfVeichle = TypeOfVeichle.Car };
 
 
             var resultWithPrice = await service.GetAdsByCriteriaAsync(searchModelByPrice);
