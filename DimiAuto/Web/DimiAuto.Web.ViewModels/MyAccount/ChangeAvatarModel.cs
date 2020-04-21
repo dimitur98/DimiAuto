@@ -7,7 +7,7 @@ namespace DimiAuto.Web.ViewModels.MyAccount
 {
   public class ChangeAvatarModel
     {
-        public ImgUploadInputModel ImgUploadInputModel { get; set; }
+        public ChangeAvatarInputModel ImgUploadInputModel { get; set; }
 
         public ChangeAvatarViewModel ChangeAvatarViewModel { get; set; }
     }

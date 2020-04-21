@@ -109,6 +109,18 @@
         public async Task<IActionResult> ChangeAvatar(ImgUploadInputModel input)
         {
             var user = await this.userManager.GetUserAsync(this.User);
+            if (!this.ModelState.IsValid)
+            {
+                var output = new ChangeAvatarModel
+                {
+                    ChangeAvatarViewModel = new ChangeAvatarViewModel
+                    {
+                        ImgPath = GlobalConstants.CloudinaryPathDimitur98 + user.UserImg,
+                    },
+                };
+                return this.View(output);
+            }
+
             user.UserImg = string.Empty;
             var result = await this.imgService.UploadImgsAsync(input);
             user.UserImg = result.First();

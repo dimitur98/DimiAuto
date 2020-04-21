@@ -20,11 +20,10 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Caching.SqlServer;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using Microsoft.Extensions.Caching.SqlServer;
-
 
     public class Startup
     {
@@ -135,7 +134,8 @@
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Home/Error");
+                app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
                 app.UseHsts();
             }
 

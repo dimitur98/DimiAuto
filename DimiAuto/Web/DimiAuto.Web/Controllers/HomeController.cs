@@ -47,11 +47,17 @@
             return this.View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(int statusCode)
         {
-            return this.View(
-                new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
+            if (statusCode == 404)
+            {
+                return this.View("404Error");
+            }
+            else
+            {
+                return this.View("Error");
+            }
+
         }
 
         public async Task<IActionResult> All(int page = 1)
@@ -88,7 +94,7 @@
             this.ViewData["searchModel"] = searchModel as SearchInputModel;
 
             return this.View(output);
-         }
+        }
 
         public async Task<IActionResult> AllByCriteria(string id, SearchInputModel input, int page = 1)
         {
@@ -140,7 +146,7 @@
         {
             ICollection<CarAdsViewModel> ads;
 
-                // this is true only when you go through pages
+            // this is true only when you go through pages
             if (searchModle.Make != 0)
             {
                 input.SortInputModel = new SortInputModel { OrderByYear = sortModel.OrderByYear, OrderByPrice = sortModel.OrderByPrice, SearchInputModel = searchModle };

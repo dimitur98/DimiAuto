@@ -21,8 +21,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Services\DimiAuto.Services.Data\DimiAuto.Services.Data.csproj" />
-  </ItemGroup>
-
 </Project>

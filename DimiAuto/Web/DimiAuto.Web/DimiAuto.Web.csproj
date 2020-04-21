@@ -180,6 +180,9 @@
     <Content Update="wwwroot\images\blog-img2.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="wwwroot\images\blog-img3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\images\car-type5.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

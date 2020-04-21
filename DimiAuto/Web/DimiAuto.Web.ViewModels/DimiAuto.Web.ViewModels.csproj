@@ -26,6 +26,7 @@
     <ProjectReference Include="..\..\Data\DimiAuto.Data.Models\DimiAuto.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\DimiAuto.Services.Mapping\DimiAuto.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\DimiAuto.Services.Messaging\DimiAuto.Services.Messaging.csproj" />
+    <ProjectReference Include="..\DimiAuto.Web.Infrastructure\DimiAuto.Web.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
