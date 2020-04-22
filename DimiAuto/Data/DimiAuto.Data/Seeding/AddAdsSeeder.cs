@@ -1,16 +1,17 @@
-﻿using DimiAuto.Data.Models;
-using DimiAuto.Data.Models.CarModel;
-using DimiAuto.Models.CarModel;
-using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DimiAuto.Data.Seeding
+﻿namespace DimiAuto.Data.Seeding
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using DimiAuto.Data.Models;
+    using DimiAuto.Data.Models.CarModel;
+    using DimiAuto.Models.CarModel;
+    using Microsoft.AspNetCore.Identity;
+
    public class AddAdsSeeder : ISeeder
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)

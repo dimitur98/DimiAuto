@@ -1,4 +1,4 @@
-﻿namespace DimiAuto.Web.ViewModels.Attribute
+﻿namespace DimiAuto.Web.Infrastructure.Attributes
 {
     using System;
     using System.Collections.Generic;

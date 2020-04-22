@@ -6,8 +6,8 @@
     using System.Threading.Tasks;
 
     using DimiAuto.Models.CarModel;
-    using DimiAuto.Web.ViewModels.Home;
     using DimiAuto.Web.ViewModels.Ad;
+    using DimiAuto.Web.ViewModels.Home;
 
     public interface IHomeService
     {

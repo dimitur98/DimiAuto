@@ -1,13 +1,14 @@
-﻿using DimiAuto.Web.ViewModels.Img;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DimiAuto.Web.ViewModels.MyAccount
+﻿namespace DimiAuto.Web.ViewModels.MyAccount
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    using DimiAuto.Web.ViewModels.Img;
+
   public class ChangeAvatarModel
     {
-        public ChangeAvatarInputModel ImgUploadInputModel { get; set; }
+        public ChangeAvatarInputModel ChangeAvatarInputModel { get; set; }
 
         public ChangeAvatarViewModel ChangeAvatarViewModel { get; set; }
     }

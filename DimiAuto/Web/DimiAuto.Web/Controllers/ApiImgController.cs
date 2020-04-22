@@ -23,17 +23,25 @@
     [Authorize]
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class ImgDeleteController : Controller
+    public class ApiImgController : Controller
     {
         private readonly Cloudinary cloudinary;
         private readonly IDeletableEntityRepository<Car> carRepository;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IImgService imgService;
 
-        public ImgDeleteController(Cloudinary cloudinary, IDeletableEntityRepository<Car> carRepository, UserManager<ApplicationUser> userManager)
+        public ApiImgController(Cloudinary cloudinary, IDeletableEntityRepository<Car> carRepository, UserManager<ApplicationUser> userManager, IImgService imgService)
         {
             this.cloudinary = cloudinary;
             this.carRepository = carRepository;
             this.userManager = userManager;
+            this.imgService = imgService;
+        }
+
+        [HttpPost]
+        public bool ImgValidation(ImgValidationInputModel input)
+        {
+            return this.imgService.IsValidImg("." + input.Format.ToLower(), input.Type, input.Size);
         }
 
         [HttpPost]

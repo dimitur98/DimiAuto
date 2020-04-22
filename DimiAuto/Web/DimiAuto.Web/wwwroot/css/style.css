@@ -3275,9 +3275,12 @@ body {
 	margin-bottom: 25px;
 }
 .defaultImg {
-	max-width: 180px;
+	width: 180px;
+	height: 150px;
 }
-
+.carImage {
+	margin-right:5px;
+}
 input[type=file] {
 	padding: 5px;
 }

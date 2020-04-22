@@ -16,6 +16,9 @@
                                 <div style="display: none;" class="alert alert-danger" role="alert" id="imgNotRemoved">
                                     Image can't be removed!
                                 </div>
+                                <div class="alert alert-danger" role="alert" style="display: none" id="alert">
+                                    Image doesn't meet the requirements!
+                                </div>
                                 <h3>Choose new profile picture.</h3>
                                 <form runat="server" method="post" id="form" enctype="multipart/form-data" dasp-controller="Files" asp-controller="MyAccount" asp-action="ChangeAvatar">
                                     <div asp-validation-summary="All" class="text-danger"></div>
@@ -23,7 +26,7 @@
                                         <br>
                                         <img id="img" src="@Model.ChangeAvatarViewModel.ImgPath" class="defaultImg" alt="your image" />
                                         <br>
-                                        <input asp-for="ImgUploadInputModel.File1" type='file' onchange="readURL(this)" name="File1" id="input" />
+                                        <input asp-for="@Model.ChangeAvatarInputModel.File" type='file' onchange="readURL(this)"  id="input" />
                                         <br>
                                         <button id="btnSubmit" type="submit" value="Upload Imgs" class="btn btn-primary">Upload Imgs</button>
                                         <br>

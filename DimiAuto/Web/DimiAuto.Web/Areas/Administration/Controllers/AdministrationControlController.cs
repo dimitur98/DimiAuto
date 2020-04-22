@@ -52,14 +52,11 @@
 
         }
 
-        //[HttpPost]
-        //public async Task PermamentDelete(AdministrationControlInputModel input)
-        //{
+        // [HttpPost]
+        // public async Task PermamentDelete(AdministrationControlInputModel input)
+        // {
         //    await this.administrationService.PermamentDeleteAsync(input.CarId);
-
-
-        //}
-
+        // }
         [HttpPost]
         public async Task<ActionResult<string>> DeleteUser(AdministrationControlInputModel input)
         {

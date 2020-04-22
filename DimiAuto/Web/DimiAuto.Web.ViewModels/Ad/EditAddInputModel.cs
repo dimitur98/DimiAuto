@@ -7,7 +7,7 @@
 
     using DimiAuto.Common;
     using DimiAuto.Data.Models.CarModel;
-    using DimiAuto.Web.ViewModels.Attribute;
+    using DimiAuto.Web.Infrastructure.Attributes;
 
     public class EditAddInputModel
     {

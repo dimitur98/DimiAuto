@@ -1,21 +1,22 @@
 ﻿namespace DimiAuto.Web.Areas.Administration.Controllers
 {
-    using DimiAuto.Data.Common.Repositories;
-    using DimiAuto.Models.CarModel;
-    using DimiAuto.Services.Data.AreaServices;
-    using DimiAuto.Web.ViewModels.Administration;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
     using System.Linq;
-    using Microsoft.EntityFrameworkCore;
-    using DimiAuto.Data.Models;
-    using Microsoft.AspNetCore.Identity;
-    using DimiAuto.Services.Mapping;
+    using System.Threading.Tasks;
+
     using DimiAuto.Common;
     using DimiAuto.Data;
+    using DimiAuto.Data.Common.Repositories;
+    using DimiAuto.Data.Models;
     using DimiAuto.Data.Repositories;
+    using DimiAuto.Models.CarModel;
     using DimiAuto.Services.Data;
+    using DimiAuto.Services.Data.AreaServices;
+    using DimiAuto.Services.Mapping;
+    using DimiAuto.Web.ViewModels.Administration;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
 
     [Authorize(Roles = "Administrator")]
     [Area("Administration")]
@@ -28,13 +29,18 @@
         private readonly RoleManager<ApplicationRole> roleManager;
         private readonly IAdService adService;
 
-        public AdministrationController(IAdministrationService administrationService, UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext, 
-            IDeletableEntityRepository<ApplicationUser> userRepository, RoleManager<ApplicationRole> roleManager, IAdService adService)
+        public AdministrationController(
+            IAdministrationService administrationService,
+            UserManager<ApplicationUser> userManager,
+            ApplicationDbContext dbContext,
+            IDeletableEntityRepository<ApplicationUser> userRepository,
+            RoleManager<ApplicationRole> roleManager,
+            IAdService adService)
         {
             this.administrationService = administrationService;
             this.userManager = userManager;
             this.dbContext = dbContext;
-            this.userRepository = userRepository;
+            this.userRepository = userRepository ?? throw new System.ArgumentNullException(nameof(userRepository));
             this.roleManager = roleManager;
             this.adService = adService;
         }
@@ -76,6 +82,5 @@
             };
             return this.View(output);
         }
-
     }
 }

@@ -4,12 +4,13 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Text;
+
     using DimiAuto.Common;
     using DimiAuto.Data.Models.CarModel;
     using DimiAuto.Services.Mapping;
-    using DimiAuto.Web.ViewModels.Attribute;
-    using FinalProject.Models.CarModel;
     using DimiAuto.Web;
+    using DimiAuto.Web.Infrastructure.Attributes;
+    using FinalProject.Models.CarModel;
 
     public class CreateAdInputModel
     {

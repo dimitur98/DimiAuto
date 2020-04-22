@@ -95,12 +95,11 @@
 
         public async Task<IActionResult> AllByCriteria(string id, SearchInputModel input, int page = 1)
         {
-            //if (input.Make == 0)
-            //{
+            // if (input.Make == 0)
+            // {
             //    var searchModel = await this.searchService.GetDefaultSearchModel();
             //    input = AutoMapperConfig.MapperInstance.Map<SearchInputModel>(searchModel);
-            //}
-
+            // }
             var user = await this.userManager.GetUserAsync(this.User);
             if (id != null)
             {

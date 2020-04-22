@@ -4,12 +4,10 @@
     using System.Collections.Generic;
     using System.Text;
 
-    using DimiAuto.Web.ViewModels.Attribute;
     using Microsoft.AspNetCore.Http;
 
-   public class ChangeAvatarInputModel
+    public class ChangeAvatarInputModel
     {
-        [ImgValidation(ErrorMessage = "Photo doesn't comply rules!")]
-        public IFormFile File1 { get; set; }
+        public IFormFile File { get; set; }
     }
 }

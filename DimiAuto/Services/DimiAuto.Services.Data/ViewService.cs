@@ -1,16 +1,17 @@
-﻿using DimiAuto.Common;
-using DimiAuto.Data.Common.Repositories;
-using DimiAuto.Data.Models;
-using DimiAuto.Models.CarModel;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DimiAuto.Services.Data
+﻿namespace DimiAuto.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using DimiAuto.Common;
+    using DimiAuto.Data.Common.Repositories;
+    using DimiAuto.Data.Models;
+    using DimiAuto.Models.CarModel;
+    using Microsoft.EntityFrameworkCore;
+
     public class ViewService : IViewService
     {
         private readonly IDeletableEntityRepository<AdView> viewRepository;

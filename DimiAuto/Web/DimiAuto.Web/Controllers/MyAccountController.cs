@@ -28,8 +28,12 @@
         private readonly IImgService imgService;
         private readonly SignInManager<ApplicationUser> signInManager;
 
-        public MyAccountController(IMyAccountService myAccountService, UserManager<ApplicationUser> userManager,
-            IAdService adService, IImgService imgService, SignInManager<ApplicationUser> signInManager)
+        public MyAccountController(
+            IMyAccountService myAccountService,
+            UserManager<ApplicationUser> userManager,
+            IAdService adService,
+            IImgService imgService,
+            SignInManager<ApplicationUser> signInManager)
         {
             this.myAccountService = myAccountService;
             this.userManager = userManager;
@@ -111,7 +115,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangeAvatar(ImgUploadInputModel input)
+        public async Task<IActionResult> ChangeAvatar(ChangeAvatarModel input)
         {
             var user = await this.userManager.GetUserAsync(this.User);
             if (!this.ModelState.IsValid)
@@ -127,9 +131,13 @@
             }
 
             user.UserImg = string.Empty;
-            var result = await this.imgService.UploadImgsAsync(input);
-            user.UserImg = result.First();
-            await this.userManager.UpdateAsync(user);
+            var result = await this.imgService.UploadImgAsync(input.ChangeAvatarInputModel.File);
+            if (result != string.Empty)
+            {
+                user.UserImg = result;
+                await this.userManager.UpdateAsync(user);
+            }
+
             return this.Redirect("MyAccount");
         }
 

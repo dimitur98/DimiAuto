@@ -11,11 +11,15 @@
         <div style="display: none;" class="alert alert-success" role="alert" id="imgRemove">
             Image is removed!
         </div>
+        <div class="alert alert-danger" role="alert" style="display: none" id="alert">
+            Image:<span id="invalidImgs"></span> doesn't meet the requirements
+        </div>
         <form runat="server" method="post" id="form" enctype="multipart/form-data" dasp-controller="Files" asp-controller="Img" asp-action="EditAdImgs" asp-route-id="@Model.ImgEditViewModel.CarId">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div>
                 <div class="row">
                     <div id="pic1">
+
                         <span>First photo</span>
                         <br>
                         <img id="img1" src="@Model.ImgEditViewModel.File1" class="defaultImg" alt="your image" />
@@ -25,7 +29,7 @@
 
                         <button onclick="readURL1(this, '@Model.ImgEditViewModel.CarId');" type="button" style="display: none" id="btn1" class="btn btn-outline-secondary">Remove</button>
                     </div>
-                    <div>
+                    <div>                        
                         <span>Second photo</span>
                         <br>
                         <img id="img2" src="@Model.ImgEditViewModel.File2" class="defaultImg" alt="your image" />
@@ -35,7 +39,7 @@
                         <button onclick="readURL2(this, '@Model.ImgEditViewModel.CarId')" type="button" style="display: none" id="btn2" class="btn btn-outline-secondary">Remove</button>
                     </div>
                     <div>
-                        <span>Tird photo</span>
+                        <span>Third photo</span>
                         <br>
                         <img id="img3" src="@Model.ImgEditViewModel.File3" class="defaultImg" alt="your image" />
                         <br>
@@ -54,7 +58,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div>
+                    <div>                        
                         <span>Fifth photo</span>
                         <br>
                         <img id="img5" src="@Model.ImgEditViewModel.File5" class="defaultImg" alt="your image" />
@@ -63,7 +67,7 @@
                         <br>
                         <button onclick="readURL5(this, '@Model.ImgEditViewModel.CarId')" type="button" style="display: none" id="btn5" class="btn btn-outline-secondary">Remove</button>
                     </div>
-                    <div>
+                    <div>                        
                         <span>Sixth photo</span>
                         <br>
                         <img id="img6" src="@Model.ImgEditViewModel.File6" class="defaultImg" alt="your image" />
@@ -72,7 +76,7 @@
                         <br>
                         <button onclick="readURL6(this, '@Model.ImgEditViewModel.CarId')" type="button" style="display: none" id="btn6" class="btn btn-outline-secondary">Remove</button>
                     </div>
-                    <div>
+                    <div class="carImage">                        
                         <span>Seventh photo</span>
                         <br>
                         <img id="img7" src="@Model.ImgEditViewModel.File7" class="defaultImg" alt="your image" />
@@ -81,7 +85,7 @@
                         <br>
                         <button onclick="readURL7(this, '@Model.ImgEditViewModel.CarId')" type="button" style="display: none" id="btn7" class="btn btn-outline-secondary">Remove</button>
                     </div>
-                    <div>
+                    <div>                       
                         <span>Eighth photo</span>
                         <br>
                         <img id="img8" src="@Model.ImgEditViewModel.File8" class="defaultImg" alt="your image" />
@@ -92,7 +96,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="column">
+                    <div class="column">                        
                         <span>Ninth photo</span>
                         <br>
                         <img id="img9" src="@Model.ImgEditViewModel.File9" class="defaultImg" alt="your image" />
@@ -101,7 +105,7 @@
                         <br>
                         <button onclick="readURL9(this, '@Model.ImgEditViewModel.CarId')" type="button" style="display: none" id="btn9" class="btn btn-outline-secondary">Remove</button>
                     </div>
-                    <div class="column">
+                    <div class="column">                       
                         <span>Thenth photo</span>
                         <br>
                         <img id="img10" src="@Model.ImgEditViewModel.File10" alt="your image" class="defaultImg" />

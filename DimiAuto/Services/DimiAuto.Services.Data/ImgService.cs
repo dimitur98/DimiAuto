@@ -27,60 +27,71 @@
             this.carRepository = carRepository;
         }
 
-        public async Task<IEnumerable<string>> UploadImgsAsync(ImgUploadInputModel input)
+        public async Task<string> UploadImgAsync(IFormFile file)
         {
             var list = new List<string>();
-            for (int i = 1; i <= 10; i++)
+
+            if (file == null)
             {
-                var file = (IFormFile)input.GetType().GetProperty("File" + i).GetValue(input, null);
-                if (file == null)
-                {
-                    continue;
-                }
-
-                var fileFileExtension = Path.GetExtension(file.FileName);
-                if (!string.Equals(fileFileExtension, ".jpg", StringComparison.OrdinalIgnoreCase)
-                    && !string.Equals(fileFileExtension, ".png", StringComparison.OrdinalIgnoreCase)
-                    && !string.Equals(fileFileExtension, ".jpeg", StringComparison.OrdinalIgnoreCase))
-                {
-                    continue;
-                }
-
-                if (!string.Equals(file.ContentType, "image/jpg", StringComparison.OrdinalIgnoreCase) &&
-                    !string.Equals(file.ContentType, "image/jpeg", StringComparison.OrdinalIgnoreCase) &&
-                    !string.Equals(file.ContentType, "image/pjpeg", StringComparison.OrdinalIgnoreCase) &&
-                    !string.Equals(file.ContentType, "image/x-png", StringComparison.OrdinalIgnoreCase) &&
-                    !string.Equals(file.ContentType, "image/png", StringComparison.OrdinalIgnoreCase))
-                {
-                    continue;
-                }
-
-                if (file.Length >= GlobalConstants.ImgMaxLength)
-                {
-                    continue;
-                }
-
-                byte[] destinationImage;
-                using (var memoryStream = new MemoryStream())
-                {
-                    await file.CopyToAsync(memoryStream);
-                    destinationImage = memoryStream.ToArray();
-                }
-
-                using (var destinationStream = new MemoryStream(destinationImage))
-                {
-                    var uploadParams = new ImageUploadParams()
-                    {
-                        File = new FileDescription(file.FileName, destinationStream),
-                    };
-                    var res = await this.cloudinary.UploadAsync(uploadParams);
-                    var url = res.Uri.AbsoluteUri.Split("/", StringSplitOptions.RemoveEmptyEntries).ToList();
-
-                    list.Add(url[url.Count - 2] + "/" + url[url.Count - 1]);
-                }
+                return string.Empty;
             }
 
-            return list;
+            var fileFileExtension = Path.GetExtension(file.FileName);
+            var contentType = file.ContentType;
+            var size = file.Length;
+
+            if (!this.IsValidImg(fileFileExtension, contentType, size) || file == null)
+            {
+                return string.Empty;
+            }
+
+            byte[] destinationImage;
+            using (var memoryStream = new MemoryStream())
+            {
+                await file.CopyToAsync(memoryStream);
+                destinationImage = memoryStream.ToArray();
+            }
+            var result = string.Empty;
+            using (var destinationStream = new MemoryStream(destinationImage))
+            {
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(file.FileName, destinationStream),
+                };
+                var res = await this.cloudinary.UploadAsync(uploadParams);
+                var url = res.Uri.AbsoluteUri.Split("/", StringSplitOptions.RemoveEmptyEntries).ToList();
+
+                result = url[url.Count - 2] + "/" + url[url.Count - 1];
+            }
+
+            return result;
+        }
+
+        public bool IsValidImg(string fileExtension, string contentType, long size)
+        {
+
+            if (!string.Equals(fileExtension, ".jpg", StringComparison.OrdinalIgnoreCase)
+                && !string.Equals(fileExtension, ".png", StringComparison.OrdinalIgnoreCase)
+                && !string.Equals(fileExtension, ".jpeg", StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+
+            if (!string.Equals(contentType, "image/jpg", StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(contentType, "image/jpeg", StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(contentType, "image/pjpeg", StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(contentType, "image/x-png", StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(contentType, "image/png", StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+
+            if (size >= GlobalConstants.ImgMaxLength)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public async Task AddImgToCurrentAdAsync(string result, string id)

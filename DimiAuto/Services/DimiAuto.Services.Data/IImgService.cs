@@ -12,6 +12,8 @@
     {
         Task AddImgToCurrentAdAsync(string result, string id);
 
-        Task<IEnumerable<string>> UploadImgsAsync(ImgUploadInputModel input);
+        Task<string> UploadImgAsync(IFormFile file);
+
+        bool IsValidImg(string fileExtension, string contentType, long size);
     }
 }

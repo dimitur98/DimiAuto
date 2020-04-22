@@ -51,7 +51,6 @@
                 await this.searchModelRepository.AddAsync(searchModel);
                 await this.searchModelRepository.SaveChangesAsync();
             }
-
         }
 
         public async Task<ICollection<SearchViewModel>> GetSearchModelsAsync(string userId)
@@ -86,7 +85,6 @@
             searchModel.IsDeleted = true;
             this.searchModelRepository.Update(searchModel);
             await this.searchModelRepository.SaveChangesAsync();
-
         }
 
         public async Task<SearchModel> GetSearchModelByIdAsync(string id)

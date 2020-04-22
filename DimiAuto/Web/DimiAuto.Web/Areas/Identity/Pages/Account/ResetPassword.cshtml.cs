@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using DimiAuto.Data.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
-
-namespace DimiAuto.Web.Areas.Identity.Pages.Account
+﻿namespace DimiAuto.Web.Areas.Identity.Pages.Account
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using DimiAuto.Data.Models;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.AspNetCore.WebUtilities;
+
     [AllowAnonymous]
     public class ResetPasswordModel : PageModel
     {
@@ -20,7 +18,7 @@ namespace DimiAuto.Web.Areas.Identity.Pages.Account
 
         public ResetPasswordModel(UserManager<ApplicationUser> userManager)
         {
-            _userManager = userManager;
+            this._userManager = userManager;
         }
 
         [BindProperty]
@@ -49,15 +47,15 @@ namespace DimiAuto.Web.Areas.Identity.Pages.Account
         {
             if (code == null)
             {
-                return BadRequest("A code must be supplied for password reset.");
+                return this.BadRequest("A code must be supplied for password reset.");
             }
             else
             {
-                Input = new InputModel
+                this.Input = new InputModel
                 {
-                    Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code))
+                    Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code)),
                 };
-                return Page();
+                return this.Page();
             }
         }
 

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
+
     using DimiAuto.Data.Models;
     using DimiAuto.Web.ViewModels.Home;
     using DimiAuto.Web.ViewModels.SearchHistory;
