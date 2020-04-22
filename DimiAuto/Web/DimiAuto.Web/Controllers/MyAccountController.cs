@@ -63,8 +63,10 @@
                 Adress = user.Adress,
                 City = user.City,
                 NameOfCompany = user.NameOfCompany,
-
                 PhoneNumber = user.PhoneNumber,
+                TelephoneForCustomers = user.TelephoneForCustomers,
+                NameOfThePage = user.NameOfThePage,
+                Bulstad = user.Bulstad,
             };
             return this.View(result);
         }
@@ -83,9 +85,12 @@
             user.Adress = input.Adress;
             user.City = input.City;
             user.PhoneNumber = input.PhoneNumber;
-            if (input.NameOfCompany != GlobalConstants.PrivatePerson)
+            if (user.NameOfCompany != GlobalConstants.PrivatePerson)
             {
                 user.NameOfCompany = input.NameOfCompany;
+                user.Bulstad = input.Bulstad;
+                user.NameOfThePage = input.NameOfThePage;
+                user.TelephoneForCustomers = input.TelephoneForCustomers;
             }
 
             await this.userManager.UpdateAsync(user);
@@ -139,7 +144,7 @@
                 {
                     Id = favorite.Car.Id,
                     Fuel = favorite.Car.Fuel,
-                    ImgPath = favorite.Car.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).First().ToString(),
+                    ImgPath = GlobalConstants.CloudinaryPathDimitur98 + favorite.Car.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).First().ToString(),
                     Km = favorite.Car.Km,
                     Make = favorite.Car.Make,
                     Model = favorite.Car.Model,

@@ -18,6 +18,7 @@
                                 </div>
                                 <h3>Choose new profile picture.</h3>
                                 <form runat="server" method="post" id="form" enctype="multipart/form-data" dasp-controller="Files" asp-controller="MyAccount" asp-action="ChangeAvatar">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
                                     <div id="pic1">
                                         <br>
                                         <img id="img" src="@Model.ChangeAvatarViewModel.ImgPath" class="defaultImg" alt="your image" />

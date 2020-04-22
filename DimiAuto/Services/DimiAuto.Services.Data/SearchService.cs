@@ -56,7 +56,7 @@
 
         public async Task<ICollection<SearchViewModel>> GetSearchModelsAsync(string userId)
         {
-            var result = await this.searchModelRepository.All().Where(x => x.UserId == userId).OrderBy(x => x.CreatedOn).Select(x => new SearchViewModel 
+            var result = await this.searchModelRepository.All().Where(x => x.UserId == userId).OrderByDescending(x => x.CreatedOn).Select(x => new SearchViewModel 
             {
                 Id = x.Id,
                 Location = x.Location,

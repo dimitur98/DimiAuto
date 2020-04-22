@@ -35,6 +35,10 @@
                     Email = "AdminUser@admin.bg",
                     Adress = "Lulin 10",
                     City = "Sofia",
+                    FirstName = "Admin",
+                    LastName = "Adminchev",
+                    EmailConfirmed = true,
+                    PhoneNumber = "0888888888",
                 }, "123456");
         }
     }

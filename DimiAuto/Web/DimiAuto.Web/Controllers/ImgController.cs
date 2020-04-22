@@ -34,9 +34,9 @@
             this.userManager = userManager;
         }
 
-        public IActionResult Upload()
+        public IActionResult Upload(string id)
         {
-            return this.View();
+            return this.View(new ImgUploadViewModel { CarId = id });
         }
 
         [HttpPost]
@@ -44,12 +44,14 @@
         {
             if (id == null)
             {
-                throw new NullReferenceException();
+                return this.View("Error");
             }
+
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
+
             var result = await this.imgService.UploadImgsAsync(input);
             this.ViewBag.ImgsPaths = result.ToString();
             await this.imgService.AddImgToCurrentAdAsync(string.Join(",", result), id);

@@ -6,7 +6,7 @@
 
     using Xunit;
 
-    public class SeleniumTests : IClassFixture<SeleniumServerFactory<Startup>>
+    public class SeleniumTests 
     {
         private readonly SeleniumServerFactory<Startup> server;
         private readonly IWebDriver browser;
@@ -22,7 +22,7 @@
             this.browser = new RemoteWebDriver(opts);
         }
 
-        [Fact(Skip = "Example test. Disabled for CI.")]
+        [Fact]
         public void FooterOfThePageContainsPrivacyLink()
         {
             this.browser.Navigate().GoToUrl(this.server.RootUri);

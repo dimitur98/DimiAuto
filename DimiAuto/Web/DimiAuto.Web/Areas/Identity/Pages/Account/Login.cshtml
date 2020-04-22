@@ -37,12 +37,12 @@
                             <div asp-validation-summary="All" class="text-danger"></div>
                             <div class="username">
                                 <label asp-for="Input.Email"></label>
-                                <input asp-for="Input.Email" class="form-control" />
+                                <input asp-for="Input.Email" class="form-control" id="loginEmail"/>
                                 <span asp-validation-for="Input.Email" class="text-danger"></span>
                             </div>
                             <div class="password">
                                 <label asp-for="Input.Password"></label>
-                                <input asp-for="Input.Password" class="form-control" />
+                                <input asp-for="Input.Password" class="form-control" id="loginPassword"/>
                                 <span asp-validation-for="Input.Password" class="text-danger"></span>
                             </div>
                             <div class="form-group">
@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                             <div class="log-btn">
-                                <button type="submit" class="btn btn-primary">Log in</button>
+                                <button type="submit" class="btn btn-primary" id="loginBtn">Log in</button>
                             </div>
                             <div class="form-group">
                                 <p>

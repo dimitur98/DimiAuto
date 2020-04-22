@@ -53,11 +53,8 @@
             {
                 return this.View("404Error");
             }
-            else
-            {
-                return this.View("Error");
-            }
 
+            return this.View("Error");
         }
 
         public async Task<IActionResult> All(int page = 1)

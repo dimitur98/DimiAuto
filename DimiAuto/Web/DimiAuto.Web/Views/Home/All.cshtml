@@ -9,11 +9,13 @@
 
 @{
     ViewData["Title"] = "All cars";
+    var counter = 0;
 }
 
 
-<div class="container">
-    <body>
+<body>
+    <div class="container">
+
 
         <section id="car-list-area" class="section-padding">
 
@@ -98,7 +100,6 @@
 
                             @foreach (var car in Model.AllCars)
                             {
-
                                 <div class="col-lg-6 col-md-6" onload="loadModel('@car.Id')">
                                     <div class="single-car-wrap">
                                         <div class="car-list-thumb">
@@ -122,7 +123,7 @@
                                             @if (this.SignInManager.IsSignedIn(this.User))
                                             {
                                                 <a data-toggle="tooltip" data-placement="top" title="Add to favorite" style="display:inline-block; float:right;" onclick="addToFav('@car.Id')"><img src="~/images/star.png" id="addToFav" class="searchClass"></a>
-                                                <a data-toggle="tooltip" data-placement="top" title="Add for compare" style="display:inline-block; margin-right:10px; float:right;" onclick="addToCompare('@car.Id','@car.Make','@car.Model','@car.ImgPath')"><img src="~/images/compare.png" id="addToFav" class="searchClass"></a>
+                                                <a id="addToCompareBtn@(++counter)" data-toggle="tooltip" data-placement="top" title="Add for compare" style="display:inline-block; margin-right:10px; float:right;" onclick="addToCompare('@car.Id','@car.Make','@car.ModelToString','@car.ImgPath')"><img src="~/images/compare.png" id="addToFav" class="searchClass"></a>
                                             }
 
                                             <div style="display: none;" class="alert alert-danger" role="alert" id="@car.Id">
@@ -134,6 +135,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             }
 
                             <!-- Single Car End -->
@@ -232,11 +234,9 @@
                     </div>
                 </div>
             </div>
-
-
         </section>
-    </body>
-</div>
+    </div>
+</body>
 <script>
     function stopDropdown() {
         console.log($('#orderByPriceSelect').val());
