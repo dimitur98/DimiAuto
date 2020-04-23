@@ -33,7 +33,7 @@
                 Fuel = search.Fuel,
                 Gearbox = search.Gearbox,
                 Make = search.Make,
-                Model = search.Model == null ? "-" : search.Model,
+                Model = search.Model == null ? "All" : search.Model,
                 PriceFrom = search.PriceFrom,
                 PriceTo = search.PriceTo,
                 TypeOfVeichle = search.TypeOfVeichle,

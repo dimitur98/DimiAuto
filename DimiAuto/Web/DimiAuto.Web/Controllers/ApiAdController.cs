@@ -116,7 +116,7 @@
         {
             if (input.Make == "All")
             {
-                return this.Ok(new { models = "-" });
+                return this.Ok(new { models = "All" });
             }
 
             var modelClass = typeof(Models);
