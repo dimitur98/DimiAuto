@@ -72,32 +72,31 @@
                                     <input asp-for="Input.City" class="form-control" placeholder="City" type="text" />
                                     <span asp-validation-for="Input.City" class="text-danger"></span>
                                 </div>
-
-                                <input type="checkbox" id="companyUser" onclick="myFunction()">
-                                <label for="companyUser"> Company</label><br>
-
-                                <div id="companyInput" style="display:none;">
-                                <div class="username">
-                                    <label asp-for="Input.NameOfCompany">Name of company</label>
-                                    <input asp-for="Input.NameOfCompany" class="form-control" placeholder="Name of company" type="text" />
-                                    <span asp-validation-for="Input.NameOfCompany" class="text-danger"></span>
-                                </div>
-                                <div class="username">
-                                    <label asp-for="Input.Bulstad"></label>
-                                    <input asp-for="Input.Bulstad" class="form-control" placeholder="Bulstad" type="text" />
-                                    <span asp-validation-for="Input.Bulstad" class="text-danger"></span>
-                                </div>
-                                <div class="username">
-                                    <label asp-for="Input.TelephoneForCustomers"></label>
-                                    <input asp-for="Input.TelephoneForCustomers" class="form-control" placeholder="Telephon for customers" type="text" />
-                                    <span asp-validation-for="Input.TelephoneForCustomers" class="text-danger"></span>
-                                </div>
                                 <div class="username">
                                     <label asp-for="Input.NameOfThePage"></label>
                                     <input asp-for="Input.NameOfThePage" class="form-control" placeholder="Name of page" type="text" />
                                     <span asp-validation-for="Input.NameOfThePage" class="text-danger"></span>
                                 </div>
+                                <input type="checkbox" id="companyUser" onclick="myFunction()">
+                                <label for="companyUser"> Company</label><br>
+
+                                <div id="companyInput" style="display:none;">
+                                    <div class="username">
+                                        <label asp-for="Input.NameOfCompany">Name of company</label>
+                                        <input asp-for="Input.NameOfCompany" class="form-control" placeholder="Name of company" type="text" />
+                                        <span asp-validation-for="Input.NameOfCompany" class="text-danger"></span>
                                     </div>
+                                    <div class="username">
+                                        <label asp-for="Input.Bulstad"></label>
+                                        <input asp-for="Input.Bulstad" class="form-control" placeholder="Bulstad" type="text" />
+                                        <span asp-validation-for="Input.Bulstad" class="text-danger"></span>
+                                    </div>
+                                    <div class="username">
+                                        <label asp-for="Input.TelephoneForCustomers"></label>
+                                        <input asp-for="Input.TelephoneForCustomers" class="form-control" placeholder="Telephon for customers" type="text" />
+                                        <span asp-validation-for="Input.TelephoneForCustomers" class="text-danger"></span>
+                                    </div>
+                                </div>
 
                                 <button type="submit" class="btn btn-primary">Register</button>
                             </form>

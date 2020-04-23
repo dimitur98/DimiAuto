@@ -111,11 +111,9 @@
             return car;
         }
 
-        
-
         public string EnumParser(string make, string model)
         {
-            if (make != "All" && model != string.Empty)
+            if (make != "All" && model != string.Empty && model != "-")
             {
                 var modelNum = int.Parse(model) - 1;
                 var modelClass = typeof(Models);

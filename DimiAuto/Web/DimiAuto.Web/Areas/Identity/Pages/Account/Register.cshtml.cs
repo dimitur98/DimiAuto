@@ -95,6 +95,7 @@
             [Display(Name = "Telephone for customers")]
             public string? TelephoneForCustomers { get; set; }
 
+            [Required]
             [Display(Name = "Name of the page")]
             public string? NameOfThePage { get; set; }
         }

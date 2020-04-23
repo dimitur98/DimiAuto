@@ -24,6 +24,9 @@
                 <li class="nav-item active">
                     <a class="nav-link" asp-area="" asp-controller="Home" asp-action="All">All ads</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Users">Users</a>
+                </li>
                 @if (this.SignInManager.IsSignedIn(this.User))
                 {
                     <li class="nav-item">

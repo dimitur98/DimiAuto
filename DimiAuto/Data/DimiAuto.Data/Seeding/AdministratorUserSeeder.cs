@@ -39,6 +39,7 @@
                     LastName = "Adminchev",
                     EmailConfirmed = true,
                     PhoneNumber = "0888888888",
+                    NameOfThePage = "Admin page",
                 }, "123456");
         }
     }

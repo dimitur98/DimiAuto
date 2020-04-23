@@ -1,4 +1,5 @@
 ﻿@model DimiAuto.Web.ViewModels.Home.UserCarsViewModel
+@using DimiAuto.Common;
 @{
     ViewData["Title"] = "UserCars";
 }
@@ -6,16 +7,15 @@
 <section id="page-title-area" class="section-padding overlay">
     <div class="container">
         <div class="row">
-            <!-- Page Title Start -->
             <div class="col-lg-12">
                 <div class="section-title  text-center">
                     <h2>Our Cars,</h2>
-                    <h2>@Model.User.NameOfThePage</h2>
+                    <h2>page: @Model.User.NameOfThePage</h2>
+                    <h2>@Model.User.NameOfCompany</h2>
                     <span class="title-line"><i class="fa fa-car"></i></span>
                     <p>@Model.User.FirstName @Model.User.LastName</p>
                 </div>
             </div>
-            <!-- Page Title End -->
         </div>
     </div>
 </section>
@@ -56,11 +56,9 @@
 
                 </div>
             </div>
-            <!-- Car List Content End -->
-            <!-- Sidebar Area Start -->
+
             <div class="col-lg-4">
                 <div class="sidebar-content-wrap m-t-50">
-                    <!-- Single Sidebar Start -->
                     <div class="single-sidebar">
                         <h3>For More Informations</h3>
 
@@ -68,7 +66,7 @@
                             <p><i class="fa fa-location-arrow"></i> @Model.User.Adress, @Model.User.City</p>
                             <p><i class="fa fa-address-card"></i> @Model.User.FirstName @Model.User.LastName</p>
                             <p><i class="fa fa-product-hunt"></i> @Model.User.NameOfCompany</p>
-                            @if (Model.User.NameOfCompany == "Private person")
+                            @if (Model.User.NameOfCompany == GlobalConstants.PrivatePerson)
                             {
                                 <p><i class="fa fa-mobile"></i> @Model.User.PhoneNumber</p>
                             }
@@ -87,7 +85,7 @@
                                 {
                                     <li class="single-recent-tips">
                                         <div class="recent-tip-thum">
-                                            <a href="/Ad/Details?id=@car.Id"><img src="@car.ImgPath" alt="JSOFT"></a>
+                                            <a href="/Ad/Details?id=@car.Id"><img class="topViewedCarImg" src="@car.ImgPath" alt="JSOFT"></a>
                                         </div>
                                         <div class="recent-tip-body">
                                             <h4><a href="#">@car.Make @car.ModelToString @car.Modification</a></h4>
@@ -99,12 +97,8 @@
                             </ul>
                         </div>
                     </div>
-                    <!-- Single Sidebar End -->
-                    <!-- Single Sidebar Start -->
-                    <!-- Single Sidebar End -->
                 </div>
             </div>
-            <!-- Sidebar Area End -->
         </div>
     </div>
 </section>

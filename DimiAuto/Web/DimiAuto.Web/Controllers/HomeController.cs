@@ -11,6 +11,7 @@
 
     using AutoMapper;
     using DimiAuto.Common;
+    using DimiAuto.Data;
     using DimiAuto.Data.Models;
     using DimiAuto.Data.Models.CarModel;
     using DimiAuto.Services.Data;
@@ -22,6 +23,7 @@
     using HtmlAgilityPack;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
 
     public class HomeController : BaseController
     {
@@ -30,19 +32,22 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IMyAccountService myAccountService;
         private readonly IAdService adService;
+        private readonly ApplicationDbContext db;
 
         public HomeController(
             IHomeService homeService,
             ISearchService searchService,
             UserManager<ApplicationUser> userManager,
             IMyAccountService myAccountService,
-            IAdService adService)
+            IAdService adService,
+            ApplicationDbContext db)
         {
             this.homeService = homeService;
             this.searchService = searchService;
             this.userManager = userManager;
             this.myAccountService = myAccountService;
             this.adService = adService;
+            this.db = db;
         }
 
         public IActionResult Index()
@@ -215,6 +220,48 @@
                 AllCars = await this.homeService.GetCarsOfUserAsync(id),
                 User = user,
                 TopFourCars = await this.homeService.GetTopFourMostWatchedCarsOfUserAsync(user.Id),
+            };
+
+            return this.View(output);
+        }
+
+        public async Task<IActionResult> Users()
+        {
+            var users = await this.db.Users.Where(x => x.IsDeleted == false && x.EmailConfirmed == true).ToListAsync();
+            var output = new AllUsersModel
+            {
+                Users = users.Select(x => new UserViewModel
+                {
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Id = x.Id,
+                    ImgPath =GlobalConstants.CloudinaryPathDimitur98 + x.UserImg,
+                    NameOfCompany = x.NameOfCompany,
+                    NameOfThePage = x.NameOfThePage,
+                    CreatedOn = x.CreatedOn,
+                }).OrderByDescending(x => x.CreatedOn).ToList(),
+            };
+
+            return this.View(output);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Users(AllUsersModel input)
+        {
+            var searchedText = input.SearchedText.SearchedText.ToLower().Replace(" ", string.Empty);
+            var users = await this.db.Users.Where(x => x.IsDeleted == false && x.EmailConfirmed == true && x.NameOfThePage.ToLower().Replace(" ", string.Empty).Contains(searchedText)).ToListAsync();
+            var output = new AllUsersModel
+            {
+                Users = users.Select(x => new UserViewModel
+                {
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Id = x.Id,
+                    ImgPath = GlobalConstants.CloudinaryPathDimitur98 + x.UserImg,
+                    NameOfCompany = x.NameOfCompany,
+                    NameOfThePage = x.NameOfThePage,
+                    CreatedOn = x.CreatedOn,
+                }).OrderByDescending(x => x.CreatedOn).ToList(),
             };
 
             return this.View(output);
