@@ -18,11 +18,13 @@
     {
         private readonly IDeletableEntityRepository<Car> carRepository;
         private readonly IAdService adService;
+        private readonly IViewService viewService;
 
-        public HomeService(IDeletableEntityRepository<Car> carRepository, IAdService adService)
+        public HomeService(IDeletableEntityRepository<Car> carRepository, IAdService adService, IViewService viewService)
         {
             this.carRepository = carRepository;
             this.adService = adService;
+            this.viewService = viewService;
         }
 
         public async Task<ICollection<CarAdsViewModel>> GetAllAdsAsync()
@@ -93,6 +95,59 @@
                     }
                 }
             }
+
+            return result;
+        }
+
+        public async Task<ICollection<CarAdsViewModel>> GetCarsOfUserAsync(string userId)
+        {
+            var result = await this.carRepository.All().Where(x => x.IsApproved == true && x.UserId == userId).Select(x => new CarAdsViewModel
+            {
+                Id = x.Id,
+                Fuel = x.Fuel,
+                ImgPath = GlobalConstants.CloudinaryPathDimitur98 + x.ImgsPaths
+                            .Split(",", StringSplitOptions.RemoveEmptyEntries)
+                            .First()
+                            .ToString(),
+                Km = x.Km,
+                Make = x.Make,
+                Model = x.Model,
+                Modification = x.Modification,
+                MoreInformation = x.MoreInformation.Length > 40 ? x.MoreInformation.Substring(0, 20) + "..." : x.MoreInformation,
+                Price = x.Price,
+                YearOfProduction = x.YearOfProduction,
+                UserId = x.UserId,
+                User = x.User,
+                Gearbox = x.Gearbox,
+                Condition = x.Condition,
+                TypeOfVeichle = x.TypeOfVeichle,
+                CreatedOn = x.CreatedOn,
+                ModelToString = this.adService.EnumParser(x.Make.ToString(), x.Model),
+            }).OrderByDescending(x => x.CreatedOn).ToListAsync();
+
+            return result;
+
+        }
+
+        public async Task<ICollection<MostWatchedUserCarViewModel>> GetTopFourMostWatchedCarsOfUserAsync(string userId)
+        {
+            var cars = await this.carRepository.All()
+                .Where(x => x.UserId == userId && x.IsApproved == true)
+                .ToListAsync();
+
+            var result = cars.Select(x => new MostWatchedUserCarViewModel
+            {
+                Id = x.Id,
+                ImgPath = GlobalConstants.CloudinaryPathDimitur98 + x.ImgsPaths
+                           .Split(",", StringSplitOptions.RemoveEmptyEntries)
+                           .First()
+                           .ToString(),
+                Make = x.Make,
+                ModelToString = this.adService.EnumParser(x.Make.ToString(), x.Model),
+                Modification = x.Modification,
+                Views = this.viewService.GetViewsCount(x.Id),
+                CreatedOn = x.CreatedOn,
+            }).OrderByDescending(x => x.Views).ThenByDescending(x => x.CreatedOn).Take(4).ToList();
 
             return result;
         }

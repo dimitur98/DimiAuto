@@ -52,7 +52,17 @@
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                MyCars = myCars,
+                MyCars = myCars.Select(x => new MyCarsViewModel
+                {
+                    Id = x.Id,
+                    Model = x.Model,
+                    Make = x.Make,
+                    CreatedOn = x.CreatedOn,
+                    IsApproved = x.IsApproved,
+                    ModelToString = this.adService.EnumParser(x.Make.ToString(), x.Model),
+                    Modification = x.Modification,
+                    Price = x.Price,
+                }),
             };
             return this.View(result);
         }
@@ -144,7 +154,7 @@
         public async Task<IActionResult> Favorites()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var favorites = await this.adService.GetAllFavAdsOnCurrentUserAsync<UserAdViewModel>(userId);
+            var favorites = await this.myAccountService.GetAllFavAdsOnCurrentUserAsync<UserAdViewModel>(userId);
             var cars = new List<CarAdsViewModel>();
             foreach (var favorite in favorites)
             {

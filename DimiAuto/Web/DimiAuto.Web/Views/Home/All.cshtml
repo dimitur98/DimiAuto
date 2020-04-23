@@ -1,4 +1,4 @@
-﻿@model DimiAuto.Web.ViewModels.Ad.AllCarsModel
+﻿@model DimiAuto.Web.ViewModels.Home.AllCarsModel
 @using DimiAuto.Web.ViewModels.Home
 @using DimiAuto.Common;
 @using Microsoft.AspNetCore.Identity
@@ -39,7 +39,7 @@
                             <input asp-for="CompareCarsInputModel.SecondCarId" style="display: none;" id="secondCarInput">
                         </div>
                         <div class="card" style="display:none;" id="compareBtns">
-                            <button type="submit" class="rent-btn">Compare choosen cars</button>
+                            <button type="submit" class="rent-btn" id="compareCars">Compare choosen cars</button>
                             <a href="#" onclick="clearComparerList()" class="rent-btn">Cleare comparer list.</a>
                         </div>
                     </div>
@@ -98,45 +98,7 @@
                         <div class="row" id="sortArea">
                             <!-- Single Car Start -->
 
-                            @foreach (var car in Model.AllCars)
-                            {
-                                <div class="col-lg-6 col-md-6" onload="loadModel('@car.Id')">
-                                    <div class="single-car-wrap">
-                                        <div class="car-list-thumb">
-                                            <img style="width:600px; height:300px;" src="@car.ImgPath">
-                                        </div>
-                                        <div class="car-list-info without-bar">
-                                            <h2><a href="/Ad/Details/id=@car.Id">@car.Make @car.ModelToString @car.Modification</a></h2>
-                                            <h5>@car.User.NameOfCompany</h5>
-                                            <p>@car.MoreInformation</p>
-                                            <ul class="car-info-list">
-                                                <li>@car.YearOfProduction.ToString("MM.yyyy")</li>
-                                                <li>@car.Fuel</li>
-                                                <li>@car.Gearbox</li>
-                                            </ul>
-                                            <p class="price">Price: @car.Price BGN</p>
-                                            <form id="form" method="post"></form>
-
-
-
-                                            <a href="/Ad/Details?id=@car.Id" class="rent-btn">Details</a>
-                                            @if (this.SignInManager.IsSignedIn(this.User))
-                                            {
-                                                <a data-toggle="tooltip" data-placement="top" title="Add to favorite" style="display:inline-block; float:right;" onclick="addToFav('@car.Id')"><img src="~/images/star.png" id="addToFav" class="searchClass"></a>
-                                                <a id="addToCompareBtn@(++counter)" data-toggle="tooltip" data-placement="top" title="Add for compare" style="display:inline-block; margin-right:10px; float:right;" onclick="addToCompare('@car.Id','@car.Make','@car.ModelToString','@car.ImgPath')"><img src="~/images/compare.png" id="addToFav" class="searchClass"></a>
-                                            }
-
-                                            <div style="display: none;" class="alert alert-danger" role="alert" id="@car.Id">
-                                                This ad is already added to favorite!
-                                            </div>
-                                            <div style="display: none;" class="alert alert-success" role="alert" id="add_@car.Id">
-                                                This ad is added to favorite successfully!
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            }
+                            <partial name="_ListCarsPartial">
 
                             <!-- Single Car End -->
                             <!-- Page Pagination Start -->
@@ -222,7 +184,8 @@
                                                    asp-route-YearTo="@((ViewData["searchModel"] as SearchInputModel).YearTo)"
                                                    asp-route-TypeOfVeichle="@((ViewData["searchModel"] as SearchInputModel).TypeOfVeichle)"
                                                    asp-route-OrderByPrice="@ViewData["orderByPrice"]"
-                                                   asp-route-OrderByYear="@ViewData["orderByYear"]">Next</a>
+                                                   asp-route-OrderByYear="@ViewData["orderByYear"]"
+                                                   id="nextPage">Next</a>
                                             </li>
                                         }
                                     </ul>
@@ -256,30 +219,38 @@
 </script>
 <script>
     function loadComparerList() {
-        console.log(sessionStorage.getItem("firstCarImg"));
-        console.log(sessionStorage.getItem("firstCarMakeModel"));
-        console.log(sessionStorage.getItem("firstCarId"));
-        if (sessionStorage.getItem("firstCarId") != null) {
-            $("#myHeader").toggle();
-            $("#firstCar").toggle();
-            $("#firstCarImg").attr("src", sessionStorage.getItem("firstCarImg"));
-            $("#firstCarMakeModel").text(sessionStorage.getItem("firstCarMakeModel"));
-            $("#firstCarInput").val(sessionStorage.getItem("firstCarId"));
+        //console.log(sessionStorage.getItem("firstCarImg"));
+        //console.log(sessionStorage.getItem("firstCarMakeModel"));
+        //console.log(sessionStorage.getItem("firstCarId"));
+        if ($("#myHeader").is(":hidden")) {
+            if (sessionStorage.getItem("firstCarId") != null) {
+                $("#myHeader").show();
+                $("#firstCar").show();
+                $("#firstCarImg").attr("src", sessionStorage.getItem("firstCarImg"));
+                $("#firstCarMakeModel").text(sessionStorage.getItem("firstCarMakeModel"));
+                $("#firstCarInput").val(sessionStorage.getItem("firstCarId"));
+            }
+            if (sessionStorage.getItem("secondCarId") != null) {
+                $("#secondCar").show();
+                $("#secondCarImg").attr("src", sessionStorage.getItem("secondCarImg"));
+                $("#secondCarMakeModel").text(sessionStorage.getItem("secondCarMakeModel"));
+                $("#secondCarInput").val(sessionStorage.getItem("secondCarId"));
+                $("#compareBtns").show();
+            }
+        } else {
+            $("#myHeader").hide();
+            $("#firstCar").hide();
+            $("#secondCar").hide();
+            $("#compareBtns").hide();
         }
-        if (sessionStorage.getItem("secondCarId") != null) {
-            $("#secondCar").toggle();
-            $("#secondCarImg").attr("src", sessionStorage.getItem("secondCarImg"));
-            $("#secondCarMakeModel").text(sessionStorage.getItem("secondCarMakeModel"));
-            $("#secondCarInput").val(sessionStorage.getItem("secondCarId"));
-            $("#compareBtns").toggle();
-        }
+        
 
     }
 </script>
 <script>
     function addToCompare(carId, make, model, imgPath) {
-        $("#myHeader").show();
-        if ($("#firstCar").is(":hidden")) {
+        if (sessionStorage.getItem("firstCarId") == null) {
+            $("#myHeader").show();
             $("#firstCar").show();
             $("#firstCarImg").attr("src", imgPath);
             $("#firstCarMakeModel").text(make + ' ' + model);
@@ -287,15 +258,16 @@
             sessionStorage.setItem("firstCarId", carId);
             sessionStorage.setItem("firstCarImg", imgPath);
             sessionStorage.setItem("firstCarMakeModel", make + " " + model);
-        } else if ($("#secondCar").is(":hidden")) {
-            $("#secondCar").show();
+        } else if (sessionStorage.getItem("secondCarId") == null && carId != sessionStorage.getItem("firstCarId")) {
+            console.log(carId);
+            console.log(sessionStorage.getItem("firstCarId"));
             $("#secondCarImg").attr("src", imgPath);
             $("#secondCarMakeModel").text(make + ' ' + model);
             $("#secondCarInput").val(carId);
-            $("#compareBtns").show();
             sessionStorage.setItem("secondCarId", carId);
             sessionStorage.setItem("secondCarImg", imgPath);
             sessionStorage.setItem("secondCarMakeModel", make + " " + model);
+            loadComparerList()
         }
     }
 

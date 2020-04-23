@@ -17,6 +17,7 @@
     using DimiAuto.Web.ViewModels.Ad;
     using DimiAuto.Web.ViewModels.Ad.Comment;
     using DimiAuto.Web.ViewModels.Ad.CompareAds;
+    using DimiAuto.Web.ViewModels.Home;
     using FinalProject.Models.CarModel;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
@@ -76,7 +77,7 @@
             if (userId == null)
             {
                 var uniqCarId = car.Make + car.Model + car.UserId + car.CreatedOn.ToString();
-                if (this.HttpContext.Request.Cookies["myId"] == null || !this.HttpContext.Request.Cookies["myId"].Contains(uniqCarId))
+                if (this.HttpContext.Request.Cookies[uniqCarId] == null || !this.HttpContext.Request.Cookies[uniqCarId].Contains(uniqCarId))
                 {
                     var myId = Guid.NewGuid().ToString() + uniqCarId;
                     var cookieOptions = new CookieOptions
@@ -85,7 +86,7 @@
                         MaxAge = new TimeSpan(365, 0, 0, 0),
                     };
 
-                    this.HttpContext.Response.Cookies.Append("myId", myId, cookieOptions);
+                    this.HttpContext.Response.Cookies.Append(uniqCarId, myId, cookieOptions);
                     await this.viewService.AddViewAsync(GlobalConstants.NotRegisterUserId, car.Id);
                 }
             }

@@ -12,17 +12,17 @@
         private readonly IWebDriver browser;
 
         // Be sure that selenium-server-standalone-3.141.59.jar is running
-        public SeleniumTests(SeleniumServerFactory<Startup> server)
+        public SeleniumTests()
         {
-            this.server = server;
-            server.CreateClient();
+            this.server = new SeleniumServerFactory<Startup>();
+            this.server.CreateClient();
             var opts = new ChromeOptions();
             opts.AddArgument("--headless"); // Optional, comment this out if you want to SEE the browser window
             opts.AddArgument("no-sandbox");
             this.browser = new RemoteWebDriver(opts);
         }
 
-        [Fact]
+        [Fact(Skip = "Example test. Disabled for CI.")]
         public void FooterOfThePageContainsPrivacyLink()
         {
             this.browser.Navigate().GoToUrl(this.server.RootUri);

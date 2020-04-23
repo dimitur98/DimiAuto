@@ -26,7 +26,8 @@
 
         public MyAccountService(IDeletableEntityRepository<Car> carRepository, IAdService adService,
             IDeletableEntityRepository<AdView> viewsRepository, IDeletableEntityRepository<Comment> commentRepository,
-            IDeletableEntityRepository<SearchModel> searchModelRepository, IDeletableEntityRepository<UserCarFavorite> favoriteRepository)
+            IDeletableEntityRepository<SearchModel> searchModelRepository, IDeletableEntityRepository<UserCarFavorite> favoriteRepository
+            )
         {
             this.carRepository = carRepository;
             this.adService = adService;
@@ -36,22 +37,43 @@
             this.favoriteRepository = favoriteRepository;
         }
 
-        public async Task<ICollection<MyCarsViewModel>> GetMyCarsAsync(string userId)
+        public async Task<ICollection<Car>> GetMyCarsAsync(string userId)
         => await this.carRepository.All()
                 .Where(x => x.UserId == userId)
                 .OrderByDescending(x => x.CreatedOn)
-                .Select(x => new MyCarsViewModel
-                {
-                    Id = x.Id,
-                    Model = x.Model,
-                    Make = x.Make,
-                    CreatedOn = x.CreatedOn,
-                    IsApproved = x.IsApproved,
-                    ModelToString = this.adService.EnumParser(x.Make.ToString(), x.Model),
-                    Modification = x.Modification,
-                    Price = x.Price,
-                })
                 .ToListAsync();
+
+        public async Task AddAdToFavAsync(string carId, string userId)
+        {
+            var car = await this.carRepository.All().FirstOrDefaultAsync(x => x.Id == carId);
+            if (car == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            var newRecord = new UserCarFavorite
+            {
+                CarId = carId,
+                UserId = userId,
+            };
+
+            await this.favoriteRepository.AddAsync(newRecord);
+            await this.favoriteRepository.SaveChangesAsync();
+        }
+
+        public async Task RemoveFavAdAsync(string carId, string userId)
+        {
+            var recordForRemove = await this.favoriteRepository.All().FirstOrDefaultAsync(x => x.UserId == userId && x.CarId == carId);
+            recordForRemove.IsDeleted = true;
+            this.favoriteRepository.Update(recordForRemove);
+            await this.favoriteRepository.SaveChangesAsync();
+        }
+
+        public async Task<ICollection<TModel>> GetAllFavAdsOnCurrentUserAsync<TModel>(string userId)
+        {
+            var result = await this.favoriteRepository.All().Where(x => x.UserId == userId).OrderByDescending(x => x.CreatedOn).To<TModel>().ToListAsync();
+            return result;
+        }
 
         public async Task DeleteAccountDataAsync(string userId)
         {

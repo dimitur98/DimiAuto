@@ -14,6 +14,7 @@
     {
         public Make Make { get; set; }
 
+        
         public string? Model { get; set; }
 
         public Condition Condition { get; set; }

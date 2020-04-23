@@ -28,10 +28,9 @@
         private readonly IDeletableEntityRepository<Car> carRepository;
         private readonly IDeletableEntityRepository<UserCarFavorite> favouriteRepository;
 
-        public AdService(IDeletableEntityRepository<Car> carRepository, IDeletableEntityRepository<UserCarFavorite> favouriteRepository)
+        public AdService(IDeletableEntityRepository<Car> carRepository)
         {
             this.carRepository = carRepository;
-            this.favouriteRepository = favouriteRepository;
         }
 
         public async Task<string> CreateAdAsync(CreateAdInputModel input, string userId)
@@ -112,41 +111,11 @@
             return car;
         }
 
-        public async Task AddAdToFavAsync(string carId, string userId)
-        {
-            var car = await this.carRepository.All().FirstOrDefaultAsync(x => x.Id == carId);
-            if (car == null)
-            {
-                throw new NullReferenceException();
-            }
-
-            var newRecord = new UserCarFavorite
-            {
-                CarId = carId,
-                UserId = userId,
-            };
-
-            await this.favouriteRepository.AddAsync(newRecord);
-            await this.favouriteRepository.SaveChangesAsync();
-        }
-
-        public async Task RemoveFavAdAsync(string carId, string userId)
-        {
-            var recordForRemove = await this.favouriteRepository.All().FirstOrDefaultAsync(x => x.UserId == userId && x.CarId == carId);
-            recordForRemove.IsDeleted = true;
-            this.favouriteRepository.Update(recordForRemove);
-            await this.favouriteRepository.SaveChangesAsync();
-        }
-
-        public async Task<ICollection<TModel>> GetAllFavAdsOnCurrentUserAsync<TModel>(string userId)
-        {
-            var result = await this.favouriteRepository.All().Where(x => x.UserId == userId).OrderByDescending(x => x.CreatedOn).To<TModel>().ToListAsync();
-            return result;
-        }
+        
 
         public string EnumParser(string make, string model)
         {
-            if (make != "All")
+            if (make != "All" && model != string.Empty)
             {
                 var modelNum = int.Parse(model) - 1;
                 var modelClass = typeof(Models);

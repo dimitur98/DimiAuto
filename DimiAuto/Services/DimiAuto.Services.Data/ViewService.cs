@@ -35,7 +35,11 @@
             {
                 await this.CreateViewAsync(user, carId);
             }
+        }
 
+        public int GetViewsCount(string carId)
+        {
+            return  this.viewRepository.All().Where(x => x.CarId == carId).Count();
         }
 
         private async Task CreateViewAsync(string user, string carId)
@@ -47,11 +51,6 @@
             };
             await this.viewRepository.AddAsync(newView);
             await this.viewRepository.SaveChangesAsync();
-        }
-
-        public int GetViewsCount(string carId)
-        {
-            return this.viewRepository.All().Where(x => x.CarId == carId).Count();
         }
     }
 }

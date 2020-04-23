@@ -50,7 +50,7 @@
         protected override IWebHostBuilder CreateWebHostBuilder()
         {
             var builder = WebHost.CreateDefaultBuilder(Array.Empty<string>());
-            builder.UseStartup<TStartup>();
+            builder.UseEnvironment("Development").UseStartup<TStartup>();
             return builder;
         }
 

@@ -28,12 +28,21 @@
         private readonly IHomeService homeService;
         private readonly ISearchService searchService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IMyAccountService myAccountService;
+        private readonly IAdService adService;
 
-        public HomeController(IHomeService homeService, ISearchService searchService, UserManager<ApplicationUser> userManager)
+        public HomeController(
+            IHomeService homeService,
+            ISearchService searchService,
+            UserManager<ApplicationUser> userManager,
+            IMyAccountService myAccountService,
+            IAdService adService)
         {
             this.homeService = homeService;
             this.searchService = searchService;
             this.userManager = userManager;
+            this.myAccountService = myAccountService;
+            this.adService = adService;
         }
 
         public IActionResult Index()
@@ -196,6 +205,19 @@
 
             var output = this.homeService.Paging(result, GlobalConstants.ItemsPerPage, (page - 1) * GlobalConstants.ItemsPerPage);
             return this.View("All", output);
+        }
+
+        public async Task<IActionResult> UserCars(string id)
+        {
+            var user = await this.userManager.FindByIdAsync(id);
+            var output = new UserCarsViewModel
+            {
+                AllCars = await this.homeService.GetCarsOfUserAsync(id),
+                User = user,
+                TopFourCars = await this.homeService.GetTopFourMostWatchedCarsOfUserAsync(user.Id),
+            };
+
+            return this.View(output);
         }
     }
 }

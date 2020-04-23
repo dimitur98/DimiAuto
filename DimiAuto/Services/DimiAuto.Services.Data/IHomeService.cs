@@ -16,5 +16,9 @@
         Task<ICollection<CarAdsViewModel>> GetAdsByCriteriaAsync(SearchInputModel criteria);
 
         AllCarsModel Paging(AllCarsModel data, int? take = null, int skip = 0);
+
+        Task<ICollection<CarAdsViewModel>> GetCarsOfUserAsync(string userId);
+
+        Task<ICollection<MostWatchedUserCarViewModel>> GetTopFourMostWatchedCarsOfUserAsync(string userId);
     }
 }

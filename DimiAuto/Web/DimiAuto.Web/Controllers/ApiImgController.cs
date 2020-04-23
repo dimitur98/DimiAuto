@@ -65,8 +65,15 @@
             var img = imgParts[imgParts.Count - 2] + "/" + imgParts[imgParts.Count - 1];
             if (car.ImgsPaths.Contains(img))
             {
-              var newImgsPaths = car.ImgsPaths.Replace(img, string.Empty);
-              car.ImgsPaths = newImgsPaths;
+                //var newImgsPaths = car.ImgsPaths.Replace(img, string.Empty);
+                var imgList = car.ImgsPaths.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList();
+                imgList.Remove(img);
+                car.ImgsPaths = string.Join(",", imgList);
+            }
+
+            if (car.ImgsPaths.Length == 0)
+            {
+                car.ImgsPaths = GlobalConstants.DefaultImgCar;
             }
 
             this.carRepository.Update(car);

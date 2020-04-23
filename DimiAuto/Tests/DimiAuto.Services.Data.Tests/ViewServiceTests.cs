@@ -37,8 +37,8 @@ namespace DimiAuto.Services.Data.Tests
             await viewService.AddViewAsync("2", "firstCar");
             await viewService.AddViewAsync("1", "secCar");
 
-            var firstCarViews = viewService.GetViewsCount("firstCar");
-            var secCarViews = viewService.GetViewsCount("secCar");
+            var firstCarViews = await viewService.GetViewsCountAsync("firstCar");
+            var secCarViews = await viewService.GetViewsCountAsync("secCar");
             Assert.Equal(2, firstCarViews);
             Assert.Equal(1, secCarViews);
         }

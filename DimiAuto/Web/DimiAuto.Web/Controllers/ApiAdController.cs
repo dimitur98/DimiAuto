@@ -25,12 +25,14 @@
     [Route("api/[controller]/[action]")]
     public class ApiAdController : Controller
     {
+        private readonly IMyAccountService myAccountService;
         private readonly IAdService adService;
         private readonly IDeletableEntityRepository<UserCarFavorite> favouriteRepository;
         private readonly IDeletableEntityRepository<Car> carRepository;
 
-        public ApiAdController(IAdService adService, IDeletableEntityRepository<UserCarFavorite> favouriteRepository, IDeletableEntityRepository<Car> carRepository)
+        public ApiAdController(IMyAccountService myAccountService, IAdService adService, IDeletableEntityRepository<UserCarFavorite> favouriteRepository, IDeletableEntityRepository<Car> carRepository)
         {
+            this.myAccountService = myAccountService;
             this.adService = adService;
             this.favouriteRepository = favouriteRepository;
             this.carRepository = carRepository;
@@ -44,7 +46,7 @@
             var record = await this.favouriteRepository.All().FirstOrDefaultAsync(x => x.CarId == input.CarId && x.UserId == userId);
             if (record == null)
             {
-                await this.adService.AddAdToFavAsync(input.CarId, userId);
+                await this.myAccountService.AddAdToFavAsync(input.CarId, userId);
                 return this.Ok(new { output = "added" });
             }
 
@@ -59,7 +61,7 @@
             var record = await this.favouriteRepository.All().FirstOrDefaultAsync(x => x.CarId == input.CarId && x.UserId == userId);
             if (record != null)
             {
-                await this.adService.RemoveFavAdAsync(input.CarId, userId);
+                await this.myAccountService.RemoveFavAdAsync(input.CarId, userId);
                 return this.Ok(new { output = "removed", carId = input.CarId });
             }
 

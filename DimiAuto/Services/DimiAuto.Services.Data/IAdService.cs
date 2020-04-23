@@ -19,11 +19,7 @@
 
         Task<Car> EditAd(EditAddInputModel input);
 
-        Task AddAdToFavAsync(string carId, string userId);
-
-        Task RemoveFavAdAsync(string carId, string userId);
-
-        Task<ICollection<TModel>> GetAllFavAdsOnCurrentUserAsync<TModel>(string userId);
+       
 
         string EnumParser(string make, string model);
 

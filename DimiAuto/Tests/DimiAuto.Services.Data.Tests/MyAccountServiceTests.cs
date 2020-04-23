@@ -7,11 +7,13 @@ using DimiAuto.Data.Repositories;
 using DimiAuto.Models.CarModel;
 using DimiAuto.Services.Mapping;
 using DimiAuto.Web.ViewModels.Ad;
+using DimiAuto.Web.ViewModels.FavoriteAds;
 using DimiAuto.Web.ViewModels.MyAccount;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -151,6 +153,187 @@ namespace DimiAuto.Services.Data.Tests
             Assert.Equal(0, await commentRepository.AllWithDeleted().CountAsync());
             Assert.Equal(0, await favoriteRepository.AllWithDeleted().CountAsync());
             Assert.Equal(0, await searchModelRepository.AllWithDeleted().CountAsync());
+        }
+
+        [Fact]
+        public async Task AddToFavAsyncTests()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
+            var viewsRepository = new EfDeletableEntityRepository<AdView>(new ApplicationDbContext(options.Options));
+            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
+            var searchModelRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
+            var favoriteRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
+            var userManager = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
+            var adService = new Mock<IAdService>();
+
+            var service = new MyAccountService(carRepository, adService.Object, viewsRepository, commentRepository, searchModelRepository, favoriteRepository);
+
+            var car = new Car();
+            await carRepository.AddAsync(car);
+            await carRepository.SaveChangesAsync();
+            var userId = "UserId";
+            var carId = car.Id;
+            await service.AddAdToFavAsync(carId, userId);
+
+            var userCarFavRecord = await favoriteRepository.All().FirstAsync();
+
+            Assert.NotNull(userCarFavRecord);
+            Assert.Equal(carId, userCarFavRecord.CarId);
+            Assert.Equal(userId, userCarFavRecord.UserId);
+
+        }
+
+        [Fact]
+        public async Task AddToFavWithNotFoundCarShouldReturnNullRefferenceException()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
+            var viewsRepository = new EfDeletableEntityRepository<AdView>(new ApplicationDbContext(options.Options));
+            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
+            var searchModelRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
+            var favoriteRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
+            var userManager = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
+            var adService = new Mock<IAdService>();
+
+            var service = new MyAccountService(carRepository, adService.Object, viewsRepository, commentRepository, searchModelRepository, favoriteRepository);
+
+            var userId = "UserId";
+            var carId = "notFoundId";
+            await Assert.ThrowsAsync<NullReferenceException>(async () => await service.AddAdToFavAsync(carId, userId));
+        }
+
+        [Fact]
+        public async Task RemoveFavAdAsync()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
+            var viewsRepository = new EfDeletableEntityRepository<AdView>(new ApplicationDbContext(options.Options));
+            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
+            var searchModelRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
+            var favoriteRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
+            var userManager = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
+            var adService = new Mock<IAdService>();
+
+            var service = new MyAccountService(carRepository, adService.Object, viewsRepository, commentRepository, searchModelRepository, favoriteRepository);
+
+            var car = new Car();
+            await carRepository.AddAsync(car);
+            await carRepository.SaveChangesAsync();
+
+            var userId = "UserId";
+            var carId = car.Id;
+
+            await service.AddAdToFavAsync(carId, userId);
+            await service.RemoveFavAdAsync(carId, userId);
+
+            var userCarFavRecord = await favoriteRepository.All().FirstOrDefaultAsync(x => x.UserId == userId);
+
+            Assert.Null(userCarFavRecord);
+        }
+
+        [Fact]
+        public async Task GetAllFavAdsOnCurrentUserTests()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
+            var viewsRepository = new EfDeletableEntityRepository<AdView>(new ApplicationDbContext(options.Options));
+            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
+            var searchModelRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
+            var favoriteRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
+            var userManager = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
+            var adService = new Mock<IAdService>();
+
+            var service = new MyAccountService(carRepository, adService.Object, viewsRepository, commentRepository, searchModelRepository, favoriteRepository);
+
+            var firstCar = new Car
+            {
+                UserId = "1",
+                Cc = 1,
+                Color = 0,
+                Condition = Condition.New,
+                Door = Doors.Three,
+                EuroStandart = EuroStandart.Euro1,
+                Extras = "4x4",
+                Fuel = Fuel.Diesel,
+                Gearbox = Gearbox.Automatic,
+                Horsepowers = 1,
+                ImgsPaths = GlobalConstants.DefaultImgCar,
+                Km = 100,
+                Location = Location.Sofia,
+                Make = Make.Audi,
+                Model = "test",
+                Modification = "test",
+                MoreInformation = "firstCar",
+                Price = 100,
+                Type = Types.Convertible,
+                TypeOfVeichle = TypeOfVeichle.Car,
+                YearOfProduction = DateTime.ParseExact("01.1999", "MM.yyyy", CultureInfo.InvariantCulture),
+            };
+            var secondCar = new Car
+            {
+                UserId = "1",
+                Cc = 1,
+                Color = 0,
+                Condition = Condition.New,
+                Door = Doors.Three,
+                EuroStandart = EuroStandart.Euro1,
+                Extras = "4x4",
+                Fuel = Fuel.Gasoline,
+                Gearbox = Gearbox.Manual,
+                Horsepowers = 1,
+                ImgsPaths = GlobalConstants.DefaultImgCar,
+                Km = 100,
+                Location = Location.Sofia,
+                Make = Make.Bmw,
+                Model = "test",
+                Modification = "test",
+                MoreInformation = "secondCar",
+                Price = 100,
+                Type = Types.Convertible,
+                TypeOfVeichle = TypeOfVeichle.Car,
+                YearOfProduction = DateTime.ParseExact("01.1999", "MM.yyyy", CultureInfo.InvariantCulture),
+            };
+            var thirdCar = new Car
+            {
+                UserId = "1",
+                Cc = 1,
+                Color = 0,
+                Condition = Condition.New,
+                Door = Doors.Three,
+                EuroStandart = EuroStandart.Euro1,
+                Extras = "4x4",
+                Fuel = Fuel.Diesel,
+                Gearbox = Gearbox.Automatic,
+                Horsepowers = 1,
+                ImgsPaths = GlobalConstants.DefaultImgCar,
+                Km = 100,
+                Location = Location.Sofia,
+                Make = Make.Ford,
+                Model = "test",
+                Modification = "test",
+                MoreInformation = "test test",
+                Price = 100000,
+                Type = Types.Convertible,
+                TypeOfVeichle = TypeOfVeichle.Car,
+                YearOfProduction = DateTime.ParseExact("01.1999", "MM.yyyy", CultureInfo.InvariantCulture),
+            };
+            await carRepository.AddAsync(firstCar);
+            await carRepository.AddAsync(secondCar);
+            await carRepository.AddAsync(thirdCar);
+
+            await carRepository.SaveChangesAsync();
+
+            var car1 = await carRepository.All().FirstOrDefaultAsync(x => x.MoreInformation == "firstCar");
+            var car2 = await carRepository.All().FirstOrDefaultAsync(x => x.MoreInformation == "secondCar");
+
+            await service.AddAdToFavAsync(car1.Id, "1");
+            await service.AddAdToFavAsync(car2.Id, "1");
+            AutoMapperConfig.RegisterMappings(typeof(UserAdViewModel).Assembly);
+
+            var result = await service.GetAllFavAdsOnCurrentUserAsync<UserAdViewModel>("1");
+
+            Assert.Equal(2, result.Count);
         }
     }
 }

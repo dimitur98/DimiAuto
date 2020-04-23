@@ -1,4 +1,4 @@
-﻿namespace DimiAuto.Web.ViewModels.Ad
+﻿namespace DimiAuto.Web.ViewModels.Home
 {
     using System.Collections.Generic;
 

@@ -28,9 +28,8 @@
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
-            var userCarFavRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
 
-            var service = new AdService(carRepository, userCarFavRepository);
+            var service = new AdService(carRepository);
             var inputModel = new CreateAdInputModel
             {
                 Cc = 1,
@@ -69,9 +68,8 @@
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
-            var userCarFavRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
 
-            var service = new AdService(carRepository, userCarFavRepository);
+            var service = new AdService(carRepository);
 
             var inputModel = new CreateAdInputModel
             {
@@ -110,9 +108,8 @@
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
-            var userCarFavRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
 
-            var service = new AdService(carRepository, userCarFavRepository);
+            var service = new AdService(carRepository);
 
             var inputModel = new CreateAdInputModel
             {
@@ -179,13 +176,12 @@
         }
 
         [Fact]
-        public async Task EditAdWithWrongIdShouldRedturnNullReferenceException()
+        public void EditAdWithWrongIdShouldRedturnNullReferenceException()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
-            var userCarFavRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
 
-            var service = new AdService(carRepository, userCarFavRepository);
+            var service = new AdService(carRepository);
             var editAd = new EditAddInputModel
             {
                 Id = "fakeId",
@@ -209,159 +205,8 @@
                 YearOfProduction = "03.1999",
                 TypeOfVeichle = TypeOfVeichle.All,
             };
-            Assert.ThrowsAsync<NullReferenceException>(async ()=> await service.EditAd(editAd));
+            Assert.ThrowsAsync<NullReferenceException>(async () => await service.EditAd(editAd));
 
-        }
-
-        [Fact]
-        public async Task AddToFavAsyncTests()
-        {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
-            var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
-            var userCarFavRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
-
-            var car = new Car();
-            await carRepository.AddAsync(car);
-            await carRepository.SaveChangesAsync();
-            var service = new AdService(carRepository, userCarFavRepository);
-            var userId = "UserId";
-            var carId = car.Id;
-            await service.AddAdToFavAsync(carId, userId);
-
-            var userCarFavRecord = await userCarFavRepository.All().FirstAsync();
-
-            Assert.NotNull(userCarFavRecord);
-            Assert.Equal(carId, userCarFavRecord.CarId);
-            Assert.Equal(userId, userCarFavRecord.UserId);
-
-        }
-
-        [Fact]
-        public async Task AddToFavWithNotFoundCarShouldReturnNullRefferenceException()
-        {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
-            var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
-            var userCarFavRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
-            var service = new AdService(carRepository, userCarFavRepository);
-
-            var userId = "UserId";
-            var carId = "notFoundId";
-           Assert.ThrowsAsync<NullReferenceException>(async () => await service.AddAdToFavAsync(carId, userId));
-        }
-
-        [Fact]
-        public async Task RemoveFavAdAsync()
-        {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
-            var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
-            var userCarFavRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
-
-            var service = new AdService(carRepository, userCarFavRepository);
-
-            var car = new Car();
-            await carRepository.AddAsync(car);
-            await carRepository.SaveChangesAsync();
-
-            var userId = "UserId";
-            var carId = car.Id;
-
-            await service.AddAdToFavAsync(carId, userId);
-            await service.RemoveFavAdAsync(carId, userId);
-
-            var userCarFavRecord = await userCarFavRepository.All().FirstOrDefaultAsync(x => x.UserId == userId);
-
-            Assert.Null(userCarFavRecord);
-        }
-
-        [Fact]
-        public async Task GetAllFavAdsOnCurrentUserTests()
-        {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
-            var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
-            var userCarFavRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
-
-            var service = new AdService(carRepository, userCarFavRepository);
-
-            var firstCar = new CreateAdInputModel
-            {
-                Cc = 1,
-                Color = 0,
-                Condition = Condition.New,
-                Door = Doors.Three,
-                EuroStandart = EuroStandart.Euro1,
-                Extras = "4x4",
-                Fuel = Fuel.Diesel,
-                Gearbox = Gearbox.Automatic,
-                Hp = 1,
-                ImgsPaths = GlobalConstants.DefaultImgCar,
-                Km = 100,
-                Location = Location.Sofia,
-                Make = Make.Audi,
-                Model = "test",
-                Modification = "test",
-                MoreInformation = "test test",
-                Price = 100,
-                Type = Types.Convertible,
-                TypeOfVeichle = TypeOfVeichle.Car,
-                YearOfProduction = "01.1999",
-            };
-            var secondCar = new CreateAdInputModel
-            {
-                Cc = 1,
-                Color = 0,
-                Condition = Condition.New,
-                Door = Doors.Three,
-                EuroStandart = EuroStandart.Euro1,
-                Extras = "4x4",
-                Fuel = Fuel.Gasoline,
-                Gearbox = Gearbox.Manual,
-                Hp = 1,
-                ImgsPaths = GlobalConstants.DefaultImgCar,
-                Km = 100,
-                Location = Location.Sofia,
-                Make = Make.Bmw,
-                Model = "test",
-                Modification = "test",
-                MoreInformation = "test test",
-                Price = 100,
-                Type = Types.Convertible,
-                TypeOfVeichle = TypeOfVeichle.Car,
-                YearOfProduction = "01.1999",
-            };
-            var thirdCar = new CreateAdInputModel
-            {
-                Cc = 1,
-                Color = 0,
-                Condition = Condition.New,
-                Door = Doors.Three,
-                EuroStandart = EuroStandart.Euro1,
-                Extras = "4x4",
-                Fuel = Fuel.Diesel,
-                Gearbox = Gearbox.Automatic,
-                Hp = 1,
-                ImgsPaths = GlobalConstants.DefaultImgCar,
-                Km = 100,
-                Location = Location.Sofia,
-                Make = Make.Ford,
-                Model = "test",
-                Modification = "test",
-                MoreInformation = "test test",
-                Price = 100000,
-                Type = Types.Convertible,
-                TypeOfVeichle = TypeOfVeichle.Car,
-                YearOfProduction = "01.2000",
-            };
-            var firstCarId = await service.CreateAdAsync(firstCar, "1");
-            var secondCarId = await service.CreateAdAsync(secondCar, "1");
-            await service.CreateAdAsync(thirdCar, "1");
-
-            await service.AddAdToFavAsync(firstCarId, "1");
-            await service.AddAdToFavAsync(secondCarId, "1");
-            AutoMapperConfig.RegisterMappings(typeof(UserAdViewModel).Assembly);
-
-            var result = await service.GetAllFavAdsOnCurrentUserAsync<UserAdViewModel>("1");
-
-            Assert.Equal(2, result.Count);
         }
 
         [Fact]
@@ -369,9 +214,8 @@
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
-            var userCarFavRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
 
-            var service = new AdService(carRepository, userCarFavRepository);
+            var service = new AdService(carRepository);
 
             // should return - 80
             var audi = service.EnumParser("Audi", "1");
@@ -396,10 +240,8 @@
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
-            var userCarFavRepository = new EfDeletableEntityRepository<UserCarFavorite>(new ApplicationDbContext(options.Options));
 
-            var service = new AdService(carRepository, userCarFavRepository);
-
+            var service = new AdService(carRepository);
 
             Assert.Throws<NullReferenceException>(() => service.EnumParser("Lada", "1"));
             Assert.Throws<IndexOutOfRangeException>(() => service.EnumParser("Audi", "100"));

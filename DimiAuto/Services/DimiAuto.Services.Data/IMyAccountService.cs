@@ -10,8 +10,14 @@
 
     public interface IMyAccountService
     {
-        Task<ICollection<MyCarsViewModel>> GetMyCarsAsync(string userId);
+        Task<ICollection<Car>> GetMyCarsAsync(string userId);
 
         Task DeleteAccountDataAsync(string userId);
+
+        Task AddAdToFavAsync(string carId, string userId);
+
+        Task RemoveFavAdAsync(string carId, string userId);
+
+        Task<ICollection<TModel>> GetAllFavAdsOnCurrentUserAsync<TModel>(string userId);
     }
 }

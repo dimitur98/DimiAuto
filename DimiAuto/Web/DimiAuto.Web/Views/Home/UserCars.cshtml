@@ -1,0 +1,111 @@
+﻿@model DimiAuto.Web.ViewModels.Home.UserCarsViewModel
+@{
+    ViewData["Title"] = "UserCars";
+}
+
+<section id="page-title-area" class="section-padding overlay">
+    <div class="container">
+        <div class="row">
+            <!-- Page Title Start -->
+            <div class="col-lg-12">
+                <div class="section-title  text-center">
+                    <h2>Our Cars,</h2>
+                    <h2>@Model.User.NameOfThePage</h2>
+                    <span class="title-line"><i class="fa fa-car"></i></span>
+                    <p>@Model.User.FirstName @Model.User.LastName</p>
+                </div>
+            </div>
+            <!-- Page Title End -->
+        </div>
+    </div>
+</section>
+
+<section id="car-list-area" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="car-list-content">
+                    @foreach (var car in Model.AllCars)
+                    {
+                        <div class="single-car-wrap">
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <img class="userCarsImg" src="@car.ImgPath" />
+                                </div>
+                                <div class="col-lg-7">
+                                    <div class="display-table">
+                                        <div class="display-table-cell">
+                                            <div class="car-list-info">
+                                                <h2><a href="#">@car.Make @car.ModelToString @car.Modification</a></h2>
+                                                <h5>@car.Price BGN</h5>
+                                                <p>@car.MoreInformation</p>
+                                                <ul class="car-info-list">
+                                                    <li>@car.YearOfProduction.ToString("MM.yyyy")</li>
+                                                    <li>@car.Fuel</li>
+                                                    <li>@car.Gearbox</li>
+                                                </ul>
+                                                <a href="/Ad/Details?id=@car.Id" class="rent-btn">Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+            <!-- Car List Content End -->
+            <!-- Sidebar Area Start -->
+            <div class="col-lg-4">
+                <div class="sidebar-content-wrap m-t-50">
+                    <!-- Single Sidebar Start -->
+                    <div class="single-sidebar">
+                        <h3>For More Informations</h3>
+
+                        <div class="sidebar-body">
+                            <p><i class="fa fa-location-arrow"></i> @Model.User.Adress, @Model.User.City</p>
+                            <p><i class="fa fa-address-card"></i> @Model.User.FirstName @Model.User.LastName</p>
+                            <p><i class="fa fa-product-hunt"></i> @Model.User.NameOfCompany</p>
+                            @if (Model.User.NameOfCompany == "Private person")
+                            {
+                                <p><i class="fa fa-mobile"></i> @Model.User.PhoneNumber</p>
+                            }
+                            else
+                            {
+                                <p><i class="fa fa-mobile"></i> @Model.User.TelephoneForCustomers</p>
+                            }
+                        </div>
+                    </div>
+                    <div class="single-sidebar">
+                        <h3>The most viewed cars</h3>
+
+                        <div class="sidebar-body">
+                            <ul class="recent-tips">
+                                @foreach (var car in Model.TopFourCars)
+                                {
+                                    <li class="single-recent-tips">
+                                        <div class="recent-tip-thum">
+                                            <a href="/Ad/Details?id=@car.Id"><img src="@car.ImgPath" alt="JSOFT"></a>
+                                        </div>
+                                        <div class="recent-tip-body">
+                                            <h4><a href="#">@car.Make @car.ModelToString @car.Modification</a></h4>
+                                            <span class="date">Views: @car.Views</span>
+                                        </div>
+                                    </li>
+
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Single Sidebar End -->
+                    <!-- Single Sidebar Start -->
+                    <!-- Single Sidebar End -->
+                </div>
+            </div>
+            <!-- Sidebar Area End -->
+        </div>
+    </div>
+</section>
+
