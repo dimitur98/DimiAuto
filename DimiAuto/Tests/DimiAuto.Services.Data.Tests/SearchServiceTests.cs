@@ -95,7 +95,7 @@ namespace DimiAuto.Services.Data.Tests
             var service = new SearchService(searchRepository, adService.Object);
 
 
-            Assert.ThrowsAsync<NullReferenceException>(async () => await service.GetSearchModelByIdAsync("wrongId"));
+            await Assert.ThrowsAsync<NullReferenceException>(async () => await service.GetSearchModelByIdAsync("wrongId"));
         }
 
         [Fact]

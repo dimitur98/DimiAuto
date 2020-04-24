@@ -126,7 +126,6 @@
             }).OrderByDescending(x => x.CreatedOn).ToListAsync();
 
             return result;
-
         }
 
         public async Task<ICollection<MostWatchedUserCarViewModel>> GetTopFourMostWatchedCarsOfUserAsync(string userId)

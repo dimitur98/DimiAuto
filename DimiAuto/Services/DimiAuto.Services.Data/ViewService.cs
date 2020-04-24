@@ -39,7 +39,7 @@
 
         public int GetViewsCount(string carId)
         {
-            return  this.viewRepository.All().Where(x => x.CarId == carId).Count();
+            return this.viewRepository.All().Where(x => x.CarId == carId).Count();
         }
 
         private async Task CreateViewAsync(string user, string carId)
