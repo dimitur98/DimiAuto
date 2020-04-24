@@ -31,7 +31,7 @@
         {
             this.browser.Navigate().GoToUrl(this.server.RootUri + "/Identity/Account/Login");
             this.browser.FindElementById("loginEmail").SendKeys("AdminUser@admin.bg");
-            this.browser.FindElementById("loginPassword").SendKeys("123456a");
+            this.browser.FindElementById("loginPassword").SendKeys("123456");
             this.browser.FindElementById("loginBtn").Click();
             this.browser.Navigate().GoToUrl(this.server.RootUri + "/Home/All");
             this.browser.FindElementById("addToCompareBtn1").Click();
@@ -46,7 +46,7 @@
         {
             this.browser.Navigate().GoToUrl(this.server.RootUri + "/Identity/Account/Login");
             this.browser.FindElementById("loginEmail").SendKeys("AdminUser@admin.bg");
-            this.browser.FindElementById("loginPassword").SendKeys("123456a");
+            this.browser.FindElementById("loginPassword").SendKeys("123456");
             this.browser.FindElementById("loginBtn").Click();
             this.browser.Navigate().GoToUrl(this.server.RootUri + "/Home/All");
             this.browser.FindElementById("addToCompareBtn1").Click();
@@ -65,7 +65,7 @@
         {
             this.browser.Navigate().GoToUrl(this.server.RootUri + "/Identity/Account/Login");
             this.browser.FindElementById("loginEmail").SendKeys("AdminUser@admin.bg");
-            this.browser.FindElementById("loginPassword").SendKeys("123456a");
+            this.browser.FindElementById("loginPassword").SendKeys("123456");
             this.browser.FindElementById("loginBtn").Click();
             this.browser.Navigate().GoToUrl(this.server.RootUri + "/Home/All");
             this.browser.FindElementById("addToCompareBtn1").Click();

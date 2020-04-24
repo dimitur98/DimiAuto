@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace DimiAuto.Data.Models.CarModel
+﻿namespace DimiAuto.Data.Models.CarModel
 {
+    using System.ComponentModel.DataAnnotations;
+
     public enum Condition
     {
         All = 1,

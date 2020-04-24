@@ -18,6 +18,6 @@ namespace DimiAuto.Web.ViewModels.Administration
 
         public bool IsDeleted { get; set; }
 
-        public string Statuse => this.IsDeleted ? "Ban" : "Active";
+        public string Statuse => this.IsDeleted ? "Inactive" : "Active";
     }
 }

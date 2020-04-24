@@ -91,7 +91,7 @@
 
         private static void AdministrationServiceBuildWithCars(out EfDeletableEntityRepository<Car> carRepository, out AdministrationService administrationService, out Car car, out Car car2, out string firstCarId)
         {
-            DbContextOptionsBuilder<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            DbContextOptionsBuilder<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
             var adServiceMock = new Mock<IAdService>();
 

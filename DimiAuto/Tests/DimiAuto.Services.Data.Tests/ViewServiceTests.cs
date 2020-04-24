@@ -15,7 +15,7 @@ namespace DimiAuto.Services.Data.Tests
         [Fact]
         public async Task CreateViewTest()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var viewAdRepository = new EfDeletableEntityRepository<AdView>(new ApplicationDbContext(options.Options));
             var viewService = new ViewService(viewAdRepository);
             
@@ -29,7 +29,7 @@ namespace DimiAuto.Services.Data.Tests
         [Fact]
         public async Task GetViewsCountTest()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var viewAdRepository = new EfDeletableEntityRepository<AdView>(new ApplicationDbContext(options.Options));
             var viewService = new ViewService(viewAdRepository);
 

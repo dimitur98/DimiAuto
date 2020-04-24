@@ -26,7 +26,6 @@
     public class AdService : IAdService
     {
         private readonly IDeletableEntityRepository<Car> carRepository;
-        private readonly IDeletableEntityRepository<UserCarFavorite> favouriteRepository;
 
         public AdService(IDeletableEntityRepository<Car> carRepository)
         {
@@ -62,6 +61,7 @@
                 YearOfProduction = DateTime.ParseExact(input.YearOfProduction, "mm.yyyy", CultureInfo.InvariantCulture),
                 UserId = userId,
                 ImgsPaths = GlobalConstants.DefaultImgCar,
+                TypeOfVeichle = input.TypeOfVeichle,
             };
             await this.carRepository.AddAsync(car);
             await this.carRepository.SaveChangesAsync();
@@ -81,7 +81,7 @@
 
         public async Task<Car> EditAd(EditAddInputModel input)
         {
-            var car = await this.carRepository.All().FirstOrDefaultAsync(x => x.Id == input.Id);
+            var car = await this.carRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == input.Id);
             if (car == null)
             {
                 throw new NullReferenceException();
@@ -113,7 +113,8 @@
 
         public string EnumParser(string make, string model)
         {
-            if (make != "All" || model != "All")
+            //model = model == null ? "All" : model;
+            if (make != "All" && model != "All")
             {
                 var modelNum = int.Parse(model) - 1;
                 var modelClass = typeof(Models);

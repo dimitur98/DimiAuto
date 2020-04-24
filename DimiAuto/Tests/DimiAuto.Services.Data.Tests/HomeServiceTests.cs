@@ -21,9 +21,9 @@
     public class HomeServiceTests
     {
         [Fact]
-        public async Task GetAllAdsApprovedAndNotDeletedTests()
+        public async Task GetAllAdsApprovedAndNotDeletedAsyncTests()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
             var adService = new Mock<IAdService>();
             var viewService = new Mock<IViewService>();
@@ -34,15 +34,15 @@
             var result = await homeService.GetAllAdsAsync();
             var deletedCar = result.FirstOrDefault(x => x.Make == Make.Opel);
             var notApprovedCar = result.FirstOrDefault(x => x.Make == Make.Audi);
-            Assert.Equal(3, result.Count);
+            Assert.Equal(5, result.Count);
             Assert.Null(deletedCar);
             Assert.Null(notApprovedCar);
         }
 
         [Fact]
-        public async Task GetAdsByCriteriaApprovedAndNotDeleted()
+        public async Task GetAdsByCriteriaApprovedAndNotDeletedAsyncTest()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
             var adService = new Mock<IAdService>();
             var viewService = new Mock<IViewService>();
@@ -60,16 +60,16 @@
             var resultWithMultipleCriteria = await homeService.GetAdsByCriteriaAsync(searchModelByMultipleCriteria);
             var resultWithMultipleCriteriaNoMatch = await homeService.GetAdsByCriteriaAsync(searchModelByMultipleCriteriaNoMatch);
 
-            Assert.Equal(3, resultWithPrice.Count);
-            Assert.Equal(2, resultWithYear.Count);
-            Assert.Equal(1, resultWithMultipleCriteria.Count);
+            Assert.Equal(5, resultWithPrice.Count);
+            Assert.Equal(4, resultWithYear.Count);
+            Assert.Equal(3, resultWithMultipleCriteria.Count);
             Assert.Equal(0, resultWithMultipleCriteriaNoMatch.Count);
         }
 
         [Fact]
         public async Task GetApprovedAndNotDeletedCarsOfUserAsyncTest()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
             var adService = new Mock<IAdService>();
             var viewService = new Mock<IViewService>();
@@ -80,13 +80,13 @@
 
             var result = await homeService.GetCarsOfUserAsync("1");
 
-            Assert.Equal(3, result.Count);
+            Assert.Equal(5, result.Count);
         }
 
         [Fact]
-        public async Task GetTopFourMostWatchedCarsOfUserAsyncTest() 
+        public async Task GetTopFourMostWatchedCarsOfUserAsyncTest()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
             var viewRepository = new EfDeletableEntityRepository<AdView>(new ApplicationDbContext(options.Options));
             var adService = new Mock<IAdService>();
@@ -119,7 +119,7 @@
         [Fact]
         public async Task PagingTest()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
             var adService = new Mock<IAdService>();
             var viewService = new Mock<IViewService>();

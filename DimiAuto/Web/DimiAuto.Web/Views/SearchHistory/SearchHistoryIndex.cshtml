@@ -10,60 +10,72 @@
                     <div class="slideshowcontent">
                         <div class="display-table">
                             <div class="display-table-cell">
-                                <h1>Your search history</h1>
-                                <p><br></p>
-                                @foreach (var search in Model.Searches)
+
+                                @if (Model.Searches.Count() != 0)
                                 {
-                                    <div class="book-ur-car">
-                                        <div class="row">
-                                            <div class="pick-location bookinput-item">
-                                                Type: @search.TypeOfVeichle
+                                    <h1>Your search history</h1>
+                                    <p><br></p>
+                                    @foreach (var search in Model.Searches)
+                                    {
+                                        <div class="book-ur-car">
+                                            <div class="row">
+                                                <div class="pick-location bookinput-item">
+                                                    Type: @search.TypeOfVeichle
+                                                </div>
+                                                <div class="pick-location bookinput-item">
+                                                    Condition: @search.Condition
+                                                </div>
+                                                <div class="pick-location bookinput-item">
+                                                    Make: @search.Make
+                                                </div>
+                                                <div class="pick-location bookinput-item">
+                                                    Model: @search.ModelToString
+                                                </div>
+                                                <div class="pick-location bookinput-item">
+                                                    Location: @search.Location
+                                                </div>
                                             </div>
-                                            <div class="pick-location bookinput-item">
-                                                Condition: @search.Condition
+                                            <div class="row">
+                                                <div class="pick-location bookinput-item">
+                                                    Fuel: @search.Fuel
+                                                </div>
+                                                <div class="pick-location bookinput-item">
+                                                    Gearbox: @search.Gearbox
+                                                </div>
+                                                <div class="pick-location bookinput-item">
+                                                    YearFrom: @search.YearFrom
+                                                </div>
+                                                <div class="pick-location bookinput-item">
+                                                    YearTo: @search.YearTo
+                                                </div>
+                                                <div class="pick-location bookinput-item">
+                                                    PriceFrom: @search.PriceFrom
+                                                </div>
                                             </div>
-                                            <div class="pick-location bookinput-item">
-                                                Make: @search.Make
+                                            <div class="row">
+                                                <div class="pick-location bookinput-item">
+                                                    PriceTo: @search.PriceTo
+                                                </div>
                                             </div>
-                                            <div class="pick-location bookinput-item">
-                                                Model: @search.ModelToString
+                                            <div class="row">
+                                                <span class="nobr" style="margin: auto; max-width: 100px;">
+                                                    <a class="bookcar-btn" data-toggle="tooltip" data-placement="top" title="Use criteria" style="display:inline-block;margin-left:10px;" href="/Home/AllByCriteria?id=@search.Id"><img class="searchClass" src="~/images/searching-car.png"></a>
+                                                    <a class="bookcar-btn" data-toggle="tooltip" data-placement="top" title="Delete search history" style="display:inline-block;" href="/SearchHistory/DeleteSearchHistory?id=@search.Id"><img class="searchClass" src="~/images/deleteSearch.png"></a>
+                                                </span>
+
                                             </div>
-                                            <div class="pick-location bookinput-item">
-                                                Location: @search.Location
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="pick-location bookinput-item">
-                                                Fuel: @search.Fuel
-                                            </div>
-                                            <div class="pick-location bookinput-item">
-                                                Gearbox: @search.Gearbox
-                                            </div>
-                                            <div class="pick-location bookinput-item">
-                                                YearFrom: @search.YearFrom
-                                            </div>
-                                            <div class="pick-location bookinput-item">
-                                                YearTo: @search.YearTo
-                                            </div>
-                                            <div class="pick-location bookinput-item">
-                                                PriceFrom: @search.PriceFrom
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="pick-location bookinput-item">
-                                                PriceTo: @search.PriceTo
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <span class="nobr" style="margin: auto; max-width: 100px;">
-                                                <a class="bookcar-btn" data-toggle="tooltip" data-placement="top" title="Use criteria" style="display:inline-block;margin-left:10px;" href="/Home/AllByCriteria?id=@search.Id"><img class="searchClass" src="~/images/searching-car.png"></a>
-                                                <a class="bookcar-btn" data-toggle="tooltip" data-placement="top" title="Delete search history" style="display:inline-block;" href="/SearchHistory/DeleteSearchHistory?id=@search.Id"><img class="searchClass" src="~/images/deleteSearch.png"></a>
-                                            </span>
 
                                         </div>
-
-                                    </div>
+                                    }
                                 }
+                                else
+                                {
+
+                                    <h1>There is no search history yet.</h1>
+
+                                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                                }
+
 
                             </div>
                         </div>
@@ -73,4 +85,5 @@
         </div>
     </section>
 </div>
+
 

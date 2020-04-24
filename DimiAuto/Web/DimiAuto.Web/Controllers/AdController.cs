@@ -180,6 +180,7 @@
                 Condition = car.Condition,
                 YearOfProduction = car.YearOfProduction.ToString("mm.yyyy"),
                 Id = car.Id,
+                TypeOfVeichle = car.TypeOfVeichle,
             };
             return this.View(output);
         }

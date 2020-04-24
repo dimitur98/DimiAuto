@@ -47,5 +47,7 @@
 
         public DateTime CreatedOn { get; set; }
 
+        public Location Location { get; set; }
+
     }
 }

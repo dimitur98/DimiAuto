@@ -20,13 +20,10 @@
 
     public class ImgServiceTests
     {
-
-
-
         [Fact]
         public async Task AddImgToAdTests()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
             var cloudinaryAccount = new CloudinaryDotNet.Account("name", "apiKey", "apiSecret");
             var cloudinary = new Cloudinary(cloudinaryAccount);
@@ -64,7 +61,5 @@
 
             Assert.Equal(imgUrl, car.ImgsPaths);
         }
-
-        
     }
 }

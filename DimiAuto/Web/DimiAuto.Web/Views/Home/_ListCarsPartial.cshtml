@@ -17,7 +17,7 @@
                 <img style="width:600px; height:300px;" src="@car.ImgPath">
             </div>
             <div class="car-list-info without-bar">
-                <h2><a href="/Ad/Details/id=@car.Id">@car.Make @car.ModelToString @car.Modification</a></h2>
+                <a href="/Ad/Details/id=@car.Id"> <h3>@car.Make<br /></h3> <h4>@car.ModelToString @car.Modification</h4></a>
                 <h5>@car.User.NameOfCompany</h5>
                 <p>@car.MoreInformation</p>
                 <ul class="car-info-list">

@@ -218,24 +218,34 @@
     }
 </script>
 <script>
+    function loadFirstCar() {
+        $("#myHeader").show();
+        $("#firstCar").show();
+        $("#firstCarImg").attr("src", sessionStorage.getItem("firstCarImg"));
+        $("#firstCarMakeModel").text(sessionStorage.getItem("firstCarMakeModel"));
+        $("#firstCarInput").val(sessionStorage.getItem("firstCarId"));
+    }
+</script>
+<script>
+    function loadSecondCar() {
+        $("#secondCar").show();
+        $("#secondCarImg").attr("src", sessionStorage.getItem("secondCarImg"));
+        $("#secondCarMakeModel").text(sessionStorage.getItem("secondCarMakeModel"));
+        $("#secondCarInput").val(sessionStorage.getItem("secondCarId"));
+        $("#compareBtns").show();
+    }
+</script>
+<script>
     function loadComparerList() {
         //console.log(sessionStorage.getItem("firstCarImg"));
         //console.log(sessionStorage.getItem("firstCarMakeModel"));
         //console.log(sessionStorage.getItem("firstCarId"));
         if ($("#myHeader").is(":hidden")) {
             if (sessionStorage.getItem("firstCarId") != null) {
-                $("#myHeader").show();
-                $("#firstCar").show();
-                $("#firstCarImg").attr("src", sessionStorage.getItem("firstCarImg"));
-                $("#firstCarMakeModel").text(sessionStorage.getItem("firstCarMakeModel"));
-                $("#firstCarInput").val(sessionStorage.getItem("firstCarId"));
+                loadFirstCar();
             }
             if (sessionStorage.getItem("secondCarId") != null) {
-                $("#secondCar").show();
-                $("#secondCarImg").attr("src", sessionStorage.getItem("secondCarImg"));
-                $("#secondCarMakeModel").text(sessionStorage.getItem("secondCarMakeModel"));
-                $("#secondCarInput").val(sessionStorage.getItem("secondCarId"));
-                $("#compareBtns").show();
+                loadSecondCar();
             }
         } else {
             $("#myHeader").hide();
@@ -243,8 +253,6 @@
             $("#secondCar").hide();
             $("#compareBtns").hide();
         }
-        
-
     }
 </script>
 <script>
@@ -267,7 +275,12 @@
             sessionStorage.setItem("secondCarId", carId);
             sessionStorage.setItem("secondCarImg", imgPath);
             sessionStorage.setItem("secondCarMakeModel", make + " " + model);
-            loadComparerList()
+            if ($("#firstCar").is(":visible")) {
+                loadSecondCar();
+            } else {
+                loadFirstCar();
+                loadSecondCar();
+            }
         }
     }
 
@@ -288,28 +301,7 @@
     }
 </script>
 <style>
-    .header {
-        padding: 50px 16px;
-        color: #f1f1f1;
-        z-index: 9;
-        display: none;
-    }
-
-    /* Page content */
-    .content {
-        padding: 16px;
-    }
-
-    /* The sticky class is added to the header with JS when it reaches its scroll position */
-    .sticky {
-        position: fixed;
-        top: 40px;
-    }
-
-        /* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
-        .sticky + .content {
-            padding-top: 180px;
-        }
+    
 </style>
 <script>
     function addToFav(carId) {
@@ -357,13 +349,10 @@
 <script>
     window.onscroll = function () { myFunction() };
 
-    // Get the header
     var header = document.getElementById("myHeader");
 
-    // Get the offset position of the navbar
     var sticky = header.offsetTop;
 
-    // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
     function myFunction() {
         if (window.pageYOffset > sticky) {
             header.classList.add("sticky");

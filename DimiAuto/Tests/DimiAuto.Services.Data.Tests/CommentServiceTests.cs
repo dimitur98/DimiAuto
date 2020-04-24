@@ -20,7 +20,7 @@
         [Fact]
         public async Task CreateCommentTest()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
             var commentService = new CommentService(commentRepository);
             var userId = "userId";
@@ -40,7 +40,7 @@
         [Fact]
         public async Task GetComments()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
             var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
             var commentService = new CommentService(commentRepository);
@@ -77,7 +77,7 @@
         [Fact]
         public async Task DeleteCommentTest()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
             var commentService = new CommentService(commentRepository);
             var userId = "userId";
@@ -109,7 +109,7 @@
         [Fact]
         public void DeleteNotFindCommentShouldReturnNullReferenceException()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
             var commentService = new CommentService(commentRepository);
 

@@ -26,7 +26,7 @@
         [Fact]
         public async Task GetMyCarsTest()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
             var viewsRepository = new EfDeletableEntityRepository<AdView>(new ApplicationDbContext(options.Options));
             var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
@@ -45,7 +45,7 @@
         [Fact]
         public async Task DeleteAccountDataTest()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
             var viewsRepository = new EfDeletableEntityRepository<AdView>(new ApplicationDbContext(options.Options));
             var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
@@ -106,7 +106,7 @@
         [Fact]
         public async Task AddToFavAsyncTests()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
             var viewsRepository = new EfDeletableEntityRepository<AdView>(new ApplicationDbContext(options.Options));
             var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
@@ -134,7 +134,7 @@
         [Fact]
         public async Task AddToFavWithNotFoundCarShouldReturnNullRefferenceException()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
             var viewsRepository = new EfDeletableEntityRepository<AdView>(new ApplicationDbContext(options.Options));
             var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
@@ -153,7 +153,7 @@
         [Fact]
         public async Task RemoveFavAdAsync()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
             var viewsRepository = new EfDeletableEntityRepository<AdView>(new ApplicationDbContext(options.Options));
             var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));
@@ -182,7 +182,7 @@
         [Fact]
         public async Task GetAllFavAdsOnCurrentUserTests()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var carRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
             var viewsRepository = new EfDeletableEntityRepository<AdView>(new ApplicationDbContext(options.Options));
             var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options.Options));

@@ -20,7 +20,7 @@ namespace DimiAuto.Services.Data.Tests
         [Fact]
         public async Task SaveSearchModelIfNotExistTest()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var searchRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
             var adService = new Mock<IAdService>();
             var service = new SearchService(searchRepository, adService.Object);
@@ -50,7 +50,7 @@ namespace DimiAuto.Services.Data.Tests
         [Fact]
         public async Task DeleteSearchModelTest()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var searchRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
             var adService = new Mock<IAdService>();
 
@@ -77,7 +77,7 @@ namespace DimiAuto.Services.Data.Tests
         [Fact]
         public void DeleteNotFindSearchServiceShouldReturnNullReferenceExceptionTest()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var searchRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
             var adService = new Mock<IAdService>();
             var service = new SearchService(searchRepository, adService.Object);
@@ -88,7 +88,7 @@ namespace DimiAuto.Services.Data.Tests
         [Fact]
         public async Task GetSearchmodelByWrongIdShouldReturnNullReferenceException()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var searchRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
             var adService = new Mock<IAdService>();
 
@@ -101,7 +101,7 @@ namespace DimiAuto.Services.Data.Tests
         [Fact]
         public async Task GetSearchModelByIdTest()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var searchRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
             var adService = new Mock<IAdService>();
 
@@ -129,7 +129,7 @@ namespace DimiAuto.Services.Data.Tests
         [Fact]
         public async Task GetSearchModelsByUserIdTest()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString());
             var searchRepository = new EfDeletableEntityRepository<SearchModel>(new ApplicationDbContext(options.Options));
             var adService = new Mock<IAdService>();
 

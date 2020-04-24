@@ -51,6 +51,7 @@
                 TypeOfVeichle = x.TypeOfVeichle,
                 CreatedOn = x.CreatedOn,
                 ModelToString = this.adService.EnumParser(x.Make.ToString(), x.Model),
+                Location = x.Location,
             }).OrderByDescending(x => x.CreatedOn).ToListAsync();
 
             return result;
@@ -64,6 +65,7 @@
                         .ToDictionary(prop => prop.Name, prop => prop.GetValue(criteria, null));
             var make = dic["Make"].ToString();
             var model = dic["Model"] == null ? "All" : dic["Model"].ToString();
+
             var modelToString = this.adService.EnumParser(make, model);
             foreach (var item in dic)
             {
