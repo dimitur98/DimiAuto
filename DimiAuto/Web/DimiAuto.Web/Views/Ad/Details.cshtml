@@ -22,14 +22,14 @@
 
 
                         <div class="car-details-content">
-                            <h2>@Model.CarDetailsVIewModel.Make @Model.CarDetailsVIewModel.ModelToString @Model.CarDetailsVIewModel.Modification<span class="priceDetails">Price: <b>@Model.CarDetailsVIewModel.Price BGN</b></span></h2>
+                            <h2>@Model.CarDetailsViewModel.Make @Model.CarDetailsViewModel.ModelToString @Model.CarDetailsViewModel.Modification<span class="priceDetails">Price: <b>@Model.CarDetailsViewModel.Price BGN</b></span></h2>
                             <div class="car-preview-crousel">
                                 <!--Carousel Wrapper-->
                                 <div id="carousel-example-2" class="carousel slide carousel-fade z-depth-1-half" data-ride="carousel">
                                     <!--Indicators-->
                                     <ol class="carousel-indicators">
                                         <li data-target="#carousel-example-2" data-slide-to="0" class="active" style="color: yellow"></li>
-                                        @for (int i = 1; i < @Model.CarDetailsVIewModel.ImgsPaths.Count(); i++)
+                                        @for (int i = 1; i < @Model.CarDetailsViewModel.ImgsPaths.Count(); i++)
                                         {
                                             <li data-target="#carousel-example-2" data-slide-to="@i"></li>
                                         }
@@ -39,12 +39,12 @@
                                     <div class="carousel-inner" role="listbox">
                                         <div class="carousel-item active">
                                             <div class="view">
-                                                <img class="d-block w-100" src="@GlobalConstants.CloudinaryPathDimitur98@Model.CarDetailsVIewModel.ImgsPaths.First()" id="imgDef">
+                                                <img class="d-block w-100" src="@GlobalConstants.CloudinaryPathDimitur98@Model.CarDetailsViewModel.ImgsPaths.First()" id="imgDef">
                                                 <div class="mask rgba-black-light"></div>
                                             </div>
 
                                         </div>
-                                        @foreach (var imgPath in Model.CarDetailsVIewModel.ImgsPaths.Skip(1))
+                                        @foreach (var imgPath in Model.CarDetailsViewModel.ImgsPaths.Skip(1))
                                         {
                                             <div class="carousel-item">
                                                 <div class="view">
@@ -73,7 +73,7 @@
                             </div>
                             <div class="car-details-info">
                                 <h4>More Info</h4>
-                                <p>@Model.CarDetailsVIewModel.MoreInformation</p>
+                                <p>@Model.CarDetailsViewModel.MoreInformation</p>
                                 <div class="technical-info">
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -81,27 +81,27 @@
                                                 <table class="table table-bordered">
                                                     <tr>
                                                         <th>Condition</th>
-                                                        <td>@Model.CarDetailsVIewModel.Condition</td>
+                                                        <td>@Model.CarDetailsViewModel.Condition</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Class</th>
-                                                        <td>@Model.CarDetailsVIewModel.Type</td>
+                                                        <td>@Model.CarDetailsViewModel.Type</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Fuel</th>
-                                                        <td>@Model.CarDetailsVIewModel.Fuel</td>
+                                                        <td>@Model.CarDetailsViewModel.Fuel</td>
                                                     </tr>
                                                     <tr>
                                                         <th>HorsePower</th>
-                                                        <td>@Model.CarDetailsVIewModel.Horsepowers</td>
+                                                        <td>@Model.CarDetailsViewModel.Horsepowers</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Doors</th>
-                                                        <td>@Model.CarDetailsVIewModel.Door</td>
+                                                        <td>@Model.CarDetailsViewModel.Door</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Gearbox</th>
-                                                        <td>@Model.CarDetailsVIewModel.Gearbox</td>
+                                                        <td>@Model.CarDetailsViewModel.Gearbox</td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -112,23 +112,23 @@
                                                 <table class="table table-bordered">
                                                     <tr>
                                                         <th>Year of production</th>
-                                                        <td>@Model.CarDetailsVIewModel.YearOfProduction</td>
+                                                        <td>@Model.CarDetailsViewModel.YearOfProduction</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Kilometers</th>
-                                                        <td>@Model.CarDetailsVIewModel.Km</td>
+                                                        <td>@Model.CarDetailsViewModel.Km</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Color</th>
-                                                        <td>@Model.CarDetailsVIewModel.Color</td>
+                                                        <td>@Model.CarDetailsViewModel.Color</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Cc</th>
-                                                        <td>@Model.CarDetailsVIewModel.Cc</td>
+                                                        <td>@Model.CarDetailsViewModel.Cc</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Euro standart</th>
-                                                        <td>@Model.CarDetailsVIewModel.EuroStandart</td>
+                                                        <td>@Model.CarDetailsViewModel.EuroStandart</td>
                                                     </tr>
                                                    
                                                 </table>
@@ -138,7 +138,7 @@
                                             <div class="tech-info-list">
                                                 <ul>
 
-                                                    @foreach (var extra in Model.CarDetailsVIewModel.Extras)
+                                                    @foreach (var extra in Model.CarDetailsViewModel.Extras)
                                                     {
                                                         <li>@extra </li>
                                                     }
@@ -163,13 +163,13 @@
                                                     <div class="clearfix"></div>
                                                     <hr>
                                                     <ul class="media-list">
-                                                        @if (@Model.CarDetailsVIewModel.Comments.Count() == 0)
+                                                        @if (@Model.CarDetailsViewModel.Comments.Count() == 0)
                                                         {
                                                             <li>
                                                                 <p>There are no comments yet.</p>
                                                             </li>
                                                         }
-                                                        @foreach (var comment in @Model.CarDetailsVIewModel.Comments)
+                                                        @foreach (var comment in @Model.CarDetailsViewModel.Comments)
                                                         {
                                                             <li class="media">
                                                                 <a href="#" class="pull-left">
@@ -180,9 +180,9 @@
                                                                         <small class="text-muted"><time datetime="@comment.CreatedOn.ToString("O")"></time></small>
                                                                     </span>
                                                                     <strong class="text-success">@comment.Title</strong>
-                                                                    @if (comment.UserId == Model.CarDetailsVIewModel.CurrentUserId || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                                                    @if (comment.UserId == Model.CarDetailsViewModel.CurrentUserId || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                                                                     {
-                                                                        <a class="fa fa-minus-circle" href="/Ad/DeleteComment?commentId=@comment.Id&carId=@Model.CarDetailsVIewModel.Id"></a>
+                                                                        <a class="fa fa-minus-circle" href="/Ad/DeleteComment?commentId=@comment.Id&carId=@Model.CarDetailsViewModel.Id"></a>
                                                                     }
                                                                     <p>
                                                                         @comment.Content
@@ -205,7 +205,7 @@
                                 </div>
                                 <div class="review-form">
                                     <form method="post" asp-controller="Ad" asp-action="Details" id="form">
-                                        <input asp-for="CarCommentsInputModel.CarId" value="@Model.CarDetailsVIewModel.Id" type="hidden">
+                                        <input asp-for="CarCommentsInputModel.CarId" value="@Model.CarDetailsViewModel.Id" type="hidden">
                                         <div class="col-lg-6 col-md-6">
                                             <div class="name-input">
                                                 <input asp-for="CarCommentsInputModel.Title" type="text" placeholder="Title">
@@ -227,26 +227,27 @@
                     </div>
                     <div class="sidebar-content-wrap m-t-50">
                         <div class="sidebar-body">
-                            <p><i class="fa fa-eye"></i>Views:@Model.CarDetailsVIewModel.Views</p>
+                            <p><i class="fa fa-eye"></i>Views:@Model.CarDetailsViewModel.Views</p>
                         </div>
                         <div class="single-sidebar">
 
                             <h3>Contacts</h3>
 
                             <div class="sidebar-body">
-                                <p><i class="fa fa-location-arrow"></i> @Model.CarDetailsVIewModel.User.Adress, @Model.CarDetailsVIewModel.User.City</p>
-                                <p><i class="fa fa-address-card"></i> @Model.CarDetailsVIewModel.User.FirstName @Model.CarDetailsVIewModel.User.LastName</p>
-                                <p><i class="fa fa-product-hunt"></i> @Model.CarDetailsVIewModel.User.NameOfCompany</p>
-                                @if (Model.CarDetailsVIewModel.User.NameOfCompany == "Private person")
+                                <p><i class="fa fa-location-arrow"></i> @Model.CarDetailsViewModel.User.Adress, @Model.CarDetailsViewModel.User.City</p>
+                                <p><i class="fa fa-address-card"></i> @Model.CarDetailsViewModel.User.FirstName @Model.CarDetailsViewModel.User.LastName</p>
+                                <p><i class="fa fa-envelope"></i> @Model.CarDetailsViewModel.User.Email</p>
+                                <p><i class="fa fa-product-hunt"></i> @Model.CarDetailsViewModel.User.NameOfCompany</p>
+                                @if (Model.CarDetailsViewModel.User.NameOfCompany == "Private person")
                                 {
-                                    <p><i class="fa fa-mobile"></i> @Model.CarDetailsVIewModel.User.PhoneNumber</p>
+                                    <p><i class="fa fa-mobile"></i> @Model.CarDetailsViewModel.User.PhoneNumber</p>
                                 }
                                 else
                                 {
-                                    <p><i class="fa fa-mobile"></i> @Model.CarDetailsVIewModel.User.TelephoneForCustomers</p>
+                                    <p><i class="fa fa-mobile"></i> @Model.CarDetailsViewModel.User.TelephoneForCustomers</p>
                                 }
 
-                                <p><i class="fa fa-link"></i><a href="/Home/UserCars?id=@Model.CarDetailsVIewModel.UserId">See other user's cars</a><p>
+                                <p><i class="fa fa-link"></i><a href="/Home/UserCars?id=@Model.CarDetailsViewModel.UserId">See other user's cars</a><p>
                             </div>
                         </div>
                     </div>
@@ -260,10 +261,10 @@
                 if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                 {
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <a onclick="admin('@Model.CarDetailsVIewModel.Id','approve')" id="approve" class="btn btn-secondary btn-success">Approve</a>
-                        <a onclick="admin('@Model.CarDetailsVIewModel.Id','deleteAd')" id="delete" class="btn btn-secondary btn-warning">Delete</a>
-                        <a onclick="admin('@Model.CarDetailsVIewModel.Id','undelete')" id="undelete" class="btn btn-secondary ">UnDelete</a>
-                        <div class="btn btn-secondary btn-light" value="@Model.CarDetailsVIewModel.Statuse" id="statuse">Statuse: @Model.CarDetailsVIewModel.Statuse</div>
+                        <a onclick="admin('@Model.CarDetailsViewModel.Id','approve')" id="approve" class="btn btn-secondary btn-success">Approve</a>
+                        <a onclick="admin('@Model.CarDetailsViewModel.Id','deleteAd')" id="delete" class="btn btn-secondary btn-warning">Delete</a>
+                        <a onclick="admin('@Model.CarDetailsViewModel.Id','undelete')" id="undelete" class="btn btn-secondary ">UnDelete</a>
+                        <div class="btn btn-secondary btn-light" value="@Model.CarDetailsViewModel.Statuse" id="statuse">Statuse: @Model.CarDetailsViewModel.Statuse</div>
                     </div>
 
                 }

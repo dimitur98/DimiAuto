@@ -104,7 +104,7 @@
 
             var output = new CarDetailsModel
             {
-                CarDetailsVIewModel = new CarDetailsVIewModel
+                CarDetailsViewModel = new CarDetailsViewModel
                 {
                     Id = car.Id,
                     Cc = car.Cc,

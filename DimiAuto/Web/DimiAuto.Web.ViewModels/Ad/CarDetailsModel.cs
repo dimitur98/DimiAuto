@@ -3,7 +3,7 @@
 
     public class CarDetailsModel
     {
-        public CarDetailsVIewModel CarDetailsVIewModel { get; set; }
+        public CarDetailsViewModel CarDetailsViewModel { get; set; }
 
         public CarCommentsInputModel CarCommentsInputModel { get; set; }
     }

@@ -113,7 +113,7 @@
 
         public string EnumParser(string make, string model)
         {
-            if (make != "All" && model != string.Empty && model != "All")
+            if (make != "All" || model != "All")
             {
                 var modelNum = int.Parse(model) - 1;
                 var modelClass = typeof(Models);

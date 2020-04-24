@@ -63,7 +63,7 @@
                         .GetProperties(BindingFlags.Instance | BindingFlags.Public)
                         .ToDictionary(prop => prop.Name, prop => prop.GetValue(criteria, null));
             var make = dic["Make"].ToString();
-            var model = dic["Model"] == null ? string.Empty : dic["Model"].ToString();
+            var model = dic["Model"] == null ? "All" : dic["Model"].ToString();
             var modelToString = this.adService.EnumParser(make, model);
             foreach (var item in dic)
             {

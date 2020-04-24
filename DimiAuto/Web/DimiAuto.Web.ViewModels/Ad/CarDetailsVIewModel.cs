@@ -12,7 +12,7 @@
     using DimiAuto.Services.Mapping;
     using DimiAuto.Web.ViewModels.Ad.Comment;
 
-    public class CarDetailsVIewModel
+    public class CarDetailsViewModel
     {
         public string Id { get; set; }
 
