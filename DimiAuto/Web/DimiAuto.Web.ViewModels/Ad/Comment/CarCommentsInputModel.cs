@@ -11,6 +11,7 @@ namespace DimiAuto.Web.ViewModels.Ad
     public class CarCommentsInputModel
     {
         [Required]
+        [StringLength(GlobalConstants.CommentContentLength)]
         public string Content { get; set; }
 
         [Required]

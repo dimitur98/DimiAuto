@@ -71,10 +71,6 @@
         public async Task<Car> GetCurrentCarAsync(string carId)
         {
             var car = await this.carRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == carId);
-            if (car == null)
-            {
-                throw new NullReferenceException();
-            }
 
             return car;
         }

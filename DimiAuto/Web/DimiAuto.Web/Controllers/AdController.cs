@@ -68,12 +68,16 @@
         {
             if (id == null)
             {
-                return this.View("Error");
+                return this.View("404Error");
             }
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var car = await this.adService.GetCurrentCarAsync(id);
+            if (car == null)
+            {
+                return this.View("404Error");
+            }
             if (userId == null)
             {
                 var uniqCarId = car.Make + car.Model + car.UserId + car.CreatedOn.ToString();

@@ -51,5 +51,7 @@
         public const int ImgMaxLength = 10 * 1024 * 1024;
 
         public const string NotRegisterUserId = "notRegisterUser";
+
+        public const int CommentContentLength = 40;
     }
 }

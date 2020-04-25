@@ -1,0 +1,52 @@
+﻿@page
+@model ExternalLoginModel
+@{
+    ViewData["Title"] = "Register";
+}
+<section id="page-title-area" class="section-padding overlay">
+    <div class="container">
+        <div class="row">
+            <!-- Page Title Start -->
+            <div class="col-lg-12">
+                <div class="section-title  text-center">
+                    <h2>@ViewData["Title"]</h2>
+                    <h2>Associate your @Model.LoginProvider account</h2>
+                    <span class="title-line"><i class="fa fa-car"></i></span>
+                    <p>
+                        You've successfully authenticated with <strong>@Model.LoginProvider</strong>.
+                        Please enter an email address for this site below and click the Register button to finish
+                        logging in.
+                    </p>
+                </div>
+            </div>
+            <!-- Page Title End -->
+        </div>
+    </div>
+</section>
+
+<section id="lgoin-page-wrap" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-8 m-auto">
+                <div class="login-page-content">
+                    <div class="login-form">
+                        <h3>Register</h3>
+                        <hr />
+                        <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="username">
+                                <label asp-for="Input.Email"></label>
+                                <input asp-for="Input.Email" class="form-control" id="loginEmail"/>
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

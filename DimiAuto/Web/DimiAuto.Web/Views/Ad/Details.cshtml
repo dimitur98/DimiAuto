@@ -172,12 +172,14 @@
                                                         @foreach (var comment in @Model.CarDetailsViewModel.Comments)
                                                         {
                                                             <li class="media">
-                                                                <a href="#" class="pull-left">
+                                                                <a class="pull-left">
                                                                     <img src="@GlobalConstants.CloudinaryPathDimitur98@comment.User.UserImg" alt="" class="img-circle">
                                                                 </a>
                                                                 <div class="media-body">
                                                                     <span class="text-muted pull-right">
                                                                         <small class="text-muted"><time datetime="@comment.CreatedOn.ToString("O")"></time></small>
+                                                                        <br/>
+                                                                        <small class="text-muted">from:@comment.User.FirstName @comment.User.LastName</small>
                                                                     </span>
                                                                     <strong class="text-success">@comment.Title</strong>
                                                                     @if (comment.UserId == Model.CarDetailsViewModel.CurrentUserId || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
@@ -205,6 +207,7 @@
                                 </div>
                                 <div class="review-form">
                                     <form method="post" asp-controller="Ad" asp-action="Details" id="form">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
                                         <input asp-for="CarCommentsInputModel.CarId" value="@Model.CarDetailsViewModel.Id" type="hidden">
                                         <div class="col-lg-6 col-md-6">
                                             <div class="name-input">
