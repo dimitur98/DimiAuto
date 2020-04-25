@@ -1,6 +1,6 @@
 # DimiAuto
 Car sales site.
-Azure link - https://dimiautosite.azurewebsites.net
+Azure link - https://dimiauto.azurewebsites.net/
 admin username - AdminUser@admin.bg
 admin password - 123456
 

@@ -23,7 +23,7 @@
 
             var user = dbContext.Users.FirstOrDefault();
             var yearOfProduction = DateTime.ParseExact("01.2000", "MM.yyyy", CultureInfo.InvariantCulture);
-            for (int i = 0; i < 12; i++)
+            for (int i = 1; i <= 12; i++)
             {
 
                 var car = new Car

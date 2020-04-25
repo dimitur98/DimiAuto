@@ -112,8 +112,9 @@
             this.ExternalLogins = (await this._signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (this.ModelState.IsValid)
             {
-                var user = new ApplicationUser 
-                { 
+                this.Input.NameOfCompany = this.Input.NameOfCompany == null ? "Private person" : this.Input.NameOfCompany;
+                var user = new ApplicationUser
+                {
                     UserName = this.Input.Email,
                     Email = this.Input.Email,
                     Adress = this.Input.Adress,
