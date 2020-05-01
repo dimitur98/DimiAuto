@@ -1,0 +1,56 @@
+﻿@model DimiAuto.Web.ViewModels.Ad.CarDetailsModel
+@using DimiAuto.Common
+@{
+    ViewData["Title"] = "_CommentPartial";
+}
+
+<div class="row bootstrap snippets" id="commentsSection" style="display: none">
+    <div class="col-md-6 col-md-offset-2 col-sm-12">
+        <div class="comment-wrapper">
+            <div class="panel panel-info">
+                <div class="panel-heading" onclick="hideComments()">
+                    Hide comments
+                </div>
+                <div class="panel-body">
+
+                    <div class="clearfix"></div>
+                    <hr>
+                    <ul class="media-list">
+                        @if (@Model.CarDetailsViewModel.Comments.Count() == 0)
+                        {
+                            <li>
+                                <p>There are no comments yet.</p>
+                            </li>
+                        }
+                        @foreach (var comment in @Model.CarDetailsViewModel.Comments)
+                        {
+                            <li class="media">
+                                <a class="pull-left">
+                                    <img src="@GlobalConstants.CloudinaryPathDimitur98@comment.User.UserImg" alt="" class="img-circle">
+                                </a>
+                                <div class="media-body">
+                                    <span class="text-muted pull-right">
+                                        <small class="text-muted"><time datetime="@comment.CreatedOn.ToString("O")"></time></small>
+                                        <br />
+                                        <small class="text-muted">from:@comment.User.FirstName @comment.User.LastName</small>
+                                    </span>
+                                    <strong class="text-success">@comment.Title</strong>
+                                    @if (comment.UserId == Model.CarDetailsViewModel.CurrentUserId || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                    {
+                                        <a class="fa fa-minus-circle" href="/Ad/DeleteComment?commentId=@comment.Id&carId=@Model.CarDetailsViewModel.Id"></a>
+                                    }
+                                    <p>
+                                        @comment.Content
+                                    </p>
+                                </div>
+                            </li>
+
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

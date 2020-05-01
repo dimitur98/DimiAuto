@@ -26,16 +26,16 @@
     public class ApiImgController : Controller
     {
         private readonly Cloudinary cloudinary;
-        private readonly IDeletableEntityRepository<Car> carRepository;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IImgService imgService;
+        private readonly IAdService adService;
 
-        public ApiImgController(Cloudinary cloudinary, IDeletableEntityRepository<Car> carRepository, UserManager<ApplicationUser> userManager, IImgService imgService)
+        public ApiImgController(Cloudinary cloudinary, UserManager<ApplicationUser> userManager, IImgService imgService, IAdService adService)
         {
             this.cloudinary = cloudinary;
-            this.carRepository = carRepository;
             this.userManager = userManager;
             this.imgService = imgService;
+            this.adService = adService;
         }
 
         [HttpPost]
@@ -60,7 +60,7 @@
         [HttpPost]
         public async Task<bool> DeleteCarImg(ImgDeleteInputModel input)
         {
-            var car = await this.carRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == input.CarId);
+            var car = await this.adService.GetCurrentCarAsync(input.CarId);
             var imgParts = input.ImgToDel.Split("/", StringSplitOptions.RemoveEmptyEntries).ToList();
             var img = imgParts[imgParts.Count - 2] + "/" + imgParts[imgParts.Count - 1];
             if (car.ImgsPaths.Contains(img))
@@ -76,8 +76,7 @@
                 car.ImgsPaths = GlobalConstants.DefaultImgCar;
             }
 
-            this.carRepository.Update(car);
-            await this.carRepository.SaveChangesAsync();
+            await this.adService.UpdateCarRecordAsync(car);
 
             return await this.DeleteImgFromCloud(input);
         }

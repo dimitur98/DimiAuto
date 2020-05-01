@@ -19,9 +19,8 @@
 
         Task<Car> EditAd(EditAddInputModel input);
 
-       
-
         string EnumParser(string make, string model);
 
+        Task UpdateCarRecordAsync(Car car);
     }
 }

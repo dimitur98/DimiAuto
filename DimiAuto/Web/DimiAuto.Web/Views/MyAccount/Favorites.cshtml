@@ -70,26 +70,3 @@
     </section>
 </div>
 
-<script>
-    function removeFavAd(carId) {
-        console.log(carId);
-        var token = $("#form input[name=__RequestVerificationToken]").val();
-        var json = { carId: carId };
-        console.log(json);
-        $.ajax({
-            url: "/api/apiAd/removeFavAd",
-            type: "POST",
-            data: JSON.stringify(json),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            headers: { 'X-CSRF-TOKEN': token },
-            success: function (data) {
-                console.log("succes");
-                if (data["output"] == "removed") {
-                    $("#remove").show().delay(3000).fadeOut();
-                    $("#" + data["carId"]).remove();
-                }
-            }
-        });
-    }
-</script>

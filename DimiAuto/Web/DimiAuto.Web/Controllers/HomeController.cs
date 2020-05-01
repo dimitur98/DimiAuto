@@ -30,23 +30,17 @@
         private readonly IHomeService homeService;
         private readonly ISearchService searchService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IMyAccountService myAccountService;
-        private readonly IAdService adService;
         private readonly ApplicationDbContext db;
 
         public HomeController(
             IHomeService homeService,
             ISearchService searchService,
             UserManager<ApplicationUser> userManager,
-            IMyAccountService myAccountService,
-            IAdService adService,
             ApplicationDbContext db)
         {
             this.homeService = homeService;
             this.searchService = searchService;
             this.userManager = userManager;
-            this.myAccountService = myAccountService;
-            this.adService = adService;
             this.db = db;
         }
 

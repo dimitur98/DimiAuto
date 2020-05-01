@@ -1,0 +1,26 @@
+﻿@model DimiAuto.Web.ViewModels.Ad.CarDetailsModel
+@using DimiAuto.Common
+@{
+    ViewData["Title"] = "_AddCommentPartial";
+}
+
+<div class="review-form">
+    <form method="post" asp-controller="Ad" asp-action="Details" id="form">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input asp-for="CarCommentsInputModel.CarId" value="@Model.CarDetailsViewModel.Id" type="hidden">
+        <div class="col-lg-6 col-md-6">
+            <div class="name-input">
+                <input asp-for="CarCommentsInputModel.Title" type="text" placeholder="Title">
+            </div>
+        </div>
+        <div class="message-input">
+            <textarea asp-for="CarCommentsInputModel.Content" cols="30" rows="5" placeholder="Write comment here!"></textarea>
+        </div>
+
+        <div class="input-submit">
+            <button type="submit">Submit</button>
+            <button type="reset">Clear</button>
+        </div>
+    </form>
+</div>
+

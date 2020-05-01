@@ -27,15 +27,13 @@
     {
         private readonly IMyAccountService myAccountService;
         private readonly IAdService adService;
-        private readonly IDeletableEntityRepository<UserCarFavorite> favouriteRepository;
-        private readonly IDeletableEntityRepository<Car> carRepository;
+        private readonly IFavoriteService favoriteService;
 
-        public ApiAdController(IMyAccountService myAccountService, IAdService adService, IDeletableEntityRepository<UserCarFavorite> favouriteRepository, IDeletableEntityRepository<Car> carRepository)
+        public ApiAdController(IMyAccountService myAccountService, IAdService adService, IFavoriteService favoriteService)
         {
             this.myAccountService = myAccountService;
             this.adService = adService;
-            this.favouriteRepository = favouriteRepository;
-            this.carRepository = carRepository;
+            this.favoriteService = favoriteService;
         }
 
         [Authorize]
@@ -43,7 +41,7 @@
         public async Task<ActionResult<string>> AddToFav(ApiInputModel input)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var record = await this.favouriteRepository.All().FirstOrDefaultAsync(x => x.CarId == input.CarId && x.UserId == userId);
+            var record = await this.favoriteService.GetFavoriteCarByUserAndCarIdAsync(input.CarId, userId);
             if (record == null)
             {
                 await this.myAccountService.AddAdToFavAsync(input.CarId, userId);
@@ -58,7 +56,7 @@
         public async Task<ActionResult<string>> RemoveFavAd(ApiInputModel input)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var record = await this.favouriteRepository.All().FirstOrDefaultAsync(x => x.CarId == input.CarId && x.UserId == userId);
+            var record = await this.favoriteService.GetFavoriteCarByUserAndCarIdAsync(input.CarId, userId);
             if (record != null)
             {
                 await this.myAccountService.RemoveFavAdAsync(input.CarId, userId);
@@ -72,7 +70,7 @@
         [HttpPost]
         public async Task<ActionResult<string>> AddCarForCompare(ApiInputModel input)
         {
-            var car = await this.carRepository.All().FirstOrDefaultAsync(x => x.Id == input.CarId);
+            var car = await this.adService.GetCurrentCarAsync(input.CarId);
             var carViewModel = new ComparedCarViewModel
             {
                 Cc = car.Cc,

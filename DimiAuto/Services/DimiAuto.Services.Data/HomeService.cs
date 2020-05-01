@@ -20,6 +20,7 @@
         private readonly IAdService adService;
         private readonly IViewService viewService;
 
+
         public HomeService(IDeletableEntityRepository<Car> carRepository, IAdService adService, IViewService viewService)
         {
             this.carRepository = carRepository;

@@ -127,5 +127,11 @@
 
             return "-";
         }
+
+        public async Task UpdateCarRecordAsync(Car car)
+        {
+            this.carRepository.Update(car);
+            await this.carRepository.SaveChangesAsync();
+        }
     }
 }
