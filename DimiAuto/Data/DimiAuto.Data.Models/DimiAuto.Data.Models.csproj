@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="Cloudinary.Core" Version="1.31.0" />
-    <PackageReference Include="jQuery.Validation" Version="1.19.1" />
+    <PackageReference Include="jQuery.Validation" Version="1.19.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="all">
